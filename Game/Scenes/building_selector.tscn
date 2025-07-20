@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=3 uid="uid://bswmvx06mj11v"]
+
+[ext_resource type="Script" uid="uid://crxwm3voe3mbi" path="res://Scripts/building_selector.gd" id="1_k6b56"]
+[ext_resource type="Texture2D" uid="uid://b0pr6t74uwncm" path="res://Textures/icon.svg" id="2_vvpu5"]
+
+[node name="BuildingSelector" type="TextureButton"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1024.0
+offset_bottom = -486.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_k6b56")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_vvpu5")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 72.0
+offset_right = 56.0
+offset_bottom = 95.0
+text = "SMTH"
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]
