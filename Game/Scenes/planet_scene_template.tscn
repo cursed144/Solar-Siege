@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://bg2uq12mut3cm"]
+
+[ext_resource type="Script" uid="uid://dvyiuwjqioux6" path="res://Scripts/planet_camera.gd" id="1_uwwlj"]
+[ext_resource type="Texture2D" uid="uid://b0pr6t74uwncm" path="res://Textures/icon.svg" id="2_2n31l"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_tj0va"]
+
+[node name="Planet" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(576, 324)
+script = ExtResource("1_uwwlj")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
+self_modulate = Color(0, 0.563816, 1.92523e-07, 1)
+z_index = -1
+position = Vector2(601, 337)
+scale = Vector2(1202.5, 675.5)
+mesh = SubResource("BoxMesh_tj0va")
+
+[node name="Icon" type="Sprite2D" parent="."]
+position = Vector2(583, 332)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_2n31l")
