@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://b3omsetq4vjfv"]
+
+[ext_resource type="Script" uid="uid://dfgjbvwnh0acu" path="res://Scripts/rocket.gd" id="1_wrv6b"]
+
+[node name="Rocket" type="RigidBody2D"]
+script = ExtResource("1_wrv6b")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
