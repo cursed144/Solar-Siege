@@ -1,0 +1,51 @@
+[gd_scene load_steps=7 format=3 uid="uid://5gbl3ov5l382"]
+
+[ext_resource type="PackedScene" uid="uid://b3omsetq4vjfv" path="res://Scenes/rocket.tscn" id="1_0fhdq"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_0fhdq"]
+bounce = 0.2
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_16x6d"]
+size = Vector2(20, 688)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cpsw2"]
+size = Vector2(20, 688)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_edasw"]
+size = Vector2(20, 1192)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5bgx7"]
+size = Vector2(20, 1192)
+
+[node name="Space" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(576, 324)
+metadata/_edit_lock_ = true
+
+[node name="Rocket" parent="." instance=ExtResource("1_0fhdq")]
+position = Vector2(562, 334)
+mass = 0.1
+
+[node name="Walls" type="StaticBody2D" parent="."]
+collision_layer = 16
+collision_mask = 3
+physics_material_override = SubResource("PhysicsMaterial_0fhdq")
+
+[node name="Left" type="CollisionShape2D" parent="Walls"]
+position = Vector2(-10, 324)
+shape = SubResource("RectangleShape2D_16x6d")
+
+[node name="Right" type="CollisionShape2D" parent="Walls"]
+position = Vector2(1162, 324)
+shape = SubResource("RectangleShape2D_cpsw2")
+
+[node name="Up" type="CollisionShape2D" parent="Walls"]
+position = Vector2(576, -9.99999)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_edasw")
+
+[node name="Down" type="CollisionShape2D" parent="Walls"]
+position = Vector2(576, 658)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_5bgx7")

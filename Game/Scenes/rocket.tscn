@@ -1,8 +1,25 @@
-[gd_scene load_steps=2 format=3 uid="uid://b3omsetq4vjfv"]
+[gd_scene load_steps=5 format=3 uid="uid://b3omsetq4vjfv"]
 
 [ext_resource type="Script" uid="uid://dfgjbvwnh0acu" path="res://Scripts/rocket.gd" id="1_wrv6b"]
+[ext_resource type="Texture2D" uid="uid://b0pr6t74uwncm" path="res://Textures/icon.svg" id="2_kvp10"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_kvp10"]
+bounce = 0.1
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kvp10"]
+radius = 20.0
+height = 80.0
 
 [node name="Rocket" type="RigidBody2D"]
+collision_mask = 26
+physics_material_override = SubResource("PhysicsMaterial_kvp10")
+linear_damp = 0.2
+angular_damp = 0.2
 script = ExtResource("1_wrv6b")
 
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.320313, 0.631204)
+texture = ExtResource("2_kvp10")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_kvp10")
