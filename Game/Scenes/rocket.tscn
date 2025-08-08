@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://b3omsetq4vjfv"]
+[gd_scene load_steps=6 format=3 uid="uid://b3omsetq4vjfv"]
 
 [ext_resource type="Script" uid="uid://dfgjbvwnh0acu" path="res://Scripts/rocket.gd" id="1_wrv6b"]
 [ext_resource type="Texture2D" uid="uid://b0pr6t74uwncm" path="res://Textures/icon.svg" id="2_kvp10"]
+[ext_resource type="Script" uid="uid://dkx8udt5188ce" path="res://Scripts/bars.gd" id="3_hthiq"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_kvp10"]
 bounce = 0.1
@@ -26,3 +27,40 @@ texture = ExtResource("2_kvp10")
 shape = SubResource("CapsuleShape2D_kvp10")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Bars" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("3_hthiq")
+
+[node name="Fuel" type="ProgressBar" parent="UI/Bars"]
+layout_mode = 0
+offset_left = 23.0
+offset_top = 246.0
+offset_right = 231.0
+offset_bottom = 273.0
+max_value = 10000.0
+step = 0.1
+value = 10000.0
+
+[node name="Energy" type="ProgressBar" parent="UI/Bars"]
+offset_left = 23.0
+offset_top = 299.0
+offset_right = 231.0
+offset_bottom = 326.0
+max_value = 1000.0
+step = 0.1
+allow_greater = true
+
+[node name="Instability" type="ProgressBar" parent="UI/Bars"]
+offset_left = 23.0
+offset_top = 352.0
+offset_right = 231.0
+offset_bottom = 379.0
+max_value = 1000.0
+step = 0.1
+allow_greater = true
