@@ -1,8 +1,8 @@
 extends RigidBody2D
 
-var ACCEL_SPEED := 500 * Vector2.UP
+var ACCEL_SPEED := 800 * Vector2.UP
 var DECCEL_SPEED: float = 60
-var ROT_SPEED: float = 3500
+var ROT_SPEED: float = 3700
 var ROT_DECCEL: float = 1.5
 var DASH_SPEED := 10 * Vector2.UP
 var DASH_MULT: float = 2
@@ -19,7 +19,6 @@ func _input(event: InputEvent) -> void:
 
 func _physics_process(delta: float) -> void:
 	process_basic_movement(delta)
-	print(ACCEL_SPEED)
 
 
 

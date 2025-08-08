@@ -7,10 +7,11 @@
 bounce = 0.1
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kvp10"]
-radius = 20.0
-height = 80.0
+radius = 18.0
+height = 72.0
 
 [node name="Rocket" type="RigidBody2D"]
+position = Vector2(576, 324)
 collision_mask = 26
 physics_material_override = SubResource("PhysicsMaterial_kvp10")
 linear_damp = 0.2
@@ -18,8 +19,10 @@ angular_damp = 0.2
 script = ExtResource("1_wrv6b")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.320313, 0.631204)
+scale = Vector2(0.291, 0.574)
 texture = ExtResource("2_kvp10")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_kvp10")
+
+[node name="Camera2D" type="Camera2D" parent="."]
