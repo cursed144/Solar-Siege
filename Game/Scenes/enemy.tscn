@@ -1,0 +1,46 @@
+[gd_scene load_steps=5 format=3 uid="uid://cm4i7vge5d6n2"]
+
+[ext_resource type="Script" uid="uid://dvn1wl64t3675" path="res://Scripts/enemy.gd" id="1_hghv2"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_kvp10"]
+bounce = 0.1
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_1f0kj"]
+load_path = "res://.godot/imported/icon.svg-f434aa81383d8e7efdc588f214c40953.ctex"
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_afpow"]
+radius = 18.0
+height = 72.0
+
+[node name="Enemy" type="RigidBody2D" groups=["Enemies"]]
+collision_layer = 2
+collision_mask = 21
+physics_material_override = SubResource("PhysicsMaterial_kvp10")
+lock_rotation = true
+contact_monitor = true
+max_contacts_reported = 1
+linear_damp = 0.2
+angular_damp = 0.2
+script = ExtResource("1_hghv2")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.574, 0.291)
+texture = SubResource("CompressedTexture2D_1f0kj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_afpow")
+
+[node name="CollIFrames" type="Timer" parent="."]
+one_shot = true
+autostart = true
+ignore_time_scale = true
+
+[node name="Health" type="ProgressBar" parent="."]
+offset_left = -74.0
+offset_top = -57.0
+offset_right = 75.0
+offset_bottom = -30.0
+max_value = 200.0
+step = 0.1
+value = 200.0

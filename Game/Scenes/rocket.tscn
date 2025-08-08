@@ -11,10 +11,12 @@ bounce = 0.1
 radius = 18.0
 height = 72.0
 
-[node name="Rocket" type="RigidBody2D"]
+[node name="Rocket" type="RigidBody2D" groups=["Friendly"]]
 position = Vector2(576, 324)
 collision_mask = 26
 physics_material_override = SubResource("PhysicsMaterial_kvp10")
+contact_monitor = true
+max_contacts_reported = 1
 linear_damp = 0.2
 angular_damp = 0.2
 script = ExtResource("1_wrv6b")

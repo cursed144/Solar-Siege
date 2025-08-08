@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://5gbl3ov5l382"]
+[gd_scene load_steps=9 format=3 uid="uid://5gbl3ov5l382"]
 
 [ext_resource type="PackedScene" uid="uid://b3omsetq4vjfv" path="res://Scenes/rocket.tscn" id="1_0fhdq"]
 [ext_resource type="Script" uid="uid://dftrr11jwhyx5" path="res://Scripts/space_scene_template.gd" id="1_16x6d"]
+[ext_resource type="PackedScene" uid="uid://cm4i7vge5d6n2" path="res://Scenes/enemy.tscn" id="3_cpsw2"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_0fhdq"]
 bounce = 0.2
@@ -42,4 +43,8 @@ shape = SubResource("RectangleShape2D_16x6d")
 shape = SubResource("RectangleShape2D_cpsw2")
 
 [node name="Rocket" parent="." instance=ExtResource("1_0fhdq")]
+mass = 0.1
+
+[node name="Enemy" parent="." instance=ExtResource("3_cpsw2")]
+position = Vector2(908, 342)
 mass = 0.1

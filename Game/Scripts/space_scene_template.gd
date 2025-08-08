@@ -24,3 +24,4 @@ func ready_arena() -> void:
 	$Rocket/Camera2D.limit_bottom = $Walls/Down.global_position.y - wall_size/2
 	$Rocket/Camera2D.limit_left = $Walls/Left.global_position.x + wall_size/2
 	$Rocket/Camera2D.limit_top = $Walls/Up.global_position.y + wall_size/2
+	$Enemy.position = $Rocket.position + Vector2(0, -500)

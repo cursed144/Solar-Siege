@@ -12,6 +12,7 @@ var FUEL_USAGE_MOVE := 1.0
 var FUEL_USAGE_ROT := 0.2
 var FUEL_USAGE_SLOW := 0.1
 var has_fuel := true
+var prev_velocity
 
 
 func _input(event: InputEvent) -> void:
@@ -28,6 +29,8 @@ func _input(event: InputEvent) -> void:
 func _physics_process(delta: float) -> void:
 	if has_fuel:
 		process_basic_movement(delta)
+	
+	prev_velocity = linear_velocity
 
 
 
