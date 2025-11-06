@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3 uid="uid://d4ha36564l20p"]
+
+[ext_resource type="Script" uid="uid://c5wbnqrgl4aor" path="res://Planet-Section/Scripts/planet.gd" id="1_r0ntb"]
+[ext_resource type="Script" uid="uid://d13xkb3oocukv" path="res://Planet-Section/Scripts/player_cam.gd" id="2_becdf"]
+[ext_resource type="Script" uid="uid://lbjy23qvrrm8" path="res://Planet-Section/Scripts/pos_nums.gd" id="3_j25nj"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_becdf"]
+
+[node name="Planet" type="Node2D"]
+script = ExtResource("1_r0ntb")
+
+[node name="Terrain" type="TileMapLayer" parent="."]
+
+[node name="Buildings" type="TileMapLayer" parent="."]
+
+[node name="PlayerCam" type="Camera2D" parent="."]
+position = Vector2(576, 324)
+script = ExtResource("2_becdf")
+
+[node name="PlayingField" type="MeshInstance2D" parent="."]
+self_modulate = Color(0, 0, 0, 1)
+position = Vector2(5, 5)
+scale = Vector2(10, 10)
+mesh = SubResource("BoxMesh_becdf")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="PosNums" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 964.0
+offset_right = 1152.0
+offset_bottom = 40.0
+script = ExtResource("3_j25nj")
+
+[node name="TextEdit" type="TextEdit" parent="UI/PosNums"]
+layout_mode = 0
+offset_right = 187.0
+offset_bottom = 40.0

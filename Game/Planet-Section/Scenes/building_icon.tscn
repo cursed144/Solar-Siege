@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://dx0pwai5nk0di"]
+
+[ext_resource type="Script" uid="uid://3rc0wp2odqcf" path="res://Planet-Section/Scripts/building_icon.gd" id="1_sj01r"]
+
+[node name="BuildingIcon" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_sj01r")
