@@ -1,8 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://d4ha36564l20p"]
+[gd_scene load_steps=8 format=3 uid="uid://d4ha36564l20p"]
 
 [ext_resource type="Script" uid="uid://c5wbnqrgl4aor" path="res://Planet-Section/Scripts/planet.gd" id="1_r0ntb"]
 [ext_resource type="Script" uid="uid://d13xkb3oocukv" path="res://Planet-Section/Scripts/player_cam.gd" id="2_becdf"]
 [ext_resource type="Script" uid="uid://lbjy23qvrrm8" path="res://Planet-Section/Scripts/pos_nums.gd" id="3_j25nj"]
+[ext_resource type="Script" uid="uid://viu0lkuoi5hj" path="res://Planet-Section/Scripts/building_menu.gd" id="4_3w1ld"]
+[ext_resource type="PackedScene" uid="uid://dx0pwai5nk0di" path="res://Planet-Section/Scenes/building_icon.tscn" id="5_xqwqb"]
+[ext_resource type="Resource" uid="uid://ovbfsshvr576" path="res://Planet-Section/Resources/Buildings/worker_hub.tres" id="6_0pncr"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_becdf"]
 
@@ -37,3 +40,52 @@ script = ExtResource("3_j25nj")
 layout_mode = 0
 offset_right = 187.0
 offset_bottom = 40.0
+
+[node name="BuildingMenu" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 0
+offset_top = 528.0
+offset_right = 1152.0
+offset_bottom = 648.0
+script = ExtResource("4_3w1ld")
+
+[node name="Tabs" type="HBoxContainer" parent="UI/BuildingMenu"]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 29.0
+
+[node name="Buildings" type="Control" parent="UI/BuildingMenu"]
+anchors_preset = 0
+offset_top = 29.0
+offset_right = 1152.0
+offset_bottom = 120.0
+
+[node name="General" type="HBoxContainer" parent="UI/BuildingMenu/Buildings"]
+layout_mode = 0
+offset_right = 1622.5353
+offset_bottom = 128.0
+scale = Vector2(0.71, 0.71)
+
+[node name="BuildingIcon" parent="UI/BuildingMenu/Buildings/General" instance=ExtResource("5_xqwqb")]
+layout_mode = 2
+data = ExtResource("6_0pncr")
+
+[node name="Utility" type="HBoxContainer" parent="UI/BuildingMenu/Buildings"]
+visible = false
+layout_mode = 0
+offset_right = 1622.5353
+offset_bottom = 128.0
+scale = Vector2(0.71, 0.71)
+
+[node name="BuildingIcon" parent="UI/BuildingMenu/Buildings/Utility" instance=ExtResource("5_xqwqb")]
+layout_mode = 2
+
+[node name="Weapons" type="HBoxContainer" parent="UI/BuildingMenu/Buildings"]
+visible = false
+layout_mode = 0
+offset_right = 1622.5353
+offset_bottom = 128.0
+scale = Vector2(0.71, 0.71)
+
+[node name="BuildingIcon" parent="UI/BuildingMenu/Buildings/Weapons" instance=ExtResource("5_xqwqb")]
+layout_mode = 2
