@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://d4ha36564l20p"]
+[gd_scene load_steps=9 format=3 uid="uid://d4ha36564l20p"]
 
 [ext_resource type="Script" uid="uid://c5wbnqrgl4aor" path="res://Planet-Section/Scripts/planet.gd" id="1_r0ntb"]
 [ext_resource type="Script" uid="uid://d13xkb3oocukv" path="res://Planet-Section/Scripts/player_cam.gd" id="2_becdf"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://viu0lkuoi5hj" path="res://Planet-Section/Scripts/building_menu.gd" id="4_3w1ld"]
 [ext_resource type="PackedScene" uid="uid://dx0pwai5nk0di" path="res://Planet-Section/Scenes/building_icon.tscn" id="5_xqwqb"]
 [ext_resource type="Resource" uid="uid://ovbfsshvr576" path="res://Planet-Section/Resources/Buildings/worker_hub.tres" id="6_0pncr"]
+[ext_resource type="Texture2D" uid="uid://deixmur2ebu3f" path="res://icon.svg" id="7_5gyni"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_becdf"]
 
@@ -89,3 +90,109 @@ scale = Vector2(0.71, 0.71)
 
 [node name="BuildingIcon" parent="UI/BuildingMenu/Buildings/Weapons" instance=ExtResource("5_xqwqb")]
 layout_mode = 2
+
+[node name="ConfirmMenu" type="Control" parent="UI/BuildingMenu"]
+visible = false
+z_index = 2
+anchors_preset = 0
+offset_left = 279.0
+offset_top = -421.0
+offset_right = 873.0
+offset_bottom = 19.0
+
+[node name="Cover" type="ColorRect" parent="UI/BuildingMenu/ConfirmMenu"]
+z_index = -1
+layout_mode = 0
+offset_left = -279.0
+offset_top = -107.0
+offset_right = 873.0
+offset_bottom = 541.0
+color = Color(0, 0, 0, 0.25490198)
+metadata/_edit_lock_ = true
+
+[node name="BG" type="ColorRect" parent="UI/BuildingMenu/ConfirmMenu"]
+layout_mode = 0
+offset_left = -1.0
+offset_top = 56.0
+offset_right = 592.7778
+offset_bottom = 390.0
+color = Color(0.3254902, 0, 0.3372549, 1)
+
+[node name="Icon" type="TextureRect" parent="UI/BuildingMenu/ConfirmMenu"]
+layout_mode = 0
+offset_left = 423.0
+offset_top = 88.0
+offset_right = 551.0
+offset_bottom = 216.0
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("7_5gyni")
+
+[node name="Title" type="RichTextLabel" parent="UI/BuildingMenu/ConfirmMenu"]
+layout_mode = 0
+offset_left = 92.0
+offset_top = 74.0
+offset_right = 256.0
+offset_bottom = 114.0
+theme_override_font_sizes/normal_font_size = 26
+text = "This is title"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Desc" type="RichTextLabel" parent="UI/BuildingMenu/ConfirmMenu"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 134.0
+offset_right = 340.0
+offset_bottom = 255.0
+text = "Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom"
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ReqText" type="RichTextLabel" parent="UI/BuildingMenu/ConfirmMenu"]
+layout_mode = 0
+offset_left = 371.0
+offset_top = 193.0
+offset_right = 558.19147
+offset_bottom = 246.0
+text = "Required resources:"
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MaxBuild" type="RichTextLabel" parent="UI/BuildingMenu/ConfirmMenu"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 270.0
+offset_right = 195.19147
+offset_bottom = 323.0
+text = "Max buildings: 0 / 5"
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Requirements" type="VBoxContainer" parent="UI/BuildingMenu/ConfirmMenu"]
+layout_mode = 0
+offset_left = 365.0
+offset_top = 242.0
+offset_right = 569.0
+offset_bottom = 374.0
+
+[node name="Confirm" type="Button" parent="UI/BuildingMenu/ConfirmMenu"]
+layout_mode = 0
+offset_left = 51.0
+offset_top = 343.0
+offset_right = 99.0
+offset_bottom = 374.0
+text = "Build"
+
+[node name="Cancel" type="Button" parent="UI/BuildingMenu/ConfirmMenu"]
+layout_mode = 0
+offset_left = 229.0
+offset_top = 341.0
+offset_right = 289.0
+offset_bottom = 372.0
+text = "Cancel"
+
+[connection signal="pressed" from="UI/BuildingMenu/ConfirmMenu/Confirm" to="UI/BuildingMenu" method="on_building_confirmed"]
+[connection signal="pressed" from="UI/BuildingMenu/ConfirmMenu/Cancel" to="UI/BuildingMenu" method="on_confirm_menu_cancelled"]
