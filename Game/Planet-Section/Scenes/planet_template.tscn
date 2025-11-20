@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://d4ha36564l20p"]
+[gd_scene load_steps=15 format=3 uid="uid://d4ha36564l20p"]
 
 [ext_resource type="Script" uid="uid://c5wbnqrgl4aor" path="res://Planet-Section/Scripts/planet.gd" id="1_r0ntb"]
 [ext_resource type="Script" uid="uid://d13xkb3oocukv" path="res://Planet-Section/Scripts/player_cam.gd" id="2_becdf"]
@@ -13,6 +13,61 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0pncr"]
 size = Vector2(1152, 140)
+
+[sub_resource type="Animation" id="Animation_0essa"]
+resource_name = "show_build_ui"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(0.35, 1),
+"update": 0,
+"values": [Vector2(0, 648), Vector2(0, 481)]
+}
+
+[sub_resource type="Animation" id="Animation_5xlqu"]
+resource_name = "hide_build_ui"
+length = 0.8
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(0.35, 1),
+"update": 0,
+"values": [Vector2(0, 481), Vector2(0, 648)]
+}
+
+[sub_resource type="Animation" id="Animation_x85yj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 648)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lorx5"]
+_data = {
+&"RESET": SubResource("Animation_x85yj"),
+&"hide_build_ui": SubResource("Animation_5xlqu"),
+&"show_build_ui": SubResource("Animation_0essa")
+}
 
 [node name="Planet" type="Node2D"]
 script = ExtResource("1_r0ntb")
@@ -33,6 +88,13 @@ mesh = SubResource("BoxMesh_becdf")
 
 [node name="UI" type="CanvasLayer" parent="."]
 
+[node name="BuildingButton" type="TextureButton" parent="UI"]
+offset_left = 20.0
+offset_top = 503.0
+offset_right = 148.0
+offset_bottom = 631.0
+texture_normal = ExtResource("7_5gyni")
+
 [node name="PosNums" type="Control" parent="UI"]
 layout_mode = 3
 anchors_preset = 0
@@ -47,34 +109,39 @@ offset_right = 187.0
 offset_bottom = 40.0
 
 [node name="BuildingMenu" type="Control" parent="UI"]
+z_index = 2
 layout_mode = 3
 anchors_preset = 0
-offset_top = 528.0
+offset_top = 648.0
 offset_right = 1152.0
-offset_bottom = 648.0
+offset_bottom = 815.0
 script = ExtResource("4_3w1ld")
 
 [node name="TempCover" type="ColorRect" parent="UI/BuildingMenu"]
 z_index = -1
 layout_mode = 0
-offset_top = -20.0
+offset_top = 27.0
 offset_right = 1152.0
-offset_bottom = 120.0
+offset_bottom = 167.0
+mouse_filter = 2
 color = Color(0.5435746, 0.3356829, 0.49027884, 1)
 
 [node name="TempCover2" type="ColorRect" parent="UI/BuildingMenu"]
 z_index = -1
 layout_mode = 0
-offset_top = -47.0
 offset_right = 1152.0
-offset_bottom = -20.0
+offset_bottom = 27.0
+mouse_filter = 2
 color = Color(0.37704897, 0.2200371, 0.3361215, 1)
 
 [node name="Tabs" type="HBoxContainer" parent="UI/BuildingMenu"]
 layout_mode = 0
-offset_top = -47.0
 offset_right = 1152.0
-offset_bottom = -20.0
+offset_bottom = 27.0
+
+[node name="Exit" parent="UI/BuildingMenu/Tabs" instance=ExtResource("5_0essa")]
+layout_mode = 2
+icon = ExtResource("7_5gyni")
 
 [node name="General" parent="UI/BuildingMenu/Tabs" instance=ExtResource("5_0essa")]
 layout_mode = 2
@@ -91,9 +158,9 @@ icon = ExtResource("7_5gyni")
 [node name="Buildings" type="ScrollContainer" parent="UI/BuildingMenu"]
 layout_mode = 0
 offset_left = 24.999998
-offset_top = -9.999984
+offset_top = 37.0
 offset_right = 1570.4545
-offset_bottom = 173.7972
+offset_bottom = 220.79718
 scale = Vector2(0.715, 0.715)
 mouse_filter = 2
 follow_focus = true
@@ -133,15 +200,16 @@ layout_mode = 2
 
 [node name="HoverMenu" type="Control" parent="UI/BuildingMenu"]
 visible = false
+modulate = Color(1, 1, 1, 0)
 z_index = 2
 anchors_preset = 0
-offset_top = -205.0
+offset_top = -158.0
 offset_right = 1152.0
 
 [node name="Cover" type="ColorRect" parent="UI/BuildingMenu/HoverMenu"]
 layout_mode = 0
 offset_right = 1152.0
-offset_bottom = 205.0
+offset_bottom = 158.0
 color = Color(0, 0, 0, 1)
 
 [node name="BName" type="RichTextLabel" parent="UI/BuildingMenu/HoverMenu"]
@@ -164,6 +232,7 @@ text = "Description: Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom
 scroll_active = false
 
 [node name="ScrollingArea" type="Area2D" parent="UI/BuildingMenu"]
+position = Vector2(0, 47)
 collision_mask = 0
 metadata/_edit_group_ = true
 
@@ -172,5 +241,11 @@ visible = false
 position = Vector2(576, 50)
 shape = SubResource("RectangleShape2D_0pncr")
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="UI/BuildingMenu"]
+libraries = {
+&"": SubResource("AnimationLibrary_lorx5")
+}
+
+[connection signal="pressed" from="UI/BuildingButton" to="UI/BuildingMenu" method="_on_building_button_pressed"]
 [connection signal="mouse_entered" from="UI/BuildingMenu/ScrollingArea" to="UI/BuildingMenu" method="_on_scrolling_area_mouse_entered"]
 [connection signal="mouse_exited" from="UI/BuildingMenu/ScrollingArea" to="UI/BuildingMenu" method="_on_scrolling_area_mouse_exited"]
