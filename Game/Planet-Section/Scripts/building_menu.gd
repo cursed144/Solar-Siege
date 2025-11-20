@@ -8,6 +8,8 @@ func _ready() -> void:
 		for building in section.get_children():
 			building.open_confirmation_menu.connect(open_confirmation_menu)
 	
+	for tab: TextureButton in $Tabs.get_children():
+		tab.tab_pressed.connect(_on_tab_pressed)
 
 
 func _input(event: InputEvent) -> void:
@@ -34,3 +36,13 @@ func _on_scrolling_area_mouse_entered() -> void:
 
 func _on_scrolling_area_mouse_exited() -> void:
 	is_mouse_in_area = false
+
+
+func _on_tab_pressed(target_name: String) -> void:
+	$Buildings.scroll_horizontal = 0
+	
+	for buildings in $Buildings.get_children():
+		if buildings.name == target_name:
+			buildings.show()
+		else:
+			buildings.hide()

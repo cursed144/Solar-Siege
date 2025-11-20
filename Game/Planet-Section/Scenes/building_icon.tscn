@@ -11,7 +11,6 @@ offset_right = -1024.0
 offset_bottom = -520.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(0.655, 0.655)
 texture_normal = ExtResource("2_yvxru")
 script = ExtResource("1_sj01r")
 

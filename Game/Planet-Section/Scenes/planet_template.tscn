@@ -1,11 +1,13 @@
-[gd_scene load_steps=9 format=3 uid="uid://d4ha36564l20p"]
+[gd_scene load_steps=11 format=3 uid="uid://d4ha36564l20p"]
 
 [ext_resource type="Script" uid="uid://c5wbnqrgl4aor" path="res://Planet-Section/Scripts/planet.gd" id="1_r0ntb"]
 [ext_resource type="Script" uid="uid://d13xkb3oocukv" path="res://Planet-Section/Scripts/player_cam.gd" id="2_becdf"]
 [ext_resource type="Script" uid="uid://lbjy23qvrrm8" path="res://Planet-Section/Scripts/pos_nums.gd" id="3_j25nj"]
 [ext_resource type="Script" uid="uid://viu0lkuoi5hj" path="res://Planet-Section/Scripts/building_menu.gd" id="4_3w1ld"]
+[ext_resource type="PackedScene" uid="uid://cga8pk03f5cfc" path="res://Planet-Section/Scenes/building_tab.tscn" id="5_0essa"]
 [ext_resource type="PackedScene" uid="uid://dx0pwai5nk0di" path="res://Planet-Section/Scenes/building_icon.tscn" id="5_xqwqb"]
 [ext_resource type="Resource" uid="uid://ovbfsshvr576" path="res://Planet-Section/Resources/Buildings/worker_hub.tres" id="6_0pncr"]
+[ext_resource type="Texture2D" uid="uid://deixmur2ebu3f" path="res://icon.svg" id="7_5gyni"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_becdf"]
 
@@ -24,7 +26,7 @@ position = Vector2(576, 324)
 script = ExtResource("2_becdf")
 
 [node name="PlayingField" type="MeshInstance2D" parent="."]
-self_modulate = Color(0, 0, 0, 1)
+self_modulate = Color(0.13319641, 0.13319641, 0.13319638, 1)
 position = Vector2(5, 5)
 scale = Vector2(10, 10)
 mesh = SubResource("BoxMesh_becdf")
@@ -52,11 +54,39 @@ offset_right = 1152.0
 offset_bottom = 648.0
 script = ExtResource("4_3w1ld")
 
-[node name="Tabs" type="HBoxContainer" parent="UI/BuildingMenu"]
+[node name="TempCover" type="ColorRect" parent="UI/BuildingMenu"]
+z_index = -1
 layout_mode = 0
-offset_top = -48.0
+offset_top = -20.0
+offset_right = 1152.0
+offset_bottom = 120.0
+color = Color(0.5435746, 0.3356829, 0.49027884, 1)
+
+[node name="TempCover2" type="ColorRect" parent="UI/BuildingMenu"]
+z_index = -1
+layout_mode = 0
+offset_top = -47.0
 offset_right = 1152.0
 offset_bottom = -20.0
+color = Color(0.37704897, 0.2200371, 0.3361215, 1)
+
+[node name="Tabs" type="HBoxContainer" parent="UI/BuildingMenu"]
+layout_mode = 0
+offset_top = -47.0
+offset_right = 1152.0
+offset_bottom = -20.0
+
+[node name="General" parent="UI/BuildingMenu/Tabs" instance=ExtResource("5_0essa")]
+layout_mode = 2
+icon = ExtResource("7_5gyni")
+
+[node name="Utility" parent="UI/BuildingMenu/Tabs" instance=ExtResource("5_0essa")]
+layout_mode = 2
+icon = ExtResource("7_5gyni")
+
+[node name="Weapons" parent="UI/BuildingMenu/Tabs" instance=ExtResource("5_0essa")]
+layout_mode = 2
+icon = ExtResource("7_5gyni")
 
 [node name="Buildings" type="ScrollContainer" parent="UI/BuildingMenu"]
 layout_mode = 0
@@ -133,17 +163,12 @@ theme_override_font_sizes/normal_font_size = 33
 text = "Description: Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom"
 scroll_active = false
 
-[node name="TempCover" type="ColorRect" parent="UI/BuildingMenu"]
-z_index = -1
-layout_mode = 0
-offset_top = -20.0
-offset_right = 1152.0
-offset_bottom = 120.0
-color = Color(0.5435746, 0.3356829, 0.49027884, 1)
-
 [node name="ScrollingArea" type="Area2D" parent="UI/BuildingMenu"]
+collision_mask = 0
+metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="UI/BuildingMenu/ScrollingArea"]
+visible = false
 position = Vector2(576, 50)
 shape = SubResource("RectangleShape2D_0pncr")
 
