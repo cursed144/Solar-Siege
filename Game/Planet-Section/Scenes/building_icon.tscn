@@ -11,15 +11,16 @@ offset_right = -1024.0
 offset_bottom = -520.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(0.655, 0.655)
 texture_normal = ExtResource("2_yvxru")
 script = ExtResource("1_sj01r")
 
 [node name="Name" type="RichTextLabel" parent="."]
 layout_mode = 0
 offset_left = 6.0
-offset_top = 77.0
+offset_top = 125.85495
 offset_right = 123.0
-offset_bottom = 123.0
+offset_bottom = 171.85495
 bbcode_enabled = true
 text = "placeholder text"
 scroll_active = false

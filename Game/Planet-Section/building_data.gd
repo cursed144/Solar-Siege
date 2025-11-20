@@ -8,4 +8,3 @@ extends Resource
 @export var description: String
 @export var cost: int = 0
 @export var icon: Texture2D
-@export var scene: PackedScene

@@ -6,9 +6,11 @@
 [ext_resource type="Script" uid="uid://viu0lkuoi5hj" path="res://Planet-Section/Scripts/building_menu.gd" id="4_3w1ld"]
 [ext_resource type="PackedScene" uid="uid://dx0pwai5nk0di" path="res://Planet-Section/Scenes/building_icon.tscn" id="5_xqwqb"]
 [ext_resource type="Resource" uid="uid://ovbfsshvr576" path="res://Planet-Section/Resources/Buildings/worker_hub.tres" id="6_0pncr"]
-[ext_resource type="Texture2D" uid="uid://deixmur2ebu3f" path="res://icon.svg" id="7_5gyni"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_becdf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0pncr"]
+size = Vector2(1152, 140)
 
 [node name="Planet" type="Node2D"]
 script = ExtResource("1_r0ntb")
@@ -52,147 +54,98 @@ script = ExtResource("4_3w1ld")
 
 [node name="Tabs" type="HBoxContainer" parent="UI/BuildingMenu"]
 layout_mode = 0
+offset_top = -48.0
 offset_right = 1152.0
-offset_bottom = 29.0
+offset_bottom = -20.0
 
-[node name="Buildings" type="Control" parent="UI/BuildingMenu"]
-anchors_preset = 0
-offset_top = 29.0
-offset_right = 1152.0
-offset_bottom = 120.0
+[node name="Buildings" type="ScrollContainer" parent="UI/BuildingMenu"]
+layout_mode = 0
+offset_left = 24.999998
+offset_top = -9.999984
+offset_right = 1570.4545
+offset_bottom = 173.7972
+scale = Vector2(0.715, 0.715)
+mouse_filter = 2
+follow_focus = true
+draw_focus_border = true
+horizontal_scroll_mode = 3
+vertical_scroll_mode = 0
 
 [node name="General" type="HBoxContainer" parent="UI/BuildingMenu/Buildings"]
-layout_mode = 0
-offset_right = 1622.5353
-offset_bottom = 128.0
-scale = Vector2(0.71, 0.71)
+layout_mode = 2
+theme_override_constants/separation = 32
 
 [node name="BuildingIcon" parent="UI/BuildingMenu/Buildings/General" instance=ExtResource("5_xqwqb")]
 layout_mode = 2
 data = ExtResource("6_0pncr")
 
+[node name="BuildingIcon2" parent="UI/BuildingMenu/Buildings/General" instance=ExtResource("5_xqwqb")]
+layout_mode = 2
+data = ExtResource("6_0pncr")
+
+[node name="BuildingIcon3" parent="UI/BuildingMenu/Buildings/General" instance=ExtResource("5_xqwqb")]
+layout_mode = 2
+data = ExtResource("6_0pncr")
+
 [node name="Utility" type="HBoxContainer" parent="UI/BuildingMenu/Buildings"]
 visible = false
-layout_mode = 0
-offset_right = 1622.5353
-offset_bottom = 128.0
-scale = Vector2(0.71, 0.71)
+layout_mode = 2
 
 [node name="BuildingIcon" parent="UI/BuildingMenu/Buildings/Utility" instance=ExtResource("5_xqwqb")]
 layout_mode = 2
 
 [node name="Weapons" type="HBoxContainer" parent="UI/BuildingMenu/Buildings"]
 visible = false
-layout_mode = 0
-offset_right = 1622.5353
-offset_bottom = 128.0
-scale = Vector2(0.71, 0.71)
+layout_mode = 2
 
 [node name="BuildingIcon" parent="UI/BuildingMenu/Buildings/Weapons" instance=ExtResource("5_xqwqb")]
 layout_mode = 2
 
-[node name="ConfirmMenu" type="Control" parent="UI/BuildingMenu"]
+[node name="HoverMenu" type="Control" parent="UI/BuildingMenu"]
 visible = false
 z_index = 2
 anchors_preset = 0
-offset_left = 279.0
-offset_top = -421.0
-offset_right = 873.0
-offset_bottom = 19.0
+offset_top = -205.0
+offset_right = 1152.0
 
-[node name="Cover" type="ColorRect" parent="UI/BuildingMenu/ConfirmMenu"]
+[node name="Cover" type="ColorRect" parent="UI/BuildingMenu/HoverMenu"]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 205.0
+color = Color(0, 0, 0, 1)
+
+[node name="BName" type="RichTextLabel" parent="UI/BuildingMenu/HoverMenu"]
+layout_mode = 0
+offset_right = 2094.5454
+offset_bottom = 46.0
+scale = Vector2(0.55, 0.55)
+theme_override_font_sizes/normal_font_size = 33
+text = "Building name: Lorum Ipsom Palace"
+fit_content = true
+
+[node name="Desc" type="RichTextLabel" parent="UI/BuildingMenu/HoverMenu"]
+layout_mode = 0
+offset_top = 26.0
+offset_right = 1249.0908
+offset_bottom = 160.54541
+scale = Vector2(0.55, 0.55)
+theme_override_font_sizes/normal_font_size = 33
+text = "Description: Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom"
+scroll_active = false
+
+[node name="TempCover" type="ColorRect" parent="UI/BuildingMenu"]
 z_index = -1
 layout_mode = 0
-offset_left = -279.0
-offset_top = -107.0
-offset_right = 873.0
-offset_bottom = 541.0
-color = Color(0, 0, 0, 0.25490198)
-metadata/_edit_lock_ = true
+offset_top = -20.0
+offset_right = 1152.0
+offset_bottom = 120.0
+color = Color(0.5435746, 0.3356829, 0.49027884, 1)
 
-[node name="BG" type="ColorRect" parent="UI/BuildingMenu/ConfirmMenu"]
-layout_mode = 0
-offset_left = -1.0
-offset_top = 56.0
-offset_right = 592.7778
-offset_bottom = 390.0
-color = Color(0.3254902, 0, 0.3372549, 1)
+[node name="ScrollingArea" type="Area2D" parent="UI/BuildingMenu"]
 
-[node name="Icon" type="TextureRect" parent="UI/BuildingMenu/ConfirmMenu"]
-layout_mode = 0
-offset_left = 423.0
-offset_top = 88.0
-offset_right = 551.0
-offset_bottom = 216.0
-scale = Vector2(0.75, 0.75)
-texture = ExtResource("7_5gyni")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="UI/BuildingMenu/ScrollingArea"]
+position = Vector2(576, 50)
+shape = SubResource("RectangleShape2D_0pncr")
 
-[node name="Title" type="RichTextLabel" parent="UI/BuildingMenu/ConfirmMenu"]
-layout_mode = 0
-offset_left = 92.0
-offset_top = 74.0
-offset_right = 256.0
-offset_bottom = 114.0
-theme_override_font_sizes/normal_font_size = 26
-text = "This is title"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Desc" type="RichTextLabel" parent="UI/BuildingMenu/ConfirmMenu"]
-layout_mode = 0
-offset_left = 8.0
-offset_top = 134.0
-offset_right = 340.0
-offset_bottom = 255.0
-text = "Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom"
-scroll_active = false
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="ReqText" type="RichTextLabel" parent="UI/BuildingMenu/ConfirmMenu"]
-layout_mode = 0
-offset_left = 371.0
-offset_top = 193.0
-offset_right = 558.19147
-offset_bottom = 246.0
-text = "Required resources:"
-scroll_active = false
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="MaxBuild" type="RichTextLabel" parent="UI/BuildingMenu/ConfirmMenu"]
-layout_mode = 0
-offset_left = 8.0
-offset_top = 270.0
-offset_right = 195.19147
-offset_bottom = 323.0
-text = "Max buildings: 0 / 5"
-scroll_active = false
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Requirements" type="VBoxContainer" parent="UI/BuildingMenu/ConfirmMenu"]
-layout_mode = 0
-offset_left = 365.0
-offset_top = 242.0
-offset_right = 569.0
-offset_bottom = 374.0
-
-[node name="Confirm" type="Button" parent="UI/BuildingMenu/ConfirmMenu"]
-layout_mode = 0
-offset_left = 51.0
-offset_top = 343.0
-offset_right = 99.0
-offset_bottom = 374.0
-text = "Build"
-
-[node name="Cancel" type="Button" parent="UI/BuildingMenu/ConfirmMenu"]
-layout_mode = 0
-offset_left = 229.0
-offset_top = 341.0
-offset_right = 289.0
-offset_bottom = 372.0
-text = "Cancel"
-
-[connection signal="pressed" from="UI/BuildingMenu/ConfirmMenu/Confirm" to="UI/BuildingMenu" method="on_building_confirmed"]
-[connection signal="pressed" from="UI/BuildingMenu/ConfirmMenu/Cancel" to="UI/BuildingMenu" method="on_confirm_menu_cancelled"]
+[connection signal="mouse_entered" from="UI/BuildingMenu/ScrollingArea" to="UI/BuildingMenu" method="_on_scrolling_area_mouse_entered"]
+[connection signal="mouse_exited" from="UI/BuildingMenu/ScrollingArea" to="UI/BuildingMenu" method="_on_scrolling_area_mouse_exited"]
