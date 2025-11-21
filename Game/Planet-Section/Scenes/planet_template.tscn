@@ -1,10 +1,83 @@
-[gd_scene load_steps=5 format=3 uid="uid://d4ha36564l20p"]
+[gd_scene load_steps=19 format=3 uid="uid://d4ha36564l20p"]
 
 [ext_resource type="Script" uid="uid://c5wbnqrgl4aor" path="res://Planet-Section/Scripts/planet.gd" id="1_r0ntb"]
+[ext_resource type="PackedScene" uid="uid://c6yvaai4dadhi" path="res://Planet-Section/Scenes/Buildings/worker_hub.tscn" id="2_5xlqu"]
 [ext_resource type="Script" uid="uid://d13xkb3oocukv" path="res://Planet-Section/Scripts/player_cam.gd" id="2_becdf"]
 [ext_resource type="Script" uid="uid://lbjy23qvrrm8" path="res://Planet-Section/Scripts/pos_nums.gd" id="3_j25nj"]
+[ext_resource type="Script" uid="uid://viu0lkuoi5hj" path="res://Planet-Section/Scripts/building_menu.gd" id="4_3w1ld"]
+[ext_resource type="Script" uid="uid://dx6vxfc3gd512" path="res://Planet-Section/Scripts/building_preview.gd" id="4_x85yj"]
+[ext_resource type="PackedScene" uid="uid://cga8pk03f5cfc" path="res://Planet-Section/Scenes/building_tab.tscn" id="5_0essa"]
+[ext_resource type="PackedScene" uid="uid://dx0pwai5nk0di" path="res://Planet-Section/Scenes/building_icon.tscn" id="5_xqwqb"]
+[ext_resource type="Resource" uid="uid://ovbfsshvr576" path="res://Planet-Section/Resources/Buildings/worker_hub.tres" id="6_0pncr"]
+[ext_resource type="Texture2D" uid="uid://deixmur2ebu3f" path="res://icon.svg" id="7_5gyni"]
+
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_x85yj"]
+resource_name = "Buildings"
+scenes/1/scene = ExtResource("2_5xlqu")
+
+[sub_resource type="TileSet" id="TileSet_0essa"]
+tile_size = Vector2i(128, 128)
+sources/1 = SubResource("TileSetScenesCollectionSource_x85yj")
 
 [sub_resource type="BoxMesh" id="BoxMesh_becdf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0pncr"]
+size = Vector2(1152, 140)
+
+[sub_resource type="Animation" id="Animation_x85yj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 648)]
+}
+
+[sub_resource type="Animation" id="Animation_5xlqu"]
+resource_name = "hide_build_ui"
+length = 0.8
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(0.35, 1),
+"update": 0,
+"values": [Vector2(0, 481), Vector2(0, 648)]
+}
+
+[sub_resource type="Animation" id="Animation_0essa"]
+resource_name = "show_build_ui"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(0.35, 1),
+"update": 0,
+"values": [Vector2(0, 648), Vector2(0, 481)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lorx5"]
+_data = {
+&"RESET": SubResource("Animation_x85yj"),
+&"hide_build_ui": SubResource("Animation_5xlqu"),
+&"show_build_ui": SubResource("Animation_0essa")
+}
 
 [node name="Planet" type="Node2D"]
 script = ExtResource("1_r0ntb")
@@ -12,18 +85,37 @@ script = ExtResource("1_r0ntb")
 [node name="Terrain" type="TileMapLayer" parent="."]
 
 [node name="Buildings" type="TileMapLayer" parent="."]
+unique_name_in_owner = true
+z_index = 1
+tile_set = SubResource("TileSet_0essa")
 
 [node name="PlayerCam" type="Camera2D" parent="."]
 position = Vector2(576, 324)
 script = ExtResource("2_becdf")
 
 [node name="PlayingField" type="MeshInstance2D" parent="."]
-self_modulate = Color(0, 0, 0, 1)
+self_modulate = Color(0.13319641, 0.13319641, 0.13319638, 1)
+z_index = -1
 position = Vector2(5, 5)
 scale = Vector2(10, 10)
 mesh = SubResource("BoxMesh_becdf")
 
+[node name="BuildingPreview" type="Node2D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("4_x85yj")
+
+[node name="Sprite2D" type="Sprite2D" parent="BuildingPreview"]
+self_modulate = Color(1, 1, 1, 0.50980395)
+
 [node name="UI" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+
+[node name="BuildingButton" type="TextureButton" parent="UI"]
+offset_left = 20.0
+offset_top = 503.0
+offset_right = 148.0
+offset_bottom = 631.0
+texture_normal = ExtResource("7_5gyni")
 
 [node name="PosNums" type="Control" parent="UI"]
 layout_mode = 3
@@ -37,3 +129,145 @@ script = ExtResource("3_j25nj")
 layout_mode = 0
 offset_right = 187.0
 offset_bottom = 40.0
+
+[node name="BuildingMenu" type="Control" parent="UI"]
+z_index = 2
+layout_mode = 3
+anchors_preset = 0
+offset_top = 648.0
+offset_right = 1152.0
+offset_bottom = 815.0
+script = ExtResource("4_3w1ld")
+
+[node name="TempCover" type="ColorRect" parent="UI/BuildingMenu"]
+z_index = -1
+layout_mode = 0
+offset_top = 27.0
+offset_right = 1152.0
+offset_bottom = 167.0
+mouse_filter = 2
+color = Color(0.5435746, 0.3356829, 0.49027884, 1)
+
+[node name="TempCover2" type="ColorRect" parent="UI/BuildingMenu"]
+z_index = -1
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 27.0
+mouse_filter = 2
+color = Color(0.37704897, 0.2200371, 0.3361215, 1)
+
+[node name="Tabs" type="HBoxContainer" parent="UI/BuildingMenu"]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 27.0
+
+[node name="Exit" parent="UI/BuildingMenu/Tabs" instance=ExtResource("5_0essa")]
+layout_mode = 2
+icon = ExtResource("7_5gyni")
+
+[node name="General" parent="UI/BuildingMenu/Tabs" instance=ExtResource("5_0essa")]
+layout_mode = 2
+icon = ExtResource("7_5gyni")
+
+[node name="Utility" parent="UI/BuildingMenu/Tabs" instance=ExtResource("5_0essa")]
+layout_mode = 2
+icon = ExtResource("7_5gyni")
+
+[node name="Weapons" parent="UI/BuildingMenu/Tabs" instance=ExtResource("5_0essa")]
+layout_mode = 2
+icon = ExtResource("7_5gyni")
+
+[node name="Buildings" type="ScrollContainer" parent="UI/BuildingMenu"]
+layout_mode = 0
+offset_left = 24.999998
+offset_top = 37.0
+offset_right = 1570.4545
+offset_bottom = 220.79718
+scale = Vector2(0.715, 0.715)
+mouse_filter = 2
+follow_focus = true
+draw_focus_border = true
+horizontal_scroll_mode = 3
+vertical_scroll_mode = 0
+
+[node name="General" type="HBoxContainer" parent="UI/BuildingMenu/Buildings"]
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="BuildingIcon" parent="UI/BuildingMenu/Buildings/General" instance=ExtResource("5_xqwqb")]
+layout_mode = 2
+data = ExtResource("6_0pncr")
+
+[node name="BuildingIcon2" parent="UI/BuildingMenu/Buildings/General" instance=ExtResource("5_xqwqb")]
+layout_mode = 2
+data = ExtResource("6_0pncr")
+
+[node name="BuildingIcon3" parent="UI/BuildingMenu/Buildings/General" instance=ExtResource("5_xqwqb")]
+layout_mode = 2
+data = ExtResource("6_0pncr")
+
+[node name="Utility" type="HBoxContainer" parent="UI/BuildingMenu/Buildings"]
+visible = false
+layout_mode = 2
+
+[node name="BuildingIcon" parent="UI/BuildingMenu/Buildings/Utility" instance=ExtResource("5_xqwqb")]
+layout_mode = 2
+
+[node name="Weapons" type="HBoxContainer" parent="UI/BuildingMenu/Buildings"]
+visible = false
+layout_mode = 2
+
+[node name="BuildingIcon" parent="UI/BuildingMenu/Buildings/Weapons" instance=ExtResource("5_xqwqb")]
+layout_mode = 2
+
+[node name="HoverMenu" type="Control" parent="UI/BuildingMenu"]
+visible = false
+modulate = Color(1, 1, 1, 0)
+z_index = 2
+anchors_preset = 0
+offset_top = -158.0
+offset_right = 1152.0
+
+[node name="Cover" type="ColorRect" parent="UI/BuildingMenu/HoverMenu"]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 158.0
+color = Color(0, 0, 0, 1)
+
+[node name="BName" type="RichTextLabel" parent="UI/BuildingMenu/HoverMenu"]
+layout_mode = 0
+offset_right = 2094.5454
+offset_bottom = 46.0
+scale = Vector2(0.55, 0.55)
+theme_override_font_sizes/normal_font_size = 33
+text = "Building name: Lorum Ipsom Palace"
+fit_content = true
+
+[node name="Desc" type="RichTextLabel" parent="UI/BuildingMenu/HoverMenu"]
+layout_mode = 0
+offset_top = 26.0
+offset_right = 1249.0908
+offset_bottom = 160.54541
+scale = Vector2(0.55, 0.55)
+theme_override_font_sizes/normal_font_size = 33
+text = "Description: Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom"
+scroll_active = false
+
+[node name="ScrollingArea" type="Area2D" parent="UI/BuildingMenu"]
+position = Vector2(0, 47)
+collision_mask = 0
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="UI/BuildingMenu/ScrollingArea"]
+visible = false
+position = Vector2(576, 50)
+shape = SubResource("RectangleShape2D_0pncr")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="UI/BuildingMenu"]
+libraries = {
+&"": SubResource("AnimationLibrary_lorx5")
+}
+
+[connection signal="pressed" from="UI/BuildingButton" to="UI/BuildingMenu" method="_on_building_button_pressed"]
+[connection signal="mouse_entered" from="UI/BuildingMenu/ScrollingArea" to="UI/BuildingMenu" method="_on_scrolling_area_mouse_entered"]
+[connection signal="mouse_exited" from="UI/BuildingMenu/ScrollingArea" to="UI/BuildingMenu" method="_on_scrolling_area_mouse_exited"]
