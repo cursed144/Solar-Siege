@@ -1,22 +1,31 @@
-[gd_scene load_steps=15 format=3 uid="uid://d4ha36564l20p"]
+[gd_scene load_steps=19 format=3 uid="uid://d4ha36564l20p"]
 
 [ext_resource type="Script" uid="uid://c5wbnqrgl4aor" path="res://Planet-Section/Scripts/planet.gd" id="1_r0ntb"]
+[ext_resource type="PackedScene" uid="uid://c6yvaai4dadhi" path="res://Planet-Section/Scenes/Buildings/worker_hub.tscn" id="2_5xlqu"]
 [ext_resource type="Script" uid="uid://d13xkb3oocukv" path="res://Planet-Section/Scripts/player_cam.gd" id="2_becdf"]
 [ext_resource type="Script" uid="uid://lbjy23qvrrm8" path="res://Planet-Section/Scripts/pos_nums.gd" id="3_j25nj"]
 [ext_resource type="Script" uid="uid://viu0lkuoi5hj" path="res://Planet-Section/Scripts/building_menu.gd" id="4_3w1ld"]
+[ext_resource type="Script" uid="uid://dx6vxfc3gd512" path="res://Planet-Section/Scripts/building_preview.gd" id="4_x85yj"]
 [ext_resource type="PackedScene" uid="uid://cga8pk03f5cfc" path="res://Planet-Section/Scenes/building_tab.tscn" id="5_0essa"]
 [ext_resource type="PackedScene" uid="uid://dx0pwai5nk0di" path="res://Planet-Section/Scenes/building_icon.tscn" id="5_xqwqb"]
 [ext_resource type="Resource" uid="uid://ovbfsshvr576" path="res://Planet-Section/Resources/Buildings/worker_hub.tres" id="6_0pncr"]
 [ext_resource type="Texture2D" uid="uid://deixmur2ebu3f" path="res://icon.svg" id="7_5gyni"]
+
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_x85yj"]
+resource_name = "Buildings"
+scenes/1/scene = ExtResource("2_5xlqu")
+
+[sub_resource type="TileSet" id="TileSet_0essa"]
+tile_size = Vector2i(128, 128)
+sources/1 = SubResource("TileSetScenesCollectionSource_x85yj")
 
 [sub_resource type="BoxMesh" id="BoxMesh_becdf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0pncr"]
 size = Vector2(1152, 140)
 
-[sub_resource type="Animation" id="Animation_0essa"]
-resource_name = "show_build_ui"
-length = 0.8
+[sub_resource type="Animation" id="Animation_x85yj"]
+length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -24,10 +33,10 @@ tracks/0/path = NodePath(".:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.8),
-"transitions": PackedFloat32Array(0.35, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0, 648), Vector2(0, 481)]
+"values": [Vector2(0, 648)]
 }
 
 [sub_resource type="Animation" id="Animation_5xlqu"]
@@ -47,8 +56,9 @@ tracks/0/keys = {
 "values": [Vector2(0, 481), Vector2(0, 648)]
 }
 
-[sub_resource type="Animation" id="Animation_x85yj"]
-length = 0.001
+[sub_resource type="Animation" id="Animation_0essa"]
+resource_name = "show_build_ui"
+length = 0.8
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -56,10 +66,10 @@ tracks/0/path = NodePath(".:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(0.35, 1),
 "update": 0,
-"values": [Vector2(0, 648)]
+"values": [Vector2(0, 648), Vector2(0, 481)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_lorx5"]
@@ -75,6 +85,9 @@ script = ExtResource("1_r0ntb")
 [node name="Terrain" type="TileMapLayer" parent="."]
 
 [node name="Buildings" type="TileMapLayer" parent="."]
+unique_name_in_owner = true
+z_index = 1
+tile_set = SubResource("TileSet_0essa")
 
 [node name="PlayerCam" type="Camera2D" parent="."]
 position = Vector2(576, 324)
@@ -82,11 +95,20 @@ script = ExtResource("2_becdf")
 
 [node name="PlayingField" type="MeshInstance2D" parent="."]
 self_modulate = Color(0.13319641, 0.13319641, 0.13319638, 1)
+z_index = -1
 position = Vector2(5, 5)
 scale = Vector2(10, 10)
 mesh = SubResource("BoxMesh_becdf")
 
+[node name="BuildingPreview" type="Node2D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("4_x85yj")
+
+[node name="Sprite2D" type="Sprite2D" parent="BuildingPreview"]
+self_modulate = Color(1, 1, 1, 0.50980395)
+
 [node name="UI" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
 
 [node name="BuildingButton" type="TextureButton" parent="UI"]
 offset_left = 20.0

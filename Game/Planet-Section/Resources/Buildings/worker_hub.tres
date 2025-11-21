@@ -5,6 +5,7 @@
 
 [resource]
 script = ExtResource("1_1yebq")
+id = 1
 build_time = 10.0
 clearance = Vector2(10, 10)
 display_name = "Worker hub"

@@ -26,9 +26,14 @@ func _input(event: InputEvent) -> void:
 			tween.tween_property($Buildings, "scroll_horizontal", $Buildings.scroll_horizontal + 350, 0.4)
 
 
+func _on_building_button_pressed() -> void:
+	$HoverMenu.show()
+	$AnimationPlayer.play("show_build_ui")
+
+
 func select_building(data: BuildingData) -> void:
 	#TODO start placing building if sufficient resourses and not over max allowed
-	print("stat")
+	%BuildingPreview.start_placing(data)
 
 func show_hover_menu(data: BuildingData) -> void:
 	$HoverMenu/BName.text = data.display_name
@@ -37,18 +42,6 @@ func show_hover_menu(data: BuildingData) -> void:
 
 func hide_hover_menu() -> void:
 	create_tween().tween_property($HoverMenu, "modulate", Color(1,1,1,0), 0.2)
-
-
-func _on_scrolling_area_mouse_entered() -> void:
-	is_mouse_in_area = true
-
-func _on_scrolling_area_mouse_exited() -> void:
-	is_mouse_in_area = false
-
-
-func _on_building_button_pressed() -> void:
-	$HoverMenu.show()
-	$AnimationPlayer.play("show_build_ui")
 
 
 func _on_tab_pressed(target_name: String) -> void:
@@ -63,3 +56,10 @@ func _on_tab_pressed(target_name: String) -> void:
 			buildings.show()
 		else:
 			buildings.hide()
+
+
+func _on_scrolling_area_mouse_entered() -> void:
+	is_mouse_in_area = true
+
+func _on_scrolling_area_mouse_exited() -> void:
+	is_mouse_in_area = false
