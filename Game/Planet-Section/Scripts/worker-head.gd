@@ -27,11 +27,3 @@ func set_tilemap_tile_solid(tile: Vector2i) -> void:
 func refresh_worker_paths() -> void:
 	for worker in get_children():
 		worker.set_astar_path(worker.destination)
-
-
-func world_to_astar_cell(world_pos: Vector2) -> Vector2i:
-	var local = world_pos - astar.offset
-	return Vector2i(floor(local.x / astar.cell_size.x), floor(local.y / astar.cell_size.y))
-
-func astar_cell_center(cell: Vector2i) -> Vector2:
-	return astar.offset + (Vector2(cell.x, cell.y) + Vector2(0.5, 0.5)) * astar.cell_size

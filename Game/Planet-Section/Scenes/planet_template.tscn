@@ -8,9 +8,9 @@
 [ext_resource type="Script" uid="uid://v4ddqw6o24kv" path="res://Planet-Section/Scripts/worker-head.gd" id="4_lorx5"]
 [ext_resource type="Script" uid="uid://dx6vxfc3gd512" path="res://Planet-Section/Scripts/building_preview.gd" id="4_x85yj"]
 [ext_resource type="PackedScene" uid="uid://cga8pk03f5cfc" path="res://Planet-Section/Scenes/building_tab.tscn" id="5_0essa"]
+[ext_resource type="PackedScene" uid="uid://cptn1yrqchxdj" path="res://Planet-Section/Scenes/worker.tscn" id="5_jr884"]
 [ext_resource type="PackedScene" uid="uid://dx0pwai5nk0di" path="res://Planet-Section/Scenes/building_icon.tscn" id="5_xqwqb"]
 [ext_resource type="Resource" uid="uid://ovbfsshvr576" path="res://Planet-Section/Resources/Buildings/worker_hub.tres" id="6_0pncr"]
-[ext_resource type="Script" uid="uid://cnq8uysitpf8h" path="res://Planet-Section/Scripts/worker.gd" id="6_jr884"]
 [ext_resource type="Texture2D" uid="uid://deixmur2ebu3f" path="res://icon.svg" id="7_5gyni"]
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_x85yj"]
@@ -108,11 +108,8 @@ mesh = SubResource("BoxMesh_becdf")
 unique_name_in_owner = true
 script = ExtResource("4_lorx5")
 
-[node name="Sprite2D" type="Sprite2D" parent="WorkerHead"]
-position = Vector2(3863, 2102)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("7_5gyni")
-script = ExtResource("6_jr884")
+[node name="Worker1" parent="WorkerHead" instance=ExtResource("5_jr884")]
+position = Vector2(2826, 1642)
 
 [node name="BuildingPreview" type="Node2D" parent="."]
 unique_name_in_owner = true

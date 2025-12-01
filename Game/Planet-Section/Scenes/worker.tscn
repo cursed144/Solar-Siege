@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://cptn1yrqchxdj"]
+
+[ext_resource type="Script" uid="uid://cnq8uysitpf8h" path="res://Planet-Section/Scripts/worker.gd" id="1_gew3j"]
+[ext_resource type="Texture2D" uid="uid://deixmur2ebu3f" path="res://icon.svg" id="1_lp8qi"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gew3j"]
+radius = 103.24728
+
+[node name="Worker" type="Area2D"]
+scale = Vector2(0.5, 0.5)
+collision_mask = 16
+script = ExtResource("1_gew3j")
+
+[node name="Worker" type="Sprite2D" parent="."]
+texture = ExtResource("1_lp8qi")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_gew3j")
