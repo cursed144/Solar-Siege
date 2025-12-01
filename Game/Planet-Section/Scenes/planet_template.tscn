@@ -105,10 +105,12 @@ scale = Vector2(10, 10)
 mesh = SubResource("BoxMesh_becdf")
 
 [node name="WorkerHead" type="Node2D" parent="."]
+unique_name_in_owner = true
 script = ExtResource("4_lorx5")
 
 [node name="Sprite2D" type="Sprite2D" parent="WorkerHead"]
 position = Vector2(3863, 2102)
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("7_5gyni")
 script = ExtResource("6_jr884")
 
@@ -241,6 +243,7 @@ offset_top = -158.0
 offset_right = 1152.0
 
 [node name="Cover" type="ColorRect" parent="UI/BuildingMenu/HoverMenu"]
+self_modulate = Color(1, 1, 1, 0.23529412)
 layout_mode = 0
 offset_right = 1152.0
 offset_bottom = 158.0

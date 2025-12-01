@@ -2,6 +2,7 @@ extends Node2D
 
 const CELL_SIZE = Vector2i(64, 64)
 var astar = AStarGrid2D.new()
+@onready var ratio = %Buildings.tile_set.tile_size.x / CELL_SIZE.x
 
 
 func _ready() -> void:
@@ -13,6 +14,20 @@ func _ready() -> void:
 	astar.diagonal_mode = AStarGrid2D.DIAGONAL_MODE_ONLY_IF_NO_OBSTACLES
 	astar.update()
 
+func set_tilemap_tile_solid(tile: Vector2i) -> void:
+	var corner: Vector2i = tile * ratio
+	
+	for i in range(ratio):
+		for j in range(ratio):
+			astar.set_point_solid(corner + Vector2i(i, j))
+	
+	refresh_worker_paths()
+
+
+func refresh_worker_paths() -> void:
+	for worker in get_children():
+		worker.set_astar_path(worker.destination)
+
 
 func world_to_astar_cell(world_pos: Vector2) -> Vector2i:
 	var local = world_pos - astar.offset
@@ -20,13 +35,3 @@ func world_to_astar_cell(world_pos: Vector2) -> Vector2i:
 
 func astar_cell_center(cell: Vector2i) -> Vector2:
 	return astar.offset + (Vector2(cell.x, cell.y) + Vector2(0.5, 0.5)) * astar.cell_size
-
-
-func tilemap_cell_to_astar_cells(tile_cell: Vector2i) -> Array:
-	var base = tile_cell * 2
-	return [
-		Vector2i(base.x + 0, base.y + 0),
-		Vector2i(base.x + 1, base.y + 0),
-		Vector2i(base.x + 0, base.y + 1),
-		Vector2i(base.x + 1, base.y + 1),
-	]
