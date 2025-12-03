@@ -2,6 +2,7 @@ extends Node2D
 
 var is_placing := false
 var stored_building: BuildingData
+
 @onready var grid: Vector2 = %Buildings.tile_set.tile_size
 
 

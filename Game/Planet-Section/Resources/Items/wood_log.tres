@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://v2cltp0hhxmn"]
+
+[ext_resource type="Script" uid="uid://djkcypp1ynqgo" path="res://Planet-Section/Classes/item.gd" id="1_klifn"]
+[ext_resource type="Texture2D" uid="uid://deixmur2ebu3f" path="res://icon.svg" id="1_wcqu7"]
+
+[resource]
+script = ExtResource("1_klifn")
+name = "Wood log"
+icon = ExtResource("1_wcqu7")
+max_per_stack = 20
+metadata/_custom_type_script = "uid://djkcypp1ynqgo"
