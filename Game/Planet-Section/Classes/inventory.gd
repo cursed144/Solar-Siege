@@ -1,7 +1,7 @@
 class_name Inventory
 extends Resource
 
-@export var slots: Array[Item] = []
+@export var slots: Array[ItemStack] = []
 var claims: Array[Dictionary] = []
 
 
@@ -13,7 +13,7 @@ static func new_inv(slot_amount: int = 1) -> Inventory:
 
 
 # returns if item was successfully added
-func add_item(new_item: Item) -> bool:
+func add_item(new_item: ItemStack) -> bool:
 	var mapped_slots: Dictionary[int, int] = {}
 	new_item = new_item.duplicate()
 	
@@ -24,10 +24,10 @@ func add_item(new_item: Item) -> bool:
 	for i in range(slots.size()):
 		if not is_instance_valid(slots[i]):
 			slots[i] = new_item.duplicate()
-			slots[i].amount = min(slots[i].amount, slots[i].max_per_stack)
-			new_item.amount -= new_item.max_per_stack
-		elif (slots[i].id == new_item.id) and (slots[i].amount != slots[i].max_per_stack):
-			var amount_to_place = min(slots[i].max_per_stack - slots[i].amount, new_item.amount)
+			slots[i].amount = min(slots[i].amount, slots[i].item.max_per_stack)
+			new_item.amount -= new_item.item.max_per_stack
+		elif (slots[i].item.id == new_item.item.id) and (slots[i].amount != slots[i].item.max_per_stack):
+			var amount_to_place = min(slots[i].item.max_per_stack - slots[i].amount, new_item.amount)
 			mapped_slots[i] = amount_to_place
 			new_item.amount -= amount_to_place
 		
@@ -41,7 +41,7 @@ func add_item(new_item: Item) -> bool:
 
 
 # returns list of which items were successfully added
-func add_item_list(list: Array[Item]):
+func add_item_list(list: Array[ItemStack]):
 	var output: Array[bool] = []
 	
 	for item in list:
@@ -51,7 +51,7 @@ func add_item_list(list: Array[Item]):
 
 
 # _remove_item is only meant to be called by create_claim to ensure items exist
-func _remove_item(item: Item) -> void:
+func _remove_item(item: ItemStack) -> void:
 	var remaining := item.amount
 	var size = slots.size()
 	
@@ -60,7 +60,7 @@ func _remove_item(item: Item) -> void:
 		
 		if not is_instance_valid(slot):
 			continue
-		if slot.id == item.id:
+		if slot.item.id == item.item.id:
 			var to_take = min(slot.amount, remaining)
 			slot.amount -= to_take
 			remaining -= to_take
@@ -72,8 +72,8 @@ func _remove_item(item: Item) -> void:
 
 
 # returns created claim
-func create_claim(name: String, claim: Array[Item]) -> Array[Item]:
-	var claimed_items: Array[Item] = []
+func create_claim(name: String, claim: Array[ItemStack]) -> Array[ItemStack]:
+	var claimed_items: Array[ItemStack] = []
 	
 	for item in claim:
 		item = item.duplicate()
@@ -88,7 +88,7 @@ func create_claim(name: String, claim: Array[Item]) -> Array[Item]:
 	return claimed_items
 
 
-func get_claimed_items(name: String) -> Array[Item]:
+func get_claimed_items(name: String) -> Array[ItemStack]:
 	for i in range(claims.size()):
 		if claims[i].has(name):
 			return (claims.pop_at(i))[name]
@@ -96,15 +96,15 @@ func get_claimed_items(name: String) -> Array[Item]:
 	return []
 
 
-func can_fit(new_item: Item) -> bool:
+func can_fit(new_item: ItemStack) -> bool:
 	new_item = new_item.duplicate()
 	var inv = get_combined_inv()
 	
 	for item in inv.slots:
 		if not is_instance_valid(item):
-			new_item.amount -= new_item.max_per_stack
-		elif (item.id == new_item.id) and (item.amount != item.max_per_stack):
-			var amount_to_place = max(item.max_per_stack - item.amount, new_item.amount)
+			new_item.amount -= new_item.item.max_per_stack
+		elif (item.item.id == new_item.item.id) and (item.amount != item.item.max_per_stack):
+			var amount_to_place = max(item.item.max_per_stack - item.amount, new_item.amount)
 			new_item.amount -= amount_to_place
 		
 		if new_item.amount <= 0:
@@ -114,13 +114,13 @@ func can_fit(new_item: Item) -> bool:
 
 
 # returns how much of the item is present
-func is_present(item_check: Item) -> int:
+func is_present(item_check: ItemStack) -> int:
 	var amount = 0
 	
 	for item in slots:
 		if not is_instance_valid(item):
 			continue
-		if item.id == item_check.id:
+		if item.item.id == item_check.item.id:
 			amount += item.amount
 	
 	return amount
