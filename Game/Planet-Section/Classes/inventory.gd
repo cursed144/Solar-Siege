@@ -53,9 +53,10 @@ func add_item_list(list: Array[Item]):
 # _remove_item is only meant to be called by create_claim to ensure items exist
 func _remove_item(item: Item) -> void:
 	var remaining := item.amount
+	var size = slots.size()
 	
-	for i in range(slots.size()):
-		var slot = slots[slots.size() - i - 1]
+	for i in range(size):
+		var slot = slots[size - i - 1]
 		
 		if not is_instance_valid(slot):
 			continue
@@ -97,8 +98,9 @@ func get_claimed_items(name: String) -> Array[Item]:
 
 func can_fit(new_item: Item) -> bool:
 	new_item = new_item.duplicate()
+	var inv = get_combined_inv()
 	
-	for item in slots:
+	for item in inv.slots:
 		if not is_instance_valid(item):
 			new_item.amount -= new_item.max_per_stack
 		elif (item.id == new_item.id) and (item.amount != item.max_per_stack):
@@ -122,6 +124,19 @@ func is_present(item_check: Item) -> int:
 			amount += item.amount
 	
 	return amount
+
+
+func get_combined_inv() -> Inventory:
+	if claims.is_empty():
+		return self
+	
+	var inv_new = self.duplicate()
+	
+	for claim in claims:
+		for key in claim.keys()[0]:
+			inv_new.add_item_list(inv_new.get_claimed_items(key))
+	
+	return inv_new
 
 
 func add_slots(amount: int = 1) -> void:
