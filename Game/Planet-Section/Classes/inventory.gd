@@ -2,8 +2,7 @@ class_name Inventory
 extends Resource
 
 @export var slots: Array[ItemStack] = []
-var claims: Array[Dictionary] = []
-var promises: Array[Dictionary] = []
+var claims: Dictionary[String, Array] = {}
 
 
 static func new_inv(slot_amount: int = 1) -> Inventory:
@@ -12,305 +11,192 @@ static func new_inv(slot_amount: int = 1) -> Inventory:
 	return inv
 
 
-# ---------- public add / helpers ----------
+# -----------------------
+# Claims
+# -----------------------
 
-# returns true if whole stack was added, false otherwise
-# accepts optional excluded_promise_name so the promise-owner can use their reservation
-func add_item(new_item: ItemStack, excluded_promise_name: String = "") -> bool:
-	var leftover = _attempt_add(new_item, excluded_promise_name)
-	if leftover > 0:
-		print("Insufficient room!")
-		return false
-	return true
-
-
-# returns list of booleans for each attempted stack add
-func add_item_list(list: Array[ItemStack], excluded_promise_name: String = ""):
-	var output: Array[bool] = []
-	for item in list:
-		output.append(add_item(item, excluded_promise_name))
+## Create a claim for requested resources and return how much of each was claimed
+func create_claim(claim_name: String, items: Array[ItemStack]) -> Array[ItemStack]:
+	var claim: Array[Dictionary] = []
+	var result: Array[ItemStack] = []
 	
-	return output
-
-
-# internal: try to add stack. Returns leftover amount
-# Mirrors your original add_item flow but returns leftover.
-func _attempt_add(new_item: ItemStack, excluded_promise_name: String = "") -> int:
-	var mapped_slots: Dictionary[int, int] = {}
-	new_item = new_item.duplicate()
-	
-	# check using can_fit that considers promises (excluding optional name)
-	if !can_fit(new_item, excluded_promise_name):
-		return new_item.amount
-	
-	for i in range(slots.size()):
-		if not is_instance_valid(slots[i]):
-			slots[i] = new_item.duplicate()
-			slots[i].amount = min(slots[i].amount, slots[i].item.max_per_stack)
-			new_item.amount -= new_item.item.max_per_stack
-		elif (slots[i].item.id == new_item.item.id) and (slots[i].amount != slots[i].item.max_per_stack):
-			var amount_to_place = min(slots[i].item.max_per_stack - slots[i].amount, new_item.amount)
-			mapped_slots[i] = amount_to_place
-			new_item.amount -= amount_to_place
+	for item_stack in items:
+		var mapped_value := _add_claim_to_item(item_stack, simulate_claimed_slots())
+		var total: int = 0
 		
-		if new_item.amount <= 0:
-			break
+		for amount in mapped_value.values():
+			total += amount
+		
+		if total > 0:
+			var new_item_stack = ItemStack.new_stack(item_stack.item, total)
+			result.append(new_item_stack)
+		
+		claim.append(mapped_value)
 	
-	for slot in mapped_slots.keys():
-		slots[slot].amount += mapped_slots[slot]
+	claims[claim_name] = claim
 	
-	return max(new_item.amount, 0)
+	return result
 
 
-# ---------- claims ----------
-
-# _remove_item is only meant to be called by create_claim/get_claimed_items to ensure items exist
-func _remove_item(item: ItemStack) -> void:
-	var remaining := item.amount
-	var size = slots.size()
+## Internal: compute from which slots and how much can be taken for a requested item stack
+func _add_claim_to_item(item_stack: ItemStack, inv_slots: Array[ItemStack] = slots) -> Dictionary[int, int]:
+	var mapped_claim: Dictionary[int, int] = {}
+	var amount_requested = item_stack.amount
 	
-	for i in range(size):
-		var slot = slots[size - i - 1]
+	for i in range(inv_slots.size()):
+		var curr_index = inv_slots.size() - i - 1
+		var slot = inv_slots[curr_index]
 		
 		if not is_instance_valid(slot):
 			continue
-		if slot.item.id == item.item.id:
-			var to_take = min(slot.amount, remaining)
-			slot.amount -= to_take
-			remaining -= to_take
-			if slot.amount <= 0:
-				slots[i] = null
+		if (slot.item.id == item_stack.item.id):
+			var amount_to_take = min(slot.amount, amount_requested)
+			mapped_claim[curr_index] = amount_to_take
+			amount_requested -= amount_to_take
 		
-		if remaining <= 0:
-			break
-
-
-# returns created claim
-func create_claim(name: String, claim: Array[ItemStack]) -> Array[ItemStack]:
-	var claimed_items: Array[ItemStack] = []
+		if amount_requested <= 0: break
 	
-	for item in claim:
-		item = item.duplicate()
-		item.amount = min(get_quantity(item.item.id), item.amount)
-		
-		_remove_item(item)
-		claimed_items.append(item)
+	return mapped_claim
+
+
+## Return all items in the named claim and remove that claim (physically subtracts from slots)
+func get_claimed_items(claim_name: String) -> Array[ItemStack]:
+	var result: Array[ItemStack] = []
+	var claim: Array[Dictionary] = claims[claim_name]
 	
-	var new_claim := {}
-	new_claim[name] = claimed_items
-	claims.append(new_claim)
-	return claimed_items
-
-
-func get_claimed_items(name: String) -> Array[ItemStack]:
-	for i in range(claims.size()):
-		if claims[i].has(name):
-			return (claims.pop_at(i))[name]
-	return []
-
-
-# ---------- promises (capped on creation, deleted on fulfillment) ----------
-
-# Add or replace a promise under `name`. promise_list is Array[ItemStack].
-# This caps the promise to what can actually be reserved now and returns the reserved stacks.
-# If nothing can be reserved, returns [] and does not create a promise.
-func add_promise(name: String, promise_list: Array[ItemStack]) -> Array[ItemStack]:
-	# Make a working copy of current slots and treat existing promises as already-reserved
-	var temp_slots := []
-	for s in slots:
-		temp_slots.append(s.duplicate(true) if is_instance_valid(s) else null)
+	for dict in claim:
+		for key in dict.keys():
+			var new_item = ItemStack.new_stack(slots[key].item, dict[key])
+			
+			slots[key].remove_amount(dict[key])
+			if slots[key].amount <= 0:
+				slots[key] = null
+			
+			result.append(new_item)
 	
-	# Simulate existing promises onto temp_slots so they consume empty slots
-	for p in promises:
-		for key in p.keys():
-			var arr: Array = p[key]
-			for s in arr:
-				if s:
-					_simulate_place_stack(temp_slots, s.item, s.amount)
+	remove_claim(claim_name)
+	return result
+
+
+## Remove a stored claim without returning its contents
+func remove_claim(claim_name: String) -> void:
+	claims.erase(claim_name)
+
+
+# -----------------------
+# Simulation
+# -----------------------
+
+## Produce a copy of slots with claimed amounts subtracted (used to plan new claims)
+func simulate_claimed_slots(for_claim_name: String = "*") -> Array[ItemStack]:
+	if claims.is_empty():
+		return slots
 	
-	# Now attempt to reserve what the caller asked for on top of those simulated reservations
-	var reserved_list: Array = []
-	for req in promise_list:
-		if not req:
-			continue
-		var reserved_amount := _simulate_place_stack(temp_slots, req.item, req.amount)
-		if reserved_amount > 0:
-			reserved_list.append(ItemStack.new_stack(req.item, reserved_amount))
-
-	# If nothing could be reserved, return empty list
-	if reserved_list.size() == 0:
-		return []
-
-	# Remove existing promise by name if any and store the new reserved one
-	for i in range(promises.size() - 1, -1, -1):
-		if promises[i].has(name):
-			promises.remove_at(i)
-			break
-
-	var new_promise := {}
-	var store_arr := []
-	for s in reserved_list:
-		store_arr.append(s.duplicate(true))
-	new_promise[name] = store_arr
-	promises.append(new_promise)
-
-	return reserved_list
-
-
-# Remove and return a promise by name (returns Array[ItemStack] or [] if none)
-func get_promised_items(name: String) -> Array[ItemStack]:
-	for i in range(promises.size()):
-		if promises[i].has(name):
-			return (promises.pop_at(i))[name]
-	return []
-
-
-# Cancel a promise without returning it
-func remove_promise(name: String) -> void:
-	for i in range(promises.size() - 1, -1, -1):
-		if promises[i].has(name):
-			promises.remove_at(i)
-			return
-
-
-# Worker arrives to fulfill a promise. delivered_list is Array[ItemStack] (what they actually carry).
-# The function will deposit as much as possible of each delivered stack (respecting other promises & claims).
-# It returns an Array[ItemStack] representing how many were actually deposited for each delivered stack.
-# The stored promise is removed (deleted) after this function runs.
-func fulfill_promise(name: String, delivered_list: Array[ItemStack]) -> Array[ItemStack]:
-	var results: Array[ItemStack] = []
-	# find the promise index if any (we be deleted at the end)
-	var promise_idx = -1
-	for i in range(promises.size()):
-		if promises[i].has(name):
-			promise_idx = i
-			break
+	var new_slots: Array[ItemStack] = []
+	for item in slots:
+		new_slots.append(item.duplicate() if is_instance_valid(item) else null)
 	
-	# Attempt to add each delivered stack while EXCLUDING the caller's own promise
-	for delivered in delivered_list:
-		if not delivered:
-			results.append(null)
-			continue
-		var to_add = delivered.duplicate()
-		var leftover = _attempt_add(to_add, name) # returns leftover
-		var stored_amount = delivered.amount - leftover
-		var stored_stack = ItemStack.new_stack(delivered.item, stored_amount)
-		results.append(stored_stack)
+	if for_claim_name == "*":
+		for claim: Array in claims.values():
+			for dict: Dictionary in claim:
+				for key: int in dict.keys():
+					new_slots[key].remove_amount(dict[key])
+					if new_slots[key].amount <= 0:
+						new_slots[key] = null
+	elif claims.has(for_claim_name):
+		var claim: Array = claims[for_claim_name]
+		for dict: Dictionary in claim:
+			for key: int in dict.keys():
+				new_slots[key].remove_amount(dict[key])
+				if new_slots[key].amount <= 0:
+					new_slots[key] = null
 	
-	# delete the promise entry (if existed) now that they attempted to fulfill it
-	if promise_idx >= 0 and promise_idx < promises.size():
-		# promises may have changed order; search and remove by name to be safe
-		var pname = name
-		for j in range(promises.size() - 1, -1, -1):
-			if promises[j].has(pname):
-				promises.remove_at(j)
-				break
+	return new_slots
+
+
+# -----------------------
+# Utility
+# -----------------------
+
+## Return how many of each requested ItemStack would fit (calls helper per item)
+func how_many_items_fit(items: Array[ItemStack]) -> Array[int]:
+	var result: Array[int] = []
+	for i in range(items.size()):
+		result.append(how_much_of_item_fits(items[i]))
 	
-	return results
+	return result
 
 
-# ---------- capacity & query helpers ----------
-
-# can_fit respects promises. If excluded_promise_name is provided it will not count that promise as reserved (so promise-maker can use their reservation).
-func can_fit(new_item: ItemStack, excluded_promise_name: String = "") -> bool:
-	new_item = new_item.duplicate()
-	
-	# compute "free units" for that specific item type across the inventory
-	var free_units := 0
-	for s in slots:
-		if not is_instance_valid(s):
-			free_units += new_item.item.max_per_stack
-		elif s.item.id == new_item.item.id:
-			free_units += (s.item.max_per_stack - s.amount)
-	
-	# subtract total promised amounts (all promises) except the excluded one
-	var total_promised = _total_promised_amounts(excluded_promise_name)
-	free_units = max(0, free_units - total_promised)
-	return free_units >= new_item.amount
-
-
-# sum of promised amounts across all promises (optionally excluding one name)
-func _total_promised_amounts(excluded_name: String = "") -> int:
-	var total := 0
-	for p in promises:
-		for key in p.keys():
-			if key == excluded_name:
-				continue
-			var arr: Array = p[key]
-			for s in arr:
-				if s:
-					total += s.amount
-	return total
-
-
-# returns how much of the item is present (only counts items actually in slots)
-# expects an ItemStack for the check (preserves your API)
-func get_quantity(item_id: int) -> int:
+## Return how much of a single ItemStack would fit into the inventory
+func how_much_of_item_fits(item_stack: ItemStack) -> int:
 	var amount = 0
 	
-	for item in slots:
-		if not is_instance_valid(item):
-			continue
-		if item.item.id == item_id:
-			amount += item.amount
+	for slot in slots:
+		if is_instance_valid(slot):
+			amount = item_stack.amount
+			break
+		if slot.item.id == item_stack.item.id:
+			amount += slot.item.max_per_stack - slot.amount
+		
+		if amount >= item_stack.amount: break
 	
 	return amount
 
 
-# get_combined_inv: preserves original idea (claims removed from slots by create_claim)
-func get_combined_inv() -> Inventory:
-	if claims.is_empty():
-		return self
+## Meant to be used to strip slots of inventories of their null values and return them without
+func strip_slots(target_slots: Array[ItemStack]) -> Array[ItemStack]:
+	var result: Array[ItemStack] = []
 	
-	var inv_new = self.duplicate()
+	for slot in target_slots:
+		if is_instance_valid(slot):
+			result.append(slot.duplicate())
 	
-	for claim in claims:
-		for key in claim.keys()[0]:
-			inv_new.add_item_list(inv_new.get_claimed_items(key))
+	return result
+
+
+# -----------------------
+# Adding
+# -----------------------
+
+## Add multiple ItemStack entries to inventory; returns how much was added for each
+func add_items_to_inv(items: Array[ItemStack]) -> Array[int]:
+	var result: Array[int] = []
 	
-	return inv_new
-
-
-# ---------- simulation helper used by add_promise ----------
-
-# Helper: try to place `amount` of `item` into temp_slots (simulated).
-# Mutates temp_slots to mark the reserved spaces. Returns how many units were placed.
-# Mirrors add logic (first fill same-item partially filled stacks, then fill empties).
-func _simulate_place_stack(temp_slots: Array, item: Item, amount: int) -> int:
-	var left := amount
+	for item in items:
+		result.append(add_item_to_inv(item))
 	
-	# 1) fill existing slots with same item
-	for i in range(temp_slots.size()):
-		var s = temp_slots[i]
-		if not is_instance_valid(s):
-			continue
-		if s.item.id == item.id and s.amount < s.item.max_per_stack:
-			var space = s.item.max_per_stack - s.amount
-			var put = min(space, left)
-			s.amount += put
-			left -= put
-			if left <= 0:
-				return amount # fully placed
-
-	# 2) use empty slots (create new stacks in temp_slots)
-	for i in range(temp_slots.size()):
-		if left <= 0:
-			break
-		if not is_instance_valid(temp_slots[i]):
-			var put = min(item.max_per_stack, left)
-			var new_stack := ItemStack.new_stack(item, put)
-			temp_slots[i] = new_stack
-			left -= put
-
-	return (amount - left) # how many we actually reserved
+	return result
 
 
-# ---------- slot management ----------
+## Add a single ItemStack to inventory and return how much of it was placed
+func add_item_to_inv(item_stack: ItemStack) -> int:
+	var fitting := how_much_of_item_fits(item_stack)
+	var left_to_add := fitting
+	
+	for i in range(slots.size()):
+		var slot = slots[i]
+		
+		if not is_instance_valid(slot):
+			slot = ItemStack.new_stack(item_stack.item, fitting)
+			left_to_add = 0
+		elif (slot.item.id == item_stack.item.id) and (slot.amount < slot.item.max_per_stack):
+			left_to_add = slot.add_to_amount(left_to_add)
+		
+		if left_to_add <= 0: break
+	
+	return fitting
 
+
+# -----------------------
+# Slot management
+# -----------------------
+
+## Append empty slots to the inventory
 func add_slots(amount: int = 1) -> void:
 	for i in range(amount):
 		slots.append(null)
 
+## Remove slots from the end of the inventory
 func remove_slots(amount: int = 1) -> void:
 	for i in range(amount):
 		slots.pop_back()

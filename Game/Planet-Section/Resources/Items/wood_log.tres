@@ -7,5 +7,5 @@
 script = ExtResource("1_klifn")
 name = "Wood log"
 icon = ExtResource("1_wcqu7")
-max_per_stack = 20
+max_per_stack = 40
 metadata/_custom_type_script = "uid://djkcypp1ynqgo"
