@@ -1,6 +1,15 @@
 class_name Item
 extends Resource
 
+enum ID {
+	WOOD_LOG,
+	ROCK,
+	COAL,
+	IRON_ORE,
+	WOOD_PLANKS,
+	STEEL_PLATES
+}
+
 @export var id: int
 @export var name: String
 @export var icon: Texture2D

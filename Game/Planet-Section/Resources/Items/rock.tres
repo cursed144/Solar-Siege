@@ -8,5 +8,5 @@ script = ExtResource("1_8t222")
 id = 1
 name = "Rock"
 icon = ExtResource("1_vjgwq")
-max_per_stack = 25
+max_per_stack = 30
 metadata/_custom_type_script = "uid://djkcypp1ynqgo"

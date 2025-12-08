@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://cmf5hyjq1q86h"]
+
+[ext_resource type="Texture2D" uid="uid://deixmur2ebu3f" path="res://icon.svg" id="1_d5co5"]
+[ext_resource type="Script" uid="uid://djkcypp1ynqgo" path="res://Planet-Section/Classes/item.gd" id="1_q8b3j"]
+
+[resource]
+script = ExtResource("1_q8b3j")
+id = 5
+name = "Steel Plates"
+icon = ExtResource("1_d5co5")
+max_per_stack = 10
+metadata/_custom_type_script = "uid://djkcypp1ynqgo"
