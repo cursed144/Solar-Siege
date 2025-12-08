@@ -1,9 +1,10 @@
 extends TextureButton
 
-@export var data: BuildingData
 signal select_building(building: BuildingData)
 signal show_hover_menu(building: BuildingData)
 signal hide_hover_menu
+
+@export var data: BuildingData
 
 
 func _ready() -> void:

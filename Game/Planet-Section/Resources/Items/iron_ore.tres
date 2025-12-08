@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://djo5qn5rmn3v"]
+
+[ext_resource type="Script" uid="uid://djkcypp1ynqgo" path="res://Planet-Section/Classes/item.gd" id="1_knsgm"]
+[ext_resource type="Texture2D" uid="uid://deixmur2ebu3f" path="res://icon.svg" id="1_rbsnu"]
+
+[resource]
+script = ExtResource("1_knsgm")
+id = 3
+name = "Iron Ore"
+icon = ExtResource("1_rbsnu")
+max_per_stack = 25
+metadata/_custom_type_script = "uid://djkcypp1ynqgo"

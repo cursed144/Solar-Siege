@@ -1,7 +1,8 @@
 extends TextureButton
 
-@export var icon: Texture2D
 signal tab_pressed(node_name: String)
+
+@export var icon: Texture2D
 
 
 func _ready() -> void:

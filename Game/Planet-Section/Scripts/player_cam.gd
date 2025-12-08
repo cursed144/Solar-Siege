@@ -4,8 +4,10 @@ const MOVE_SPEED := 400
 const ZOOM_PERCENT := 0.3
 const MAX_ZOOM := 7.5
 const MIN_ZOOM := 0.35
+
 var is_dragging := false
 var cam_zoom := Vector2(1, 1)
+
 @onready var MAP_BOUNDARY: Vector2 = get_parent().planet_size
 
 

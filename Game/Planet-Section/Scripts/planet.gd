@@ -1,6 +1,7 @@
 extends Node2D
 
 @export var planet_size := Vector2(5000, 5000)
+
 var bulding_amount: Dictionary[String, int]
 
 
