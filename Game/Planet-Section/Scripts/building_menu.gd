@@ -1,6 +1,7 @@
 extends Control
 
 var is_mouse_in_area := false
+var is_open := false
 
 
 func _ready() -> void:
@@ -27,6 +28,7 @@ func _input(event: InputEvent) -> void:
 
 
 func _on_building_button_pressed() -> void:
+	is_open = true
 	$HoverMenu.show()
 	$AnimationPlayer.play("show_build_ui")
 
@@ -48,6 +50,7 @@ func _on_tab_pressed(target_name: String) -> void:
 	if target_name == "Exit":
 		$AnimationPlayer.play("hide_build_ui")
 		$HoverMenu.hide()
+		is_open = false
 		return
 	
 	$Buildings.scroll_horizontal = 0

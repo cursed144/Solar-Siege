@@ -1,7 +1,7 @@
-[gd_scene load_steps=19 format=3 uid="uid://d4ha36564l20p"]
+[gd_scene load_steps=24 format=3 uid="uid://d4ha36564l20p"]
 
 [ext_resource type="Script" uid="uid://c5wbnqrgl4aor" path="res://Planet-Section/Scripts/planet.gd" id="1_r0ntb"]
-[ext_resource type="PackedScene" uid="uid://c6yvaai4dadhi" path="res://Planet-Section/Scenes/Buildings/worker_hub.tscn" id="2_5xlqu"]
+[ext_resource type="PackedScene" uid="uid://c6yvaai4dadhi" path="res://Planet-Section/Scenes/Buildings/building_template.tscn" id="2_5xlqu"]
 [ext_resource type="Script" uid="uid://d13xkb3oocukv" path="res://Planet-Section/Scripts/player_cam.gd" id="2_becdf"]
 [ext_resource type="Script" uid="uid://lbjy23qvrrm8" path="res://Planet-Section/Scripts/pos_nums.gd" id="3_j25nj"]
 [ext_resource type="Script" uid="uid://viu0lkuoi5hj" path="res://Planet-Section/Scripts/building_menu.gd" id="4_3w1ld"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://dx0pwai5nk0di" path="res://Planet-Section/Scenes/building_icon.tscn" id="5_xqwqb"]
 [ext_resource type="Resource" uid="uid://ovbfsshvr576" path="res://Planet-Section/Resources/Buildings/worker_hub.tres" id="6_0pncr"]
 [ext_resource type="Texture2D" uid="uid://deixmur2ebu3f" path="res://icon.svg" id="7_5gyni"]
+[ext_resource type="Script" uid="uid://dwytf3p3tvovs" path="res://Planet-Section/Scripts/building_info.gd" id="11_lorx5"]
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_x85yj"]
 resource_name = "Buildings"
@@ -79,6 +80,62 @@ _data = {
 &"show_build_ui": SubResource("Animation_0essa")
 }
 
+[sub_resource type="Animation" id="Animation_lorx5"]
+resource_name = "open"
+length = 0.5
+step = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(0.35, 1),
+"update": 0,
+"values": [Vector2(-297, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_jr884"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-297, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_ufsj7"]
+resource_name = "close"
+length = 0.5
+step = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(0.35, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-297, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6ei45"]
+_data = {
+&"RESET": SubResource("Animation_jr884"),
+&"close": SubResource("Animation_ufsj7"),
+&"open": SubResource("Animation_lorx5")
+}
+
 [node name="Planet" type="Node2D"]
 script = ExtResource("1_r0ntb")
 
@@ -94,7 +151,7 @@ position = Vector2(576, 324)
 script = ExtResource("2_becdf")
 
 [node name="PlayingField" type="MeshInstance2D" parent="."]
-self_modulate = Color(0.13319641, 0.13319641, 0.13319638, 1)
+self_modulate = Color(0.20871013, 0.20871016, 0.20871013, 1)
 z_index = -1
 position = Vector2(5, 5)
 scale = Vector2(10, 10)
@@ -107,14 +164,26 @@ script = ExtResource("4_x85yj")
 [node name="Sprite2D" type="Sprite2D" parent="BuildingPreview"]
 self_modulate = Color(1, 1, 1, 0.50980395)
 
+[node name="MouseChanger" type="Control" parent="BuildingPreview"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -184.0
+offset_top = -169.0
+offset_right = 187.0
+offset_bottom = 172.0
+mouse_default_cursor_shape = 13
+metadata/_edit_lock_ = true
+
 [node name="UI" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
 
 [node name="BuildingButton" type="TextureButton" parent="UI"]
-offset_left = 20.0
-offset_top = 503.0
-offset_right = 148.0
-offset_bottom = 631.0
+offset_left = 36.0
+offset_top = 517.0
+offset_right = 164.0
+offset_bottom = 645.0
+scale = Vector2(0.8, 0.8)
+mouse_default_cursor_shape = 2
 texture_normal = ExtResource("7_5gyni")
 
 [node name="PosNums" type="Control" parent="UI"]
@@ -266,6 +335,57 @@ shape = SubResource("RectangleShape2D_0pncr")
 [node name="AnimationPlayer" type="AnimationPlayer" parent="UI/BuildingMenu"]
 libraries = {
 &"": SubResource("AnimationLibrary_lorx5")
+}
+
+[node name="BuildingInfo" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -297.0
+offset_bottom = 648.0
+script = ExtResource("11_lorx5")
+
+[node name="Content" type="Control" parent="UI/BuildingInfo"]
+anchors_preset = 0
+offset_right = 297.0
+offset_bottom = 648.0
+
+[node name="BuildingName" type="RichTextLabel" parent="UI/BuildingInfo/Content"]
+layout_mode = 0
+offset_right = 1484.9999
+offset_bottom = 114.99999
+scale = Vector2(0.2, 0.2)
+theme_override_font_sizes/normal_font_size = 80
+text = "Building name goes here"
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Operations" type="ScrollContainer" parent="UI/BuildingInfo/Content"]
+layout_mode = 0
+offset_left = 45.0
+offset_top = 130.0
+offset_right = 85.0
+offset_bottom = 170.0
+
+[node name="List" type="VBoxContainer" parent="UI/BuildingInfo/Content/Operations"]
+layout_mode = 2
+
+[node name="Seperators" type="Control" parent="UI/BuildingInfo"]
+anchors_preset = 0
+offset_right = 297.0
+offset_bottom = 648.0
+
+[node name="BG" type="ColorRect" parent="UI/BuildingInfo"]
+z_index = -1
+layout_mode = 0
+offset_right = 297.0
+offset_bottom = 648.0
+color = Color(0, 0, 0, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="UI/BuildingInfo"]
+libraries = {
+&"": SubResource("AnimationLibrary_6ei45")
 }
 
 [connection signal="pressed" from="UI/BuildingButton" to="UI/BuildingMenu" method="_on_building_button_pressed"]

@@ -7,6 +7,7 @@
 [node name="BuildingTab" type="TextureButton"]
 offset_right = 128.0
 offset_bottom = 25.0
+mouse_default_cursor_shape = 2
 texture_normal = ExtResource("1_nimr3")
 script = ExtResource("2_nimr3")
 
