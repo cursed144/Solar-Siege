@@ -25,7 +25,6 @@ func start_placing(data: BuildingData) -> void:
 	is_placing = true
 	stored_building = data
 	$Sprite2D.texture = data.icon
-	$MouseChanger.mouse_default_cursor_shape = Control.CursorShape.CURSOR_MOVE
 
 
 func place_building(id: int) -> void:
@@ -39,4 +38,4 @@ func end_placement() -> void:
 	is_placing = false
 	stored_building = null
 	$Sprite2D.texture = null
-	$MouseChanger.mouse_default_cursor_shape = Control.CursorShape.CURSOR_ARROW
+	global_position = Vector2.ZERO

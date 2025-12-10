@@ -16,8 +16,9 @@ func building_clicked(building) -> void:
 	curr_building = building
 
 
-func fill_info(building) -> void:
-	$RichTextLabel.text = building.name
+func fill_info(building = curr_building) -> void:
+	#$RichTextLabel.text = building.name
+	pass
 
 
 func open() -> void:

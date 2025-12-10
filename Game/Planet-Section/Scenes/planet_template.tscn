@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://d4ha36564l20p"]
+[gd_scene load_steps=27 format=3 uid="uid://d4ha36564l20p"]
 
 [ext_resource type="Script" uid="uid://c5wbnqrgl4aor" path="res://Planet-Section/Scripts/planet.gd" id="1_r0ntb"]
 [ext_resource type="PackedScene" uid="uid://c6yvaai4dadhi" path="res://Planet-Section/Scenes/Buildings/building_template.tscn" id="2_5xlqu"]
@@ -6,11 +6,14 @@
 [ext_resource type="Script" uid="uid://lbjy23qvrrm8" path="res://Planet-Section/Scripts/pos_nums.gd" id="3_j25nj"]
 [ext_resource type="Script" uid="uid://viu0lkuoi5hj" path="res://Planet-Section/Scripts/building_menu.gd" id="4_3w1ld"]
 [ext_resource type="Script" uid="uid://dx6vxfc3gd512" path="res://Planet-Section/Scripts/building_preview.gd" id="4_x85yj"]
-[ext_resource type="PackedScene" uid="uid://cga8pk03f5cfc" path="res://Planet-Section/Scenes/building_tab.tscn" id="5_0essa"]
-[ext_resource type="PackedScene" uid="uid://dx0pwai5nk0di" path="res://Planet-Section/Scenes/building_icon.tscn" id="5_xqwqb"]
+[ext_resource type="PackedScene" uid="uid://cga8pk03f5cfc" path="res://Planet-Section/Scenes/UI/building_tab.tscn" id="5_0essa"]
+[ext_resource type="PackedScene" uid="uid://dx0pwai5nk0di" path="res://Planet-Section/Scenes/UI/building_icon.tscn" id="5_xqwqb"]
 [ext_resource type="Resource" uid="uid://ovbfsshvr576" path="res://Planet-Section/Resources/Buildings/worker_hub.tres" id="6_0pncr"]
 [ext_resource type="Texture2D" uid="uid://deixmur2ebu3f" path="res://icon.svg" id="7_5gyni"]
 [ext_resource type="Script" uid="uid://dwytf3p3tvovs" path="res://Planet-Section/Scripts/building_info.gd" id="11_lorx5"]
+[ext_resource type="Texture2D" uid="uid://bji116nte5xq0" path="res://Planet-Section/Textures/arrow_up.png" id="12_6ei45"]
+[ext_resource type="PackedScene" uid="uid://b0tl1i18xbkfo" path="res://Planet-Section/Scenes/UI/worker_row.tscn" id="12_jr884"]
+[ext_resource type="Texture2D" uid="uid://cuj1rgpaoftyc" path="res://Planet-Section/Textures/arrow_down.png" id="13_cj2bw"]
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_x85yj"]
 resource_name = "Buildings"
@@ -80,23 +83,6 @@ _data = {
 &"show_build_ui": SubResource("Animation_0essa")
 }
 
-[sub_resource type="Animation" id="Animation_lorx5"]
-resource_name = "open"
-length = 0.5
-step = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(0.35, 1),
-"update": 0,
-"values": [Vector2(-297, 0), Vector2(0, 0)]
-}
-
 [sub_resource type="Animation" id="Animation_jr884"]
 length = 0.001
 tracks/0/type = "value"
@@ -127,6 +113,23 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(0.35, 1),
 "update": 0,
 "values": [Vector2(0, 0), Vector2(-297, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_lorx5"]
+resource_name = "open"
+length = 0.5
+step = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(0.35, 1),
+"update": 0,
+"values": [Vector2(-297, 0), Vector2(0, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_6ei45"]
@@ -338,49 +341,105 @@ libraries = {
 }
 
 [node name="BuildingInfo" type="Control" parent="UI"]
+z_index = 1
 layout_mode = 3
 anchors_preset = 0
 offset_left = -297.0
 offset_bottom = 648.0
 script = ExtResource("11_lorx5")
 
-[node name="Content" type="Control" parent="UI/BuildingInfo"]
-anchors_preset = 0
+[node name="Content" type="ScrollContainer" parent="UI/BuildingInfo"]
+layout_mode = 0
 offset_right = 297.0
 offset_bottom = 648.0
+horizontal_scroll_mode = 0
 
-[node name="BuildingName" type="RichTextLabel" parent="UI/BuildingInfo/Content"]
-layout_mode = 0
-offset_right = 1484.9999
-offset_bottom = 114.99999
-scale = Vector2(0.2, 0.2)
-theme_override_font_sizes/normal_font_size = 80
-text = "Building name goes here"
-fit_content = true
-scroll_active = false
+[node name="Card" type="VBoxContainer" parent="UI/BuildingInfo/Content"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="BuildingName" type="Label" parent="UI/BuildingInfo/Content/Card"]
+custom_minimum_size = Vector2(297, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Building name here"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Operations" type="ScrollContainer" parent="UI/BuildingInfo/Content"]
-layout_mode = 0
-offset_left = 45.0
-offset_top = 130.0
-offset_right = 85.0
-offset_bottom = 170.0
+[node name="WorkerSection" type="VBoxContainer" parent="UI/BuildingInfo/Content/Card"]
+layout_mode = 2
+theme_override_constants/separation = 34
 
-[node name="List" type="VBoxContainer" parent="UI/BuildingInfo/Content/Operations"]
+[node name="WorkerInfo" type="Control" parent="UI/BuildingInfo/Content/Card/WorkerSection"]
+layout_mode = 2
+metadata/_edit_lock_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/BuildingInfo/Content/Card/WorkerSection/WorkerInfo"]
+layout_mode = 0
+offset_left = 7.0
+offset_right = 2013.0
+offset_bottom = 110.0
+scale = Vector2(0.14, 0.14)
+theme_override_constants/separation = 535
+
+[node name="Max" type="Label" parent="UI/BuildingInfo/Content/Card/WorkerSection/WorkerInfo/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 91
+text = "Max Workers: 3/3"
+
+[node name="Current" type="Label" parent="UI/BuildingInfo/Content/Card/WorkerSection/WorkerInfo/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 80
+text = "Current Workers: 2"
+
+[node name="Buttons" type="Control" parent="UI/BuildingInfo/Content/Card/WorkerSection/WorkerInfo"]
+anchors_preset = 0
+offset_left = 120.0
+offset_top = 4.0
+offset_right = 152.00002
+offset_bottom = 54.000008
+scale = Vector2(0.64, 0.64)
+
+[node name="Increase" type="TextureButton" parent="UI/BuildingInfo/Content/Card/WorkerSection/WorkerInfo/Buttons"]
+texture_filter = 1
+layout_mode = 0
+offset_right = 32.0
+offset_bottom = 22.0
+scale = Vector2(0.675, 0.675)
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("12_6ei45")
+ignore_texture_size = true
+
+[node name="Decrease" type="TextureButton" parent="UI/BuildingInfo/Content/Card/WorkerSection/WorkerInfo/Buttons"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 27.496002
+offset_right = 59.496002
+offset_bottom = 22.0
+scale = Vector2(0.675, 0.675)
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("13_cj2bw")
+ignore_texture_size = true
+
+[node name="WorkerList" type="VBoxContainer" parent="UI/BuildingInfo/Content/Card/WorkerSection"]
+layout_mode = 2
+theme_override_constants/separation = 85
+
+[node name="WorkerRow" parent="UI/BuildingInfo/Content/Card/WorkerSection/WorkerList" instance=ExtResource("12_jr884")]
 layout_mode = 2
 
-[node name="Seperators" type="Control" parent="UI/BuildingInfo"]
-anchors_preset = 0
-offset_right = 297.0
-offset_bottom = 648.0
+[node name="WorkerRow2" parent="UI/BuildingInfo/Content/Card/WorkerSection/WorkerList" instance=ExtResource("12_jr884")]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="UI/BuildingInfo/Content/Card/WorkerSection/WorkerList"]
+layout_mode = 2
 
 [node name="BG" type="ColorRect" parent="UI/BuildingInfo"]
 z_index = -1
 layout_mode = 0
 offset_right = 297.0
 offset_bottom = 648.0
+mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="UI/BuildingInfo"]

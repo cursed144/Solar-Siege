@@ -1,0 +1,34 @@
+[gd_scene load_steps=3 format=3 uid="uid://b0tl1i18xbkfo"]
+
+[ext_resource type="Texture2D" uid="uid://deixmur2ebu3f" path="res://icon.svg" id="1_ptuh7"]
+[ext_resource type="Texture2D" uid="uid://dkmlpbutucf0j" path="res://Planet-Section/Textures/arrow.png" id="2_3bw7d"]
+
+[node name="WorkerRow" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 21.999996
+offset_top = 9.999999
+offset_right = 630.0
+offset_bottom = 138.0
+scale = Vector2(0.42, 0.42)
+theme_override_constants/separation = 48
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("1_ptuh7")
+
+[node name="TextureRect2" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_3bw7d")
+expand_mode = 3
+
+[node name="TextureRect3" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("1_ptuh7")
