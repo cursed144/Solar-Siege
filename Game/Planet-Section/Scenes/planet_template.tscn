@@ -4,13 +4,13 @@
 [ext_resource type="PackedScene" uid="uid://c6yvaai4dadhi" path="res://Planet-Section/Scenes/Buildings/building_template.tscn" id="2_5xlqu"]
 [ext_resource type="Script" uid="uid://d13xkb3oocukv" path="res://Planet-Section/Scripts/player_cam.gd" id="2_becdf"]
 [ext_resource type="Script" uid="uid://lbjy23qvrrm8" path="res://Planet-Section/Scripts/pos_nums.gd" id="3_j25nj"]
-[ext_resource type="Script" uid="uid://viu0lkuoi5hj" path="res://Planet-Section/Scripts/building_menu.gd" id="4_3w1ld"]
+[ext_resource type="Script" uid="uid://viu0lkuoi5hj" path="res://Planet-Section/Scripts/UI/building_menu.gd" id="4_3w1ld"]
 [ext_resource type="Script" uid="uid://dx6vxfc3gd512" path="res://Planet-Section/Scripts/building_preview.gd" id="4_x85yj"]
 [ext_resource type="PackedScene" uid="uid://cga8pk03f5cfc" path="res://Planet-Section/Scenes/UI/building_tab.tscn" id="5_0essa"]
 [ext_resource type="PackedScene" uid="uid://dx0pwai5nk0di" path="res://Planet-Section/Scenes/UI/building_icon.tscn" id="5_xqwqb"]
 [ext_resource type="Resource" uid="uid://ovbfsshvr576" path="res://Planet-Section/Resources/Buildings/worker_hub.tres" id="6_0pncr"]
 [ext_resource type="Texture2D" uid="uid://deixmur2ebu3f" path="res://icon.svg" id="7_5gyni"]
-[ext_resource type="Script" uid="uid://dwytf3p3tvovs" path="res://Planet-Section/Scripts/building_info.gd" id="11_lorx5"]
+[ext_resource type="Script" uid="uid://dwytf3p3tvovs" path="res://Planet-Section/Scripts/UI/building_info.gd" id="11_lorx5"]
 [ext_resource type="Texture2D" uid="uid://bji116nte5xq0" path="res://Planet-Section/Textures/arrow_up.png" id="12_6ei45"]
 [ext_resource type="PackedScene" uid="uid://b0tl1i18xbkfo" path="res://Planet-Section/Scenes/UI/worker_row.tscn" id="12_jr884"]
 [ext_resource type="Texture2D" uid="uid://cuj1rgpaoftyc" path="res://Planet-Section/Textures/arrow_down.png" id="13_cj2bw"]
@@ -353,6 +353,7 @@ layout_mode = 0
 offset_right = 297.0
 offset_bottom = 648.0
 horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
 
 [node name="Card" type="VBoxContainer" parent="UI/BuildingInfo/Content"]
 layout_mode = 2
@@ -431,7 +432,10 @@ layout_mode = 2
 [node name="WorkerRow2" parent="UI/BuildingInfo/Content/Card/WorkerSection/WorkerList" instance=ExtResource("12_jr884")]
 layout_mode = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="UI/BuildingInfo/Content/Card/WorkerSection/WorkerList"]
+[node name="Padding" type="PanelContainer" parent="UI/BuildingInfo/Content/Card/WorkerSection/WorkerList"]
+layout_mode = 2
+
+[node name="Inventories" type="VBoxContainer" parent="UI/BuildingInfo/Content/Card"]
 layout_mode = 2
 
 [node name="BG" type="ColorRect" parent="UI/BuildingInfo"]

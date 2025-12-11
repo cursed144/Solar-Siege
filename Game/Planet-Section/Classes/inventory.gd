@@ -132,7 +132,7 @@ func how_much_of_item_fits(item_stack: ItemStack) -> int:
 	var amount = 0
 	
 	for slot in slots:
-		if is_instance_valid(slot):
+		if not is_instance_valid(slot):
 			amount = item_stack.amount
 			break
 		if slot.item.id == item_stack.item.id:
@@ -177,10 +177,10 @@ func add_item_to_inv(item_stack: ItemStack) -> int:
 		var slot = slots[i]
 		
 		if not is_instance_valid(slot):
-			slot = ItemStack.new_stack(item_stack.item, fitting)
+			slots[i] = ItemStack.new_stack(item_stack.item, fitting)
 			left_to_add = 0
 		elif (slot.item.id == item_stack.item.id) and (slot.amount < slot.item.max_per_stack):
-			left_to_add = slot.add_to_amount(left_to_add)
+			left_to_add = slots[i].add_to_amount(left_to_add)
 		
 		if left_to_add <= 0: break
 	

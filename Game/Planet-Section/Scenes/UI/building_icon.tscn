@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dx0pwai5nk0di"]
 
-[ext_resource type="Script" uid="uid://3rc0wp2odqcf" path="res://Planet-Section/Scripts/building_icon.gd" id="1_sj01r"]
+[ext_resource type="Script" uid="uid://3rc0wp2odqcf" path="res://Planet-Section/Scripts/UI/building_icon.gd" id="1_sj01r"]
 [ext_resource type="Texture2D" uid="uid://deixmur2ebu3f" path="res://icon.svg" id="2_yvxru"]
 
 [node name="BuildingIcon" type="TextureButton"]

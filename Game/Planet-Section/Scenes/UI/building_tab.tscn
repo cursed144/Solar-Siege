@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://deixmur2ebu3f" path="res://icon.svg" id="1_1w3b7"]
 [ext_resource type="Texture2D" uid="uid://dbtp4ukh22d43" path="res://Planet-Section/Textures/building_tab.png" id="1_nimr3"]
-[ext_resource type="Script" uid="uid://bfpnq5trp8l8v" path="res://Planet-Section/Scripts/building_tab.gd" id="2_nimr3"]
+[ext_resource type="Script" uid="uid://bfpnq5trp8l8v" path="res://Planet-Section/Scripts/UI/building_tab.gd" id="2_nimr3"]
 
 [node name="BuildingTab" type="TextureButton"]
 offset_right = 128.0
