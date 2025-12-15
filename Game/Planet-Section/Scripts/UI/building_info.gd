@@ -14,6 +14,10 @@ func building_clicked(building: Building) -> void:
 	if not is_open:
 		open()
 	
+	if curr_building == building:
+		building.request_update.connect(update_info)
+		return
+	
 	disconnect_updates()
 	clear_info()
 	fill_info(building)
@@ -48,11 +52,6 @@ func update_info() -> void:
 	pass
 
 
-func clear_info() -> void:
-	for inv in $Content/Card/Inventories.get_children():
-		inv.queue_free()
-
-
 func disconnect_updates(source: Building = curr_building) -> void:
 	if not is_instance_valid(source):
 		return
@@ -62,15 +61,27 @@ func disconnect_updates(source: Building = curr_building) -> void:
 	source.request_update.disconnect(update_info)
 
 
+func clear_info() -> void:
+	for inv in $Content/Card/Inventories.get_children():
+		inv.queue_free()
+
+
 func open() -> void:
 	if %UI/BuildingMenu.is_open:
 		%UI/BuildingMenu._on_tab_pressed("Exit")
 	
-	$AnimationPlayer.play("open")
+	var tween := create_tween()
+	tween.set_trans(Tween.TRANS_CUBIC)
+	tween.set_ease(Tween.EASE_OUT)
+	tween.tween_property(self, "position", Vector2.ZERO, 0.65)
+	
 	is_open = true
 
 func close():
-	$AnimationPlayer.stop()
-	$AnimationPlayer.play("close")
+	var tween := create_tween()
+	tween.set_trans(Tween.TRANS_CUBIC)
+	tween.set_ease(Tween.EASE_OUT)
+	tween.tween_property(self, "position", Vector2(-300, 0), 0.60)
+	
 	is_open = false
 	disconnect_updates()
