@@ -15,7 +15,6 @@ func building_clicked(building: Building) -> void:
 		open()
 	
 	if curr_building == building:
-		building.request_update.connect(update_info)
 		return
 	
 	disconnect_updates()
@@ -37,9 +36,7 @@ func fill_info(building: Building = curr_building) -> void:
 		var slot_target: GridContainer = new_inv.get_node("GridContainer")
 		for slot in invs[inv_name].slots:
 			var new_slot = inv_slot.instantiate()
-			if is_instance_valid(slot):
-				new_slot.get_node("Item").texture = slot.item.icon
-			
+			new_slot.set_slot(slot, false)
 			slot_target.add_child(new_slot)
 		
 		for i in range(slot_target.columns):
@@ -84,4 +81,3 @@ func close():
 	tween.tween_property(self, "position", Vector2(-300, 0), 0.60)
 	
 	is_open = false
-	disconnect_updates()

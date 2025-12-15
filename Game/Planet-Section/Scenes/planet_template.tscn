@@ -345,6 +345,7 @@ z_index = 1
 layout_mode = 3
 anchors_preset = 0
 offset_left = -297.0
+offset_right = 3.0
 offset_bottom = 648.0
 script = ExtResource("11_lorx5")
 
@@ -389,12 +390,12 @@ offset_left = 7.0
 offset_right = 2013.0
 offset_bottom = 110.0
 scale = Vector2(0.14, 0.14)
-theme_override_constants/separation = 535
+theme_override_constants/separation = 458
 
 [node name="Max" type="Label" parent="UI/BuildingInfo/Content/Card/WorkerSection/WorkerInfo/HBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 91
-text = "Max Workers: 3/3"
+text = "Limit Workers: 3/3"
 
 [node name="Current" type="Label" parent="UI/BuildingInfo/Content/Card/WorkerSection/WorkerInfo/HBoxContainer"]
 layout_mode = 2
