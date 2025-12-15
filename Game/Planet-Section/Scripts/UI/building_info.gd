@@ -2,8 +2,8 @@ extends Control
 
 var is_open := false
 var curr_building: Building = null
-var inv_section := preload("res://Planet-Section/Scenes/UI/inv_section.tscn")
-var inv_slot := preload("res://Planet-Section/Scenes/UI/inv_slot.tscn")
+const inv_section := preload("res://Planet-Section/Scenes/UI/inv_section.tscn")
+const inv_slot := preload("res://Planet-Section/Scenes/UI/inv_slot.tscn")
 
 
 func building_clicked(building: Building) -> void:
