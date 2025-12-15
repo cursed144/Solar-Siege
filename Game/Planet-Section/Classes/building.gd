@@ -4,6 +4,8 @@ extends Area2D
 @export var inventories: Dictionary[String, Inventory]
 @onready var build_info: Control = get_node("../../UI/BuildingInfo")
 
+signal request_update
+
 
 func _ready() -> void:
 	add_inv("Input", 10)

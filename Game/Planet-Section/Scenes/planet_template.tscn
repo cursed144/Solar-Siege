@@ -348,6 +348,14 @@ offset_left = -297.0
 offset_bottom = 648.0
 script = ExtResource("11_lorx5")
 
+[node name="BG" type="ColorRect" parent="UI/BuildingInfo"]
+z_index = -1
+layout_mode = 0
+offset_right = 297.0
+offset_bottom = 648.0
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
 [node name="Content" type="ScrollContainer" parent="UI/BuildingInfo"]
 layout_mode = 0
 offset_right = 297.0
@@ -437,14 +445,6 @@ layout_mode = 2
 
 [node name="Inventories" type="VBoxContainer" parent="UI/BuildingInfo/Content/Card"]
 layout_mode = 2
-
-[node name="BG" type="ColorRect" parent="UI/BuildingInfo"]
-z_index = -1
-layout_mode = 0
-offset_right = 297.0
-offset_bottom = 648.0
-mouse_filter = 2
-color = Color(0, 0, 0, 1)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="UI/BuildingInfo"]
 libraries = {

@@ -1,12 +1,12 @@
 extends Control
 
-var is_open: bool = false
+var is_open := false
 var curr_building: Building = null
 var inv_section := preload("res://Planet-Section/Scenes/UI/inv_section.tscn")
 var inv_slot := preload("res://Planet-Section/Scenes/UI/inv_slot.tscn")
 
 
-func building_clicked(building) -> void:
+func building_clicked(building: Building) -> void:
 	if is_instance_valid(curr_building) and (curr_building == building) and is_open:
 		close()
 		return
@@ -14,9 +14,11 @@ func building_clicked(building) -> void:
 	if not is_open:
 		open()
 	
-	curr_building = building
+	disconnect_updates()
 	clear_info()
 	fill_info(building)
+	curr_building = building
+	building.request_update.connect(update_info)
 
 
 func fill_info(building: Building = curr_building) -> void:
@@ -42,9 +44,22 @@ func fill_info(building: Building = curr_building) -> void:
 	
 
 
+func update_info() -> void:
+	pass
+
+
 func clear_info() -> void:
 	for inv in $Content/Card/Inventories.get_children():
 		inv.queue_free()
+
+
+func disconnect_updates(source: Building = curr_building) -> void:
+	if not is_instance_valid(source):
+		return
+	if not source.request_update.is_connected(update_info):
+		return
+	
+	source.request_update.disconnect(update_info)
 
 
 func open() -> void:
@@ -58,3 +73,4 @@ func close():
 	$AnimationPlayer.stop()
 	$AnimationPlayer.play("close")
 	is_open = false
+	disconnect_updates()
