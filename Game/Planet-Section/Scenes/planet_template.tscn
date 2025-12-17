@@ -448,6 +448,20 @@ offset_right = 628.0
 offset_bottom = 359.0
 text = "Amount to delete: 0/0"
 
+[node name="Blocking" type="Label" parent="UI/DeleteItemConf"]
+visible = false
+self_modulate = Color(1, 0, 0, 1)
+layout_mode = 0
+offset_left = 224.0
+offset_top = 333.0
+offset_right = 868.0
+offset_bottom = 406.0
+theme_override_font_sizes/font_size = 18
+text = "This item is reserved for pickup by a worker and cannot be deleted!"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
 [node name="Amount" type="HSlider" parent="UI/DeleteItemConf"]
 layout_mode = 0
 offset_left = 284.0

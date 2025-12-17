@@ -22,7 +22,7 @@ func building_clicked(building: Building) -> void:
 	clear_info()
 	fill_info(building)
 	curr_building = building
-	building.request_update.connect(update_info)
+	building.request_inv_update.connect(update_inv)
 
 
 func fill_info(building: Building = curr_building) -> void:
@@ -39,7 +39,7 @@ func fill_info(building: Building = curr_building) -> void:
 		var slots = invs[inv_name].slots
 		for i in range(slots.size()):
 			var new_slot = inv_slot.instantiate()
-			new_slot.set_slot(slots, i, false)
+			new_slot.set_slot(slots, i, true)
 			slot_target.add_child(new_slot)
 			new_slot.inv_slot_clicked.connect(item_deleter.delete_item_prompt)
 		
@@ -49,24 +49,23 @@ func fill_info(building: Building = curr_building) -> void:
 	
 
 
-func update_info() -> void:
+func update_inv(inv_name: String) -> void:
 	var invs := curr_building.inventories
 	
-	for inv_name in invs.keys():
-		var target_inv: Control = $Content/Card/Inventories.get_node(inv_name + "/GridContainer")
-		var slots = invs[inv_name].slots
-		for i in range(slots.size()):
-			var slot = target_inv.get_child(i)
-			slot.set_slot(slots, i, false)
+	var target_inv: Control = $Content/Card/Inventories.get_node(inv_name + "/GridContainer")
+	var slots = invs[inv_name].slots
+	for i in range(slots.size()):
+		var slot = target_inv.get_child(i)
+		slot.set_slot(slots, i, false)
 
 
 func disconnect_updates(source: Building = curr_building) -> void:
 	if not is_instance_valid(source):
 		return
-	if not source.request_update.is_connected(update_info):
+	if not source.request_update.is_connected(update_inv):
 		return
 	
-	source.request_update.disconnect(update_info)
+	source.request_update.disconnect(update_inv)
 
 
 func clear_info() -> void:

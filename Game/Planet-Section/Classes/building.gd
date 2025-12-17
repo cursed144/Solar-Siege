@@ -1,7 +1,7 @@
 class_name Building
 extends Area2D
 
-signal request_update
+signal request_inv_update(inv_name: String)
 
 @export var inventories: Dictionary[String, Inventory]
 @export var max_workers: int = 3

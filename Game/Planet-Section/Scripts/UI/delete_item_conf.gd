@@ -17,10 +17,16 @@ func delete_item_prompt(ui_slot: UiInvSlot) -> void:
 	
 	if ui_slot.is_reserved:
 		$Amount.hide()
+		$Blocking.show()
+		$AmountLabel.hide()
 		$Delete.disabled = true
+		$Delete.mouse_default_cursor_shape = Control.CURSOR_ARROW
 	else:
 		$Amount.show()
+		$Blocking.hide()
+		$AmountLabel.show()
 		$Delete.disabled = false
+		$Delete.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 	
 	show()
 
