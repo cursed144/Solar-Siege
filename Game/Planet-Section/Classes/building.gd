@@ -19,8 +19,14 @@ func _ready() -> void:
 	inventories["Input"].add_item_to_inv(item_stack)
 
 
+func inv_changed(inv: Inventory) -> void:
+	var inv_name = inventories.find_key(inv)
+	request_inv_update.emit(inv_name)
+
+
 func add_inv(inv_name: String, slot_amount: int):
 	inventories[inv_name] = Inventory.new_inv(slot_amount)
+	inventories[inv_name].inv_changed.connect(inv_changed)
 
 
 func _on_click_area_pressed() -> void:
