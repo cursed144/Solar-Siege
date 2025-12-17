@@ -4,6 +4,7 @@ var is_open := false
 var curr_building: Building = null
 const inv_section := preload("res://Planet-Section/Scenes/UI/inv_section.tscn")
 const inv_slot := preload("res://Planet-Section/Scenes/UI/inv_slot.tscn")
+@onready var item_deleter = %UI/DeleteItemConf
 
 
 func building_clicked(building: Building) -> void:
@@ -34,10 +35,12 @@ func fill_info(building: Building = curr_building) -> void:
 		$Content/Card/Inventories.add_child(new_inv)
 		
 		var slot_target: GridContainer = new_inv.get_node("GridContainer")
-		for slot in invs[inv_name].slots:
+		var slots = invs[inv_name].slots
+		for i in range(slots.size()):
 			var new_slot = inv_slot.instantiate()
-			new_slot.set_slot(slot, false)
+			new_slot.set_slot(slots, i, false)
 			slot_target.add_child(new_slot)
+			new_slot.inv_slot_clicked.connect(item_deleter.delete_item_prompt)
 		
 		for i in range(slot_target.columns):
 			var padding = PanelContainer.new()
@@ -46,7 +49,10 @@ func fill_info(building: Building = curr_building) -> void:
 
 
 func update_info() -> void:
-	pass
+	for inv in $Content/Card/Inventories.get_children():
+		for slot in inv.get_node("GridContainer").get_children():
+			if slot is UiInvSlot:
+				slot.update()
 
 
 func disconnect_updates(source: Building = curr_building) -> void:
