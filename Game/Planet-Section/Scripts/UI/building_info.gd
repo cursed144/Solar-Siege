@@ -32,6 +32,7 @@ func fill_info(building: Building = curr_building) -> void:
 	for inv_name in invs.keys():
 		var new_inv = inv_section.instantiate()
 		new_inv.get_node("SectionName").text = inv_name
+		new_inv.name = inv_name
 		$Content/Card/Inventories.add_child(new_inv)
 		
 		var slot_target: GridContainer = new_inv.get_node("GridContainer")
@@ -49,10 +50,14 @@ func fill_info(building: Building = curr_building) -> void:
 
 
 func update_info() -> void:
-	for inv in $Content/Card/Inventories.get_children():
-		for slot in inv.get_node("GridContainer").get_children():
-			if slot is UiInvSlot:
-				slot.update()
+	var invs := curr_building.inventories
+	
+	for inv_name in invs.keys():
+		var target_inv: Control = $Content/Card/Inventories.get_node(inv_name + "/GridContainer")
+		var slots = invs[inv_name].slots
+		for i in range(slots.size()):
+			var slot = target_inv.get_child(i)
+			slot.set_slot(slots, i, false)
 
 
 func disconnect_updates(source: Building = curr_building) -> void:

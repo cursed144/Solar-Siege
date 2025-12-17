@@ -455,7 +455,7 @@ offset_top = 357.0
 offset_right = 825.0
 offset_bottom = 403.0
 rounded = true
-tick_count = 10
+tick_count = 1
 
 [node name="Delete" type="TextureButton" parent="UI/DeleteItemConf"]
 layout_mode = 0
