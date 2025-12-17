@@ -39,7 +39,7 @@ func fill_info(building: Building = curr_building) -> void:
 		var slots = invs[inv_name].slots
 		for i in range(slots.size()):
 			var new_slot = inv_slot.instantiate()
-			new_slot.set_slot(slots, i, true)
+			new_slot.set_slot(slots, i, invs[inv_name].is_slot_claimed(i))
 			slot_target.add_child(new_slot)
 			new_slot.inv_slot_clicked.connect(item_deleter.delete_item_prompt)
 		
@@ -56,7 +56,7 @@ func update_inv(inv_name: String) -> void:
 	var slots = invs[inv_name].slots
 	for i in range(slots.size()):
 		var slot = target_inv.get_child(i)
-		slot.set_slot(slots, i, false)
+		slot.set_slot(slots, i, invs[inv_name].is_slot_claimed(i))
 
 
 func disconnect_updates(source: Building = curr_building) -> void:

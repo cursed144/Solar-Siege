@@ -350,10 +350,10 @@ text = "Current Workers: 2"
 
 [node name="Buttons" type="Control" parent="UI/BuildingInfo/Content/Card/WorkerSection/WorkerInfo"]
 anchors_preset = 0
-offset_left = 120.0
+offset_left = 124.0
 offset_top = 4.0
-offset_right = 152.00002
-offset_bottom = 54.000008
+offset_right = 175.5625
+offset_bottom = 22.75
 scale = Vector2(0.64, 0.64)
 
 [node name="Increase" type="TextureButton" parent="UI/BuildingInfo/Content/Card/WorkerSection/WorkerInfo/Buttons"]
@@ -394,6 +394,7 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="DeleteItemConf" type="Control" parent="UI"]
+process_mode = 3
 visible = false
 z_index = 4
 layout_mode = 3

@@ -7,6 +7,7 @@ var amount_to_del: int = 0
 
 
 func delete_item_prompt(ui_slot: UiInvSlot) -> void:
+	get_tree().paused = true
 	ui_item_slot = ui_slot
 	item_index = ui_slot.item_index
 	item_stack = ui_slot.inv_slots[item_index]
@@ -44,9 +45,11 @@ func _on_delete_pressed() -> void:
 		
 		ui_item_slot.update()
 	
+	get_tree().paused = false
 	hide()
 
 
 func _on_cancel_pressed() -> void:
+	get_tree().paused = false
 	ui_item_slot = null
 	hide()

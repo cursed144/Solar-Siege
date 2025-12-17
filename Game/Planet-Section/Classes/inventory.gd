@@ -158,6 +158,15 @@ func strip_slots(target_slots: Array[ItemStack]) -> Array[ItemStack]:
 	return result
 
 
+func is_slot_claimed(index: int) -> bool:
+	for claim in claims.values():
+		for item_claim in claim:
+			for idx in item_claim.keys():
+				if idx == index:
+					return true
+	return false
+
+
 # -----------------------
 # Adding
 # -----------------------

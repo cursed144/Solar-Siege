@@ -16,7 +16,7 @@ func _ready() -> void:
 	add_inv("Output", 15)
 	var item = load("res://Planet-Section/Resources/Items/wood_log.tres")
 	var item_stack = ItemStack.new_stack(item, 10)
-	inventories["Input"].add_items_to_inv([item_stack])
+	inventories["Input"].add_item_to_inv(item_stack)
 
 
 func add_inv(inv_name: String, slot_amount: int):
