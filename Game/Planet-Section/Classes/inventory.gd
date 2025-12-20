@@ -37,7 +37,7 @@ func create_claim(claim_name: String, items: Array[ItemStack]) -> Array[ItemStac
 	
 	claims[claim_name] = claim
 	
-	inv_changed.emit()
+	inv_changed.emit(self)
 	return result
 
 
@@ -79,7 +79,7 @@ func get_claimed_items(claim_name: String) -> Array[ItemStack]:
 			result.append(new_item)
 	
 	remove_claim(claim_name)
-	inv_changed.emit()
+	inv_changed.emit(self)
 	return result
 
 
@@ -208,7 +208,7 @@ func add_item_to_inv(item_stack: ItemStack) -> int:
 			left_to_add -= actually_added
 			added_total += actually_added
 	
-	inv_changed.emit()
+	inv_changed.emit(self)
 	return added_total
 
 
