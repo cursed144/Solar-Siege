@@ -7,7 +7,9 @@ const inv_section := preload("res://Planet-Section/Scenes/UI/inv_section.tscn")
 const worker_row := preload("res://Planet-Section/Scenes/UI/worker_row.tscn")
 const inv_slot := preload("res://Planet-Section/Scenes/UI/inv_slot.tscn")
 @onready var item_deleter = %UI/DeleteItemConf
+@onready var recipe_menu = %UI/RecipeMenu
 
+@onready var worker_row_container: Node = $Content/Card/WorkerSection/WorkerList
 @onready var inventories_container: Node = $Content/Card/Inventories
 @onready var name_label: Label = $Content/Card/BuildingName
 
@@ -78,9 +80,8 @@ func _fill_worker_info(building: Building) -> void:
 	
 	update_worker_info(building)
 	
-	var worker_list = $Content/Card/WorkerSection/WorkerList
 	for worker in range(building.worker_limit):
-		add_worker_row(worker_list)
+		add_worker_row(worker_row_container)
 
 
 func update_inv(inv_name: String) -> void:
@@ -119,6 +120,9 @@ func update_worker_info(building: Building = curr_building) -> void:
 
 func add_worker_row(dest: Node) -> void:
 	var new_row = worker_row.instantiate()
+	new_row.init(curr_building)
+	new_row.name = str(curr_building.worker_limit)
+	new_row.slot_clicked.connect(recipe_menu.on_worker_slot_clicked)
 	dest.add_child(new_row)
 	
 	if dest.get_child_count() <= 1:
@@ -134,6 +138,7 @@ func pop_worker_row(target: Node) -> void:
 			child.queue_free()
 		return
 	
+	target.get_child(-2).slot_clicked.disconnect(recipe_menu.on_worker_slot_clicked)
 	target.get_child(-2).queue_free()
 
 
@@ -142,7 +147,7 @@ func _on_worker_increase_pressed() -> void:
 		return
 	
 	if curr_building.increment_workers():
-		add_worker_row($Content/Card/WorkerSection/WorkerList)
+		add_worker_row(worker_row_container)
 
 
 func _on_worker_decrease_pressed() -> void:
@@ -150,15 +155,15 @@ func _on_worker_decrease_pressed() -> void:
 		return
 	
 	if curr_building.decrement_workers():
-		pop_worker_row($Content/Card/WorkerSection/WorkerList)
+		pop_worker_row(worker_row_container)
 
 
 func clear_info() -> void:
 	for inv in inventories_container.get_children():
 		inv.queue_free()
 	
-	for worker in $Content/Card/WorkerSection/WorkerList.get_children():
-		$Content/Card/WorkerSection/WorkerList.remove_child(worker)
+	for worker in worker_row_container.get_children():
+		worker_row_container.remove_child(worker)
 		worker.queue_free()
 
 

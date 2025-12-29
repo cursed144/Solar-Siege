@@ -18,7 +18,7 @@ func set_slot(_inv_slots: Array[ItemStack], index: int = 0, _is_reserved: bool =
 	if is_instance_valid(item_stack):
 		$Item.texture = item_stack.item.icon
 		$Label.text = str(item_stack.amount) + "/" + str(item_stack.item.max_per_stack)
-		$Frame.self_modulate = Color(0, 168, 0) if not is_reserved else Color(168, 0, 0)
+		$Frame.self_modulate = Color.from_rgba8(0, 168, 0, 255) if not is_reserved else Color.from_rgba8(168, 0, 0, 255)
 		$Frame.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 		$Frame.disabled = false
 	else:

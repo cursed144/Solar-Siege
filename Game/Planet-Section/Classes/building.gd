@@ -13,6 +13,9 @@ signal destroyed
 @export var inv_input_name: String = "Input"
 @export var inv_output_name: String = "Output"
 
+@export_category("Production")
+@export var recipes: Array[Recipe]
+
 var assigned_workers: Array = []
 var inventories: Dictionary[String, Inventory] = {}
 

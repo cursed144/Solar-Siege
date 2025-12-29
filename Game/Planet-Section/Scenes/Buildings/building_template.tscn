@@ -1,7 +1,70 @@
-[gd_scene load_steps=4 format=3 uid="uid://c6yvaai4dadhi"]
+[gd_scene load_steps=20 format=3 uid="uid://c6yvaai4dadhi"]
 
 [ext_resource type="Script" uid="uid://b8tbqtmg365vg" path="res://Planet-Section/Classes/building.gd" id="1_7nu8w"]
 [ext_resource type="Texture2D" uid="uid://deixmur2ebu3f" path="res://icon.svg" id="1_k3hnj"]
+[ext_resource type="Script" uid="uid://m3oqk21xh6va" path="res://Planet-Section/Classes/recipe.gd" id="2_mfbgh"]
+[ext_resource type="Script" uid="uid://my03aj68uxeb" path="res://Planet-Section/Classes/item_amount.gd" id="3_q1x0c"]
+[ext_resource type="Resource" uid="uid://cgkjfrnbc4fem" path="res://Planet-Section/Resources/Items/wooden_planks.tres" id="4_304m8"]
+[ext_resource type="Resource" uid="uid://v2cltp0hhxmn" path="res://Planet-Section/Resources/Items/wood_log.tres" id="5_1oi6v"]
+[ext_resource type="Resource" uid="uid://cmf5hyjq1q86h" path="res://Planet-Section/Resources/Items/steel_plates.tres" id="6_gwh3j"]
+[ext_resource type="Resource" uid="uid://bcj06x3c74qcp" path="res://Planet-Section/Resources/Items/rock.tres" id="7_qq05u"]
+[ext_resource type="Resource" uid="uid://djo5qn5rmn3v" path="res://Planet-Section/Resources/Items/iron_ore.tres" id="8_anwbx"]
+[ext_resource type="Resource" uid="uid://duhr7an6o8yau" path="res://Planet-Section/Resources/Items/coal.tres" id="9_7rx4l"]
+
+[sub_resource type="Resource" id="Resource_fh74u"]
+script = ExtResource("3_q1x0c")
+item = ExtResource("4_304m8")
+amount = 1
+metadata/_custom_type_script = "uid://my03aj68uxeb"
+
+[sub_resource type="Resource" id="Resource_6jeqs"]
+script = ExtResource("3_q1x0c")
+item = ExtResource("5_1oi6v")
+amount = 10
+metadata/_custom_type_script = "uid://my03aj68uxeb"
+
+[sub_resource type="Resource" id="Resource_ypono"]
+script = ExtResource("2_mfbgh")
+recipe_name = "Wooden Planks"
+display_icon = ExtResource("1_k3hnj")
+requirements = Array[ExtResource("3_q1x0c")]([SubResource("Resource_6jeqs")])
+outputs = Array[ExtResource("3_q1x0c")]([SubResource("Resource_fh74u")])
+creation_time = 20.0
+is_unlocked = true
+metadata/_custom_type_script = "uid://m3oqk21xh6va"
+
+[sub_resource type="Resource" id="Resource_joxjq"]
+script = ExtResource("3_q1x0c")
+item = ExtResource("6_gwh3j")
+amount = 1
+metadata/_custom_type_script = "uid://my03aj68uxeb"
+
+[sub_resource type="Resource" id="Resource_e6jv0"]
+script = ExtResource("3_q1x0c")
+item = ExtResource("7_qq05u")
+amount = 2
+metadata/_custom_type_script = "uid://my03aj68uxeb"
+
+[sub_resource type="Resource" id="Resource_yncps"]
+script = ExtResource("3_q1x0c")
+item = ExtResource("8_anwbx")
+amount = 5
+metadata/_custom_type_script = "uid://my03aj68uxeb"
+
+[sub_resource type="Resource" id="Resource_g8ta8"]
+script = ExtResource("3_q1x0c")
+item = ExtResource("9_7rx4l")
+amount = 3
+metadata/_custom_type_script = "uid://my03aj68uxeb"
+
+[sub_resource type="Resource" id="Resource_v6oas"]
+script = ExtResource("2_mfbgh")
+recipe_name = "Metal Plates"
+display_icon = ExtResource("1_k3hnj")
+requirements = Array[ExtResource("3_q1x0c")]([SubResource("Resource_yncps"), SubResource("Resource_g8ta8")])
+outputs = Array[ExtResource("3_q1x0c")]([SubResource("Resource_joxjq"), SubResource("Resource_e6jv0")])
+creation_time = 40.0
+metadata/_custom_type_script = "uid://m3oqk21xh6va"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wblrm"]
 size = Vector2(128, 128)
@@ -10,6 +73,7 @@ size = Vector2(128, 128)
 collision_layer = 16
 collision_mask = 0
 script = ExtResource("1_7nu8w")
+recipes = Array[ExtResource("2_mfbgh")]([SubResource("Resource_ypono"), SubResource("Resource_v6oas")])
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_k3hnj")

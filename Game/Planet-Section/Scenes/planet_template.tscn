@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://d4ha36564l20p"]
+[gd_scene load_steps=26 format=3 uid="uid://d4ha36564l20p"]
 
 [ext_resource type="Script" uid="uid://c5wbnqrgl4aor" path="res://Planet-Section/Scripts/planet.gd" id="1_r0ntb"]
 [ext_resource type="PackedScene" uid="uid://c6yvaai4dadhi" path="res://Planet-Section/Scenes/Buildings/building_template.tscn" id="2_5xlqu"]
@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://b0tl1i18xbkfo" path="res://Planet-Section/Scenes/UI/worker_row.tscn" id="12_jr884"]
 [ext_resource type="Texture2D" uid="uid://cuj1rgpaoftyc" path="res://Planet-Section/Textures/arrow_down.png" id="13_cj2bw"]
 [ext_resource type="Script" uid="uid://bpboa5iqaqcqi" path="res://Planet-Section/Scripts/UI/delete_item_conf.gd" id="15_cj2bw"]
+[ext_resource type="Script" uid="uid://c4eynbg3bu4tt" path="res://Planet-Section/Scripts/UI/recipe_menu.gd" id="15_m577t"]
 [ext_resource type="Texture2D" uid="uid://ddu320nf5jagq" path="res://Planet-Section/Textures/temp_log.png" id="16_vmkg5"]
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_x85yj"]
@@ -245,11 +246,13 @@ z_index = 2
 anchors_preset = 0
 offset_top = -158.0
 offset_right = 1152.0
+mouse_filter = 2
 
 [node name="Cover" type="ColorRect" parent="UI/BuildingMenu/HoverMenu"]
 layout_mode = 0
 offset_right = 1152.0
 offset_bottom = 158.0
+mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
 [node name="BName" type="RichTextLabel" parent="UI/BuildingMenu/HoverMenu"]
@@ -392,6 +395,80 @@ layout_mode = 2
 
 [node name="Inventories" type="VBoxContainer" parent="UI/BuildingInfo/Content/Card"]
 layout_mode = 2
+
+[node name="RecipeMenu" type="Control" parent="UI"]
+process_mode = 3
+visible = false
+z_index = 4
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+script = ExtResource("15_m577t")
+metadata/_edit_lock_ = true
+
+[node name="Cover" type="ColorRect" parent="UI/RecipeMenu"]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0, 0, 0, 0.23529412)
+metadata/_edit_lock_ = true
+
+[node name="RecipeSlots" type="Control" parent="UI/RecipeMenu"]
+visible = false
+anchors_preset = 0
+offset_left = 140.0
+offset_top = 71.0
+offset_right = 951.0
+offset_bottom = 554.0
+
+[node name="BG" type="ColorRect" parent="UI/RecipeMenu/RecipeSlots"]
+layout_mode = 0
+offset_right = 810.26636
+offset_bottom = 483.0
+color = Color(0, 0, 0, 1)
+metadata/_edit_lock_ = true
+
+[node name="Label" type="Label" parent="UI/RecipeMenu/RecipeSlots"]
+layout_mode = 0
+offset_left = 282.0
+offset_top = 6.0
+offset_right = 506.0
+offset_bottom = 56.0
+theme_override_font_sizes/font_size = 36
+text = "Recipe Menu"
+
+[node name="Recipes" type="GridContainer" parent="UI/RecipeMenu/RecipeSlots"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 79.0
+offset_right = 612.16864
+offset_bottom = 378.61688
+scale = Vector2(1.305, 1.305)
+theme_override_constants/h_separation = 76
+theme_override_constants/v_separation = 76
+columns = 8
+
+[node name="RecipeConfirm" type="Control" parent="UI/RecipeMenu"]
+visible = false
+anchors_preset = 0
+offset_left = 140.0
+offset_top = 71.0
+offset_right = 951.0
+offset_bottom = 554.0
+
+[node name="BG" type="ColorRect" parent="UI/RecipeMenu/RecipeConfirm"]
+layout_mode = 0
+offset_right = 810.26636
+offset_bottom = 483.0
+color = Color(0, 0, 0, 1)
+metadata/_edit_lock_ = true
+
+[node name="CancelRecipe" type="Control" parent="UI/RecipeMenu"]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
 [node name="DeleteItemConf" type="Control" parent="UI"]
 process_mode = 3

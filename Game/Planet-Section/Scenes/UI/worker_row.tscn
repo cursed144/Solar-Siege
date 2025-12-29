@@ -1,34 +1,68 @@
-[gd_scene load_steps=3 format=3 uid="uid://b0tl1i18xbkfo"]
+[gd_scene load_steps=7 format=3 uid="uid://b0tl1i18xbkfo"]
 
+[ext_resource type="Texture2D" uid="uid://3gmpdq3pk6qq" path="res://Planet-Section/Textures/arrow_empty.png" id="1_havnt"]
 [ext_resource type="Texture2D" uid="uid://deixmur2ebu3f" path="res://icon.svg" id="1_ptuh7"]
-[ext_resource type="Texture2D" uid="uid://dkmlpbutucf0j" path="res://Planet-Section/Textures/arrow.png" id="2_3bw7d"]
+[ext_resource type="Script" uid="uid://p1jpjele8rvj" path="res://Planet-Section/Scripts/UI/worker_row.gd" id="1_pxrcg"]
+[ext_resource type="Texture2D" uid="uid://d6u1mfgjbpoo" path="res://Planet-Section/Textures/arrow_fill.png" id="2_d8ybk"]
+[ext_resource type="Texture2D" uid="uid://i4vwbirtjyhj" path="res://Planet-Section/Textures/slot_frame.png" id="2_vx0r3"]
+[ext_resource type="Texture2D" uid="uid://7uwcc6hmlr10" path="res://Planet-Section/Textures/unknown_item.png" id="6_j7uu8"]
 
 [node name="WorkerRow" type="Control"]
+texture_filter = 1
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_pxrcg")
+metadata/_edit_lock_ = true
+
+[node name="Progress" type="TextureProgressBar" parent="."]
+layout_mode = 0
+offset_left = 95.92
+offset_top = 8.999999
+offset_right = 223.92
+offset_bottom = 73.0
+scale = Vector2(0.86, 0.86)
+texture_under = ExtResource("1_havnt")
+texture_progress = ExtResource("2_d8ybk")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 0
 offset_left = 21.999996
 offset_top = 9.999999
-offset_right = 630.0
+offset_right = 375.0
 offset_bottom = 138.0
 scale = Vector2(0.42, 0.42)
-theme_override_constants/separation = 48
+theme_override_constants/separation = 353
 
-[node name="TextureRect" type="TextureRect" parent="HBoxContainer"]
+[node name="Worker" type="TextureRect" parent="HBoxContainer"]
 layout_mode = 2
 texture = ExtResource("1_ptuh7")
 
-[node name="TextureRect2" type="TextureRect" parent="HBoxContainer"]
+[node name="Slot" type="TextureButton" parent="HBoxContainer"]
 layout_mode = 2
-texture = ExtResource("2_3bw7d")
-expand_mode = 3
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("2_vx0r3")
+texture_disabled = ExtResource("6_j7uu8")
 
-[node name="TextureRect3" type="TextureRect" parent="HBoxContainer"]
-layout_mode = 2
-texture = ExtResource("1_ptuh7")
+[node name="Amount" type="Label" parent="HBoxContainer/Slot"]
+layout_mode = 0
+offset_left = 32.142853
+offset_top = 92.85715
+offset_right = 604.91846
+offset_bottom = 284.85715
+scale = Vector2(0.155, 0.155)
+theme_override_font_sizes/font_size = 140
+horizontal_alignment = 2
+
+[node name="Item" type="TextureRect" parent="HBoxContainer/Slot"]
+layout_mode = 0
+offset_left = 14.238098
+offset_top = 14.24337
+offset_right = 111.85718
+offset_bottom = 111.898575
+expand_mode = 1
+
+[connection signal="pressed" from="HBoxContainer/Slot" to="." method="_on_slot_pressed"]
