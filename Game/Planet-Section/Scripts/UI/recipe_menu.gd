@@ -7,8 +7,7 @@ func on_worker_slot_clicked(building: Building, slot_num: int) -> void:
 	show()
 	$RecipeSlots.show()
 	
-	for recipe in $RecipeSlots/Recipes.get_children():
-		recipe.queue_free()
+	
 	
 	for recipe in building.recipes:
 		var new_slot = recipe_slot.instantiate()
@@ -18,5 +17,18 @@ func on_worker_slot_clicked(building: Building, slot_num: int) -> void:
 
 
 func on_recipe_slot_clicked(recipe: Recipe) -> void:
-	$RecipeSlots.hide()
 	$RecipeConfirm.show()
+
+
+func cancel_recipe() -> void:
+	show()
+	$CancelRecipe.show()
+
+
+func _on_recipe_slots_close_pressed() -> void:
+	for recipe in $RecipeSlots/Recipes.get_children():
+		recipe.slot_clicked.disconnect(on_recipe_slot_clicked)
+		recipe.queue_free()
+	
+	$RecipeSlots.hide()
+	hide()

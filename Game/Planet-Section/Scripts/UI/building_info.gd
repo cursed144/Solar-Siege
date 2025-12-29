@@ -203,7 +203,6 @@ func close() -> void:
 	tween.set_ease(Tween.EASE_OUT)
 	tween.tween_property(self, "position", Vector2(-300, 0), 0.60)
 	_disconnect_from_building()
-	clear_info()
 	is_open = false
 
 

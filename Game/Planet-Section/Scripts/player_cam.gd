@@ -12,15 +12,20 @@ var cam_zoom := Vector2(1, 1)
 
 
 func _input(event: InputEvent) -> void:
+	var hover = get_viewport().gui_get_hovered_control()
+	var is_space_valid = (hover == null or hover.get_parent() is Building)
+	
 	if event is InputEventMouseMotion and is_dragging:
 		global_position += -event.relative / zoom.x
 	
 	else:
-		if event.is_action_pressed("left_click"):
+		if event.is_action_pressed("left_click") and is_space_valid:
 			is_dragging = true
 		elif event.is_action_released("left_click"):
 			is_dragging = false
 		
+		elif not is_space_valid:
+			return
 		elif event.is_action_released("scroll_up") or event.is_action_pressed("scroll_down") or \
 			 event.is_action_pressed("e") or event.is_action_pressed("q"):
 			
