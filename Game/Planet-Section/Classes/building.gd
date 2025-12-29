@@ -2,6 +2,7 @@ class_name Building
 extends Area2D
 
 signal request_inv_update(inv_name: String)
+signal request_worker_info_update
 signal destroyed
 
 @export_category("Workers")
@@ -36,6 +37,26 @@ func inv_changed(inv: Inventory) -> void:
 func add_inv(inv_name: String, slot_amount: int) -> void:
 	inventories[inv_name] = Inventory.new_inv(slot_amount)
 	inventories[inv_name].inv_changed.connect(inv_changed)
+
+
+## Returns if successful
+func increment_workers() -> bool:
+	if worker_limit == max_workers:
+		return false
+	
+	worker_limit += 1
+	request_worker_info_update.emit()
+	return true
+
+
+## Returns if successful
+func decrement_workers() -> bool:
+	if worker_limit <= 0:
+		return false
+	
+	worker_limit -= 1
+	request_worker_info_update.emit()
+	return true
 
 
 func _on_click_area_pressed() -> void:
