@@ -2,8 +2,10 @@ class_name Building
 extends Area2D
 
 signal request_inv_update(inv_name: String)
-signal request_worker_info_update
+signal request_worker_rows_update
 signal destroyed
+
+const work_timer := preload("res://Planet-Section/Scenes/work_timer.tscn")
 
 @export_category("Workers")
 @export var max_workers: int = 3
@@ -29,6 +31,11 @@ func _ready() -> void:
 	var item = load("res://Planet-Section/Resources/Items/wood_log.tres")
 	var item_stack = ItemStack.new_stack(item, 10)
 	inventories[inv_input_name].add_item_to_inv(item_stack)
+	
+	var limit = worker_limit
+	worker_limit = 0
+	for i in range(limit):
+		increment_worker_rows()
 
 
 func inv_changed(inv: Inventory) -> void:
@@ -42,23 +49,37 @@ func add_inv(inv_name: String, slot_amount: int) -> void:
 	inventories[inv_name].inv_changed.connect(inv_changed)
 
 
+func assign_recipe_to_row(recipe: Recipe, amount_to_make: int, row_num: int) -> void:
+	var row = $WorkerRows.get_node(str(row_num))
+	if $WorkerRows.get_node(str(row_num)) == null:
+		push_error("Failed to find row with number: " + str(row_num))
+	
+	row.assign_recipe(recipe, amount_to_make)
+	request_worker_rows_update.emit()
+
+
 ## Returns if successful
-func increment_workers() -> bool:
+func increment_worker_rows() -> bool:
 	if worker_limit == max_workers:
 		return false
 	
 	worker_limit += 1
-	request_worker_info_update.emit()
+	request_worker_rows_update.emit()
+	
+	var new_work_timer = work_timer.instantiate()
+	$WorkerRows.add_child(new_work_timer)
+	new_work_timer.name = str(worker_limit)
 	return true
 
 
 ## Returns if successful
-func decrement_workers() -> bool:
+func decrement_worker_rows() -> bool:
 	if worker_limit <= 0:
 		return false
 	
 	worker_limit -= 1
-	request_worker_info_update.emit()
+	request_worker_rows_update.emit()
+	$WorkerRows.get_child(-1).queue_free()
 	return true
 
 

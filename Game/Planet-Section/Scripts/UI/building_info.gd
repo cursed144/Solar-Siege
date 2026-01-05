@@ -39,8 +39,8 @@ func building_clicked(building: Building) -> void:
 	if not building.request_inv_update.is_connected(update_inv):
 		building.request_inv_update.connect(update_inv)
 	
-	if not building.request_worker_info_update.is_connected(update_worker_info):
-		building.request_worker_info_update.connect(update_worker_info)
+	if not building.request_worker_rows_update.is_connected(update_worker_rows):
+		building.request_worker_rows_update.connect(update_worker_rows)
 	
 	if not building.destroyed.is_connected(_on_building_destroyed):
 		building.destroyed.connect(_on_building_destroyed)
@@ -78,7 +78,7 @@ func _fill_worker_info(building: Building) -> void:
 	if not is_instance_valid(building):
 		return
 	
-	update_worker_info(building)
+	update_worker_rows(building)
 	
 	for worker in range(building.worker_limit):
 		add_worker_row(worker_row_container)
@@ -110,12 +110,19 @@ func update_inv(inv_name: String) -> void:
 		slot.set_slot(slots, i, invs[inv_name].is_slot_claimed(i))
 
 
-func update_worker_info(building: Building = curr_building) -> void:
+func update_worker_rows(building: Building = curr_building) -> void:
 	var worker_nums = $Content/Card/WorkerSection/WorkerInfo/HBoxContainer
 	var format_string_max = "Limit Workers: %d/%d"
 	var format_string_current = "Current workers: %d"
 	worker_nums.get_node("Max").text = format_string_max % [building.worker_limit, building.max_workers]
 	worker_nums.get_node("Current").text = format_string_current % building.assigned_workers.size()
+	
+	for i in range(building.worker_limit):
+		var work_timer = building.get_node("WorkerRows/" + str(i+1))
+		
+		if work_timer.is_work_required():
+			var row = worker_row_container.get_child(i+1)
+			row.set_display_item(work_timer.assigned_recipe, work_timer.amount_to_produce)
 
 
 func add_worker_row(dest: Node) -> void:
@@ -146,7 +153,7 @@ func _on_worker_increase_pressed() -> void:
 	if not is_instance_valid(curr_building):
 		return
 	
-	if curr_building.increment_workers():
+	if curr_building.increment_worker_rows():
 		add_worker_row(worker_row_container)
 
 
@@ -154,7 +161,7 @@ func _on_worker_decrease_pressed() -> void:
 	if not is_instance_valid(curr_building):
 		return
 	
-	if curr_building.decrement_workers():
+	if curr_building.decrement_worker_rows():
 		pop_worker_row(worker_row_container)
 
 
@@ -176,8 +183,8 @@ func _disconnect_from_building() -> void:
 	if curr_building.request_inv_update.is_connected(update_inv):
 		curr_building.request_inv_update.disconnect(update_inv)
 	
-	if curr_building.request_worker_info_update.is_connected(update_worker_info):
-		curr_building.request_worker_info_update.disconnect(update_worker_info)
+	if curr_building.request_worker_rows_update.is_connected(update_worker_rows):
+		curr_building.request_worker_rows_update.disconnect(update_worker_rows)
 	
 	if curr_building.destroyed.is_connected(_on_building_destroyed):
 		curr_building.destroyed.disconnect(_on_building_destroyed)

@@ -3,6 +3,7 @@ extends Control
 signal slot_clicked(building: Building, slot_num: int)
 
 var building: Building = null
+var has_item := false
 
 
 func init(_building: Building) -> void:
@@ -17,6 +18,12 @@ func init(_building: Building) -> void:
 		$HBoxContainer/Slot.mouse_default_cursor_shape = Control.CURSOR_ARROW
 		$HBoxContainer/Slot.self_modulate = Color.from_rgba8(0, 115, 0, 255)
 		$HBoxContainer/Slot/Item.texture = building.recipes.get(0).display_icon
+		has_item = true
+
+
+func set_display_item(recipe: Recipe, amount: int) -> void:
+	$HBoxContainer/Slot/Item.texture = recipe.display_icon
+	$HBoxContainer/Slot/Amount.text = "x" + str(amount)
 
 
 func _on_slot_pressed() -> void:
