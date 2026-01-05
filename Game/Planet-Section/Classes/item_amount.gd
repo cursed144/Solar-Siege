@@ -10,7 +10,7 @@ func to_stack() -> Array[ItemStack]:
 	if not is_instance_valid(item) or amount <= 0:
 		return out
 	
-	var max_stack := int(item.max_per_stack_limit)
+	var max_stack := item.max_per_stack
 	var left := int(amount)
 	var count := int(ceil(left / float(max_stack)))
 	

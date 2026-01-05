@@ -25,6 +25,7 @@ offset_top = 8.999999
 offset_right = 223.92
 offset_bottom = 73.0
 scale = Vector2(0.86, 0.86)
+step = 0.01
 texture_under = ExtResource("1_havnt")
 texture_progress = ExtResource("2_d8ybk")
 
@@ -47,6 +48,14 @@ mouse_default_cursor_shape = 2
 texture_normal = ExtResource("2_vx0r3")
 texture_disabled = ExtResource("6_j7uu8")
 
+[node name="Item" type="TextureRect" parent="HBoxContainer/Slot"]
+layout_mode = 0
+offset_left = 14.238098
+offset_top = 14.24337
+offset_right = 111.85718
+offset_bottom = 111.898575
+expand_mode = 1
+
 [node name="Amount" type="Label" parent="HBoxContainer/Slot"]
 layout_mode = 0
 offset_left = 32.142853
@@ -56,13 +65,5 @@ offset_bottom = 284.85715
 scale = Vector2(0.155, 0.155)
 theme_override_font_sizes/font_size = 140
 horizontal_alignment = 2
-
-[node name="Item" type="TextureRect" parent="HBoxContainer/Slot"]
-layout_mode = 0
-offset_left = 14.238098
-offset_top = 14.24337
-offset_right = 111.85718
-offset_bottom = 111.898575
-expand_mode = 1
 
 [connection signal="pressed" from="HBoxContainer/Slot" to="." method="_on_slot_pressed"]

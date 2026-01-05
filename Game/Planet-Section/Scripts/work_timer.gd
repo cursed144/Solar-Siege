@@ -3,6 +3,7 @@ extends Timer
 var assingned_worker
 var assigned_recipe: Recipe = null
 var amount_to_produce: int = 0
+@onready var building: Building = get_node("../../")
 
 
 func assign_recipe(recipe: Recipe, amount: int = 1):
@@ -12,6 +13,7 @@ func assign_recipe(recipe: Recipe, amount: int = 1):
 	
 	start()
 	paused = true
+	start_work()
 
 
 func is_work_required() -> bool:
@@ -30,13 +32,15 @@ func pause_work() -> void:
 func cancel_production() -> void:
 	assigned_recipe = null
 	amount_to_produce = 0
+	stop()
 
 
 func _on_timeout() -> void:
-	var building: Building = get_node("../../")
 	var output = building.inventories[building.inv_output_name]
 	output.add_items_to_inv(Recipe.amounts_to_stacks(assigned_recipe.outputs))
 	
 	amount_to_produce -= 1
 	if amount_to_produce <= 0:
 		cancel_production()
+	
+	building.request_worker_rows_update.emit()

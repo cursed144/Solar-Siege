@@ -14,6 +14,20 @@ const inv_slot := preload("res://Planet-Section/Scenes/UI/inv_slot.tscn")
 @onready var name_label: Label = $Content/Card/BuildingName
 
 
+func _process(_delta: float) -> void:
+	if is_instance_valid(curr_building):
+		for i in range(curr_building.worker_limit):
+			var row = worker_row_container.get_child(i)
+			var progress: TextureProgressBar = row.get_node("Progress")
+			var timer: Timer = curr_building.get_node("WorkerRows/" + row.name)
+			
+			if timer.time_left >= 0.05:
+				progress.max_value = timer.wait_time
+				progress.value = timer.wait_time - timer.time_left
+			else:
+					progress.value = 0
+
+
 func building_clicked(building: Building) -> void:
 	# toggle close on second click
 	if is_instance_valid(curr_building) and curr_building == building and is_open:
@@ -78,10 +92,10 @@ func _fill_worker_info(building: Building) -> void:
 	if not is_instance_valid(building):
 		return
 	
-	update_worker_rows(building)
-	
 	for worker in range(building.worker_limit):
 		add_worker_row(worker_row_container)
+	
+	update_worker_rows(building)
 
 
 func update_inv(inv_name: String) -> void:
@@ -111,18 +125,22 @@ func update_inv(inv_name: String) -> void:
 
 
 func update_worker_rows(building: Building = curr_building) -> void:
+	print("huh?")
 	var worker_nums = $Content/Card/WorkerSection/WorkerInfo/HBoxContainer
 	var format_string_max = "Limit Workers: %d/%d"
 	var format_string_current = "Current workers: %d"
 	worker_nums.get_node("Max").text = format_string_max % [building.worker_limit, building.max_workers]
 	worker_nums.get_node("Current").text = format_string_current % building.assigned_workers.size()
 	
+	await get_tree().process_frame
 	for i in range(building.worker_limit):
 		var work_timer = building.get_node("WorkerRows/" + str(i+1))
+		var row = worker_row_container.get_child(i)
 		
 		if work_timer.is_work_required():
-			var row = worker_row_container.get_child(i+1)
 			row.set_display_item(work_timer.assigned_recipe, work_timer.amount_to_produce)
+		else:
+			row.set_display_item(null, 0)
 
 
 func add_worker_row(dest: Node) -> void:

@@ -29,7 +29,7 @@ recipe_name = "Wooden Planks"
 display_icon = ExtResource("1_k3hnj")
 requirements = Array[ExtResource("3_q1x0c")]([SubResource("Resource_6jeqs")])
 outputs = Array[ExtResource("3_q1x0c")]([SubResource("Resource_fh74u")])
-creation_time = 20.0
+creation_time = 10.0
 is_unlocked = true
 metadata/_custom_type_script = "uid://m3oqk21xh6va"
 
