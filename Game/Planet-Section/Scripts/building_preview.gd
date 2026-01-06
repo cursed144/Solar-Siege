@@ -30,6 +30,7 @@ func start_placing(data: BuildingData) -> void:
 func place_building(id: int) -> void:
 	var cell := %Buildings.local_to_map(global_position) as Vector2i
 	%Buildings.set_cell(cell, 1, Vector2i.ZERO, id)
+	%WorkerHead.set_tilemap_tile_solid(cell)
 	end_placement()
 
 
