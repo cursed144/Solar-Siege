@@ -9,10 +9,11 @@ func _ready() -> void:
 	astar.region = Rect2(Vector2.ZERO, get_parent().planet_size)
 	astar.cell_size = CELL_SIZE
 	astar.offset = Vector2.ZERO
-	astar.default_compute_heuristic = AStarGrid2D.HEURISTIC_MANHATTAN
-	astar.default_estimate_heuristic = AStarGrid2D.HEURISTIC_MANHATTAN
+	astar.default_compute_heuristic = AStarGrid2D.HEURISTIC_OCTILE
+	astar.default_estimate_heuristic = AStarGrid2D.HEURISTIC_OCTILE
 	astar.diagonal_mode = AStarGrid2D.DIAGONAL_MODE_ONLY_IF_NO_OBSTACLES
 	astar.update()
+
 
 func set_tilemap_tile_solid(tile: Vector2i) -> void:
 	var corner: Vector2i = tile * ratio
