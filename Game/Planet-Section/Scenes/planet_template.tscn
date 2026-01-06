@@ -1,15 +1,16 @@
-[gd_scene load_steps=26 format=3 uid="uid://d4ha36564l20p"]
+[gd_scene load_steps=29 format=3 uid="uid://d4ha36564l20p"]
 
 [ext_resource type="Script" uid="uid://c5wbnqrgl4aor" path="res://Planet-Section/Scripts/planet.gd" id="1_r0ntb"]
 [ext_resource type="PackedScene" uid="uid://c6yvaai4dadhi" path="res://Planet-Section/Scenes/Buildings/building_template.tscn" id="2_5xlqu"]
 [ext_resource type="Script" uid="uid://d13xkb3oocukv" path="res://Planet-Section/Scripts/player_cam.gd" id="2_becdf"]
+[ext_resource type="PackedScene" uid="uid://vx3xami5nf8y" path="res://Planet-Section/Testing/temp.tscn" id="3_bg7fh"]
 [ext_resource type="Script" uid="uid://lbjy23qvrrm8" path="res://Planet-Section/Scripts/pos_nums.gd" id="3_j25nj"]
-[ext_resource type="Script" uid="uid://viu0lkuoi5hj" path="res://Planet-Section/Scripts/building_menu.gd" id="4_3w1ld"]
+[ext_resource type="Script" uid="uid://viu0lkuoi5hj" path="res://Planet-Section/Scripts/UI/building_menu.gd" id="4_3w1ld"]
 [ext_resource type="Script" uid="uid://v4ddqw6o24kv" path="res://Planet-Section/Scripts/worker-head.gd" id="4_lorx5"]
 [ext_resource type="Script" uid="uid://dx6vxfc3gd512" path="res://Planet-Section/Scripts/building_preview.gd" id="4_x85yj"]
-[ext_resource type="PackedScene" uid="uid://cga8pk03f5cfc" path="res://Planet-Section/Scenes/building_tab.tscn" id="5_0essa"]
+[ext_resource type="PackedScene" uid="uid://cga8pk03f5cfc" path="res://Planet-Section/Scenes/UI/building_tab.tscn" id="5_0essa"]
 [ext_resource type="PackedScene" uid="uid://cptn1yrqchxdj" path="res://Planet-Section/Scenes/worker.tscn" id="5_jr884"]
-[ext_resource type="PackedScene" uid="uid://dx0pwai5nk0di" path="res://Planet-Section/Scenes/building_icon.tscn" id="5_xqwqb"]
+[ext_resource type="PackedScene" uid="uid://dx0pwai5nk0di" path="res://Planet-Section/Scenes/UI/building_icon.tscn" id="5_xqwqb"]
 [ext_resource type="Resource" uid="uid://ovbfsshvr576" path="res://Planet-Section/Resources/Buildings/worker_hub.tres" id="6_0pncr"]
 [ext_resource type="Texture2D" uid="uid://deixmur2ebu3f" path="res://icon.svg" id="7_5gyni"]
 [ext_resource type="Script" uid="uid://dwytf3p3tvovs" path="res://Planet-Section/Scripts/UI/building_info.gd" id="11_lorx5"]
@@ -23,6 +24,7 @@
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_x85yj"]
 resource_name = "Buildings"
 scenes/1/scene = ExtResource("2_5xlqu")
+scenes/2/scene = ExtResource("3_bg7fh")
 
 [sub_resource type="TileSet" id="TileSet_0essa"]
 tile_size = Vector2i(128, 128)
@@ -124,6 +126,7 @@ script = ExtResource("4_x85yj")
 
 [node name="Sprite2D" type="Sprite2D" parent="BuildingPreview"]
 self_modulate = Color(1, 1, 1, 0.50980395)
+centered = false
 
 [node name="MouseChanger" type="Control" parent="BuildingPreview"]
 layout_mode = 3

@@ -27,9 +27,14 @@ var building_level: int = 1
 
 
 func _ready() -> void:
+	# Align sprite to tilemap cells
+	var tilemap: TileMapLayer = get_parent()
+	var cell_size = tilemap.tile_set.tile_size
+	$Sprite2D.offset = -cell_size / 2
+	
 	add_inv(inv_input_name, 10)
 	add_inv(inv_output_name, 15)
-
+	
 	var item = load("res://Planet-Section/Resources/Items/wood_log.tres")
 	var item_stack = ItemStack.new_stack(item, 10)
 	inventories[inv_input_name].add_item_to_inv(item_stack)

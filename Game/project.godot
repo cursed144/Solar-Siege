@@ -15,6 +15,10 @@ run/main_scene="uid://d4ha36564l20p"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 
+[debug]
+
+settings/stdout/print_fps=true
+
 [display]
 
 window/stretch/mode="canvas_items"

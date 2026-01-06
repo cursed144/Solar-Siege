@@ -16,8 +16,7 @@ func _input(event: InputEvent) -> void:
 
 func _process(_delta: float) -> void:
 	if stored_building != null:
-		var offset = stored_building.icon.get_size()/2
-		global_position = snapped(get_global_mouse_position() - offset, grid) + offset
+		global_position = snapped(get_global_mouse_position() - grid/2, grid)
 
 
 func start_placing(data: BuildingData) -> void:
