@@ -1,8 +1,9 @@
 [gd_scene load_steps=2 format=3 uid="uid://cy5yo2gtpeai7"]
 
-[ext_resource type="Script" uid="uid://chnhw4uqv6n8v" path="res://Planet-Section/Scripts/work_timer.gd" id="1_5gn7u"]
+[ext_resource type="Script" uid="uid://chnhw4uqv6n8v" path="res://Planet-Section/Classes/work_timer.gd" id="1_5gn7u"]
 
 [node name="WorkTimer" type="Timer"]
+one_shot = true
 script = ExtResource("1_5gn7u")
 
 [connection signal="timeout" from="." to="." method="_on_timeout"]

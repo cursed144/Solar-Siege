@@ -21,3 +21,14 @@ func to_stack() -> Array[ItemStack]:
 		left -= take
 	
 	return out
+
+
+static func amounts_to_stacks(amounts: Array[ItemAmount]) -> Array[ItemStack]:
+	var out: Array[ItemStack] = []
+	
+	for curr_amount in amounts:
+		if curr_amount == null:
+			continue
+		out.append_array(curr_amount.to_stack())
+	
+	return out

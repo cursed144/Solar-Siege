@@ -20,6 +20,8 @@ const work_timer := preload("res://Planet-Section/Scenes/work_timer.tscn")
 
 var assigned_workers: Array = []
 var inventories: Dictionary[String, Inventory] = {}
+var production_multiplier: float = 1.0
+var building_level: int = 1
 
 @onready var build_info: Control = get_node("../../UI/BuildingInfo")
 

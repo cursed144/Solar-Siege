@@ -4,6 +4,7 @@ extends Resource
 signal inv_changed
 
 @export var slots: Array[ItemStack] = []
+
 var claims: Dictionary[String, Array] = {}
 
 
@@ -122,6 +123,19 @@ func simulate_claimed_slots(for_claim_name: String = "*") -> Array[ItemStack]:
 # -----------------------
 # Utility
 # -----------------------
+
+func get_total_item_amount(item: Item) -> int:
+	var item_stacks := simulate_claimed_slots()
+	var total: int = 0
+	
+	for item_stack in item_stacks:
+		if not is_instance_valid(item_stack):
+			continue
+		if item_stack.item == item:
+			total += item_stack.amount
+	
+	return total
+
 
 ## Return how many of each requested ItemStack would fit (calls helper per item)
 func how_many_items_fit(items: Array[ItemStack]) -> Array[int]:

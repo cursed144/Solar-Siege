@@ -1,0 +1,104 @@
+class_name WorkTimer
+extends Timer
+
+signal alert_work_finished
+signal alert_work_cancelled
+
+enum WorkState {
+	READY,
+	NEED_SUPPLY,
+	NEED_EMPTY
+}
+
+var assigned_recipe: Recipe = null
+var amount_to_produce: int = 0
+var used_materials: Array[ItemStack]
+
+@onready var building: Building = get_node("../../")
+
+
+func assign_recipe(recipe: Recipe, amount: int = 1):
+	assigned_recipe = recipe
+	amount_to_produce = amount
+	wait_time = recipe.creation_time / building.production_multiplier
+	
+	prepare_for_work()
+
+
+func prepare_for_work() -> WorkState:
+	var check = can_work_start()
+	if check == WorkState.READY:
+		var input_inv := building.inventories[building.inv_input_name]
+		var requirements := ItemAmount.amounts_to_stacks(assigned_recipe.requirements)
+		
+		input_inv.create_claim(name, requirements)
+		used_materials = input_inv.get_claimed_items(name)
+		start_work()
+	
+	return check
+
+
+func _on_timeout() -> void:
+	var output = building.inventories[building.inv_output_name]
+	output.add_items_to_inv(ItemAmount.amounts_to_stacks(assigned_recipe.outputs))
+	work_finished()
+	
+	alert_work_finished.emit()
+	building.request_worker_rows_update.emit()
+
+
+func start_work() -> void:
+	start()
+	paused = false
+
+func pause_work() -> void:
+	paused = true
+
+func resume_work() -> void:
+	paused = false
+
+func work_finished() -> void:
+	amount_to_produce -= 1
+	if amount_to_produce <= 0:
+		used_materials.clear()
+		assigned_recipe = null
+
+
+func cancel_production() -> void:
+	var input_inv := building.inventories[building.inv_input_name]
+	input_inv.add_items_to_inv(used_materials)
+	used_materials.clear()
+	assigned_recipe = null
+	amount_to_produce = 0
+	alert_work_cancelled.emit()
+	stop()
+
+
+func is_work_required() -> bool:
+	if amount_to_produce > 0:
+		return true
+	else:
+		return false
+
+
+func can_work_start() -> WorkState:
+	var input_inv := building.inventories[building.inv_input_name]
+	var output_inv := building.inventories[building.inv_output_name]
+	
+	# Check if there is enough space in the output
+	var output_items := ItemAmount.amounts_to_stacks(assigned_recipe.outputs)
+	var fitting := output_inv.how_many_items_fit(output_items)
+	for i in range(output_items.size()):
+		if output_items[i].amount != fitting[i]:
+			return WorkState.NEED_EMPTY
+	
+	# Check if there are enough materials for at least 1 work
+	for item_amount in assigned_recipe.requirements:
+		if input_inv.get_total_item_amount(item_amount.item) < item_amount.amount:
+			return WorkState.NEED_SUPPLY
+	
+	return WorkState.READY
+
+
+func _exit_tree() -> void:
+	cancel_production()
