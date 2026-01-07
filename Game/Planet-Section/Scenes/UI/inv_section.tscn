@@ -3,7 +3,7 @@
 [node name="Inv" type="VBoxContainer"]
 
 [node name="SectionName" type="Label" parent="."]
-custom_minimum_size = Vector2(297, 0)
+custom_minimum_size = Vector2(266, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "Inventory"
@@ -12,6 +12,6 @@ vertical_alignment = 1
 
 [node name="GridContainer" type="GridContainer" parent="."]
 layout_mode = 2
-theme_override_constants/h_separation = 77
-theme_override_constants/v_separation = 77
+theme_override_constants/h_separation = 67
+theme_override_constants/v_separation = 67
 columns = 4

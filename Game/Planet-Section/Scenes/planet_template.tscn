@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://d4ha36564l20p"]
+[gd_scene load_steps=32 format=3 uid="uid://d4ha36564l20p"]
 
 [ext_resource type="Script" uid="uid://c5wbnqrgl4aor" path="res://Planet-Section/Scripts/planet.gd" id="1_r0ntb"]
 [ext_resource type="PackedScene" uid="uid://c6yvaai4dadhi" path="res://Planet-Section/Scenes/Buildings/building_template.tscn" id="2_5xlqu"]
@@ -20,6 +20,8 @@
 [ext_resource type="Script" uid="uid://bpboa5iqaqcqi" path="res://Planet-Section/Scripts/UI/delete_item_conf.gd" id="15_cj2bw"]
 [ext_resource type="Script" uid="uid://c4eynbg3bu4tt" path="res://Planet-Section/Scripts/UI/recipe_menu.gd" id="15_m577t"]
 [ext_resource type="Texture2D" uid="uid://ddu320nf5jagq" path="res://Planet-Section/Textures/temp_log.png" id="16_vmkg5"]
+[ext_resource type="Texture2D" uid="uid://qcty4usppxxq" path="res://Planet-Section/Textures/Buttons/destroy_button.png" id="18_6pg5r"]
+[ext_resource type="Texture2D" uid="uid://dd64b2r5rmv61" path="res://Planet-Section/Textures/Buttons/upgrade_button.png" id="19_gimfs"]
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_x85yj"]
 resource_name = "Buildings"
@@ -333,7 +335,8 @@ color = Color(0, 0, 0, 1)
 
 [node name="Content" type="ScrollContainer" parent="UI/BuildingInfo"]
 layout_mode = 0
-offset_right = 297.0
+offset_left = 15.0
+offset_right = 312.0
 offset_bottom = 648.0
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 3
@@ -343,7 +346,7 @@ layout_mode = 2
 theme_override_constants/separation = 15
 
 [node name="BuildingName" type="Label" parent="UI/BuildingInfo/Content/Card"]
-custom_minimum_size = Vector2(297, 0)
+custom_minimum_size = Vector2(266, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "Building name here"
@@ -364,7 +367,7 @@ offset_left = 7.0
 offset_right = 2013.0
 offset_bottom = 110.0
 scale = Vector2(0.14, 0.14)
-theme_override_constants/separation = 458
+theme_override_constants/separation = 383
 
 [node name="Max" type="Label" parent="UI/BuildingInfo/Content/Card/WorkerSection/WorkerInfo/HBoxContainer"]
 layout_mode = 2
@@ -420,6 +423,27 @@ layout_mode = 2
 
 [node name="Inventories" type="VBoxContainer" parent="UI/BuildingInfo/Content/Card"]
 layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/BuildingInfo/Content/Card"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 29
+
+[node name="Destroy" type="TextureButton" parent="UI/BuildingInfo/Content/Card/HBoxContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("18_6pg5r")
+stretch_mode = 0
+
+[node name="Upgrade" type="TextureButton" parent="UI/BuildingInfo/Content/Card/HBoxContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("19_gimfs")
+stretch_mode = 0
 
 [node name="RecipeMenu" type="Control" parent="UI"]
 process_mode = 3
