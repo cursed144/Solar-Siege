@@ -3,7 +3,8 @@ extends Area2D
 var is_placing := false
 var stored_building: BuildingData
 
-@onready var grid: Vector2 = %Buildings.tile_set.tile_size
+@onready var buildings = %Buildings
+@onready var grid: Vector2 = buildings.tile_set.tile_size
 
 
 func _ready() -> void:
@@ -39,16 +40,20 @@ func start_placing(data: BuildingData) -> void:
 
 
 func place_building(id: int) -> void:
-	var cell := %Buildings.local_to_map(global_position) as Vector2i
-	%Buildings.set_cell(cell, 1, Vector2i.ZERO, id)
+	var cell := buildings.local_to_map(global_position) as Vector2i
+	buildings.set_cell(cell, 1, Vector2i.ZERO, id)
 	
-	await get_tree().process_frame
-	var building: Building = %Buildings.get_child(-1)
+	await buildings.child_order_changed
+	var building: Building = buildings.get_child(-1)
 	var sprite: Sprite2D = building.get_node("Sprite2D")
 	var sprite_size = sprite.get_rect().size / grid
+	
+	var planet = get_parent()
+	building.name = planet.get_unique_name(stored_building.display_name)
+	
 	for i in range(sprite_size.x):
 		for j in range(sprite_size.y):
-			cell = %Buildings.local_to_map(
+			cell = buildings.local_to_map(
 				Vector2(global_position.x + (grid.x * i),
 						global_position.y + (grid.y * j)) ) as Vector2i
 			%WorkerHead.set_tilemap_tile_solid(cell)

@@ -1,9 +1,8 @@
-[gd_scene load_steps=32 format=3 uid="uid://d4ha36564l20p"]
+[gd_scene load_steps=31 format=3 uid="uid://d4ha36564l20p"]
 
 [ext_resource type="Script" uid="uid://c5wbnqrgl4aor" path="res://Planet-Section/Scripts/planet.gd" id="1_r0ntb"]
 [ext_resource type="PackedScene" uid="uid://c6yvaai4dadhi" path="res://Planet-Section/Scenes/Buildings/building_template.tscn" id="2_5xlqu"]
 [ext_resource type="Script" uid="uid://d13xkb3oocukv" path="res://Planet-Section/Scripts/player_cam.gd" id="2_becdf"]
-[ext_resource type="PackedScene" uid="uid://vx3xami5nf8y" path="res://Planet-Section/Testing/temp.tscn" id="3_bg7fh"]
 [ext_resource type="Script" uid="uid://lbjy23qvrrm8" path="res://Planet-Section/Scripts/pos_nums.gd" id="3_j25nj"]
 [ext_resource type="Script" uid="uid://viu0lkuoi5hj" path="res://Planet-Section/Scripts/UI/building_menu.gd" id="4_3w1ld"]
 [ext_resource type="Script" uid="uid://v4ddqw6o24kv" path="res://Planet-Section/Scripts/worker-head.gd" id="4_lorx5"]
@@ -26,7 +25,6 @@
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_x85yj"]
 resource_name = "Buildings"
 scenes/1/scene = ExtResource("2_5xlqu")
-scenes/2/scene = ExtResource("3_bg7fh")
 
 [sub_resource type="TileSet" id="TileSet_0essa"]
 tile_size = Vector2i(128, 128)
@@ -107,14 +105,14 @@ tile_set = SubResource("TileSet_0essa")
 navigation_enabled = false
 
 [node name="PlayerCam" type="Camera2D" parent="."]
-position = Vector2(576, 324)
+position = Vector2(2500, 2500)
 script = ExtResource("2_becdf")
 
 [node name="PlayingField" type="MeshInstance2D" parent="."]
 self_modulate = Color(0.20871013, 0.20871016, 0.20871013, 1)
 z_index = -1
-position = Vector2(5, 5)
-scale = Vector2(10, 10)
+position = Vector2(2500, 2500)
+scale = Vector2(5000, 5000)
 mesh = SubResource("BoxMesh_becdf")
 
 [node name="WorkerHead" type="Node2D" parent="."]

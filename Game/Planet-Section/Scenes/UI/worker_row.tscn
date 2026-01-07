@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://b0tl1i18xbkfo"]
 
-[ext_resource type="Texture2D" uid="uid://3gmpdq3pk6qq" path="res://Planet-Section/Textures/arrow_empty.png" id="1_havnt"]
+[ext_resource type="Texture2D" uid="uid://bao7bwhd3c4xh" path="res://Planet-Section/Textures/arrow_empty.png" id="1_havnt"]
 [ext_resource type="Texture2D" uid="uid://deixmur2ebu3f" path="res://icon.svg" id="1_ptuh7"]
 [ext_resource type="Script" uid="uid://p1jpjele8rvj" path="res://Planet-Section/Scripts/UI/worker_row.gd" id="1_pxrcg"]
 [ext_resource type="Texture2D" uid="uid://d6u1mfgjbpoo" path="res://Planet-Section/Textures/arrow_fill.png" id="2_d8ybk"]
