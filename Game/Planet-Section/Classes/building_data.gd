@@ -3,8 +3,7 @@ extends Resource
 
 @export var id: int
 @export var build_time: float
-@export var clearance: Vector2
 @export var display_name: String
 @export var description: String
-@export var cost: int = 0
+@export var requirements: Array[ItemAmount]
 @export var icon: Texture2D

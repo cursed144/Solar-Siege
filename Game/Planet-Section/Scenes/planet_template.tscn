@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://d4ha36564l20p"]
+[gd_scene load_steps=30 format=3 uid="uid://d4ha36564l20p"]
 
 [ext_resource type="Script" uid="uid://c5wbnqrgl4aor" path="res://Planet-Section/Scripts/planet.gd" id="1_r0ntb"]
 [ext_resource type="PackedScene" uid="uid://c6yvaai4dadhi" path="res://Planet-Section/Scenes/Buildings/building_template.tscn" id="2_5xlqu"]
@@ -31,6 +31,8 @@ tile_size = Vector2i(128, 128)
 sources/1 = SubResource("TileSetScenesCollectionSource_x85yj")
 
 [sub_resource type="BoxMesh" id="BoxMesh_becdf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xbee4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0pncr"]
 size = Vector2(1152, 140)
@@ -120,13 +122,21 @@ script = ExtResource("4_lorx5")
 [node name="Worker1" parent="WorkerHead" instance=ExtResource("5_jr884")]
 position = Vector2(2826, 1642)
 
-[node name="BuildingPreview" type="Node2D" parent="."]
+[node name="BuildingPreview" type="Area2D" parent="."]
 unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 17
 script = ExtResource("4_x85yj")
 
 [node name="Sprite2D" type="Sprite2D" parent="BuildingPreview"]
-self_modulate = Color(1, 1, 1, 0.50980395)
+self_modulate = Color(1, 1, 1, 0.5)
+texture = ExtResource("7_5gyni")
 centered = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BuildingPreview"]
+position = Vector2(64, 64)
+scale = Vector2(6.4, 6.4)
+shape = SubResource("RectangleShape2D_xbee4")
 
 [node name="MouseChanger" type="Control" parent="BuildingPreview"]
 layout_mode = 3
