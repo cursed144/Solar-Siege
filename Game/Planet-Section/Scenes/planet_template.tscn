@@ -130,12 +130,10 @@ script = ExtResource("4_x85yj")
 
 [node name="Sprite2D" type="Sprite2D" parent="BuildingPreview"]
 self_modulate = Color(1, 1, 1, 0.5)
-texture = ExtResource("7_5gyni")
 centered = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BuildingPreview"]
-position = Vector2(64, 64)
-scale = Vector2(6.4, 6.4)
+scale = Vector2(1e-05, 1e-05)
 shape = SubResource("RectangleShape2D_xbee4")
 
 [node name="MouseChanger" type="Control" parent="BuildingPreview"]

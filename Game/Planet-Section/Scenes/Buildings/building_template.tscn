@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://c6yvaai4dadhi"]
+[gd_scene load_steps=21 format=3 uid="uid://c6yvaai4dadhi"]
 
 [ext_resource type="Script" uid="uid://b8tbqtmg365vg" path="res://Planet-Section/Classes/building.gd" id="1_7nu8w"]
 [ext_resource type="Texture2D" uid="uid://deixmur2ebu3f" path="res://icon.svg" id="1_k3hnj"]
@@ -10,6 +10,7 @@
 [ext_resource type="Resource" uid="uid://bcj06x3c74qcp" path="res://Planet-Section/Resources/Items/rock.tres" id="7_qq05u"]
 [ext_resource type="Resource" uid="uid://djo5qn5rmn3v" path="res://Planet-Section/Resources/Items/iron_ore.tres" id="8_anwbx"]
 [ext_resource type="Resource" uid="uid://duhr7an6o8yau" path="res://Planet-Section/Resources/Items/coal.tres" id="9_7rx4l"]
+[ext_resource type="Texture2D" uid="uid://b4xms376chh8l" path="res://Planet-Section/Testing/test_build.png" id="11_1oi6v"]
 
 [sub_resource type="Resource" id="Resource_fh74u"]
 script = ExtResource("3_q1x0c")
@@ -76,7 +77,7 @@ script = ExtResource("1_7nu8w")
 recipes = Array[ExtResource("2_mfbgh")]([SubResource("Resource_ypono"), SubResource("Resource_v6oas")])
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_k3hnj")
+texture = ExtResource("11_1oi6v")
 centered = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
