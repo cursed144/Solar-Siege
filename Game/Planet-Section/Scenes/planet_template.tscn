@@ -183,7 +183,7 @@ offset_right = 1152.0
 offset_bottom = 815.0
 script = ExtResource("4_3w1ld")
 
-[node name="TempCover" type="ColorRect" parent="UI/BuildingMenu"]
+[node name="Cover" type="ColorRect" parent="UI/BuildingMenu"]
 z_index = -1
 layout_mode = 0
 offset_top = 27.0
@@ -192,7 +192,7 @@ offset_bottom = 167.0
 mouse_filter = 2
 color = Color(0.5435746, 0.3356829, 0.49027884, 1)
 
-[node name="TempCover2" type="ColorRect" parent="UI/BuildingMenu"]
+[node name="Cover2" type="ColorRect" parent="UI/BuildingMenu"]
 z_index = -1
 layout_mode = 0
 offset_right = 1152.0
@@ -211,6 +211,7 @@ icon = ExtResource("7_5gyni")
 
 [node name="General" parent="UI/BuildingMenu/Tabs" instance=ExtResource("5_0essa")]
 layout_mode = 2
+button_pressed = true
 icon = ExtResource("7_5gyni")
 
 [node name="Utility" parent="UI/BuildingMenu/Tabs" instance=ExtResource("5_0essa")]
