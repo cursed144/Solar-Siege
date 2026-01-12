@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://bih4mnbcysiip"]
+
+[ext_resource type="Texture2D" uid="uid://deixmur2ebu3f" path="res://icon.svg" id="1_lfh14"]
+[ext_resource type="Script" uid="uid://df1vq3t03cjji" path="res://Planet-Section/Scripts/UI/building_placement_requirement.gd" id="1_pr1wa"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_pr1wa")
+
+[node name="Icon" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 32.0
+offset_bottom = 32.0
+texture = ExtResource("1_lfh14")
+expand_mode = 1
+
+[node name="Amount" type="Label" parent="."]
+layout_mode = 0
+offset_left = 37.0
+offset_right = 447.5263
+offset_bottom = 168.42114
+scale = Vector2(0.19, 0.19)
+theme_override_font_sizes/font_size = 80
+text = "30 / 130"
+vertical_alignment = 1

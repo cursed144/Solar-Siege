@@ -5,7 +5,9 @@ extends Node2D
 @export_category("Max buildings")
 @export_tool_button("Get Buildings") var buildings = get_all_buildings
 @export var max_building_amount: Dictionary[String, int]
-var bulding_amounts: Dictionary[String, int] = {}
+
+var building_amounts: Dictionary[String, int] = {}
+var global_storage: Array[Inventory]
 
 
 func _ready() -> void:
@@ -31,13 +33,37 @@ func get_all_buildings() -> void:
 
 
 func get_unique_name(initial_name: String) -> String:
-	var amount: int = bulding_amounts.get(initial_name, -1)
+	var amount: int = building_amounts.get(initial_name, -1)
 	if amount <= 0:
-		bulding_amounts[initial_name] = 0
+		building_amounts[initial_name] = 0
 		amount = 0
 	
 	amount += 1
-	bulding_amounts.set(initial_name, amount)
+	building_amounts.set(initial_name, amount)
 	
 	var ret := initial_name + " " + str(amount)
 	return ret
+
+
+func unique_to_initial(unique_name: String) -> String:
+	for i in range(unique_name.length() - 1, -1, -1):
+		if not unique_name[i].is_valid_int():
+			return unique_name.substr(0, i + 1)
+	
+	return ""
+
+
+func get_building_max_amount(building_name: String) -> int:
+	return max_building_amount.get(building_name)
+
+
+func get_building_current_amount(building_name: String) -> int:
+	return building_amounts.get(building_name, 0)
+
+
+func get_global_item_amount(item: Item) -> int:
+	var total := 0
+	for inv in global_storage:
+		total += inv.get_total_item_amount(item)
+	
+	return total

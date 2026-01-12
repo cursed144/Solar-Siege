@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://d4ha36564l20p"]
+[gd_scene load_steps=35 format=3 uid="uid://d4ha36564l20p"]
 
 [ext_resource type="Script" uid="uid://c5wbnqrgl4aor" path="res://Planet-Section/Scripts/planet.gd" id="1_r0ntb"]
 [ext_resource type="PackedScene" uid="uid://c6yvaai4dadhi" path="res://Planet-Section/Scenes/Buildings/building_template.tscn" id="2_5xlqu"]
@@ -10,12 +10,13 @@
 [ext_resource type="PackedScene" uid="uid://cga8pk03f5cfc" path="res://Planet-Section/Scenes/UI/building_tab.tscn" id="5_0essa"]
 [ext_resource type="PackedScene" uid="uid://cptn1yrqchxdj" path="res://Planet-Section/Scenes/worker.tscn" id="5_jr884"]
 [ext_resource type="PackedScene" uid="uid://dx0pwai5nk0di" path="res://Planet-Section/Scenes/UI/building_icon.tscn" id="5_xqwqb"]
-[ext_resource type="Resource" uid="uid://ovbfsshvr576" path="res://Planet-Section/Resources/Buildings/worker_hub.tres" id="6_0pncr"]
+[ext_resource type="Resource" uid="uid://ovbfsshvr576" path="res://Planet-Section/Resources/Buildings/mine.tres" id="6_0pncr"]
 [ext_resource type="Texture2D" uid="uid://deixmur2ebu3f" path="res://icon.svg" id="7_5gyni"]
 [ext_resource type="Script" uid="uid://dwytf3p3tvovs" path="res://Planet-Section/Scripts/UI/building_info.gd" id="11_lorx5"]
 [ext_resource type="Texture2D" uid="uid://bhw0mwyvx34qd" path="res://Planet-Section/Textures/UI/arrow_up.png" id="12_6ei45"]
 [ext_resource type="PackedScene" uid="uid://b0tl1i18xbkfo" path="res://Planet-Section/Scenes/UI/worker_row.tscn" id="12_jr884"]
 [ext_resource type="Texture2D" uid="uid://cbt6mjpxabr5q" path="res://Planet-Section/Textures/UI/arrow_down.png" id="13_cj2bw"]
+[ext_resource type="PackedScene" uid="uid://bih4mnbcysiip" path="res://Planet-Section/Scenes/UI/building_placement_requirement.tscn" id="13_xo3u4"]
 [ext_resource type="Script" uid="uid://bpboa5iqaqcqi" path="res://Planet-Section/Scripts/UI/delete_item_conf.gd" id="15_cj2bw"]
 [ext_resource type="Script" uid="uid://c4eynbg3bu4tt" path="res://Planet-Section/Scripts/UI/recipe_menu.gd" id="15_m577t"]
 [ext_resource type="Texture2D" uid="uid://ddu320nf5jagq" path="res://Planet-Section/Textures/Items/temp_log.png" id="16_vmkg5"]
@@ -99,6 +100,9 @@ size = Vector2(297, 612)
 
 [node name="Planet" type="Node2D"]
 script = ExtResource("1_r0ntb")
+max_building_amount = Dictionary[String, int]({
+"Mine": 3
+})
 
 [node name="Terrain" type="TileMapLayer" parent="."]
 navigation_enabled = false
@@ -186,7 +190,7 @@ offset_right = 1152.0
 offset_bottom = 815.0
 script = ExtResource("4_3w1ld")
 
-[node name="Cover" type="ColorRect" parent="UI/BuildingMenu"]
+[node name="Cover1" type="ColorRect" parent="UI/BuildingMenu"]
 z_index = -1
 layout_mode = 0
 offset_top = 27.0
@@ -280,31 +284,60 @@ mouse_filter = 2
 [node name="Cover" type="ColorRect" parent="UI/BuildingMenu/HoverMenu"]
 self_modulate = Color(1, 1, 1, 0.23529412)
 layout_mode = 0
+offset_top = -39.0
 offset_right = 1152.0
 offset_bottom = 158.0
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
-[node name="BName" type="RichTextLabel" parent="UI/BuildingMenu/HoverMenu"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/BuildingMenu/HoverMenu"]
 layout_mode = 0
-offset_right = 2094.5454
-offset_bottom = 46.0
-scale = Vector2(0.55, 0.55)
-mouse_filter = 2
-theme_override_font_sizes/normal_font_size = 33
-text = "Building name: Lorum Ipsom Palace"
-fit_content = true
+offset_left = 5.0
+offset_top = -39.0
+offset_right = 1152.0
+offset_bottom = 158.0
+theme_override_constants/separation = 6
 
-[node name="Desc" type="RichTextLabel" parent="UI/BuildingMenu/HoverMenu"]
-layout_mode = 0
-offset_top = 26.0
-offset_right = 1249.0908
-offset_bottom = 160.54541
-scale = Vector2(0.55, 0.55)
-mouse_filter = 2
-theme_override_font_sizes/normal_font_size = 33
-text = "Description: Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom"
-scroll_active = false
+[node name="BName" type="Label" parent="UI/BuildingMenu/HoverMenu/VBoxContainer"]
+layout_mode = 2
+text = "Building name: Lorum Ipsom Palace"
+
+[node name="Desc" type="Label" parent="UI/BuildingMenu/HoverMenu/VBoxContainer"]
+custom_minimum_size = Vector2(1147, 51.16)
+layout_mode = 2
+text = "Description: Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom"
+autowrap_mode = 3
+
+[node name="Requirements" type="HBoxContainer" parent="UI/BuildingMenu/HoverMenu/VBoxContainer"]
+custom_minimum_size = Vector2(0, 80.295)
+layout_mode = 2
+theme_override_constants/separation = 130
+
+[node name="Column1" type="VBoxContainer" parent="UI/BuildingMenu/HoverMenu/VBoxContainer/Requirements"]
+layout_mode = 2
+theme_override_constants/separation = 40
+
+[node name="Control" parent="UI/BuildingMenu/HoverMenu/VBoxContainer/Requirements/Column1" instance=ExtResource("13_xo3u4")]
+layout_mode = 2
+
+[node name="Control2" parent="UI/BuildingMenu/HoverMenu/VBoxContainer/Requirements/Column1" instance=ExtResource("13_xo3u4")]
+layout_mode = 2
+
+[node name="Column2" type="VBoxContainer" parent="UI/BuildingMenu/HoverMenu/VBoxContainer/Requirements"]
+layout_mode = 2
+theme_override_constants/separation = 40
+
+[node name="Control" parent="UI/BuildingMenu/HoverMenu/VBoxContainer/Requirements/Column2" instance=ExtResource("13_xo3u4")]
+layout_mode = 2
+
+[node name="Control2" parent="UI/BuildingMenu/HoverMenu/VBoxContainer/Requirements/Column2" instance=ExtResource("13_xo3u4")]
+layout_mode = 2
+
+[node name="MaxAllowed" type="Label" parent="UI/BuildingMenu/HoverMenu/VBoxContainer"]
+custom_minimum_size = Vector2(1147, 0)
+layout_mode = 2
+text = "You have x / x"
+autowrap_mode = 3
 
 [node name="ScrollingArea" type="Area2D" parent="UI/BuildingMenu"]
 position = Vector2(0, 47)
