@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://b0tl1i18xbkfo"]
+[gd_scene load_steps=8 format=3 uid="uid://b0tl1i18xbkfo"]
 
 [ext_resource type="Texture2D" uid="uid://cu0lgtx7pwsit" path="res://Planet-Section/Textures/UI/arrow_empty.png" id="1_havnt"]
 [ext_resource type="Texture2D" uid="uid://deixmur2ebu3f" path="res://Planet-Section/Textures/icon.svg" id="1_ptuh7"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dtwpw4et4hokc" path="res://Planet-Section/Textures/UI/arrow_fill.png" id="2_d8ybk"]
 [ext_resource type="Texture2D" uid="uid://cwre5dv7e8tda" path="res://Planet-Section/Textures/UI/add_item.png" id="5_pxrcg"]
 [ext_resource type="Texture2D" uid="uid://7uwcc6hmlr10" path="res://Planet-Section/Textures/UI/unknown_item.png" id="6_j7uu8"]
+[ext_resource type="Texture2D" uid="uid://d0x56w2ctrw3n" path="res://Planet-Section/Textures/UI/remove_item.png" id="7_j7uu8"]
 
 [node name="WorkerRow" type="Control"]
 texture_filter = 1
@@ -59,6 +60,16 @@ offset_right = 111.85718
 offset_bottom = 111.898575
 expand_mode = 1
 
+[node name="RemovePrompt" type="TextureRect" parent="HBoxContainer/Slot"]
+visible = false
+z_index = 1
+texture_filter = 1
+layout_mode = 0
+offset_right = 128.52386
+offset_bottom = 128.57144
+mouse_filter = 2
+texture = ExtResource("7_j7uu8")
+
 [node name="Amount" type="Label" parent="HBoxContainer/Slot"]
 layout_mode = 0
 offset_left = 32.142853
@@ -69,4 +80,6 @@ scale = Vector2(0.155, 0.155)
 theme_override_font_sizes/font_size = 140
 horizontal_alignment = 2
 
+[connection signal="mouse_entered" from="HBoxContainer/Slot" to="." method="_on_slot_mouse_entered"]
+[connection signal="mouse_exited" from="HBoxContainer/Slot" to="." method="_on_slot_mouse_exited"]
 [connection signal="pressed" from="HBoxContainer/Slot" to="." method="_on_slot_pressed"]

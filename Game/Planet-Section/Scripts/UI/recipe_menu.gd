@@ -10,13 +10,19 @@ var target_slot: int = 0
 @onready var requirement_row_parent = $RecipeConfirm/Requirements/HBoxContainer
 
 
-func on_worker_slot_clicked(building: Building, slot_num: int) -> void:
-	show()
-	$RecipeSlots.show()
+func on_worker_slot_clicked(building: Building, slot_num: int, delete: bool) -> void:
 	target_building = building
 	target_slot = slot_num
 	
+	if delete:
+		%UI/StopRecipe.show()
+		get_tree().paused = true
+		return
+	
+	show()
+	$RecipeSlots.show()
 	clear_recipes()
+	
 	for recipe in building.recipes:
 		var new_slot = RECIPE_SLOT.instantiate()
 		new_slot.init(recipe)
@@ -70,8 +76,18 @@ func clear_recipes():
 func reset_menus() -> void:
 	$RecipeConfirm.hide()
 	$RecipeSlots.hide()
-	$StopRecipe.hide()
+	%UI/StopRecipe.hide()
 	hide()
 	target_building = null
 	pending_recipe = null
 	target_slot = 0
+
+
+func _on_stop_recipe_confirm_pressed() -> void:
+	target_building.cancel_recipe_on_row(target_slot)
+	get_tree().paused = false
+	reset_menus()
+
+func _on_stop_recipe_cancel_pressed() -> void:
+	get_tree().paused = false
+	reset_menus()

@@ -67,6 +67,15 @@ func assign_recipe_to_row(recipe: Recipe, amount_to_make: int, row_num: int) -> 
 	request_worker_rows_update.emit()
 
 
+func cancel_recipe_on_row(row_num: int):
+	var row = $WorkerRows.get_node(str(row_num))
+	if $WorkerRows.get_node(str(row_num)) == null:
+		push_error("Failed to find row with number: " + str(row_num))
+	
+	row.cancel_production()
+	request_worker_rows_update.emit()
+
+
 ## Returns if successful
 func increment_worker_rows() -> bool:
 	if worker_limit == max_workers:

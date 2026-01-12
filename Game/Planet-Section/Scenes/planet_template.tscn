@@ -593,10 +593,72 @@ value = 1.0
 rounded = true
 tick_count = 1
 
-[node name="StopRecipe" type="Control" parent="UI/BuildingInfo/RecipeMenu"]
+[node name="StopRecipe" type="Control" parent="UI"]
+process_mode = 3
+visible = false
+z_index = 4
+layout_mode = 3
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 1152.0
+offset_bottom = 648.0
+
+[node name="Cover" type="ColorRect" parent="UI/StopRecipe"]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0, 0, 0, 0.39215687)
+
+[node name="BG" type="ColorRect" parent="UI/StopRecipe"]
+layout_mode = 0
+offset_left = 220.0
+offset_top = 106.0
+offset_right = 956.0
+offset_bottom = 532.0
+color = Color(0, 0, 0, 1)
+
+[node name="Label" type="Label" parent="UI/StopRecipe"]
+layout_mode = 0
+offset_left = 492.0
+offset_top = 124.0
+offset_right = 928.0
+offset_bottom = 361.0
+theme_override_font_sizes/font_size = 38
+text = "Are you sure you want to stop the production of this item?"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Item" type="TextureRect" parent="UI/StopRecipe"]
+layout_mode = 0
+offset_left = 259.0
+offset_top = 153.0
+offset_right = 426.0
+offset_bottom = 320.0
+texture = ExtResource("7_5gyni")
+
+[node name="Confirm" type="TextureButton" parent="UI/StopRecipe"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 643.0
+offset_top = 360.0
+offset_right = 832.0
+offset_bottom = 549.0
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("20_gimfs")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Cancel" type="TextureButton" parent="UI/StopRecipe"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 324.0
+offset_top = 360.0
+offset_right = 513.0
+offset_bottom = 549.0
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("21_xo3u4")
+ignore_texture_size = true
+stretch_mode = 0
 
 [node name="DeleteItemConf" type="Control" parent="UI"]
 process_mode = 3
@@ -607,6 +669,7 @@ anchors_preset = 0
 offset_right = 1152.0
 offset_bottom = 648.0
 script = ExtResource("15_cj2bw")
+metadata/_edit_lock_ = true
 
 [node name="Cover" type="ColorRect" parent="UI/DeleteItemConf"]
 layout_mode = 0
@@ -677,26 +740,26 @@ offset_bottom = 403.0
 rounded = true
 tick_count = 1
 
-[node name="Delete" type="TextureButton" parent="UI/DeleteItemConf"]
+[node name="Cancel" type="TextureButton" parent="UI/DeleteItemConf"]
+texture_filter = 1
 layout_mode = 0
-offset_left = 330.0
-offset_top = 421.0
-offset_right = 458.0
-offset_bottom = 477.0
+offset_left = 370.0
+offset_top = 399.0
+offset_right = 474.0
+offset_bottom = 503.0
 mouse_default_cursor_shape = 2
-texture_normal = ExtResource("7_5gyni")
-ignore_texture_size = true
+texture_normal = ExtResource("21_xo3u4")
 stretch_mode = 0
 
-[node name="Cancel" type="TextureButton" parent="UI/DeleteItemConf"]
+[node name="Delete" type="TextureButton" parent="UI/DeleteItemConf"]
+texture_filter = 1
 layout_mode = 0
-offset_left = 646.0
-offset_top = 421.0
-offset_right = 774.0
-offset_bottom = 477.0
+offset_left = 610.0
+offset_top = 399.0
+offset_right = 714.0
+offset_bottom = 503.0
 mouse_default_cursor_shape = 2
-texture_normal = ExtResource("7_5gyni")
-ignore_texture_size = true
+texture_normal = ExtResource("20_gimfs")
 stretch_mode = 0
 
 [connection signal="pressed" from="UI/BuildingButton" to="UI/BuildingMenu" method="_on_building_button_pressed"]
@@ -708,6 +771,8 @@ stretch_mode = 0
 [connection signal="pressed" from="UI/BuildingInfo/RecipeMenu/RecipeConfirm/Produce" to="UI/BuildingInfo/RecipeMenu" method="_on_begin_production"]
 [connection signal="pressed" from="UI/BuildingInfo/RecipeMenu/RecipeConfirm/Cancel" to="UI/BuildingInfo/RecipeMenu" method="_on_recipe_confirmation_cancel_pressed"]
 [connection signal="value_changed" from="UI/BuildingInfo/RecipeMenu/RecipeConfirm/Amount" to="UI/BuildingInfo/RecipeMenu" method="_on_amount_value_changed"]
+[connection signal="pressed" from="UI/StopRecipe/Confirm" to="UI/BuildingInfo/RecipeMenu" method="_on_stop_recipe_confirm_pressed"]
+[connection signal="pressed" from="UI/StopRecipe/Cancel" to="UI/BuildingInfo/RecipeMenu" method="_on_stop_recipe_cancel_pressed"]
 [connection signal="value_changed" from="UI/DeleteItemConf/Amount" to="UI/DeleteItemConf" method="_on_amount_value_changed"]
-[connection signal="pressed" from="UI/DeleteItemConf/Delete" to="UI/DeleteItemConf" method="_on_delete_pressed"]
 [connection signal="pressed" from="UI/DeleteItemConf/Cancel" to="UI/DeleteItemConf" method="_on_cancel_pressed"]
+[connection signal="pressed" from="UI/DeleteItemConf/Delete" to="UI/DeleteItemConf" method="_on_delete_pressed"]
