@@ -7,7 +7,7 @@ const inv_section := preload("res://Planet-Section/Scenes/UI/inv_section.tscn")
 const worker_row := preload("res://Planet-Section/Scenes/UI/worker_row.tscn")
 const inv_slot := preload("res://Planet-Section/Scenes/UI/inv_slot.tscn")
 @onready var item_deleter = %UI/DeleteItemConf
-@onready var recipe_menu = %UI/RecipeMenu
+@onready var recipe_menu = $RecipeMenu
 
 @onready var worker_row_container: Node = $Content/Card/WorkerSection/WorkerList
 @onready var inventories_container: Node = $Content/Card/Inventories
@@ -125,7 +125,6 @@ func update_inv(inv_name: String) -> void:
 
 
 func update_worker_rows(building: Building = curr_building) -> void:
-	print("huh?")
 	var worker_nums = $Content/Card/WorkerSection/WorkerInfo/HBoxContainer
 	var format_string_max = "Limit Workers: %d/%d"
 	var format_string_current = "Current workers: %d"

@@ -25,7 +25,7 @@ func get_all_buildings() -> void:
 			var full_path = path + "/" + file_name
 			var res = load(full_path)
 			if res:
-				max_building_amount[res.display_name] = 0
+				max_building_amount[res.display_name] = 1
 		file_name = dir.get_next()
 	dir.list_dir_end()
 

@@ -9,7 +9,7 @@ const work_timer := preload("res://Planet-Section/Scenes/work_timer.tscn")
 
 @export_category("Workers")
 @export var max_workers: int = 3
-@export var worker_limit: int = 1
+@export var worker_limit: int = 0
 
 @export_category("Inventory")
 @export var inv_input_name: String = "Input"

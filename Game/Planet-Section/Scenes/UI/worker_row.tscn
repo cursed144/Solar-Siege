@@ -1,11 +1,11 @@
 [gd_scene load_steps=7 format=3 uid="uid://b0tl1i18xbkfo"]
 
-[ext_resource type="Texture2D" uid="uid://bao7bwhd3c4xh" path="res://Planet-Section/Textures/arrow_empty.png" id="1_havnt"]
-[ext_resource type="Texture2D" uid="uid://deixmur2ebu3f" path="res://icon.svg" id="1_ptuh7"]
+[ext_resource type="Texture2D" uid="uid://cu0lgtx7pwsit" path="res://Planet-Section/Textures/UI/arrow_empty.png" id="1_havnt"]
+[ext_resource type="Texture2D" uid="uid://deixmur2ebu3f" path="res://Planet-Section/Textures/icon.svg" id="1_ptuh7"]
 [ext_resource type="Script" uid="uid://p1jpjele8rvj" path="res://Planet-Section/Scripts/UI/worker_row.gd" id="1_pxrcg"]
-[ext_resource type="Texture2D" uid="uid://d6u1mfgjbpoo" path="res://Planet-Section/Textures/arrow_fill.png" id="2_d8ybk"]
-[ext_resource type="Texture2D" uid="uid://i4vwbirtjyhj" path="res://Planet-Section/Textures/slot_frame.png" id="2_vx0r3"]
-[ext_resource type="Texture2D" uid="uid://7uwcc6hmlr10" path="res://Planet-Section/Textures/unknown_item.png" id="6_j7uu8"]
+[ext_resource type="Texture2D" uid="uid://dtwpw4et4hokc" path="res://Planet-Section/Textures/UI/arrow_fill.png" id="2_d8ybk"]
+[ext_resource type="Texture2D" uid="uid://cwre5dv7e8tda" path="res://Planet-Section/Textures/UI/add_item.png" id="5_pxrcg"]
+[ext_resource type="Texture2D" uid="uid://7uwcc6hmlr10" path="res://Planet-Section/Textures/UI/unknown_item.png" id="6_j7uu8"]
 
 [node name="WorkerRow" type="Control"]
 texture_filter = 1
@@ -19,13 +19,15 @@ script = ExtResource("1_pxrcg")
 metadata/_edit_lock_ = true
 
 [node name="Progress" type="TextureProgressBar" parent="."]
+self_modulate = Color(1.0954857, 1.0954857, 1.0954857, 1)
 layout_mode = 0
-offset_left = 80.92
-offset_top = 8.999999
-offset_right = 208.92
-offset_bottom = 73.0
-scale = Vector2(0.86, 0.86)
+offset_left = 76.0
+offset_top = 18.0
+offset_right = 814.0
+offset_bottom = 257.0
+scale = Vector2(0.155, 0.155)
 step = 0.01
+value = 100.0
 texture_under = ExtResource("1_havnt")
 texture_progress = ExtResource("2_d8ybk")
 
@@ -37,6 +39,7 @@ offset_right = 616.0
 offset_bottom = 138.0
 scale = Vector2(0.42, 0.42)
 theme_override_constants/separation = 353
+metadata/_edit_lock_ = true
 
 [node name="Worker" type="TextureRect" parent="HBoxContainer"]
 layout_mode = 2
@@ -45,7 +48,7 @@ texture = ExtResource("1_ptuh7")
 [node name="Slot" type="TextureButton" parent="HBoxContainer"]
 layout_mode = 2
 mouse_default_cursor_shape = 2
-texture_normal = ExtResource("2_vx0r3")
+texture_normal = ExtResource("5_pxrcg")
 texture_disabled = ExtResource("6_j7uu8")
 
 [node name="Item" type="TextureRect" parent="HBoxContainer/Slot"]

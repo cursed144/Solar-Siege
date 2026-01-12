@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://7uwcc6hmlr10"
-path="res://.godot/imported/unknown_item.png-524be32fc5b018e93975ef56b2229043.ctex"
+uid="uid://cwre5dv7e8tda"
+path="res://.godot/imported/add_item.png-9e88c3f6d3c94d91fd5347c9164d01ba.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Planet-Section/Textures/unknown_item.png"
-dest_files=["res://.godot/imported/unknown_item.png-524be32fc5b018e93975ef56b2229043.ctex"]
+source_file="res://Planet-Section/Textures/UI/add_item.png"
+dest_files=["res://.godot/imported/add_item.png-9e88c3f6d3c94d91fd5347c9164d01ba.ctex"]
 
 [params]
 

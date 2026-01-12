@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d6u1mfgjbpoo"
-path="res://.godot/imported/arrow_fill.png-d4bb1efa8cca08eb60a5b0b21a7c0da4.ctex"
+uid="uid://cu0lgtx7pwsit"
+path="res://.godot/imported/arrow_empty.png-3f6f523e3fbd1d47d055ac759373cb54.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Planet-Section/Textures/arrow_fill.png"
-dest_files=["res://.godot/imported/arrow_fill.png-d4bb1efa8cca08eb60a5b0b21a7c0da4.ctex"]
+source_file="res://Planet-Section/Textures/UI/arrow_empty.png"
+dest_files=["res://.godot/imported/arrow_empty.png-3f6f523e3fbd1d47d055ac759373cb54.ctex"]
 
 [params]
 

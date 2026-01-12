@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cuj1rgpaoftyc"
-path="res://.godot/imported/arrow_down.png-c6048109cbfd02cb603e9a4c5d99a6ee.ctex"
+uid="uid://dd64b2r5rmv61"
+path="res://.godot/imported/upgrade_button.png-73ce9eec92f34d4b8b18390af1e16ad1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Planet-Section/Textures/arrow_down.png"
-dest_files=["res://.godot/imported/arrow_down.png-c6048109cbfd02cb603e9a4c5d99a6ee.ctex"]
+source_file="res://Planet-Section/Textures/UI/Buttons/upgrade_button.png"
+dest_files=["res://.godot/imported/upgrade_button.png-73ce9eec92f34d4b8b18390af1e16ad1.ctex"]
 
 [params]
 

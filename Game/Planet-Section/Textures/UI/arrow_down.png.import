@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cqas44t1uytel"
-path="res://.godot/imported/cencel_button.png-811e7c5728b08424fcfc05eb92aed892.ctex"
+uid="uid://cbt6mjpxabr5q"
+path="res://.godot/imported/arrow_down.png-cd86a0a47463e4986f5210c313b10429.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Planet-Section/Textures/Buttons/cencel_button.png"
-dest_files=["res://.godot/imported/cencel_button.png-811e7c5728b08424fcfc05eb92aed892.ctex"]
+source_file="res://Planet-Section/Textures/UI/arrow_down.png"
+dest_files=["res://.godot/imported/arrow_down.png-cd86a0a47463e4986f5210c313b10429.ctex"]
 
 [params]
 

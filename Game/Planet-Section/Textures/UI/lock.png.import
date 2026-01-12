@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://i4vwbirtjyhj"
-path="res://.godot/imported/slot_frame.png-4ac0e6922b5c1a206da267b4e9263407.ctex"
+uid="uid://nbatg8xo1v75"
+path="res://.godot/imported/lock.png-bbeb455c867c98fd028d22834e96bbba.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Planet-Section/Textures/slot_frame.png"
-dest_files=["res://.godot/imported/slot_frame.png-4ac0e6922b5c1a206da267b4e9263407.ctex"]
+source_file="res://Planet-Section/Textures/UI/lock.png"
+dest_files=["res://.godot/imported/lock.png-bbeb455c867c98fd028d22834e96bbba.ctex"]
 
 [params]
 

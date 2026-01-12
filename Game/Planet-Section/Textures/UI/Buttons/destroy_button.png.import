@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dbtp4ukh22d43"
-path="res://.godot/imported/building_tab.png-b83c3a39076e8029ff30fd24c9f08a30.ctex"
+uid="uid://qcty4usppxxq"
+path="res://.godot/imported/destroy_button.png-1fec6089d09276d3cfb97dfc9cc3cbae.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Planet-Section/Textures/building_tab.png"
-dest_files=["res://.godot/imported/building_tab.png-b83c3a39076e8029ff30fd24c9f08a30.ctex"]
+source_file="res://Planet-Section/Textures/UI/Buttons/destroy_button.png"
+dest_files=["res://.godot/imported/destroy_button.png-1fec6089d09276d3cfb97dfc9cc3cbae.ctex"]
 
 [params]
 

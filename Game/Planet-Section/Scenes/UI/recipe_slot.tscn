@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://cr1cx172g67a5"]
 
 [ext_resource type="Script" uid="uid://beya2uwk3ee81" path="res://Planet-Section/Scripts/UI/recipe_slot.gd" id="1_s2y14"]
-[ext_resource type="Texture2D" uid="uid://i4vwbirtjyhj" path="res://Planet-Section/Textures/slot_frame.png" id="2_75op1"]
-[ext_resource type="Texture2D" uid="uid://dnxgiee1onatj" path="res://Planet-Section/Textures/locked_item.png" id="3_75op1"]
+[ext_resource type="Texture2D" uid="uid://deixmur2ebu3f" path="res://Planet-Section/Textures/icon.svg" id="2_s2y14"]
+[ext_resource type="Texture2D" uid="uid://nbatg8xo1v75" path="res://Planet-Section/Textures/UI/lock.png" id="3_75op1"]
 
 [node name="RecipeSlot" type="Control"]
 layout_mode = 3
@@ -14,26 +14,93 @@ grow_vertical = 2
 script = ExtResource("1_s2y14")
 metadata/_edit_lock_ = true
 
-[node name="Frame" type="TextureButton" parent="."]
+[node name="Button" type="TextureButton" parent="."]
 self_modulate = Color(0, 0.65882355, 0, 1)
 texture_filter = 1
 layout_mode = 0
-offset_right = 128.0
-offset_bottom = 128.0
-scale = Vector2(0.5, 0.5)
+offset_top = 4.0
+offset_right = 296.0
+offset_bottom = 75.0
 mouse_default_cursor_shape = 2
-texture_normal = ExtResource("2_75op1")
-texture_disabled = ExtResource("3_75op1")
 
 [node name="Item" type="TextureRect" parent="."]
 texture_filter = 1
 layout_mode = 0
-offset_left = 5.0
-offset_top = 5.0
-offset_right = 75.66667
-offset_bottom = 75.66667
-scale = Vector2(0.75, 0.75)
+offset_left = 22.0
+offset_top = 15.0
+offset_right = 68.62161
+offset_bottom = 61.0
 mouse_filter = 2
+texture = ExtResource("2_s2y14")
 expand_mode = 1
 
-[connection signal="pressed" from="Frame" to="." method="_on_frame_pressed"]
+[node name="Lock" type="TextureRect" parent="."]
+visible = false
+texture_filter = 1
+layout_mode = 0
+offset_left = 110.0
+offset_top = 4.0
+offset_right = 181.0
+offset_bottom = 75.0
+texture = ExtResource("3_75op1")
+expand_mode = 1
+
+[node name="ItemText" type="Label" parent="."]
+layout_mode = 0
+offset_left = 87.0
+offset_top = 3.999999
+offset_right = 864.3584
+offset_bottom = 271.92456
+scale = Vector2(0.265, 0.265)
+theme_override_font_sizes/font_size = 101
+text = "Item Name"
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Design" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 297.0
+offset_bottom = 79.0
+mouse_filter = 2
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
+
+[node name="Frame1" type="Control" parent="Design"]
+anchors_preset = 0
+offset_right = 297.0
+offset_bottom = 79.0
+mouse_filter = 2
+
+[node name="Border1" type="ColorRect" parent="Design/Frame1"]
+layout_mode = 0
+offset_right = 297.0
+offset_bottom = 4.0
+
+[node name="Border2" type="ColorRect" parent="Design/Frame1"]
+layout_mode = 0
+offset_top = 75.0
+offset_right = 297.0
+offset_bottom = 79.0
+
+[node name="Frame2" type="Control" parent="Design"]
+modulate = Color(0.7019608, 0.7019608, 0.7019608, 1)
+anchors_preset = 0
+offset_right = 297.0
+offset_bottom = 79.0
+mouse_filter = 2
+
+[node name="Border1" type="ColorRect" parent="Design/Frame2"]
+layout_mode = 0
+offset_top = 3.0
+offset_right = 297.0
+offset_bottom = 4.0
+
+[node name="Border2" type="ColorRect" parent="Design/Frame2"]
+layout_mode = 0
+offset_top = 75.0
+offset_right = 297.0
+offset_bottom = 76.0
+
+[connection signal="mouse_entered" from="Button" to="." method="_on_button_mouse_entered"]
+[connection signal="mouse_exited" from="Button" to="." method="_on_button_mouse_exited"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

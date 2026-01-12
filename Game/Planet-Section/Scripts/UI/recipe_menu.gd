@@ -16,16 +16,18 @@ func on_worker_slot_clicked(building: Building, slot_num: int) -> void:
 	target_building = building
 	target_slot = slot_num
 	
+	clear_recipes()
 	for recipe in building.recipes:
 		var new_slot = RECIPE_SLOT.instantiate()
 		new_slot.init(recipe)
 		new_slot.slot_clicked.connect(on_recipe_slot_clicked)
-		$RecipeSlots/Recipes.add_child(new_slot)
+		$RecipeSlots/Recipes/Card.add_child(new_slot)
 
 
 func on_recipe_slot_clicked(recipe: Recipe) -> void:
-	$RecipeConfirm.show()
 	pending_recipe = recipe
+	$RecipeSlots.hide()
+	$RecipeConfirm.show()
 	$RecipeConfirm/RecipeImage.texture = recipe.display_icon
 	$RecipeConfirm/RecipeName.text = recipe.recipe_name
 	$RecipeConfirm/AmountLabel.text = "Amount to produce: 1/20"
@@ -44,16 +46,7 @@ func _on_amount_value_changed(value: float) -> void:
 	$RecipeConfirm/AmountLabel.text = "Amount to produce: " + str(value as int) + "/20"
 
 
-func cancel_recipe() -> void:
-	show()
-	$CancelRecipe.show()
-
-
-func _on_recipe_slots_close_pressed() -> void:
-	for recipe in $RecipeSlots/Recipes.get_children():
-		recipe.slot_clicked.disconnect(on_recipe_slot_clicked)
-		recipe.queue_free()
-	
+func _on_recipe_menu_cancel_pressed() -> void:
 	$RecipeSlots.hide()
 	hide()
 
@@ -61,6 +54,17 @@ func _on_recipe_slots_close_pressed() -> void:
 func _on_begin_production() -> void:
 	target_building.assign_recipe_to_row(pending_recipe, $RecipeConfirm/Amount.value, target_slot)
 	reset_menus()
+
+
+func _on_recipe_confirmation_cancel_pressed() -> void:
+	$RecipeConfirm.hide()
+	$RecipeSlots.show()
+
+
+func clear_recipes():
+	for recipe in $RecipeSlots/Recipes/Card.get_children():
+		recipe.slot_clicked.disconnect(on_recipe_slot_clicked)
+		recipe.queue_free()
 
 
 func reset_menus() -> void:

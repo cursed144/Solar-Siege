@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://d4ha36564l20p"]
+[gd_scene load_steps=33 format=3 uid="uid://d4ha36564l20p"]
 
 [ext_resource type="Script" uid="uid://c5wbnqrgl4aor" path="res://Planet-Section/Scripts/planet.gd" id="1_r0ntb"]
 [ext_resource type="PackedScene" uid="uid://c6yvaai4dadhi" path="res://Planet-Section/Scenes/Buildings/building_template.tscn" id="2_5xlqu"]
@@ -11,16 +11,18 @@
 [ext_resource type="PackedScene" uid="uid://cptn1yrqchxdj" path="res://Planet-Section/Scenes/worker.tscn" id="5_jr884"]
 [ext_resource type="PackedScene" uid="uid://dx0pwai5nk0di" path="res://Planet-Section/Scenes/UI/building_icon.tscn" id="5_xqwqb"]
 [ext_resource type="Resource" uid="uid://ovbfsshvr576" path="res://Planet-Section/Resources/Buildings/worker_hub.tres" id="6_0pncr"]
-[ext_resource type="Texture2D" uid="uid://deixmur2ebu3f" path="res://icon.svg" id="7_5gyni"]
+[ext_resource type="Texture2D" uid="uid://deixmur2ebu3f" path="res://Planet-Section/Textures/icon.svg" id="7_5gyni"]
 [ext_resource type="Script" uid="uid://dwytf3p3tvovs" path="res://Planet-Section/Scripts/UI/building_info.gd" id="11_lorx5"]
-[ext_resource type="Texture2D" uid="uid://bji116nte5xq0" path="res://Planet-Section/Textures/arrow_up.png" id="12_6ei45"]
+[ext_resource type="Texture2D" uid="uid://bhw0mwyvx34qd" path="res://Planet-Section/Textures/UI/arrow_up.png" id="12_6ei45"]
 [ext_resource type="PackedScene" uid="uid://b0tl1i18xbkfo" path="res://Planet-Section/Scenes/UI/worker_row.tscn" id="12_jr884"]
-[ext_resource type="Texture2D" uid="uid://cuj1rgpaoftyc" path="res://Planet-Section/Textures/arrow_down.png" id="13_cj2bw"]
+[ext_resource type="Texture2D" uid="uid://cbt6mjpxabr5q" path="res://Planet-Section/Textures/UI/arrow_down.png" id="13_cj2bw"]
 [ext_resource type="Script" uid="uid://bpboa5iqaqcqi" path="res://Planet-Section/Scripts/UI/delete_item_conf.gd" id="15_cj2bw"]
 [ext_resource type="Script" uid="uid://c4eynbg3bu4tt" path="res://Planet-Section/Scripts/UI/recipe_menu.gd" id="15_m577t"]
 [ext_resource type="Texture2D" uid="uid://ddu320nf5jagq" path="res://Planet-Section/Textures/temp_log.png" id="16_vmkg5"]
-[ext_resource type="Texture2D" uid="uid://qcty4usppxxq" path="res://Planet-Section/Textures/Buttons/destroy_button.png" id="18_6pg5r"]
-[ext_resource type="Texture2D" uid="uid://dd64b2r5rmv61" path="res://Planet-Section/Textures/Buttons/upgrade_button.png" id="19_gimfs"]
+[ext_resource type="Texture2D" uid="uid://qcty4usppxxq" path="res://Planet-Section/Textures/UI/Buttons/destroy_button.png" id="18_6pg5r"]
+[ext_resource type="Texture2D" uid="uid://dd64b2r5rmv61" path="res://Planet-Section/Textures/UI/Buttons/upgrade_button.png" id="19_gimfs"]
+[ext_resource type="Texture2D" uid="uid://blmy8iosqcihi" path="res://Planet-Section/Textures/UI/Buttons/confirm_button.png" id="20_gimfs"]
+[ext_resource type="Texture2D" uid="uid://cqas44t1uytel" path="res://Planet-Section/Textures/UI/Buttons/cancel_button.png" id="21_xo3u4"]
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_x85yj"]
 resource_name = "Buildings"
@@ -114,6 +116,7 @@ z_index = -1
 position = Vector2(2500, 2500)
 scale = Vector2(5000, 5000)
 mesh = SubResource("BoxMesh_becdf")
+metadata/_edit_lock_ = true
 
 [node name="WorkerHead" type="Node2D" parent="."]
 unique_name_in_owner = true
@@ -319,7 +322,6 @@ z_index = 3
 layout_mode = 3
 anchors_preset = 0
 offset_left = -297.0
-offset_right = 3.0
 offset_bottom = 648.0
 script = ExtResource("11_lorx5")
 
@@ -389,22 +391,24 @@ scale = Vector2(0.64, 0.64)
 texture_filter = 1
 layout_mode = 0
 offset_right = 32.0
-offset_bottom = 22.0
+offset_bottom = 25.462967
 scale = Vector2(0.675, 0.675)
 mouse_default_cursor_shape = 2
 texture_normal = ExtResource("12_6ei45")
 ignore_texture_size = true
+stretch_mode = 0
 
 [node name="Decrease" type="TextureButton" parent="UI/BuildingInfo/Content/Card/WorkerSection/WorkerInfo/Buttons"]
 texture_filter = 1
 layout_mode = 0
 offset_left = 27.496002
 offset_right = 59.496002
-offset_bottom = 22.0
+offset_bottom = 25.462967
 scale = Vector2(0.675, 0.675)
 mouse_default_cursor_shape = 2
 texture_normal = ExtResource("13_cj2bw")
 ignore_texture_size = true
+stretch_mode = 0
 
 [node name="WorkerList" type="VBoxContainer" parent="UI/BuildingInfo/Content/Card/WorkerSection"]
 layout_mode = 2
@@ -443,160 +447,153 @@ mouse_default_cursor_shape = 2
 texture_normal = ExtResource("19_gimfs")
 stretch_mode = 0
 
-[node name="RecipeMenu" type="Control" parent="UI"]
+[node name="RecipeMenu" type="Control" parent="UI/BuildingInfo"]
 process_mode = 3
 visible = false
-z_index = 4
-layout_mode = 3
 anchors_preset = 0
-offset_right = 1152.0
+offset_left = 297.0
+offset_right = 1449.0
 offset_bottom = 648.0
 script = ExtResource("15_m577t")
 metadata/_edit_lock_ = true
 
-[node name="Cover" type="ColorRect" parent="UI/RecipeMenu"]
+[node name="Cover" type="ColorRect" parent="UI/BuildingInfo/RecipeMenu"]
 layout_mode = 0
-offset_right = 1152.0
+offset_left = -297.0
 offset_bottom = 648.0
-color = Color(0, 0, 0, 0.23529412)
-metadata/_edit_lock_ = true
+color = Color(0, 0, 0, 1)
 
-[node name="RecipeSlots" type="Control" parent="UI/RecipeMenu"]
+[node name="RecipeSlots" type="VBoxContainer" parent="UI/BuildingInfo/RecipeMenu"]
+visible = false
+layout_mode = 0
+offset_left = -297.0
+offset_bottom = 648.0
+theme_override_constants/separation = 30
+
+[node name="Label" type="Label" parent="UI/BuildingInfo/RecipeMenu/RecipeSlots"]
+custom_minimum_size = Vector2(297, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Recipe Menu"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Recipes" type="ScrollContainer" parent="UI/BuildingInfo/RecipeMenu/RecipeSlots"]
+custom_minimum_size = Vector2(0, 509.485)
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="Card" type="VBoxContainer" parent="UI/BuildingInfo/RecipeMenu/RecipeSlots/Recipes"]
+layout_mode = 2
+theme_override_constants/separation = 76
+
+[node name="Button" type="Control" parent="UI/BuildingInfo/RecipeMenu/RecipeSlots"]
+layout_mode = 2
+
+[node name="Cancel" type="TextureButton" parent="UI/BuildingInfo/RecipeMenu/RecipeSlots/Button"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 84.0
+offset_top = -18.000023
+offset_right = 148.18338
+offset_bottom = 11.2263565
+scale = Vector2(1.745, 1.745)
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("21_xo3u4")
+ignore_texture_size = true
+stretch_mode = 3
+
+[node name="RecipeConfirm" type="Control" parent="UI/BuildingInfo/RecipeMenu"]
 visible = false
 anchors_preset = 0
-offset_left = 140.0
-offset_top = 71.0
-offset_right = 951.0
-offset_bottom = 554.0
+offset_left = -297.0
+offset_bottom = 648.0
 
-[node name="BG" type="ColorRect" parent="UI/RecipeMenu/RecipeSlots"]
+[node name="RecipeImage" type="TextureRect" parent="UI/BuildingInfo/RecipeMenu/RecipeConfirm"]
 layout_mode = 0
-offset_right = 810.26636
-offset_bottom = 483.0
-color = Color(0, 0, 0, 1)
-metadata/_edit_lock_ = true
+offset_left = 84.0
+offset_top = 68.0
+offset_right = 212.0
+offset_bottom = 196.0
+texture = ExtResource("7_5gyni")
 
-[node name="Label" type="Label" parent="UI/RecipeMenu/RecipeSlots"]
+[node name="Produce" type="TextureButton" parent="UI/BuildingInfo/RecipeMenu/RecipeConfirm"]
+texture_filter = 1
 layout_mode = 0
-offset_left = 282.0
-offset_top = 6.0
-offset_right = 506.0
-offset_bottom = 56.0
-theme_override_font_sizes/font_size = 36
-text = "Recipe Menu"
-
-[node name="Close" type="TextureButton" parent="UI/RecipeMenu/RecipeSlots"]
-layout_mode = 0
-offset_left = 761.0
-offset_right = 810.0
-offset_bottom = 49.0
+offset_left = 175.0
+offset_top = 552.0
+offset_right = 275.0
+offset_bottom = 652.0
 mouse_default_cursor_shape = 2
-texture_normal = ExtResource("7_5gyni")
+texture_normal = ExtResource("20_gimfs")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="Recipes" type="GridContainer" parent="UI/RecipeMenu/RecipeSlots"]
+[node name="Cancel" type="TextureButton" parent="UI/BuildingInfo/RecipeMenu/RecipeConfirm"]
+texture_filter = 1
 layout_mode = 0
-offset_left = 16.0
-offset_top = 79.0
-offset_right = 612.16864
-offset_bottom = 378.61688
-scale = Vector2(1.305, 1.305)
-theme_override_constants/h_separation = 76
-theme_override_constants/v_separation = 76
-columns = 8
+offset_left = 26.0
+offset_top = 552.0
+offset_right = 126.0
+offset_bottom = 652.0
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("21_xo3u4")
+ignore_texture_size = true
+stretch_mode = 0
 
-[node name="RecipeConfirm" type="Control" parent="UI/RecipeMenu"]
-visible = false
-anchors_preset = 0
-offset_left = 140.0
-offset_top = 71.0
-offset_right = 951.0
-offset_bottom = 554.0
-
-[node name="BG" type="ColorRect" parent="UI/RecipeMenu/RecipeConfirm"]
+[node name="RecipeName" type="Label" parent="UI/BuildingInfo/RecipeMenu/RecipeConfirm"]
 layout_mode = 0
-offset_right = 810.26636
-offset_bottom = 483.0
-color = Color(0, 0, 0, 1)
-metadata/_edit_lock_ = true
-
-[node name="RecipeImage" type="TextureRect" parent="UI/RecipeMenu/RecipeConfirm"]
-layout_mode = 0
-offset_left = 138.0
-offset_top = 119.0
-offset_right = 266.0
-offset_bottom = 247.0
-texture = ExtResource("7_5gyni")
-
-[node name="Produce" type="Button" parent="UI/RecipeMenu/RecipeConfirm"]
-layout_mode = 0
-offset_left = 100.0
-offset_top = 400.0
-offset_right = 273.0
-offset_bottom = 440.0
-text = "Produce"
-
-[node name="Cancel" type="Button" parent="UI/RecipeMenu/RecipeConfirm"]
-layout_mode = 0
-offset_left = 520.0
-offset_top = 400.0
-offset_right = 693.0
-offset_bottom = 440.0
-text = "Cancel"
-
-[node name="Req" type="Label" parent="UI/RecipeMenu/RecipeConfirm"]
-layout_mode = 0
-offset_left = 476.0
-offset_top = 43.0
-offset_right = 753.0
-offset_bottom = 87.0
-theme_override_font_sizes/font_size = 30
-text = "Requirements:"
-
-[node name="RecipeName" type="Label" parent="UI/RecipeMenu/RecipeConfirm"]
-layout_mode = 0
-offset_left = 64.0
-offset_top = 38.0
-offset_right = 341.0
-offset_bottom = 82.0
-theme_override_font_sizes/font_size = 31
+offset_left = -1.0
+offset_top = 209.0
+offset_right = 297.0
+offset_bottom = 253.0
+theme_override_font_sizes/font_size = 26
 text = "Recipe Name Here"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="AmountLabel" type="Label" parent="UI/RecipeMenu/RecipeConfirm"]
+[node name="Requires" type="Label" parent="UI/BuildingInfo/RecipeMenu/RecipeConfirm"]
 layout_mode = 0
-offset_left = 304.0
-offset_top = 318.0
-offset_right = 473.0
-offset_bottom = 341.0
+offset_left = 35.0
+offset_top = 274.0
+offset_right = 130.0
+offset_bottom = 304.0
+theme_override_font_sizes/font_size = 21
+text = "Requires:"
+
+[node name="Requirements" type="ScrollContainer" parent="UI/BuildingInfo/RecipeMenu/RecipeConfirm"]
+layout_mode = 0
+offset_left = 38.0
+offset_top = 309.0
+offset_right = 299.98828
+offset_bottom = 478.59064
+scale = Vector2(0.855, 0.855)
+horizontal_scroll_mode = 0
+
+[node name="HBoxContainer" type="VBoxContainer" parent="UI/BuildingInfo/RecipeMenu/RecipeConfirm/Requirements"]
+layout_mode = 2
+
+[node name="AmountLabel" type="Label" parent="UI/BuildingInfo/RecipeMenu/RecipeConfirm"]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 477.0
+offset_right = 243.0
+offset_bottom = 500.0
 text = "Amount to produce: 0/20"
 
-[node name="Amount" type="HSlider" parent="UI/RecipeMenu/RecipeConfirm"]
+[node name="Amount" type="HSlider" parent="UI/BuildingInfo/RecipeMenu/RecipeConfirm"]
 layout_mode = 0
-offset_left = 129.0
-offset_top = 339.0
-offset_right = 670.0
-offset_bottom = 385.0
+offset_left = 44.0
+offset_top = 507.0
+offset_right = 244.0
+offset_bottom = 553.0
 min_value = 1.0
 max_value = 20.0
 value = 1.0
 rounded = true
 tick_count = 1
 
-[node name="Requirements" type="ScrollContainer" parent="UI/RecipeMenu/RecipeConfirm"]
-layout_mode = 0
-offset_left = 480.0
-offset_top = 89.0
-offset_right = 741.9883
-offset_bottom = 286.66083
-scale = Vector2(0.855, 0.855)
-horizontal_scroll_mode = 0
-
-[node name="HBoxContainer" type="VBoxContainer" parent="UI/RecipeMenu/RecipeConfirm/Requirements"]
-layout_mode = 2
-
-[node name="StopRecipe" type="Control" parent="UI/RecipeMenu"]
-visible = false
+[node name="StopRecipe" type="Control" parent="UI/BuildingInfo/RecipeMenu"]
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
@@ -707,9 +704,10 @@ stretch_mode = 0
 [connection signal="mouse_exited" from="UI/BuildingMenu/ScrollingArea" to="UI/BuildingMenu" method="_on_scrolling_area_mouse_exited"]
 [connection signal="pressed" from="UI/BuildingInfo/Content/Card/WorkerSection/WorkerInfo/Buttons/Increase" to="UI/BuildingInfo" method="_on_worker_increase_pressed"]
 [connection signal="pressed" from="UI/BuildingInfo/Content/Card/WorkerSection/WorkerInfo/Buttons/Decrease" to="UI/BuildingInfo" method="_on_worker_decrease_pressed"]
-[connection signal="pressed" from="UI/RecipeMenu/RecipeSlots/Close" to="UI/RecipeMenu" method="_on_recipe_slots_close_pressed"]
-[connection signal="pressed" from="UI/RecipeMenu/RecipeConfirm/Produce" to="UI/RecipeMenu" method="_on_begin_production"]
-[connection signal="value_changed" from="UI/RecipeMenu/RecipeConfirm/Amount" to="UI/RecipeMenu" method="_on_amount_value_changed"]
+[connection signal="pressed" from="UI/BuildingInfo/RecipeMenu/RecipeSlots/Button/Cancel" to="UI/BuildingInfo/RecipeMenu" method="_on_recipe_menu_cancel_pressed"]
+[connection signal="pressed" from="UI/BuildingInfo/RecipeMenu/RecipeConfirm/Produce" to="UI/BuildingInfo/RecipeMenu" method="_on_begin_production"]
+[connection signal="pressed" from="UI/BuildingInfo/RecipeMenu/RecipeConfirm/Cancel" to="UI/BuildingInfo/RecipeMenu" method="_on_recipe_confirmation_cancel_pressed"]
+[connection signal="value_changed" from="UI/BuildingInfo/RecipeMenu/RecipeConfirm/Amount" to="UI/BuildingInfo/RecipeMenu" method="_on_amount_value_changed"]
 [connection signal="value_changed" from="UI/DeleteItemConf/Amount" to="UI/DeleteItemConf" method="_on_amount_value_changed"]
 [connection signal="pressed" from="UI/DeleteItemConf/Delete" to="UI/DeleteItemConf" method="_on_delete_pressed"]
 [connection signal="pressed" from="UI/DeleteItemConf/Cancel" to="UI/DeleteItemConf" method="_on_cancel_pressed"]
