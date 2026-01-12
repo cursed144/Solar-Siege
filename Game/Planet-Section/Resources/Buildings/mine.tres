@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="BuildingData" load_steps=9 format=3 uid="uid://ovbfsshvr576"]
+[gd_resource type="Resource" script_class="BuildingData" load_steps=8 format=3 uid="uid://ovbfsshvr576"]
 
 [ext_resource type="Texture2D" uid="uid://deixmur2ebu3f" path="res://icon.svg" id="1_dnkld"]
 [ext_resource type="Script" uid="uid://my03aj68uxeb" path="res://Planet-Section/Classes/item_amount.gd" id="2_pyvlj"]
@@ -18,18 +18,12 @@ item = ExtResource("4_q66r6")
 amount = 20
 metadata/_custom_type_script = "uid://my03aj68uxeb"
 
-[sub_resource type="Resource" id="Resource_dnkld"]
-script = ExtResource("2_pyvlj")
-item = ExtResource("4_q66r6")
-amount = 20
-metadata/_custom_type_script = "uid://my03aj68uxeb"
-
 [resource]
 script = ExtResource("5_yi8ml")
 id = 1
-build_time = 10.0
+build_time = 2.0
 display_name = "Mine"
 description = "Extracts minerals from the ground"
-requirements = Array[ExtResource("2_pyvlj")]([SubResource("Resource_r2d6x"), SubResource("Resource_d63wl"), SubResource("Resource_dnkld")])
+requirements = Array[ExtResource("2_pyvlj")]([SubResource("Resource_r2d6x"), SubResource("Resource_d63wl")])
 icon = ExtResource("1_dnkld")
 metadata/_custom_type_script = "uid://ky0epndk32cp"

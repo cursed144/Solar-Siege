@@ -25,7 +25,7 @@ func on_worker_slot_clicked(building: Building, slot_num: int, delete: bool) -> 
 	
 	for recipe in building.recipes:
 		var new_slot = RECIPE_SLOT.instantiate()
-		new_slot.init(recipe)
+		new_slot.init(recipe, building.level >= recipe.unlocks_at_level)
 		new_slot.slot_clicked.connect(on_recipe_slot_clicked)
 		$RecipeSlots/Recipes/Card.add_child(new_slot)
 

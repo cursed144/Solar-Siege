@@ -7,7 +7,7 @@ extends Node2D
 @export var max_building_amount: Dictionary[String, int]
 
 var building_amounts: Dictionary[String, int] = {}
-var global_storage: Array[Inventory]
+var global_storage: Dictionary[String, Inventory] = {}
 
 
 func _ready() -> void:
@@ -63,7 +63,7 @@ func get_building_current_amount(building_name: String) -> int:
 
 func get_global_item_amount(item: Item) -> int:
 	var total := 0
-	for inv in global_storage:
+	for inv in global_storage.values():
 		total += inv.get_total_item_amount(item)
 	
 	return total

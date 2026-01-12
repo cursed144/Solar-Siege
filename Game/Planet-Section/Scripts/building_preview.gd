@@ -58,6 +58,7 @@ func place_building(id: int) -> void:
 						global_position.y + (grid.y * j)) ) as Vector2i
 			%WorkerHead.set_tilemap_tile_solid(cell)
 	
+	building.begin_upgrade(stored_building.build_time)
 	end_placement()
 
 

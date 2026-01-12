@@ -14,6 +14,7 @@ var is_mouse_in_area := false
 @onready var worker_row_container: Node = $Content/Card/WorkerSection/WorkerList
 @onready var inventories_container: Node = $Content/Card/Inventories
 @onready var name_label: Label = $Content/Card/BuildingName
+@onready var destroy_button: TextureButton = %UI/DestroyBuilding/Confirm
 
 
 func _process(_delta: float) -> void:
@@ -21,7 +22,7 @@ func _process(_delta: float) -> void:
 		for i in range(curr_building.worker_limit):
 			var row = worker_row_container.get_child(i)
 			var progress: TextureProgressBar = row.get_node("Progress")
-			var timer: Timer = curr_building.get_node("WorkerRows/" + row.name)
+			var timer: Timer = curr_building.get_node("WorkerRows/" + row.name + "/Timer")
 			
 			if timer.time_left >= 0.05:
 				progress.max_value = timer.wait_time
@@ -63,16 +64,7 @@ func building_clicked(building: Building) -> void:
 	curr_building = building
 	_fill_inv_info(building)
 	_fill_worker_info(building)
-	
-	# connect updates from the building
-	if not building.request_inv_update.is_connected(update_inv):
-		building.request_inv_update.connect(update_inv)
-	
-	if not building.request_worker_rows_update.is_connected(update_worker_rows):
-		building.request_worker_rows_update.connect(update_worker_rows)
-	
-	if not building.destroyed.is_connected(_on_building_destroyed):
-		building.destroyed.connect(_on_building_destroyed)
+	connect_to_building(building)
 
 
 func _fill_inv_info(building: Building) -> void:
@@ -148,11 +140,11 @@ func update_worker_rows(building: Building = curr_building) -> void:
 	
 	await get_tree().process_frame
 	for i in range(building.worker_limit):
-		var work_timer = building.get_node("WorkerRows/" + str(i+1))
+		var work_controller = building.get_node("WorkerRows/" + str(i+1))
 		var row = worker_row_container.get_child(i)
 		
-		if work_timer.is_work_required():
-			row.set_display_item(work_timer.assigned_recipe, work_timer.amount_to_produce)
+		if work_controller.is_work_required():
+			row.set_display_item(work_controller.assigned_recipe, work_controller.amount_to_produce)
 		else:
 			row.set_display_item(null, 0)
 
@@ -206,6 +198,20 @@ func clear_info() -> void:
 		worker.queue_free()
 
 
+func connect_to_building(building: Building = curr_building) -> void:
+	if not building.request_inv_update.is_connected(update_inv):
+		building.request_inv_update.connect(update_inv)
+	
+	if not building.request_worker_rows_update.is_connected(update_worker_rows):
+		building.request_worker_rows_update.connect(update_worker_rows)
+	
+	if not building.destroyed.is_connected(_on_building_destroyed):
+		building.destroyed.connect(_on_building_destroyed)
+	
+	if not destroy_button.pressed.is_connected(curr_building.destroy):
+		destroy_button.pressed.connect(curr_building.destroy)
+
+
 func _disconnect_from_building() -> void:
 	if not is_instance_valid(curr_building):
 		curr_building = null
@@ -220,6 +226,9 @@ func _disconnect_from_building() -> void:
 	
 	if curr_building.destroyed.is_connected(_on_building_destroyed):
 		curr_building.destroyed.disconnect(_on_building_destroyed)
+	
+	if destroy_button.pressed.is_connected(curr_building.destroy):
+		destroy_button.pressed.disconnect(curr_building.destroy)
 	
 	curr_building = null
 

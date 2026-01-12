@@ -6,4 +6,4 @@ extends Resource
 @export var requirements: Array[ItemAmount]
 @export var outputs: Array[ItemAmount]
 @export var creation_time: float
-@export var is_unlocked: bool
+@export var unlocks_at_level: int = 1

@@ -1,5 +1,5 @@
-class_name WorkTimer
-extends Timer
+class_name WorkController
+extends Node
 
 signal alert_work_finished
 signal alert_work_cancelled
@@ -20,7 +20,7 @@ var used_materials: Array[ItemStack]
 func assign_recipe(recipe: Recipe, amount: int = 1):
 	assigned_recipe = recipe
 	amount_to_produce = amount
-	wait_time = recipe.creation_time / building.production_multiplier
+	$Timer.wait_time = recipe.creation_time / building.production_multiplier
 	
 	prepare_for_work()
 
@@ -48,14 +48,14 @@ func _on_timeout() -> void:
 
 
 func start_work() -> void:
-	start()
-	paused = false
+	$Timer.start()
+	$Timer.paused = false
 
 func pause_work() -> void:
-	paused = true
+	$Timer.paused = true
 
 func resume_work() -> void:
-	paused = false
+	$Timer.paused = false
 
 func work_finished() -> void:
 	amount_to_produce -= 1
@@ -71,7 +71,7 @@ func cancel_production() -> void:
 	assigned_recipe = null
 	amount_to_produce = 0
 	alert_work_cancelled.emit()
-	stop()
+	$Timer.stop()
 
 
 func is_work_required() -> bool:

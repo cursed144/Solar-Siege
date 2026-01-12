@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://d4ha36564l20p"]
+[gd_scene load_steps=36 format=3 uid="uid://d4ha36564l20p"]
 
 [ext_resource type="Script" uid="uid://c5wbnqrgl4aor" path="res://Planet-Section/Scripts/planet.gd" id="1_r0ntb"]
 [ext_resource type="PackedScene" uid="uid://c6yvaai4dadhi" path="res://Planet-Section/Scenes/Buildings/building_template.tscn" id="2_5xlqu"]
@@ -24,6 +24,7 @@
 [ext_resource type="Texture2D" uid="uid://dd64b2r5rmv61" path="res://Planet-Section/Textures/UI/Buttons/upgrade_button.png" id="19_gimfs"]
 [ext_resource type="Texture2D" uid="uid://blmy8iosqcihi" path="res://Planet-Section/Textures/UI/Buttons/confirm_button.png" id="20_gimfs"]
 [ext_resource type="Texture2D" uid="uid://cqas44t1uytel" path="res://Planet-Section/Textures/UI/Buttons/cancel_button.png" id="21_xo3u4"]
+[ext_resource type="Script" uid="uid://jqii1ecaswyt" path="res://Planet-Section/Scripts/UI/destroy_building.gd" id="23_ckrrn"]
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_x85yj"]
 resource_name = "Buildings"
@@ -296,6 +297,7 @@ offset_left = 5.0
 offset_top = -39.0
 offset_right = 1152.0
 offset_bottom = 158.0
+mouse_filter = 2
 theme_override_constants/separation = 6
 
 [node name="BName" type="Label" parent="UI/BuildingMenu/HoverMenu/VBoxContainer"]
@@ -311,6 +313,7 @@ autowrap_mode = 3
 [node name="Requirements" type="HBoxContainer" parent="UI/BuildingMenu/HoverMenu/VBoxContainer"]
 custom_minimum_size = Vector2(0, 80.295)
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/separation = 130
 
 [node name="Column1" type="VBoxContainer" parent="UI/BuildingMenu/HoverMenu/VBoxContainer/Requirements"]
@@ -466,12 +469,12 @@ layout_mode = 2
 [node name="Inventories" type="VBoxContainer" parent="UI/BuildingInfo/Content/Card"]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/BuildingInfo/Content/Card"]
+[node name="BottomButtons" type="HBoxContainer" parent="UI/BuildingInfo/Content/Card"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/separation = 29
 
-[node name="Destroy" type="TextureButton" parent="UI/BuildingInfo/Content/Card/HBoxContainer"]
+[node name="Destroy" type="TextureButton" parent="UI/BuildingInfo/Content/Card/BottomButtons"]
 texture_filter = 1
 custom_minimum_size = Vector2(120, 120)
 layout_mode = 2
@@ -479,7 +482,7 @@ mouse_default_cursor_shape = 2
 texture_normal = ExtResource("18_6pg5r")
 stretch_mode = 0
 
-[node name="Upgrade" type="TextureButton" parent="UI/BuildingInfo/Content/Card/HBoxContainer"]
+[node name="Upgrade" type="TextureButton" parent="UI/BuildingInfo/Content/Card/BottomButtons"]
 texture_filter = 1
 custom_minimum_size = Vector2(120, 120)
 layout_mode = 2
@@ -708,6 +711,74 @@ texture_normal = ExtResource("21_xo3u4")
 ignore_texture_size = true
 stretch_mode = 0
 
+[node name="DestroyBuilding" type="Control" parent="UI"]
+process_mode = 3
+visible = false
+z_index = 4
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+script = ExtResource("23_ckrrn")
+
+[node name="Cover" type="ColorRect" parent="UI/DestroyBuilding"]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0, 0, 0, 0.39215687)
+
+[node name="BG" type="ColorRect" parent="UI/DestroyBuilding"]
+layout_mode = 0
+offset_left = 220.0
+offset_top = 106.0
+offset_right = 956.0
+offset_bottom = 532.0
+color = Color(0, 0, 0, 1)
+
+[node name="Label" type="Label" parent="UI/DestroyBuilding"]
+layout_mode = 0
+offset_left = 492.0
+offset_top = 124.0
+offset_right = 928.0
+offset_bottom = 361.0
+theme_override_font_sizes/font_size = 38
+text = "Are you sure you want to destroy this building?"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Building" type="TextureRect" parent="UI/DestroyBuilding"]
+layout_mode = 0
+offset_left = 259.0
+offset_top = 153.0
+offset_right = 426.0
+offset_bottom = 320.0
+texture = ExtResource("7_5gyni")
+
+[node name="Confirm" type="TextureButton" parent="UI/DestroyBuilding"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 643.0
+offset_top = 360.0
+offset_right = 832.0
+offset_bottom = 549.0
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("20_gimfs")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Cancel" type="TextureButton" parent="UI/DestroyBuilding"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 324.0
+offset_top = 360.0
+offset_right = 513.0
+offset_bottom = 549.0
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("21_xo3u4")
+ignore_texture_size = true
+stretch_mode = 0
+
 [node name="DeleteItemConf" type="Control" parent="UI"]
 process_mode = 3
 visible = false
@@ -815,6 +886,7 @@ stretch_mode = 0
 [connection signal="mouse_exited" from="UI/BuildingMenu/ScrollingArea" to="UI/BuildingMenu" method="_on_scrolling_area_mouse_exited"]
 [connection signal="pressed" from="UI/BuildingInfo/Content/Card/WorkerSection/WorkerInfo/Buttons/Increase" to="UI/BuildingInfo" method="_on_worker_increase_pressed"]
 [connection signal="pressed" from="UI/BuildingInfo/Content/Card/WorkerSection/WorkerInfo/Buttons/Decrease" to="UI/BuildingInfo" method="_on_worker_decrease_pressed"]
+[connection signal="pressed" from="UI/BuildingInfo/Content/Card/BottomButtons/Destroy" to="UI/DestroyBuilding" method="_on_destroy_pressed"]
 [connection signal="pressed" from="UI/BuildingInfo/RecipeMenu/RecipeSlots/Button/Cancel" to="UI/BuildingInfo/RecipeMenu" method="_on_recipe_menu_cancel_pressed"]
 [connection signal="pressed" from="UI/BuildingInfo/RecipeMenu/RecipeConfirm/Produce" to="UI/BuildingInfo/RecipeMenu" method="_on_begin_production"]
 [connection signal="pressed" from="UI/BuildingInfo/RecipeMenu/RecipeConfirm/Cancel" to="UI/BuildingInfo/RecipeMenu" method="_on_recipe_confirmation_cancel_pressed"]
@@ -823,6 +895,8 @@ stretch_mode = 0
 [connection signal="mouse_exited" from="UI/BuildingInfo/ScrollingArea" to="UI/BuildingInfo" method="_on_scrolling_area_mouse_exited"]
 [connection signal="pressed" from="UI/StopRecipe/Confirm" to="UI/BuildingInfo/RecipeMenu" method="_on_stop_recipe_confirm_pressed"]
 [connection signal="pressed" from="UI/StopRecipe/Cancel" to="UI/BuildingInfo/RecipeMenu" method="_on_stop_recipe_cancel_pressed"]
+[connection signal="pressed" from="UI/DestroyBuilding/Confirm" to="UI/DestroyBuilding" method="_on_confirm_pressed"]
+[connection signal="pressed" from="UI/DestroyBuilding/Cancel" to="UI/DestroyBuilding" method="_on_cancel_pressed"]
 [connection signal="value_changed" from="UI/DeleteItemConf/Amount" to="UI/DeleteItemConf" method="_on_amount_value_changed"]
 [connection signal="pressed" from="UI/DeleteItemConf/Cancel" to="UI/DeleteItemConf" method="_on_cancel_pressed"]
 [connection signal="pressed" from="UI/DeleteItemConf/Delete" to="UI/DeleteItemConf" method="_on_delete_pressed"]

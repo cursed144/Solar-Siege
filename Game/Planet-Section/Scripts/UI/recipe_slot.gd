@@ -5,13 +5,13 @@ signal slot_clicked(self_recipe: Recipe)
 var recipe: Recipe = null
 
 
-func init(_recipe: Recipe) -> void:
+func init(_recipe: Recipe, is_unlocked: bool) -> void:
 	if not is_instance_valid(_recipe):
 		push_error("Invalid recipe!")
 		return
 	
 	recipe = _recipe
-	if recipe.is_unlocked:
+	if is_unlocked:
 		$Item.texture = recipe.display_icon
 		$ItemText.text = recipe.recipe_name
 	else:
@@ -27,7 +27,6 @@ func _on_button_pressed() -> void:
 
 
 # Animate when hovering over button
-
 func _on_button_mouse_entered() -> void:
 	if not $Button.disabled:
 		var tween := create_tween()

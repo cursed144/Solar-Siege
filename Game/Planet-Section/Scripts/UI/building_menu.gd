@@ -38,7 +38,6 @@ func _on_building_button_pressed() -> void:
 
 
 func select_building(data: BuildingData) -> void:
-	#TODO start placing building if sufficient resourses and not over max allowed
 	%BuildingPreview.start_placing(data)
 
 func show_hover_menu(data: BuildingData) -> void:
@@ -68,6 +67,7 @@ func show_hover_menu(data: BuildingData) -> void:
 	hover.get_node("MaxAllowed").text = "You have %d / %d" % [current, limit]
 	
 	create_tween().tween_property($HoverMenu, "modulate", Color(1,1,1,1), 0.5)
+
 
 func hide_hover_menu() -> void:
 	create_tween().tween_property($HoverMenu, "modulate", Color(1,1,1,0), 0.2)

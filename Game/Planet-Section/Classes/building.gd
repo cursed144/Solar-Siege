@@ -5,7 +5,7 @@ signal request_inv_update(inv_name: String)
 signal request_worker_rows_update
 signal destroyed
 
-const work_timer := preload("res://Planet-Section/Scenes/work_timer.tscn")
+const WORK_CONTROLLER := preload("res://Planet-Section/Scenes/work_controller.tscn")
 
 @export_category("Workers")
 @export var max_workers: int = 3
@@ -18,10 +18,11 @@ const work_timer := preload("res://Planet-Section/Scenes/work_timer.tscn")
 @export_category("Production")
 @export var recipes: Array[Recipe]
 
+var work_in_progress := false
 var assigned_workers: Array = []
 var inventories: Dictionary[String, Inventory] = {}
 var production_multiplier: float = 1.0
-var building_level: int = 1
+var level: int = 0
 
 @onready var build_info: Control = get_node("../../UI/BuildingInfo")
 
@@ -45,17 +46,6 @@ func _ready() -> void:
 	worker_limit = 0
 	for i in range(limit):
 		increment_worker_rows()
-
-
-func inv_changed(inv: Inventory) -> void:
-	var inv_name = inventories.find_key(inv)
-	if inv_name != null:
-		request_inv_update.emit(inv_name)
-
-
-func add_inv(inv_name: String, slot_amount: int) -> void:
-	inventories[inv_name] = Inventory.new_inv(slot_amount)
-	inventories[inv_name].inv_changed.connect(inv_changed)
 
 
 func assign_recipe_to_row(recipe: Recipe, amount_to_make: int, row_num: int) -> void:
@@ -84,9 +74,9 @@ func increment_worker_rows() -> bool:
 	worker_limit += 1
 	request_worker_rows_update.emit()
 	
-	var new_work_timer = work_timer.instantiate()
-	$WorkerRows.add_child(new_work_timer)
-	new_work_timer.name = str(worker_limit)
+	var new_work_controller = WORK_CONTROLLER.instantiate()
+	$WorkerRows.add_child(new_work_controller)
+	new_work_controller.name = str(worker_limit)
 	return true
 
 
@@ -107,5 +97,32 @@ func _on_click_area_pressed() -> void:
 		build_info.building_clicked(self)
 
 
-func _exit_tree() -> void:
-	emit_signal("destroyed")
+func begin_upgrade(time: float) -> void:
+	work_in_progress = true
+	$ClickArea.disabled = true
+	$ClickArea.mouse_default_cursor_shape = Control.CURSOR_ARROW
+	$AnimationPlayer.play("upgrade")
+	$UpgradeTimer.start(time)
+
+func _on_upgrade_timer_timeout() -> void:
+	level += 1
+	work_in_progress = false
+	$ClickArea.disabled = false
+	$ClickArea.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+	$AnimationPlayer.play("RESET")
+
+
+func inv_changed(inv: Inventory) -> void:
+	var inv_name = inventories.find_key(inv)
+	if inv_name != null:
+		request_inv_update.emit(inv_name)
+
+
+func add_inv(inv_name: String, slot_amount: int) -> void:
+	inventories[inv_name] = Inventory.new_inv(slot_amount)
+	inventories[inv_name].inv_changed.connect(inv_changed)
+
+
+func destroy() -> void:
+	destroyed.emit()
+	queue_free()
