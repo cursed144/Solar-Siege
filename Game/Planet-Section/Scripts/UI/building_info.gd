@@ -8,13 +8,13 @@ var is_open := false
 var curr_building: Building = null
 var is_mouse_in_area := false
 
+@onready var destroy_button: TextureButton = %UI/DestroyBuilding/Confirm
 @onready var item_deleter = %UI/DeleteItemConf
 @onready var recipe_menu = $RecipeMenu
 
-@onready var worker_row_container: Node = $Content/Card/WorkerSection/WorkerList
+@onready var worker_row_container: VBoxContainer = $Content/Card/WorkerSection/WorkerList
 @onready var inventories_container: Node = $Content/Card/Inventories
 @onready var name_label: Label = $Content/Card/BuildingName
-@onready var destroy_button: TextureButton = %UI/DestroyBuilding/Confirm
 
 
 func _process(_delta: float) -> void:
@@ -90,9 +90,8 @@ func _fill_inv_info(building: Building) -> void:
 			if not new_slot.inv_slot_clicked.is_connected(item_deleter.delete_item_prompt):
 				new_slot.inv_slot_clicked.connect(item_deleter.delete_item_prompt)
 		
-		for i in range(slot_target.columns):
-			var padding = PanelContainer.new()
-			slot_target.add_child(padding)
+		var padding_size = ((slot_target.get_child_count()+4) / 4) * 68
+		slot_target.custom_minimum_size.y = padding_size
 
 
 func _fill_worker_info(building: Building) -> void:
@@ -142,11 +141,15 @@ func update_worker_rows(building: Building = curr_building) -> void:
 	for i in range(building.worker_limit):
 		var work_controller = building.get_node("WorkerRows/" + str(i+1))
 		var row = worker_row_container.get_child(i)
+		if not is_instance_valid(row):
+			continue
 		
 		if work_controller.is_work_required():
 			row.set_display_item(work_controller.assigned_recipe, work_controller.amount_to_produce)
 		else:
 			row.set_display_item(null, 0)
+	
+	worker_row_container.custom_minimum_size.y = worker_row_container.get_child_count() * 85
 
 
 func add_worker_row(dest: Node) -> void:
@@ -155,22 +158,11 @@ func add_worker_row(dest: Node) -> void:
 	new_row.name = str(curr_building.worker_limit)
 	new_row.slot_clicked.connect(recipe_menu.on_worker_slot_clicked)
 	dest.add_child(new_row)
-	
-	if dest.get_child_count() <= 1:
-		var padding = PanelContainer.new()
-		dest.add_child(padding)
-	else:
-		dest.move_child(new_row, -2)
 
 
 func pop_worker_row(target: Node) -> void:
-	if target.get_child_count() <= 2:
-		for child in target.get_children():
-			child.queue_free()
-		return
-	
-	target.get_child(-2).slot_clicked.disconnect(recipe_menu.on_worker_slot_clicked)
-	target.get_child(-2).queue_free()
+	target.get_child(-1).slot_clicked.disconnect(recipe_menu.on_worker_slot_clicked)
+	target.get_child(-1).queue_free()
 
 
 func _on_worker_increase_pressed() -> void:

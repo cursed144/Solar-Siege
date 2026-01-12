@@ -463,9 +463,6 @@ layout_mode = 2
 [node name="WorkerRow2" parent="UI/BuildingInfo/Content/Card/WorkerSection/WorkerList" instance=ExtResource("12_jr884")]
 layout_mode = 2
 
-[node name="Padding" type="PanelContainer" parent="UI/BuildingInfo/Content/Card/WorkerSection/WorkerList"]
-layout_mode = 2
-
 [node name="Inventories" type="VBoxContainer" parent="UI/BuildingInfo/Content/Card"]
 layout_mode = 2
 
