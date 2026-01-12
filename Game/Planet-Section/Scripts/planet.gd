@@ -7,7 +7,7 @@ extends Node2D
 @export var max_building_amount: Dictionary[String, int]
 
 var building_amounts: Dictionary[String, int] = {}
-var global_storage: Dictionary[String, Inventory] = {}
+var global_storage: Dictionary[Vector2, Inventory] = {} # Keep building position as key
 
 
 func _ready() -> void:
@@ -47,10 +47,15 @@ func get_unique_name(initial_name: String) -> String:
 
 func unique_to_initial(unique_name: String) -> String:
 	for i in range(unique_name.length() - 1, -1, -1):
-		if not unique_name[i].is_valid_int():
+		if not unique_name[i].is_valid_int() and unique_name[i] != " ":
 			return unique_name.substr(0, i + 1)
 	
 	return ""
+
+
+func remove_building(build_name: String) -> void:
+	build_name = unique_to_initial(build_name)
+	building_amounts[build_name] -= 1
 
 
 func get_building_max_amount(building_name: String) -> int:

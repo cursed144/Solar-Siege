@@ -97,6 +97,8 @@ func _fill_inv_info(building: Building) -> void:
 func _fill_worker_info(building: Building) -> void:
 	if not is_instance_valid(building):
 		return
+	if building.max_workers < 1:
+		$Content/Card/WorkerSection.hide()
 	
 	for worker in range(building.worker_limit):
 		add_worker_row(worker_row_container)

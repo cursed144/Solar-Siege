@@ -3,6 +3,7 @@ extends Control
 
 func _on_destroy_pressed() -> void:
 	show()
+	$Building.texture = %UI/BuildingInfo.curr_building.get_node("Sprite2D").texture
 	get_tree().paused = true
 
 

@@ -8,21 +8,22 @@ signal destroyed
 const WORK_CONTROLLER := preload("res://Planet-Section/Scenes/work_controller.tscn")
 
 @export_category("Workers")
-@export var max_workers: int = 3
-@export var worker_limit: int = 0
+@export_range(0, 99) var max_workers: int = 3
 
 @export_category("Inventory")
 @export var inv_input_name: String = "Input"
+@export var inv_input_size: int = 0
 @export var inv_output_name: String = "Output"
+@export var inv_output_size: int = 0
 
 @export_category("Production")
 @export var recipes: Array[Recipe]
 
-var work_in_progress := false
 var assigned_workers: Array = []
 var inventories: Dictionary[String, Inventory] = {}
 var production_multiplier: float = 1.0
 var level: int = 0
+var worker_limit: int = 0
 
 @onready var build_info: Control = get_node("../../UI/BuildingInfo")
 
@@ -35,12 +36,10 @@ func _ready() -> void:
 	$CollisionShape2D.position -= cell_size / 2
 	$ClickArea.position -= cell_size / 2
 	
-	add_inv(inv_input_name, 10)
-	add_inv(inv_output_name, 15)
-	
-	var item = load("res://Planet-Section/Resources/Items/wood_log.tres")
-	var item_stack = ItemStack.new_stack(item, 10)
-	inventories[inv_input_name].add_item_to_inv(item_stack)
+	if inv_input_size > 0:
+		add_inv(inv_input_name, inv_input_size)
+	if inv_output_size > 0:
+		add_inv(inv_output_name, inv_output_size)
 	
 	var limit = worker_limit
 	worker_limit = 0
@@ -57,12 +56,19 @@ func assign_recipe_to_row(recipe: Recipe, amount_to_make: int, row_num: int) -> 
 	request_worker_rows_update.emit()
 
 
-func cancel_recipe_on_row(row_num: int):
+func cancel_recipe_on_row(row_num: int) -> void:
 	var row = $WorkerRows.get_node(str(row_num))
 	if $WorkerRows.get_node(str(row_num)) == null:
 		push_error("Failed to find row with number: " + str(row_num))
 	
 	row.cancel_production()
+	request_worker_rows_update.emit()
+
+
+func cancel_all_recipes() -> void:
+	for job: WorkController in $WorkerRows.get_children():
+		job.cancel_production()
+	
 	request_worker_rows_update.emit()
 
 
@@ -98,7 +104,7 @@ func _on_click_area_pressed() -> void:
 
 
 func begin_upgrade(time: float) -> void:
-	work_in_progress = true
+	cancel_all_recipes()
 	$ClickArea.disabled = true
 	$ClickArea.mouse_default_cursor_shape = Control.CURSOR_ARROW
 	$AnimationPlayer.play("upgrade")
@@ -106,7 +112,6 @@ func begin_upgrade(time: float) -> void:
 
 func _on_upgrade_timer_timeout() -> void:
 	level += 1
-	work_in_progress = false
 	$ClickArea.disabled = false
 	$ClickArea.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 	$AnimationPlayer.play("RESET")
@@ -124,5 +129,9 @@ func add_inv(inv_name: String, slot_amount: int) -> void:
 
 
 func destroy() -> void:
+	var planet = get_tree().current_scene
+	planet.remove_building(name)
+	var tilemap: TileMapLayer = planet.get_node("Buildings")
+	tilemap.erase_cell(tilemap.local_to_map(global_position))
 	destroyed.emit()
 	queue_free()

@@ -7,11 +7,6 @@ var destination := Vector2.ZERO
 var path := []
 
 
-func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("left_click"):
-		set_astar_path(get_global_mouse_position())
-
-
 func _physics_process(delta: float) -> void:
 	if !path.is_empty():
 		position = position.move_toward(path[0], SPEED*delta)

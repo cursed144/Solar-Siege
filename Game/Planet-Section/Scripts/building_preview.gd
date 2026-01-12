@@ -3,7 +3,7 @@ extends Area2D
 var is_placing := false
 var stored_building: BuildingData
 
-@onready var buildings = %Buildings
+@onready var buildings: TileMapLayer = %Buildings
 @onready var grid: Vector2 = buildings.tile_set.tile_size
 
 
@@ -22,7 +22,7 @@ func _input(event: InputEvent) -> void:
 
 
 func _process(_delta: float) -> void:
-	if stored_building != null:
+	if is_instance_valid(stored_building):
 		global_position = snapped(get_global_mouse_position() - grid/2, grid)
 		if get_overlapping_areas().size() > 0:
 			$Sprite2D.self_modulate = Color(1, 0, 0, 0.5)
@@ -31,6 +31,9 @@ func _process(_delta: float) -> void:
 
 
 func start_placing(data: BuildingData) -> void:
+	if not is_instance_valid(data):
+		push_error("Invalid building data given!")
+	
 	%UI.hide()
 	is_placing = true
 	stored_building = data
@@ -43,7 +46,7 @@ func place_building(id: int) -> void:
 	var cell := buildings.local_to_map(global_position) as Vector2i
 	buildings.set_cell(cell, 1, Vector2i.ZERO, id)
 	
-	await buildings.child_order_changed
+	await get_tree().process_frame
 	var building: Building = buildings.get_child(-1)
 	var sprite: Sprite2D = building.get_node("Sprite2D")
 	var sprite_size = sprite.get_rect().size / grid
