@@ -1,11 +1,13 @@
 extends Control
 
-var is_open := false
-var curr_building: Building = null
-
 const inv_section := preload("res://Planet-Section/Scenes/UI/inv_section.tscn")
 const worker_row := preload("res://Planet-Section/Scenes/UI/worker_row.tscn")
 const inv_slot := preload("res://Planet-Section/Scenes/UI/inv_slot.tscn")
+
+var is_open := false
+var curr_building: Building = null
+var is_mouse_in_area := false
+
 @onready var item_deleter = %UI/DeleteItemConf
 @onready var recipe_menu = $RecipeMenu
 
@@ -26,6 +28,19 @@ func _process(_delta: float) -> void:
 				progress.value = timer.wait_time - timer.time_left
 			else:
 					progress.value = 0
+
+
+func _input(event: InputEvent) -> void:
+	if (event.is_action_released("scroll_down") or event.is_action_released("scroll_up")) and is_mouse_in_area:
+		var tween := create_tween()
+		tween.set_trans(Tween.TRANS_CUBIC)
+		tween.set_ease(Tween.EASE_OUT)
+		
+		if event.is_action_released("scroll_up"):
+			tween.tween_property($Content, "scroll_vertical", $Content.scroll_vertical - 175, 0.5)
+		elif event.is_action_released("scroll_down"):
+			tween.tween_property($Content, "scroll_vertical", $Content.scroll_vertical + 175, 0.5)
+
 
 
 func building_clicked(building: Building) -> void:
@@ -234,3 +249,10 @@ func _on_building_destroyed() -> void:
 	_disconnect_from_building()
 	clear_info()
 	close()
+
+
+func _on_scrolling_area_mouse_entered() -> void:
+	is_mouse_in_area = true
+
+func _on_scrolling_area_mouse_exited() -> void:
+	is_mouse_in_area = false

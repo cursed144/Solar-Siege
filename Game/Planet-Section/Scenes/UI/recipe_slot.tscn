@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://cr1cx172g67a5"]
 
 [ext_resource type="Script" uid="uid://beya2uwk3ee81" path="res://Planet-Section/Scripts/UI/recipe_slot.gd" id="1_s2y14"]
-[ext_resource type="Texture2D" uid="uid://deixmur2ebu3f" path="res://Planet-Section/Textures/icon.svg" id="2_s2y14"]
+[ext_resource type="Texture2D" uid="uid://deixmur2ebu3f" path="res://icon.svg" id="2_s2y14"]
 [ext_resource type="Texture2D" uid="uid://nbatg8xo1v75" path="res://Planet-Section/Textures/UI/lock.png" id="3_75op1"]
 
 [node name="RecipeSlot" type="Control"]

@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="BuildingData" load_steps=4 format=3 uid="uid://ovbfsshvr576"]
 
 [ext_resource type="Script" uid="uid://ky0epndk32cp" path="res://Planet-Section/Classes/building_data.gd" id="1_1yebq"]
-[ext_resource type="Texture2D" uid="uid://deixmur2ebu3f" path="res://Planet-Section/Textures/icon.svg" id="1_nuswh"]
+[ext_resource type="Texture2D" uid="uid://deixmur2ebu3f" path="res://icon.svg" id="1_nuswh"]
 [ext_resource type="Script" uid="uid://my03aj68uxeb" path="res://Planet-Section/Classes/item_amount.gd" id="2_uaotf"]
 
 [resource]

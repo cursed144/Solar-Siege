@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://b0tl1i18xbkfo"]
 
 [ext_resource type="Texture2D" uid="uid://cu0lgtx7pwsit" path="res://Planet-Section/Textures/UI/arrow_empty.png" id="1_havnt"]
-[ext_resource type="Texture2D" uid="uid://deixmur2ebu3f" path="res://Planet-Section/Textures/icon.svg" id="1_ptuh7"]
+[ext_resource type="Texture2D" uid="uid://deixmur2ebu3f" path="res://icon.svg" id="1_ptuh7"]
 [ext_resource type="Script" uid="uid://p1jpjele8rvj" path="res://Planet-Section/Scripts/UI/worker_row.gd" id="1_pxrcg"]
 [ext_resource type="Texture2D" uid="uid://dtwpw4et4hokc" path="res://Planet-Section/Textures/UI/arrow_fill.png" id="2_d8ybk"]
 [ext_resource type="Texture2D" uid="uid://cwre5dv7e8tda" path="res://Planet-Section/Textures/UI/add_item.png" id="5_pxrcg"]

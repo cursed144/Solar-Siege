@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://cga8pk03f5cfc"]
 
-[ext_resource type="Texture2D" uid="uid://deixmur2ebu3f" path="res://Planet-Section/Textures/icon.svg" id="1_1w3b7"]
+[ext_resource type="Texture2D" uid="uid://deixmur2ebu3f" path="res://icon.svg" id="1_1w3b7"]
 [ext_resource type="Texture2D" uid="uid://dbtp4ukh22d43" path="res://Planet-Section/Textures/UI/building_tab.png" id="1_nimr3"]
 [ext_resource type="Texture2D" uid="uid://c31aj24abmte6" path="res://Planet-Section/Textures/UI/building_tab_clicked.png" id="2_bp3fc"]
 [ext_resource type="Script" uid="uid://bfpnq5trp8l8v" path="res://Planet-Section/Scripts/UI/building_tab.gd" id="2_nimr3"]
