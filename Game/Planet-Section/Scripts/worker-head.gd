@@ -5,7 +5,8 @@ const CELL_SIZE = Vector2i(64, 64)
 var astar = AStarGrid2D.new()
 var job_list: Array[WorkController]
 
-@onready var ratio = %Buildings.tile_set.tile_size.x / CELL_SIZE.x
+@onready var grid = %Buildings.tile_set.tile_size
+@onready var ratio = grid.x / CELL_SIZE.x
 
 
 func _ready() -> void:
@@ -29,14 +30,26 @@ func get_from_available_jobs() -> WorkController:
 	return job_list.pop_front()
 
 
-func set_tilemap_tile_solid(tile: Vector2i) -> void:
+func set_tilemap_tile_solid(tile: Vector2i, is_solid := true) -> void:
 	var corner: Vector2i = tile * ratio
 	
 	for i in range(ratio):
 		for j in range(ratio):
-			astar.set_point_solid(corner + Vector2i(i, j))
+			astar.set_point_solid(corner + Vector2i(i, j), is_solid)
 	
 	refresh_worker_paths()
+
+
+func set_building_tiles_solid(origin_point: Vector2, size: Vector2i, is_solid := true) -> void:
+	var cell := %Buildings.local_to_map(origin_point) as Vector2i
+	size /= grid
+	
+	for i in range(size.x):
+		for j in range(size.y):
+			cell = %Buildings.local_to_map(
+				Vector2(origin_point.x + (grid.x * i),
+						origin_point.y + (grid.y * j)) ) as Vector2i
+			set_tilemap_tile_solid(cell, is_solid)
 
 
 func refresh_worker_paths() -> void:

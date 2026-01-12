@@ -1,11 +1,15 @@
 extends Area2D
 
 @onready var astar = get_parent().astar
-const ARRIVE_DISTANCE := 5.0
+const ARRIVE_DISTANCE := 10.0
 const SPEED = 300
 var destination := Vector2.ZERO
 var path := []
 
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("left_click"):
+		go_to(get_global_mouse_position())
 
 func _physics_process(delta: float) -> void:
 	if !path.is_empty():

@@ -49,17 +49,12 @@ func place_building(id: int) -> void:
 	await get_tree().process_frame
 	var building: Building = buildings.get_child(-1)
 	var sprite: Sprite2D = building.get_node("Sprite2D")
-	var sprite_size = sprite.get_rect().size / grid
+	var sprite_size = sprite.get_rect().size
 	
 	var planet = get_parent()
 	building.name = planet.get_unique_name(stored_building.display_name)
 	
-	for i in range(sprite_size.x):
-		for j in range(sprite_size.y):
-			cell = buildings.local_to_map(
-				Vector2(global_position.x + (grid.x * i),
-						global_position.y + (grid.y * j)) ) as Vector2i
-			%WorkerHead.set_tilemap_tile_solid(cell)
+	%WorkerHead.set_building_tiles_solid(global_position, sprite_size)
 	
 	building.begin_upgrade(stored_building.build_time)
 	end_placement()

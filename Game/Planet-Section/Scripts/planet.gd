@@ -53,9 +53,16 @@ func unique_to_initial(unique_name: String) -> String:
 	return ""
 
 
-func remove_building(build_name: String) -> void:
-	build_name = unique_to_initial(build_name)
-	building_amounts[build_name] -= 1
+# Remove from the building counter, remove from tilemap, remove from astar
+func remove_building(building: Building) -> void:
+	building.name = unique_to_initial(building.name)
+	building_amounts[building.name] -= 1
+	
+	var local_pos = $Buildings.local_to_map(building.global_position)
+	$Buildings.erase_cell(local_pos)
+	
+	var build_size = building.get_node("Sprite2D").get_rect().size
+	%WorkerHead.set_building_tiles_solid(building.global_position, build_size, false)
 
 
 func get_building_max_amount(building_name: String) -> int:
