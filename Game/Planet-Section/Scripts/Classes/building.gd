@@ -128,7 +128,7 @@ func add_inv(inv_name: String, slot_amount: int) -> void:
 	inventories[inv_name].inv_changed.connect(inv_changed)
 
 
-# Remove the building from the planet building counter and remove the tilemap cell
+# Remove the building from the planet
 func destroy() -> void:
 	var planet = get_tree().current_scene
 	planet.remove_building(self)

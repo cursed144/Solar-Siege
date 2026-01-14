@@ -66,4 +66,4 @@ func end_placement() -> void:
 	stored_building = null
 	$Sprite2D.texture = null
 	$CollisionShape2D.scale = Vector2.ZERO
-	global_position = Vector2.ZERO
+	global_position = Vector2(-100, -100)

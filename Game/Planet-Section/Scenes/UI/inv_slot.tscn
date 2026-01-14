@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://ctbsoncdftoj0"]
 
-[ext_resource type="Script" uid="uid://c6selpht2bslh" path="res://Planet-Section/Classes/ui_inv_slot.gd" id="1_dw8bt"]
+[ext_resource type="Script" uid="uid://c6selpht2bslh" path="res://Planet-Section/Scripts/Classes/ui_inv_slot.gd" id="1_dw8bt"]
 [ext_resource type="Texture2D" uid="uid://i4vwbirtjyhj" path="res://Planet-Section/Textures/UI/slot_frame.png" id="2_2n5mi"]
 
 [node name="InvSlot" type="Control"]
