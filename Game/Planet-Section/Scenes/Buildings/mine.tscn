@@ -1,10 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://dj2lmstctfmyp"]
+[gd_scene load_steps=7 format=3 uid="uid://8lg17ibq6kmc"]
 
-[ext_resource type="Script" uid="uid://b7e0u0du7xro4" path="res://Planet-Section/Scripts/Buildings/storage.gd" id="1_gpee7"]
-[ext_resource type="Texture2D" uid="uid://cs60sgsq0iujg" path="res://Planet-Section/Textures/Buildings/storage.png" id="2_gpee7"]
+[ext_resource type="Script" uid="uid://ssw6s5vihxip" path="res://Planet-Section/Scripts/Buildings/mine.gd" id="1_214tn"]
+[ext_resource type="Texture2D" uid="uid://cobevc5vn6qph" path="res://Planet-Section/Textures/Buildings/mine.png" id="2_214tn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wblrm"]
-size = Vector2(128, 128)
+size = Vector2(64, 64)
 
 [sub_resource type="Animation" id="Animation_1oi6v"]
 length = 0.001
@@ -45,26 +45,26 @@ _data = {
 &"upgrade": SubResource("Animation_304m8")
 }
 
-[node name="Storage" type="Area2D"]
+[node name="Mine" type="Area2D"]
 collision_layer = 16
 collision_mask = 0
-script = ExtResource("1_gpee7")
-max_workers = 0
-inv_input_name = "Storage"
-inv_input_size = 20
+script = ExtResource("1_214tn")
+max_workers = 2
+inv_output_name = "Mined resources"
+inv_output_size = 12
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
-texture = ExtResource("2_gpee7")
+texture = ExtResource("2_214tn")
 centered = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(64, 64)
+position = Vector2(32, 32)
 shape = SubResource("RectangleShape2D_wblrm")
 
 [node name="ClickArea" type="TextureButton" parent="."]
-offset_right = 128.0
-offset_bottom = 128.0
+offset_right = 64.0
+offset_bottom = 64.0
 mouse_default_cursor_shape = 2
 
 [node name="WorkerRows" type="Node" parent="."]

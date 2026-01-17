@@ -1,6 +1,6 @@
 extends Node2D
 
-const CELL_SIZE = Vector2i(64, 64)
+const CELL_SIZE = Vector2i(32, 32)
 
 var astar = AStarGrid2D.new()
 var job_list: Array[WorkController]

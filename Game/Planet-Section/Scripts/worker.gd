@@ -2,7 +2,7 @@ extends Area2D
 
 @onready var astar = get_parent().astar
 const ARRIVE_DISTANCE := 10.0
-const SPEED = 300
+const SPEED = 175
 var destination := Vector2.ZERO
 var path := []
 

@@ -1,10 +1,15 @@
 @tool
 extends Node2D
 
-@export var planet_size := Vector2(5000, 5000)
+@export var planet_size := Vector2(2500, 2500)
+
 @export_category("Max buildings")
 @export_tool_button("Get Buildings") var buildings = get_all_buildings
 @export var max_building_amount: Dictionary[String, int]
+
+@export_category("Planet specific building productions")
+@export var mine: Dictionary[Recipe, int] # Recipe to chance for extra
+
 
 var building_amounts: Dictionary[String, int] = {}
 var global_storage: Dictionary[Vector2, Inventory] = {} # Keep building position as key

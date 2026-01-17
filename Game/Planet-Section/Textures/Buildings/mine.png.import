@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cs60sgsq0iujg"
-path="res://.godot/imported/storage.png-e9699f938ba68eaf98e65cb52bd52c13.ctex"
+uid="uid://cobevc5vn6qph"
+path="res://.godot/imported/mine.png-5500aeb7da0420df4faef2b11342cfa9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Planet-Section/Textures/Buildings/storage.png"
-dest_files=["res://.godot/imported/storage.png-e9699f938ba68eaf98e65cb52bd52c13.ctex"]
+source_file="res://Planet-Section/Textures/Buildings/mine.png"
+dest_files=["res://.godot/imported/mine.png-5500aeb7da0420df4faef2b11342cfa9.ctex"]
 
 [params]
 

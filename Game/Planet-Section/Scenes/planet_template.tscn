@@ -1,17 +1,23 @@
-[gd_scene load_steps=39 format=4 uid="uid://d4ha36564l20p"]
+[gd_scene load_steps=52 format=4 uid="uid://d4ha36564l20p"]
 
 [ext_resource type="Script" uid="uid://c5wbnqrgl4aor" path="res://Planet-Section/Scripts/planet.gd" id="1_r0ntb"]
 [ext_resource type="Texture2D" uid="uid://btxku7dhhsijv" path="res://Planet-Section/Textures/Tiles/planet_tile_grass.png" id="2_6x5wk"]
 [ext_resource type="Script" uid="uid://d13xkb3oocukv" path="res://Planet-Section/Scripts/player_cam.gd" id="2_becdf"]
 [ext_resource type="PackedScene" uid="uid://dj2lmstctfmyp" path="res://Planet-Section/Scenes/Buildings/storage.tscn" id="2_ckrrn"]
+[ext_resource type="Script" uid="uid://m3oqk21xh6va" path="res://Planet-Section/Scripts/Classes/recipe.gd" id="2_fvmw8"]
 [ext_resource type="Script" uid="uid://lbjy23qvrrm8" path="res://Planet-Section/Scripts/pos_nums.gd" id="3_j25nj"]
+[ext_resource type="Resource" uid="uid://bcj06x3c74qcp" path="res://Planet-Section/Resources/Items/rock.tres" id="3_xrxt5"]
+[ext_resource type="Script" uid="uid://my03aj68uxeb" path="res://Planet-Section/Scripts/Classes/item_amount.gd" id="4_1ypi3"]
 [ext_resource type="Script" uid="uid://viu0lkuoi5hj" path="res://Planet-Section/Scripts/UI/building_menu.gd" id="4_3w1ld"]
+[ext_resource type="Resource" uid="uid://duhr7an6o8yau" path="res://Planet-Section/Resources/Items/coal.tres" id="4_4llao"]
 [ext_resource type="Script" uid="uid://v4ddqw6o24kv" path="res://Planet-Section/Scripts/worker-head.gd" id="4_lorx5"]
 [ext_resource type="Script" uid="uid://dx6vxfc3gd512" path="res://Planet-Section/Scripts/building_preview.gd" id="4_x85yj"]
 [ext_resource type="PackedScene" uid="uid://cga8pk03f5cfc" path="res://Planet-Section/Scenes/UI/building_tab.tscn" id="5_0essa"]
+[ext_resource type="Resource" uid="uid://djo5qn5rmn3v" path="res://Planet-Section/Resources/Items/iron_ore.tres" id="5_fvmw8"]
 [ext_resource type="PackedScene" uid="uid://cptn1yrqchxdj" path="res://Planet-Section/Scenes/worker.tscn" id="5_jr884"]
 [ext_resource type="PackedScene" uid="uid://dx0pwai5nk0di" path="res://Planet-Section/Scenes/UI/building_icon.tscn" id="5_xqwqb"]
 [ext_resource type="Texture2D" uid="uid://deixmur2ebu3f" path="res://icon.svg" id="7_5gyni"]
+[ext_resource type="PackedScene" uid="uid://8lg17ibq6kmc" path="res://Planet-Section/Scenes/Buildings/mine.tscn" id="8_4llao"]
 [ext_resource type="Script" uid="uid://dwytf3p3tvovs" path="res://Planet-Section/Scripts/UI/building_info.gd" id="11_lorx5"]
 [ext_resource type="Texture2D" uid="uid://bhw0mwyvx34qd" path="res://Planet-Section/Textures/UI/arrow_up.png" id="12_6ei45"]
 [ext_resource type="Resource" uid="uid://bjtf4ef6mocde" path="res://Planet-Section/Resources/Buildings/storage.tres" id="12_ckrrn"]
@@ -22,10 +28,53 @@
 [ext_resource type="Script" uid="uid://c4eynbg3bu4tt" path="res://Planet-Section/Scripts/UI/recipe_menu.gd" id="15_m577t"]
 [ext_resource type="Texture2D" uid="uid://ddu320nf5jagq" path="res://Planet-Section/Textures/Items/temp_log.png" id="16_vmkg5"]
 [ext_resource type="Texture2D" uid="uid://qcty4usppxxq" path="res://Planet-Section/Textures/UI/Buttons/destroy_button.png" id="18_6pg5r"]
+[ext_resource type="Resource" uid="uid://ovbfsshvr576" path="res://Planet-Section/Resources/Buildings/mine.tres" id="19_fvmw8"]
 [ext_resource type="Texture2D" uid="uid://dd64b2r5rmv61" path="res://Planet-Section/Textures/UI/Buttons/upgrade_button.png" id="19_gimfs"]
 [ext_resource type="Texture2D" uid="uid://blmy8iosqcihi" path="res://Planet-Section/Textures/UI/Buttons/confirm_button.png" id="20_gimfs"]
 [ext_resource type="Texture2D" uid="uid://cqas44t1uytel" path="res://Planet-Section/Textures/UI/Buttons/cancel_button.png" id="21_xo3u4"]
 [ext_resource type="Script" uid="uid://jqii1ecaswyt" path="res://Planet-Section/Scripts/UI/destroy_building.gd" id="23_ckrrn"]
+
+[sub_resource type="Resource" id="Resource_dslco"]
+script = ExtResource("4_1ypi3")
+item = ExtResource("3_xrxt5")
+amount = 2
+metadata/_custom_type_script = "uid://my03aj68uxeb"
+
+[sub_resource type="Resource" id="Resource_a31x6"]
+script = ExtResource("2_fvmw8")
+recipe_name = "Stone"
+display_icon = ExtResource("7_5gyni")
+outputs = Array[ExtResource("4_1ypi3")]([SubResource("Resource_dslco")])
+creation_time = 10.0
+metadata/_custom_type_script = "uid://m3oqk21xh6va"
+
+[sub_resource type="Resource" id="Resource_0il6c"]
+script = ExtResource("4_1ypi3")
+item = ExtResource("4_4llao")
+amount = 1
+metadata/_custom_type_script = "uid://my03aj68uxeb"
+
+[sub_resource type="Resource" id="Resource_xjlru"]
+script = ExtResource("2_fvmw8")
+recipe_name = "Coal"
+display_icon = ExtResource("7_5gyni")
+outputs = Array[ExtResource("4_1ypi3")]([SubResource("Resource_0il6c")])
+creation_time = 15.0
+metadata/_custom_type_script = "uid://m3oqk21xh6va"
+
+[sub_resource type="Resource" id="Resource_jdl5u"]
+script = ExtResource("4_1ypi3")
+item = ExtResource("5_fvmw8")
+amount = 1
+metadata/_custom_type_script = "uid://my03aj68uxeb"
+
+[sub_resource type="Resource" id="Resource_46a5l"]
+script = ExtResource("2_fvmw8")
+recipe_name = "Iron Ore"
+display_icon = ExtResource("7_5gyni")
+outputs = Array[ExtResource("4_1ypi3")]([SubResource("Resource_jdl5u")])
+creation_time = 25.0
+metadata/_custom_type_script = "uid://m3oqk21xh6va"
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6x5wk"]
 texture = ExtResource("2_6x5wk")
@@ -39,14 +88,30 @@ sources/1 = SubResource("TileSetAtlasSource_6x5wk")
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_x85yj"]
 resource_name = "Buildings"
 scenes/0/scene = ExtResource("2_ckrrn")
+scenes/1/scene = ExtResource("8_4llao")
 
 [sub_resource type="TileSet" id="TileSet_0essa"]
-tile_size = Vector2i(128, 128)
+tile_size = Vector2i(64, 64)
 sources/1 = SubResource("TileSetScenesCollectionSource_x85yj")
 
 [sub_resource type="BoxMesh" id="BoxMesh_becdf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xbee4"]
+
+[sub_resource type="Animation" id="Animation_oi38r"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_6x5wk"]
 resource_name = "fade_in_hover"
@@ -63,21 +128,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_oi38r"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_ekr8t"]
@@ -112,9 +162,15 @@ size = Vector2(297, 612)
 
 [node name="Planet" type="Node2D"]
 script = ExtResource("1_r0ntb")
+planet_size = Vector2(5000, 5000)
 max_building_amount = Dictionary[String, int]({
 "Mine": 5,
 "Storage": 2
+})
+mine = Dictionary[ExtResource("2_fvmw8"), int]({
+SubResource("Resource_a31x6"): 50,
+SubResource("Resource_xjlru"): 25,
+SubResource("Resource_46a5l"): 10
 })
 
 [node name="Terrain" type="TileMapLayer" parent="."]
@@ -264,11 +320,7 @@ data = ExtResource("12_ckrrn")
 
 [node name="BuildingIcon2" parent="UI/BuildingMenu/Buildings/General" instance=ExtResource("5_xqwqb")]
 layout_mode = 2
-data = ExtResource("12_ckrrn")
-
-[node name="BuildingIcon3" parent="UI/BuildingMenu/Buildings/General" instance=ExtResource("5_xqwqb")]
-layout_mode = 2
-data = ExtResource("12_ckrrn")
+data = ExtResource("19_fvmw8")
 
 [node name="Weapons" type="HBoxContainer" parent="UI/BuildingMenu/Buildings"]
 visible = false
@@ -814,6 +866,7 @@ offset_right = 401.39215
 offset_bottom = 230.39215
 scale = Vector2(2.04, 2.04)
 texture = ExtResource("16_vmkg5")
+expand_mode = 1
 
 [node name="Warning" type="Label" parent="UI/DeleteItemConf"]
 layout_mode = 0

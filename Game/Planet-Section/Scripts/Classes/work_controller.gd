@@ -1,7 +1,7 @@
 class_name WorkController
 extends Node
 
-signal alert_work_finished
+signal alert_work_finished(recipe: Recipe)
 signal alert_work_cancelled
 
 enum WorkState {
@@ -17,6 +17,10 @@ var used_materials: Array[ItemStack]
 @onready var building: Building = get_node("../../")
 
 
+func _ready() -> void:
+	alert_work_finished.connect(building.recipe_finished)
+
+
 func assign_recipe(recipe: Recipe, amount: int = 1):
 	assigned_recipe = recipe
 	amount_to_produce = amount
@@ -28,22 +32,20 @@ func assign_recipe(recipe: Recipe, amount: int = 1):
 func prepare_for_work() -> WorkState:
 	var check = can_work_start()
 	if check == WorkState.READY:
-		var input_inv := building.inventories[building.inv_input_name]
+		var input_inv: Inventory = building.inventories.get(building.inv_input_name)
 		var requirements := ItemAmount.amounts_to_stacks(assigned_recipe.requirements)
 		
-		input_inv.create_claim(name, requirements)
-		used_materials = input_inv.get_claimed_items(name)
+		if is_instance_valid(input_inv):
+			input_inv.create_claim(name, requirements)
+			used_materials = input_inv.get_claimed_items(name)
 		start_work()
 	
 	return check
 
 
 func _on_timeout() -> void:
-	var output = building.inventories[building.inv_output_name]
-	output.add_items_to_inv(ItemAmount.amounts_to_stacks(assigned_recipe.outputs))
+	alert_work_finished.emit(assigned_recipe)
 	work_finished()
-	
-	alert_work_finished.emit()
 	building.request_worker_rows_update.emit()
 
 
@@ -82,8 +84,9 @@ func is_work_required() -> bool:
 
 
 func can_work_start() -> WorkState:
-	var input_inv := building.inventories[building.inv_input_name]
-	var output_inv := building.inventories[building.inv_output_name]
+	var inventories: Dictionary[String, Inventory] = building.inventories
+	var input_inv: Inventory = inventories.get(building.inv_input_name)
+	var output_inv: Inventory = inventories.get(building.inv_output_name)
 	
 	# Check if there is enough space in the output
 	var output_items := ItemAmount.amounts_to_stacks(assigned_recipe.outputs)
@@ -101,4 +104,5 @@ func can_work_start() -> WorkState:
 
 
 func _exit_tree() -> void:
+	alert_work_finished.disconnect(building.recipe_finished)
 	cancel_production()

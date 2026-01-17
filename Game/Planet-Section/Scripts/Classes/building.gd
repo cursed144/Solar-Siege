@@ -32,6 +32,7 @@ func _ready() -> void:
 	# Align elements to tilemap cells
 	var tilemap: TileMapLayer = get_parent()
 	var cell_size := tilemap.tile_set.tile_size as Vector2
+	print(cell_size/2)
 	$Sprite2D.offset = -cell_size / 2
 	$CollisionShape2D.position -= cell_size / 2
 	$ClickArea.position -= cell_size / 2
@@ -54,6 +55,11 @@ func assign_recipe_to_row(recipe: Recipe, amount_to_make: int, row_num: int) -> 
 	
 	row.assign_recipe(recipe, amount_to_make)
 	request_worker_rows_update.emit()
+
+
+func recipe_finished(recipe: Recipe) -> void:
+	var output = inventories[inv_output_name]
+	output.add_items_to_inv(ItemAmount.amounts_to_stacks(recipe.outputs))
 
 
 func cancel_recipe_on_row(row_num: int) -> void:

@@ -34,6 +34,7 @@ func on_recipe_slot_clicked(recipe: Recipe) -> void:
 	pending_recipe = recipe
 	$RecipeSlots.hide()
 	$RecipeConfirm.show()
+	$RecipeConfirm/Requires.visible = true if recipe.requirements.size() > 0 else false
 	$RecipeConfirm/RecipeImage.texture = recipe.display_icon
 	$RecipeConfirm/RecipeName.text = recipe.recipe_name
 	$RecipeConfirm/AmountLabel.text = "Amount to produce: 1/20"

@@ -95,7 +95,8 @@ func update_hover_menu_data() -> void:
 
 func hide_hover_menu() -> void:
 	current_building = null
-	$HoverMenu/AnimationPlayer.play("fade_out_hover")
+	if $HoverMenu.modulate.a > 0:
+		$HoverMenu/AnimationPlayer.play("fade_out_hover")
 
 
 func _on_tab_pressed(target_name: String) -> void:

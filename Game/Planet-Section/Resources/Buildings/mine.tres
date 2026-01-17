@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="BuildingData" load_steps=8 format=3 uid="uid://ovbfsshvr576"]
 
-[ext_resource type="Texture2D" uid="uid://deixmur2ebu3f" path="res://icon.svg" id="1_dnkld"]
+[ext_resource type="Texture2D" uid="uid://cobevc5vn6qph" path="res://Planet-Section/Textures/Buildings/mine.png" id="1_dnkld"]
 [ext_resource type="Script" uid="uid://my03aj68uxeb" path="res://Planet-Section/Scripts/Classes/item_amount.gd" id="2_pyvlj"]
 [ext_resource type="Resource" uid="uid://cgkjfrnbc4fem" path="res://Planet-Section/Resources/Items/wooden_planks.tres" id="3_cjf0f"]
 [ext_resource type="Resource" uid="uid://bcj06x3c74qcp" path="res://Planet-Section/Resources/Items/rock.tres" id="4_q66r6"]

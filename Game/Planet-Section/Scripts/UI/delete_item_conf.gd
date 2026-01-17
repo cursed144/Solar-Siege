@@ -16,6 +16,9 @@ func delete_item_prompt(ui_slot: UiInvSlot) -> void:
 	$Amount.value = item_stack.amount
 	amount_to_del = item_stack.amount
 	
+	var tex = ui_slot.get_node("Item").texture
+	$TextureRect.texture = tex
+	
 	if ui_slot.is_reserved:
 		$Amount.hide()
 		$Blocking.show()
