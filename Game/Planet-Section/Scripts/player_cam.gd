@@ -3,7 +3,7 @@ extends Camera2D
 const MOVE_SPEED := 400
 const ZOOM_PERCENT := 0.3
 const MAX_ZOOM := 6.0
-const MIN_ZOOM := 0.30
+const MIN_ZOOM := 0.35
 
 var is_dragging := false
 var cam_zoom := Vector2(1, 1)

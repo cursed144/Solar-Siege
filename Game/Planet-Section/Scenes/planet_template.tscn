@@ -162,7 +162,6 @@ size = Vector2(297, 612)
 
 [node name="Planet" type="Node2D"]
 script = ExtResource("1_r0ntb")
-planet_size = Vector2(5000, 5000)
 max_building_amount = Dictionary[String, int]({
 "Mine": 5,
 "Storage": 2
@@ -186,14 +185,14 @@ tile_set = SubResource("TileSet_0essa")
 navigation_enabled = false
 
 [node name="PlayerCam" type="Camera2D" parent="."]
-position = Vector2(2500, 2500)
+position = Vector2(1750, 1750)
 script = ExtResource("2_becdf")
 
 [node name="PlayingField" type="MeshInstance2D" parent="."]
 self_modulate = Color(0.20871013, 0.20871016, 0.20871013, 1)
 z_index = -2
-position = Vector2(2500, 2500)
-scale = Vector2(5000, 5000)
+position = Vector2(1750, 1750)
+scale = Vector2(3500, 3500)
 mesh = SubResource("BoxMesh_becdf")
 metadata/_edit_lock_ = true
 
@@ -202,7 +201,7 @@ unique_name_in_owner = true
 script = ExtResource("4_lorx5")
 
 [node name="Worker1" parent="WorkerHead" instance=ExtResource("5_jr884")]
-position = Vector2(2826, 1642)
+position = Vector2(2380, 2455)
 
 [node name="BuildingPreview" type="Area2D" parent="."]
 unique_name_in_owner = true

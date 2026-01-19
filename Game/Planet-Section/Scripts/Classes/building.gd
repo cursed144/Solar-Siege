@@ -26,6 +26,7 @@ var level: int = 0
 var worker_limit: int = 0
 
 @onready var build_info: Control = get_node("../../UI/BuildingInfo")
+@onready var worker_head = get_node("../../WorkerHead")
 
 
 func _ready() -> void:
@@ -58,6 +59,9 @@ func assign_recipe_to_row(recipe: Recipe, amount_to_make: int, row_num: int) -> 
 
 
 func recipe_finished(recipe: Recipe) -> void:
+	if not is_instance_valid(recipe):
+		return
+	
 	var output = inventories[inv_output_name]
 	output.add_items_to_inv(ItemAmount.amounts_to_stacks(recipe.outputs))
 
@@ -136,6 +140,9 @@ func add_inv(inv_name: String, slot_amount: int) -> void:
 
 # Remove the building from the planet
 func destroy() -> void:
+	for job: WorkController in $WorkerRows.get_children():
+		job.cancel_production()
+	
 	var planet = get_tree().current_scene
 	planet.remove_building(self)
 	destroyed.emit()

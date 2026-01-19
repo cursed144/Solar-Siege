@@ -1,7 +1,7 @@
 @tool
 extends Node2D
 
-@export var planet_size := Vector2(2500, 2500)
+@export var planet_size := Vector2(3500, 3500)
 
 @export_category("Max buildings")
 @export_tool_button("Get Buildings") var buildings = get_all_buildings

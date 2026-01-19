@@ -20,7 +20,9 @@ func _ready() -> void:
 
 
 func add_job(job: WorkController) -> void:
+	print("Job added to building: " + str(job.building.name))
 	job_list.append(job)
+	give_job_to_worker()
 
 
 func get_from_available_jobs() -> WorkController:
@@ -28,6 +30,17 @@ func get_from_available_jobs() -> WorkController:
 		return null
 	
 	return job_list.pop_front()
+
+
+func give_job_to_worker() -> void:
+	for worker in get_children():
+		if not is_instance_valid(worker.current_job): # free
+			worker.get_job()
+			break
+
+
+func remove_job(job: WorkController) -> void:
+	job_list.erase(job)
 
 
 func set_tilemap_tile_solid(tile: Vector2i, is_solid := true) -> void:

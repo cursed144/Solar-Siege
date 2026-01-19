@@ -2,14 +2,15 @@ class_name WorkController
 extends Node
 
 signal alert_work_finished(recipe: Recipe)
-signal alert_work_cancelled
 
 enum WorkState {
 	READY,
 	NEED_SUPPLY,
-	NEED_EMPTY
+	NEED_EMPTY,
+	FINISHED
 }
 
+var assigned_worker = null
 var assigned_recipe: Recipe = null
 var amount_to_produce: int = 0
 var used_materials: Array[ItemStack]
@@ -26,10 +27,13 @@ func assign_recipe(recipe: Recipe, amount: int = 1):
 	amount_to_produce = amount
 	$Timer.wait_time = recipe.creation_time / building.production_multiplier
 	
-	prepare_for_work()
+	building.worker_head.add_job(self)
 
 
 func prepare_for_work() -> WorkState:
+	if amount_to_produce <= 0:
+		return WorkState.FINISHED
+	
 	var check = can_work_start()
 	if check == WorkState.READY:
 		var input_inv: Inventory = building.inventories.get(building.inv_input_name)
@@ -38,14 +42,14 @@ func prepare_for_work() -> WorkState:
 		if is_instance_valid(input_inv):
 			input_inv.create_claim(name, requirements)
 			used_materials = input_inv.get_claimed_items(name)
-		start_work()
 	
 	return check
 
 
 func _on_timeout() -> void:
-	alert_work_finished.emit(assigned_recipe)
+	var recipe: Recipe = assigned_recipe
 	work_finished()
+	alert_work_finished.emit(recipe)
 	building.request_worker_rows_update.emit()
 
 
@@ -67,12 +71,15 @@ func work_finished() -> void:
 
 
 func cancel_production() -> void:
-	var input_inv := building.inventories[building.inv_input_name]
-	input_inv.add_items_to_inv(used_materials)
+	var input_inv: Inventory = building.get(building.inv_input_name)
+	if input_inv != null:
+		input_inv.add_items_to_inv(used_materials)
+	
 	used_materials.clear()
 	assigned_recipe = null
 	amount_to_produce = 0
-	alert_work_cancelled.emit()
+	alert_work_finished.emit(null)
+	building.worker_head.remove_job(self)
 	$Timer.stop()
 
 
