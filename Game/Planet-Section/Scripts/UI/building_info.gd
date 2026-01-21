@@ -17,6 +17,18 @@ var is_mouse_in_area := false
 @onready var name_label: Label = $Content/Card/BuildingName
 
 
+func _input(event: InputEvent) -> void:
+	if (event.is_action_released("scroll_down") or event.is_action_released("scroll_up")) and is_mouse_in_area:
+		var tween := create_tween()
+		tween.set_trans(Tween.TRANS_CUBIC)
+		tween.set_ease(Tween.EASE_OUT)
+		
+		if event.is_action_released("scroll_up"):
+			tween.tween_property($Content, "scroll_vertical", $Content.scroll_vertical - 175, 0.5)
+		elif event.is_action_released("scroll_down"):
+			tween.tween_property($Content, "scroll_vertical", $Content.scroll_vertical + 175, 0.5)
+
+
 func _process(_delta: float) -> void:
 	if is_instance_valid(curr_building):
 		for i in range(curr_building.worker_limit):
@@ -29,19 +41,6 @@ func _process(_delta: float) -> void:
 				progress.value = timer.wait_time - timer.time_left
 			else:
 					progress.value = 0
-
-
-func _input(event: InputEvent) -> void:
-	if (event.is_action_released("scroll_down") or event.is_action_released("scroll_up")) and is_mouse_in_area:
-		var tween := create_tween()
-		tween.set_trans(Tween.TRANS_CUBIC)
-		tween.set_ease(Tween.EASE_OUT)
-		
-		if event.is_action_released("scroll_up"):
-			tween.tween_property($Content, "scroll_vertical", $Content.scroll_vertical - 175, 0.5)
-		elif event.is_action_released("scroll_down"):
-			tween.tween_property($Content, "scroll_vertical", $Content.scroll_vertical + 175, 0.5)
-
 
 
 func building_clicked(building: Building) -> void:
@@ -59,13 +58,21 @@ func building_clicked(building: Building) -> void:
 	
 	# switch selection: disconnect old, clear UI, attach new
 	_disconnect_from_building()
-	clear_info()
+	_clear_info()
 	
 	curr_building = building
-	_fill_inv_info(building)
-	_fill_worker_info(building)
+	if curr_building is ProductionBuilding:
+		_fill_inv_info(building)
+		_fill_worker_info(building)
+	elif curr_building is StorageBuilding:
+		_fill_inv_info(building)
+	
 	connect_to_building(building)
 
+
+# -----------------------
+# Construct UI sections
+# -----------------------
 
 func _fill_inv_info(building: Building) -> void:
 	if not is_instance_valid(building):
@@ -90,6 +97,7 @@ func _fill_inv_info(building: Building) -> void:
 			if not new_slot.inv_slot_clicked.is_connected(item_deleter.delete_item_prompt):
 				new_slot.inv_slot_clicked.connect(item_deleter.delete_item_prompt)
 		
+		@warning_ignore("integer_division")
 		var padding_size = ((slot_target.get_child_count()+4) / 4) * 68
 		slot_target.custom_minimum_size.y = padding_size
 
@@ -100,11 +108,15 @@ func _fill_worker_info(building: Building) -> void:
 	if building.max_workers < 1:
 		$Content/Card/WorkerSection.hide()
 	
-	for worker in range(building.worker_limit):
-		add_worker_row(worker_row_container)
+	for i in range(building.worker_limit):
+		add_worker_row(worker_row_container, i+1)
 	
 	update_worker_rows(building)
 
+
+# -----------------------
+# Updates
+# -----------------------
 
 func update_inv(inv_name: String) -> void:
 	if not is_instance_valid(curr_building):
@@ -115,7 +127,7 @@ func update_inv(inv_name: String) -> void:
 	var invs := curr_building.inventories
 	var target_inv_path := inv_name + "/GridContainer"
 	if not inventories_container.has_node(target_inv_path):
-		clear_info()
+		_clear_info()
 		_fill_inv_info(curr_building)
 		return
 	
@@ -125,7 +137,7 @@ func update_inv(inv_name: String) -> void:
 	# update every slot UI child with new data
 	for i in range(slots.size()):
 		if i >= target_inv.get_child_count():
-			clear_info()
+			_clear_info()
 			_fill_inv_info(curr_building)
 			return
 		var slot = target_inv.get_child(i)
@@ -154,10 +166,14 @@ func update_worker_rows(building: Building = curr_building) -> void:
 	worker_row_container.custom_minimum_size.y = worker_row_container.get_child_count() * 85
 
 
-func add_worker_row(dest: Node) -> void:
+# -----------------------
+# Worker methods
+# -----------------------
+
+func add_worker_row(dest: Node, num: int) -> void:
 	var new_row = worker_row.instantiate()
 	new_row.init(curr_building)
-	new_row.name = str(curr_building.worker_limit)
+	new_row.name = str(num)
 	new_row.slot_clicked.connect(recipe_menu.on_worker_slot_clicked)
 	dest.add_child(new_row)
 
@@ -172,7 +188,7 @@ func _on_worker_increase_pressed() -> void:
 		return
 	
 	if curr_building.increment_worker_rows():
-		add_worker_row(worker_row_container)
+		add_worker_row(worker_row_container, curr_building.worker_limit)
 
 
 func _on_worker_decrease_pressed() -> void:
@@ -183,7 +199,11 @@ func _on_worker_decrease_pressed() -> void:
 		pop_worker_row(worker_row_container)
 
 
-func clear_info() -> void:
+# -----------------------
+# Completely clear all from current building
+# -----------------------
+
+func _clear_info() -> void:
 	for inv in inventories_container.get_children():
 		inv.queue_free()
 	
@@ -192,18 +212,19 @@ func clear_info() -> void:
 		worker.queue_free()
 
 
+# -----------------------
+# Building connections
+# -----------------------
+
 func connect_to_building(building: Building = curr_building) -> void:
-	if not building.request_inv_update.is_connected(update_inv):
+	if building is ProductionBuilding:
+		building.request_inv_update.connect(update_inv)
+		building.request_worker_rows_update.connect(update_worker_rows)
+	elif building is StorageBuilding:
 		building.request_inv_update.connect(update_inv)
 	
-	if not building.request_worker_rows_update.is_connected(update_worker_rows):
-		building.request_worker_rows_update.connect(update_worker_rows)
-	
-	if not building.destroyed.is_connected(_on_building_destroyed):
-		building.destroyed.connect(_on_building_destroyed)
-	
-	if not destroy_button.pressed.is_connected(curr_building.destroy):
-		destroy_button.pressed.connect(curr_building.destroy)
+	building.destroyed.connect(_on_building_destroyed)
+	destroy_button.pressed.connect(building.destroy)
 
 
 func _disconnect_from_building() -> void:
@@ -211,21 +232,21 @@ func _disconnect_from_building() -> void:
 		curr_building = null
 		return
 	
-	# disconnect updates
-	if curr_building.request_inv_update.is_connected(update_inv):
+	if curr_building is ProductionBuilding:
+		curr_building.request_inv_update.disconnect(update_inv)
+		curr_building.request_worker_rows_update.disconnect(update_worker_rows)
+	elif curr_building is StorageBuilding:
 		curr_building.request_inv_update.disconnect(update_inv)
 	
-	if curr_building.request_worker_rows_update.is_connected(update_worker_rows):
-		curr_building.request_worker_rows_update.disconnect(update_worker_rows)
-	
-	if curr_building.destroyed.is_connected(_on_building_destroyed):
-		curr_building.destroyed.disconnect(_on_building_destroyed)
-	
-	if destroy_button.pressed.is_connected(curr_building.destroy):
-		destroy_button.pressed.disconnect(curr_building.destroy)
+	curr_building.destroyed.disconnect(_on_building_destroyed)
+	destroy_button.pressed.disconnect(curr_building.destroy)
 	
 	curr_building = null
 
+
+# -----------------------
+# Open/Close UI
+# -----------------------
 
 func open() -> void:
 	# ensure only one major UI open
@@ -248,11 +269,19 @@ func close() -> void:
 	is_open = false
 
 
+# -----------------------
+# When building is destroyed
+# -----------------------
+
 func _on_building_destroyed() -> void:
 	_disconnect_from_building()
-	clear_info()
+	_clear_info()
 	close()
 
+
+# -----------------------
+# Scrolling improvement
+# -----------------------
 
 func _on_scrolling_area_mouse_entered() -> void:
 	is_mouse_in_area = true

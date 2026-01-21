@@ -1,4 +1,4 @@
-extends Building
+extends ProductionBuilding
 
 var prod_items: Dictionary[Recipe, int]
 

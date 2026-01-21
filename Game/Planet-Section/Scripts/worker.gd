@@ -36,13 +36,12 @@ var path := []
 func _ready() -> void:
 	inv.inv_changed.connect(update_inv)
 	create_slots()
-	var log = load("res://Planet-Section/Resources/Items/wood_log.tres")
-	var rock = load("res://Planet-Section/Resources/Items/rock.tres")
-	inv.add_item_to_inv(ItemStack.new_stack(log, 10))
+
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_accept"):
 		empty_inventory()
+
 
 func _physics_process(delta: float) -> void:
 	if !path.is_empty():
@@ -93,8 +92,13 @@ func abandon_job() -> void:
 func work_in_building() -> void:
 	go_to(current_job.building.global_position)
 	await dest_reached
-	hide()
+	
+	if not is_instance_valid(current_job):
+		handle_job()
+		return
+	
 	current_job.start_work()
+	hide()
 	await current_job.alert_work_finished
 	handle_job()
 

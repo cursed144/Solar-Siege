@@ -64,8 +64,6 @@ offset_right = 128.0
 offset_bottom = 128.0
 mouse_default_cursor_shape = 2
 
-[node name="WorkerRows" type="Node" parent="."]
-
 [node name="UpgradeTimer" type="Timer" parent="."]
 one_shot = true
 
@@ -75,4 +73,4 @@ libraries = {
 }
 
 [connection signal="pressed" from="ClickArea" to="." method="_on_click_area_pressed"]
-[connection signal="timeout" from="UpgradeTimer" to="." method="_on_upgrade_timer_timeout"]
+[connection signal="timeout" from="UpgradeTimer" to="." method="_on_upgrade_finished"]

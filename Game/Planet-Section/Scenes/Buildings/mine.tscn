@@ -49,9 +49,8 @@ _data = {
 collision_layer = 16
 collision_mask = 0
 script = ExtResource("1_214tn")
-max_workers = 2
-inv_output_name = "Mined resources"
-inv_output_size = 12
+inv_input_size = 8
+inv_output_size = 8
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -67,8 +66,6 @@ offset_right = 64.0
 offset_bottom = 64.0
 mouse_default_cursor_shape = 2
 
-[node name="WorkerRows" type="Node" parent="."]
-
 [node name="UpgradeTimer" type="Timer" parent="."]
 one_shot = true
 
@@ -78,4 +75,4 @@ libraries = {
 }
 
 [connection signal="pressed" from="ClickArea" to="." method="_on_click_area_pressed"]
-[connection signal="timeout" from="UpgradeTimer" to="." method="_on_upgrade_timer_timeout"]
+[connection signal="timeout" from="UpgradeTimer" to="." method="_on_upgrade_finished"]

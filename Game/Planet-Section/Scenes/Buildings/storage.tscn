@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://dj2lmstctfmyp"]
 
-[ext_resource type="Script" uid="uid://b7e0u0du7xro4" path="res://Planet-Section/Scripts/Buildings/storage.gd" id="1_gpee7"]
+[ext_resource type="Script" uid="uid://cii6nnn8jlex6" path="res://Planet-Section/Scripts/Classes/storage_building.gd" id="1_gpee7"]
 [ext_resource type="Texture2D" uid="uid://cs60sgsq0iujg" path="res://Planet-Section/Textures/Buildings/storage.png" id="2_gpee7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wblrm"]
@@ -49,9 +49,7 @@ _data = {
 collision_layer = 16
 collision_mask = 0
 script = ExtResource("1_gpee7")
-max_workers = 0
-inv_input_name = "Storage"
-inv_input_size = 20
+inv_storage_size = 15
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -67,8 +65,6 @@ offset_right = 128.0
 offset_bottom = 128.0
 mouse_default_cursor_shape = 2
 
-[node name="WorkerRows" type="Node" parent="."]
-
 [node name="UpgradeTimer" type="Timer" parent="."]
 one_shot = true
 
@@ -78,4 +74,4 @@ libraries = {
 }
 
 [connection signal="pressed" from="ClickArea" to="." method="_on_click_area_pressed"]
-[connection signal="timeout" from="UpgradeTimer" to="." method="_on_upgrade_timer_timeout"]
+[connection signal="timeout" from="UpgradeTimer" to="." method="_on_upgrade_finished"]

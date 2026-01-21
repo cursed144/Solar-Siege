@@ -517,6 +517,7 @@ layout_mode = 2
 
 [node name="Inventories" type="VBoxContainer" parent="UI/BuildingInfo/Content/Card"]
 layout_mode = 2
+theme_override_constants/separation = -30
 
 [node name="BottomButtons" type="HBoxContainer" parent="UI/BuildingInfo/Content/Card"]
 layout_mode = 2
