@@ -7,7 +7,7 @@
 radius = 86.0
 
 [node name="Worker" type="Area2D"]
-scale = Vector2(0.25, 0.25)
+scale = Vector2(0.2, 0.2)
 collision_mask = 16
 script = ExtResource("1_gew3j")
 
@@ -16,3 +16,17 @@ texture = ExtResource("1_lp8qi")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_gew3j")
+
+[node name="InvSlots" type="HBoxContainer" parent="."]
+visible = false
+texture_filter = 1
+offset_left = -460.0
+offset_top = -176.0
+offset_right = 92.0
+offset_bottom = -112.0
+scale = Vector2(1.5, 1.5)
+theme_override_constants/separation = 80
+alignment = 1
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

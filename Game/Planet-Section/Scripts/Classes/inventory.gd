@@ -1,7 +1,7 @@
 class_name Inventory
 extends Resource
 
-signal inv_changed
+signal inv_changed(inv: Inventory)
 
 @export var slots: Array[ItemStack] = []
 
@@ -166,10 +166,10 @@ func how_much_of_item_fits(item_stack: ItemStack) -> int:
 
 
 ## Meant to be used to strip slots of inventories of their null values and return them without
-func strip_slots(target_slots: Array[ItemStack]) -> Array[ItemStack]:
+func strip_slots() -> Array[ItemStack]:
 	var result: Array[ItemStack] = []
 	
-	for slot in target_slots:
+	for slot in slots:
 		if is_instance_valid(slot):
 			result.append(slot.duplicate())
 	
@@ -235,8 +235,12 @@ func add_item_to_inv(item_stack: ItemStack) -> int:
 func add_slots(amount: int = 1) -> void:
 	for i in range(amount):
 		slots.append(null)
+	
+	inv_changed.emit(self)
 
 ## Remove slots from the end of the inventory
 func remove_slots(amount: int = 1) -> void:
 	for i in range(amount):
 		slots.pop_back()
+	
+	inv_changed.emit(self)

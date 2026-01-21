@@ -12,7 +12,7 @@ extends Node2D
 
 
 var building_amounts: Dictionary[String, int] = {}
-var global_storage: Dictionary[Vector2, Inventory] = {} # Keep building position as key
+var global_storage: Dictionary[Inventory, Vector2] = {} # Keep building inv as key and pos as value
 
 
 func _ready() -> void:
@@ -80,7 +80,7 @@ func get_building_current_amount(building_name: String) -> int:
 
 func get_global_item_amount(item: Item) -> int:
 	var total := 0
-	for inv in global_storage.values():
+	for inv in global_storage.keys():
 		total += inv.get_total_item_amount(item)
 	
 	return total
