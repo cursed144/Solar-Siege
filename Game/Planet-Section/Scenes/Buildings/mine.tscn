@@ -1,7 +1,25 @@
-[gd_scene load_steps=7 format=3 uid="uid://8lg17ibq6kmc"]
+[gd_scene load_steps=13 format=3 uid="uid://8lg17ibq6kmc"]
 
 [ext_resource type="Script" uid="uid://ssw6s5vihxip" path="res://Planet-Section/Scripts/Buildings/mine.gd" id="1_214tn"]
 [ext_resource type="Texture2D" uid="uid://cobevc5vn6qph" path="res://Planet-Section/Textures/Buildings/mine.png" id="2_214tn"]
+[ext_resource type="Script" uid="uid://m3oqk21xh6va" path="res://Planet-Section/Scripts/Classes/recipe.gd" id="2_nixad"]
+[ext_resource type="Texture2D" uid="uid://deixmur2ebu3f" path="res://icon.svg" id="3_vcj8p"]
+[ext_resource type="Script" uid="uid://my03aj68uxeb" path="res://Planet-Section/Scripts/Classes/item_amount.gd" id="4_vpswn"]
+[ext_resource type="Resource" uid="uid://v2cltp0hhxmn" path="res://Planet-Section/Resources/Items/wood_log.tres" id="5_2qmpx"]
+
+[sub_resource type="Resource" id="Resource_6vqoc"]
+script = ExtResource("4_vpswn")
+item = ExtResource("5_2qmpx")
+amount = 20
+metadata/_custom_type_script = "uid://my03aj68uxeb"
+
+[sub_resource type="Resource" id="Resource_dknri"]
+script = ExtResource("2_nixad")
+recipe_name = "Test recipe"
+display_icon = ExtResource("3_vcj8p")
+requirements = Array[ExtResource("4_vpswn")]([SubResource("Resource_6vqoc")])
+creation_time = 10.0
+metadata/_custom_type_script = "uid://m3oqk21xh6va"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wblrm"]
 size = Vector2(64, 64)
@@ -51,6 +69,7 @@ collision_mask = 0
 script = ExtResource("1_214tn")
 inv_input_size = 8
 inv_output_size = 8
+recipes = Array[ExtResource("2_nixad")]([SubResource("Resource_dknri")])
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1

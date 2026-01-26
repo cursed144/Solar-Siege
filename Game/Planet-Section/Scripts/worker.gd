@@ -29,7 +29,7 @@ var current_job: WorkController = null
 var path := []
 
 @onready var head = get_parent()
-@onready var inv := Inventory.new_inv(2)
+@onready var inv := Inventory.new_inv(3)
 @onready var destination := global_position
 
 
@@ -73,9 +73,12 @@ func handle_job() -> void:
 	match status:
 		WorkController.WorkState.READY:
 			work_in_building()
+		WorkController.WorkState.NEED_SUPPLY:
+			supply_building()
 		WorkController.WorkState.NEED_EMPTY:
-			pass
+			empty_building_output()
 		WorkController.WorkState.FINISHED:
+			await empty_building_output()
 			abandon_job()
 
 
@@ -90,8 +93,7 @@ func abandon_job() -> void:
 # -----------------------
 
 func work_in_building() -> void:
-	go_to(current_job.building.global_position)
-	await dest_reached
+	await go_to(current_job.building.global_position)
 	
 	if not is_instance_valid(current_job):
 		handle_job()
@@ -103,37 +105,178 @@ func work_in_building() -> void:
 	handle_job()
 
 
-func get_from_building() -> void:
-	#claim items from building
-	empty_inventory()
+func empty_building_output() -> void:
+	show()
+	while true:
+		get_items_from_building_output()
+		var more_work = await empty_inventory()
+		if not more_work:
+			break
 
 
-func empty_inventory() -> void:
-	var choice = get_best_building()
-	if not is_instance_valid(choice):
+func supply_building() -> void:
+	show()
+	var reqs: Array[ItemAmount] = current_job.assigned_recipe.requirements
+	var amount_to_make: int = current_job.amount_to_produce
+	var building = current_job.building
+	var input_inv: Inventory = building.inventories[building.inv_input_name]
+	
+	var available_list := get_available_items_for_reqs(reqs)
+	available_list.sort_custom(ItemAmount.sort_by_amount_asce)
+	
+	var item_map := get_best_mapping(available_list, amount_to_make)
+	if item_map.is_empty():
 		return
 	
-	go_to(choice.building_pos)
-	await dest_reached
+	claim_mapping(item_map)
+	for option: BuildingOption in item_map.keys():
+		await go_to(option.building_pos)
+		var claim = option.inventory.get_claimed_items(name)
+		inv.add_items_to_inv(claim)
+	
+	await go_to(building.global_position)
+	inv.create_claim(name, inv.strip_slots())
+	input_inv.add_items_to_inv(inv.get_claimed_items(name))
+	
+	handle_job()
+
+
+# -----------------------
+# Utility for supplying
+# -----------------------
+
+## Returns a list of the requirements where the first is the one with smallest amount in the input inventory in the building in which we are working
+func find_top_storages_with_item(item: Item, top: int = 3) -> Array[BuildingOption]:
+	var planet = get_tree().current_scene
+	var global_storage: Dictionary = planet.global_storage
+	var list: Array[BuildingOption] = []
+	
+	for storage: Inventory in global_storage.keys():
+		var build_pos: Vector2 = global_storage[storage]
+		var score = storage.get_total_item_amount(item)
+		var option = BuildingOption.init(build_pos, storage, score)
+		list.append(option)
+	
+	list.sort_custom(BuildingOption.sort_by_score)
+	return list.slice(0, top)
+
+
+func map_storages_with_item(available_item: ItemAmount, amount_to_make: int) -> Dictionary[BuildingOption, ItemAmount]:
+	var job_req = current_job.get_requirement_by_item(available_item.item)
+	var storages = find_top_storages_with_item(available_item.item, 3)
+	var map_total: Dictionary[BuildingOption, ItemAmount] = {}
+	var simulated_inv = inv.duplicate(true)
+	
+	for storage in storages:
+		var in_storage = storage.inventory.get_total_item_amount(available_item.item)
+		var recipe_limit = (job_req.amount * amount_to_make) - available_item.amount
+		var to_get = min(in_storage, recipe_limit)
+		var final_fetch := ItemAmount.new_amount(available_item.item, to_get)
+		var can_fit_in_inv = simulated_inv.how_much_of_item_fits(final_fetch)
+		
+		final_fetch.amount = min(final_fetch.amount, can_fit_in_inv)
+		simulated_inv.add_items_to_inv(final_fetch.to_stack())
+		map_total[storage] = final_fetch
+	
+	var total = 0
+	for item_amount in map_total.values():
+		total += item_amount.amount
+	
+	if (total + available_item.amount) < job_req.amount:
+		return {}
+	else:
+		return map_total
+
+
+func get_available_items_for_reqs(reqs: Array[ItemAmount]) -> Array[ItemAmount]:
+	var available_list: Array[ItemAmount]
+	
+	for item_amount in reqs:
+		available_list.append(
+			ItemAmount.new_amount(
+				item_amount.item,
+				current_job.get_available_amount_of_item(item_amount.item)))
+	
+	return available_list
+
+
+func get_best_mapping(available_items: Array[ItemAmount], amount_to_make: int) -> Dictionary[BuildingOption, ItemAmount]:
+	var item_map: Dictionary[BuildingOption, ItemAmount] = {}
+	
+	for available_item in available_items:
+		item_map = map_storages_with_item(available_item, amount_to_make)
+		
+		if not item_map.is_empty():
+			break
+	
+	return item_map
+
+
+func claim_mapping(map: Dictionary[BuildingOption, ItemAmount]):
+	for option: BuildingOption in map.keys():
+		option.inventory.create_claim(
+			name,
+			ItemAmount.new_amount(
+				map[option].item,
+				map[option].amount
+				).to_stack()
+			)
+
+
+func get_items_from_building_output() -> void:
+	var build: ProductionBuilding = current_job.building
+	var build_inv := build.inventories[build.inv_output_name]
+	var items = build_inv.strip_slots()
+	var space = inv.slots.size()
+	
+	var claim: Array[ItemStack] = []
+	for item_stack in items:
+		var amount_to_take = inv.how_much_of_item_fits(item_stack.to_amount())
+		if amount_to_take <= 0: continue
+		claim.append(ItemStack.new_stack(item_stack.item, amount_to_take))
+		
+		space -= 1
+		if space <= 0:
+			break
+	
+	build_inv.create_claim(name, claim)
+	inv.add_items_to_inv(build_inv.get_claimed_items(name))
+
+
+# -----------------------
+# Utility for emptying
+# -----------------------
+
+## Returns if possible
+func empty_inventory() -> bool:
+	var choice = get_best_empty_storage()
+	if not is_instance_valid(choice):
+		return false
+	if inv.strip_slots().is_empty():
+		return false
+	
+	await go_to(choice.building_pos)
 	var items_to_store := inv.strip_slots()
-	var available_space = choice.inventory.how_many_items_fit(items_to_store)
+	var available_space = choice.inventory.how_many_items_fit(ItemStack.stacks_to_amounts(items_to_store))
 	for i in range(items_to_store.size()):
 		items_to_store[i].amount = available_space[i]
 	
 	inv.create_claim(name, items_to_store)
 	items_to_store = inv.get_claimed_items(name)
 	choice.inventory.add_items_to_inv(items_to_store)
+	
+	return true
 
 
-func get_best_building(from_pos := global_position) -> BuildingOption:
-	var options := get_building_options(from_pos)
+func get_best_empty_storage(from_pos := global_position) -> BuildingOption:
+	var options := get_storage_options_for_empty(from_pos)
 	options.sort_custom(BuildingOption.sort_by_score)
 	
 	var choice: BuildingOption = options.pop_front()
 	return choice
 
 
-func get_building_options(from_pos := global_position) -> Array[BuildingOption]:
+func get_storage_options_for_empty(from_pos := global_position) -> Array[BuildingOption]:
 	var planet = get_tree().current_scene
 	var global_storage: Dictionary = planet.global_storage
 	var list: Array[BuildingOption] = []
@@ -144,13 +287,14 @@ func get_building_options(from_pos := global_position) -> Array[BuildingOption]:
 		
 		for slot in inv.slots:
 			if is_instance_valid(slot):
-				score += storage.how_much_of_item_fits(slot)
+				score += storage.how_much_of_item_fits(slot.to_amount())
 		
 		var final_score = (score * 2) * 100 / (from_pos.distance_to(build_pos)) # Score is multiplied by 2 to prefer more empty storages
 		var option = BuildingOption.init(build_pos, storage, final_score)
 		list.append(option)
 	
 	return list
+
 
 # -----------------------
 # Inventory visual display
@@ -181,6 +325,7 @@ func update_inv(inventory) -> void:
 func go_to(dest: Vector2) -> void:
 	destination = dest
 	set_astar_path(dest)
+	await dest_reached
 
 
 func set_astar_path(dest: Vector2) -> void:

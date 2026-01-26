@@ -17,6 +17,29 @@ static func new_stack(_item: Item = null, _amount: int = 0) -> ItemStack:
 	return item_stack
 
 
+static func stacks_to_amounts(stacks: Array[ItemStack]) -> Array[ItemAmount]:
+	var out: Array[ItemAmount] = []
+	
+	for stack in stacks:
+		var is_found := false
+		for curr_amount in out:
+			if curr_amount.item.id == stack.item.id:
+				curr_amount.amount += stack.amount
+				is_found = true
+				break
+		if not is_found:
+			var new_amount = ItemAmount.new_amount(stack.item, stack.amount)
+			out.append(new_amount)
+	
+	return out
+
+
+## Returns the ItemStack expressed as an ItemAmount
+func to_amount() -> ItemAmount:
+	var item_amount := ItemAmount.new_amount(item, amount)
+	return item_amount
+
+
 ## Change the item to another
 func set_item(_item: Item, _amount: int = 1) -> void:
 	if _amount <= 0 or _amount > _item.max_per_stack:

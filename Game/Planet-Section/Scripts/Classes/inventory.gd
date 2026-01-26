@@ -23,6 +23,9 @@ func create_claim(claim_name: String, items: Array[ItemStack]) -> Array[ItemStac
 	var claim: Array[Dictionary] = []
 	var result: Array[ItemStack] = []
 	
+	if items.is_empty():
+		return []
+	
 	for item_stack in items:
 		var mapped_value := _add_claim_to_item(item_stack, simulate_claimed_slots())
 		var total: int = 0
@@ -67,7 +70,10 @@ func _add_claim_to_item(item_stack: ItemStack, inv_slots: Array[ItemStack] = slo
 ## Return all items in the named claim and remove that claim (physically subtracts from slots)
 func get_claimed_items(claim_name: String) -> Array[ItemStack]:
 	var result: Array[ItemStack] = []
-	var claim: Array[Dictionary] = claims[claim_name]
+	var claim = claims.get(claim_name, null)
+	
+	if claim == null:
+		return []
 	
 	for dict in claim:
 		for key in dict.keys():
@@ -137,8 +143,8 @@ func get_total_item_amount(item: Item) -> int:
 	return total
 
 
-## Return how many of each requested ItemStack would fit (calls helper per item)
-func how_many_items_fit(items: Array[ItemStack]) -> Array[int]:
+## Return how many of each requested ItemAmount would fit (calls helper per item)
+func how_many_items_fit(items: Array[ItemAmount]) -> Array[int]:
 	var result: Array[int] = []
 	for i in range(items.size()):
 		result.append(how_much_of_item_fits(items[i]))
@@ -146,22 +152,22 @@ func how_many_items_fit(items: Array[ItemStack]) -> Array[int]:
 	return result
 
 
-## Return how much of a single ItemStack would fit into the inventory
-func how_much_of_item_fits(item_stack: ItemStack) -> int:
+## Return how much of a single ItemAmount would fit into the inventory
+func how_much_of_item_fits(item_amount: ItemAmount) -> int:
 	var capacity := 0
-	var max_per_stack := item_stack.item.max_per_stack
+	var max_per_stack := item_amount.item.max_per_stack
 	
 	for slot in slots:
 		if not is_instance_valid(slot):
 			# empty slot can hold a whole new stack
 			capacity += max_per_stack
-		elif slot.item.id == item_stack.item.id:
+		elif slot.item.id == item_amount.item.id:
 			capacity += (slot.item.max_per_stack - slot.amount)
 		
-		if capacity >= item_stack.amount:
-			return item_stack.amount
+		if capacity >= item_amount.amount:
+			return item_amount.amount
 	
-	return min(capacity, item_stack.amount)
+	return min(capacity, item_amount.amount)
 
 
 

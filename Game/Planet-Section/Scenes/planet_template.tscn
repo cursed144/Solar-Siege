@@ -45,7 +45,7 @@ script = ExtResource("2_fvmw8")
 recipe_name = "Stone"
 display_icon = ExtResource("7_5gyni")
 outputs = Array[ExtResource("4_1ypi3")]([SubResource("Resource_dslco")])
-creation_time = 10.0
+creation_time = 2.0
 metadata/_custom_type_script = "uid://m3oqk21xh6va"
 
 [sub_resource type="Resource" id="Resource_0il6c"]
@@ -196,13 +196,6 @@ scale = Vector2(3500, 3500)
 mesh = SubResource("BoxMesh_becdf")
 metadata/_edit_lock_ = true
 
-[node name="WorkerHead" type="Node2D" parent="."]
-unique_name_in_owner = true
-script = ExtResource("4_lorx5")
-
-[node name="Worker1" parent="WorkerHead" instance=ExtResource("5_jr884")]
-position = Vector2(2380, 2455)
-
 [node name="BuildingPreview" type="Area2D" parent="."]
 unique_name_in_owner = true
 collision_layer = 0
@@ -226,6 +219,13 @@ offset_right = 187.0
 offset_bottom = 172.0
 mouse_default_cursor_shape = 13
 metadata/_edit_lock_ = true
+
+[node name="WorkerHead" type="Node2D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("4_lorx5")
+
+[node name="Worker1" parent="WorkerHead" instance=ExtResource("5_jr884")]
+position = Vector2(1946, 1929)
 
 [node name="UI" type="CanvasLayer" parent="."]
 unique_name_in_owner = true

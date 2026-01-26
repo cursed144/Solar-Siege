@@ -30,7 +30,7 @@ func _input(event: InputEvent) -> void:
 
 
 func _process(_delta: float) -> void:
-	if is_instance_valid(curr_building):
+	if is_instance_valid(curr_building) and (curr_building is ProductionBuilding):
 		for i in range(curr_building.worker_limit):
 			var row = worker_row_container.get_child(i)
 			var progress: TextureProgressBar = row.get_node("Progress")
@@ -78,6 +78,7 @@ func _fill_inv_info(building: Building) -> void:
 	if not is_instance_valid(building):
 		return
 	name_label.text = building.name
+	$Content/Card/Inventories.show()
 	
 	var invs := building.inventories
 	for inv_name in invs.keys():
@@ -107,6 +108,8 @@ func _fill_worker_info(building: Building) -> void:
 		return
 	if building.max_workers < 1:
 		$Content/Card/WorkerSection.hide()
+	else:
+		$Content/Card/WorkerSection.show()
 	
 	for i in range(building.worker_limit):
 		add_worker_row(worker_row_container, i+1)
@@ -210,6 +213,9 @@ func _clear_info() -> void:
 	for worker in worker_row_container.get_children():
 		worker_row_container.remove_child(worker)
 		worker.queue_free()
+	
+	$Content/Card/Inventories.hide()
+	$Content/Card/WorkerSection.hide()
 
 
 # -----------------------

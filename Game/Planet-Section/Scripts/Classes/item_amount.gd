@@ -5,6 +5,14 @@ extends Resource
 @export var amount: int
 
 
+static func new_amount(_item: Item, _amount: int) -> ItemAmount:
+	var item_amount = ItemAmount.new()
+	item_amount.item = _item
+	item_amount.amount = _amount
+	
+	return item_amount
+
+
 func to_stack() -> Array[ItemStack]:
 	var out: Array[ItemStack] = []
 	if not is_instance_valid(item) or amount <= 0:
@@ -32,3 +40,14 @@ static func amounts_to_stacks(amounts: Array[ItemAmount]) -> Array[ItemStack]:
 		out.append_array(curr_amount.to_stack())
 	
 	return out
+
+
+static func sort_by_amount_desc(a: ItemAmount, b: ItemAmount):
+		if a.amount > b.amount:
+			return true
+		return false
+
+static func sort_by_amount_asce(a: ItemAmount, b: ItemAmount):
+		if a.amount < b.amount:
+			return true
+		return false
