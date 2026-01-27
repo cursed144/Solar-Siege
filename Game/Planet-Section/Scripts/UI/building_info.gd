@@ -30,7 +30,7 @@ func _input(event: InputEvent) -> void:
 
 
 func _process(_delta: float) -> void:
-	if is_instance_valid(curr_building) and (curr_building is ProductionBuilding):
+	if (curr_building != null) and (curr_building is ProductionBuilding):
 		for i in range(curr_building.worker_limit):
 			var row = worker_row_container.get_child(i)
 			var progress: TextureProgressBar = row.get_node("Progress")
@@ -66,6 +66,8 @@ func building_clicked(building: Building) -> void:
 		_fill_worker_info(building)
 	elif curr_building is StorageBuilding:
 		_fill_inv_info(building)
+	
+	manage_buttons(building)
 	
 	connect_to_building(building)
 
@@ -115,6 +117,29 @@ func _fill_worker_info(building: Building) -> void:
 		add_worker_row(worker_row_container, i+1)
 	
 	update_worker_rows(building)
+
+
+func manage_buttons(building: Building) -> void:
+	var dest_button := $Content/Card/BottomButtons/Destroy
+	var upgr_button = $Content/Card/BottomButtons/Upgrade
+	
+	if not building.can_be_destroyed:
+		dest_button.mouse_default_cursor_shape = Control.CURSOR_FORBIDDEN
+		dest_button.self_modulate = Color(1, 1, 1, 0.5)
+		dest_button.disabled = true
+	else:
+		dest_button.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+		dest_button.self_modulate = Color.WHITE
+		dest_button.disabled = false
+	
+	if building.level_reqs.is_empty() or (building.level > building.level_reqs.size()):
+		upgr_button.mouse_default_cursor_shape = Control.CURSOR_FORBIDDEN
+		upgr_button.self_modulate = Color(1, 1, 1, 0.5)
+		upgr_button.disabled = true
+	else:
+		upgr_button.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+		upgr_button.self_modulate = Color.WHITE
+		upgr_button.disabled = false
 
 
 # -----------------------

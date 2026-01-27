@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://c6yvaai4dadhi"]
+[gd_scene load_steps=7 format=3 uid="uid://b4bbtf3tq2h7e"]
 
-[ext_resource type="Texture2D" uid="uid://deixmur2ebu3f" path="res://icon.svg" id="1_k3hnj"]
+[ext_resource type="Script" uid="uid://disbqlxojc1em" path="res://Planet-Section/Scripts/Buildings/bunker.gd" id="1_u6syb"]
+[ext_resource type="Texture2D" uid="uid://cowklb41xmwnu" path="res://Planet-Section/Textures/Buildings/bunker.png" id="2_u6syb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wblrm"]
 size = Vector2(128, 128)
@@ -44,13 +45,17 @@ _data = {
 &"upgrade": SubResource("Animation_304m8")
 }
 
-[node name="BuildingTemp" type="Area2D"]
+[node name="Bunker" type="Area2D"]
 texture_filter = 1
 collision_layer = 16
 collision_mask = 0
+script = ExtResource("1_u6syb")
+inv_storage_name = "Stashed Resources"
+inv_storage_size = 12
+can_be_destroyed = false
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_k3hnj")
+texture = ExtResource("2_u6syb")
 centered = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

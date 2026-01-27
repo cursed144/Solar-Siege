@@ -4,6 +4,9 @@ extends Area2D
 
 signal destroyed
 
+@export var can_be_destroyed := true
+@export var level_reqs: Array[UpgradeRequirement]
+
 var inventories: Dictionary[String, Inventory] = {}
 var level: int = 0
 
@@ -12,7 +15,6 @@ func _ready() -> void:
 	# Align elements to tilemap cells
 	var tilemap: TileMapLayer = get_parent()
 	var cell_size := tilemap.tile_set.tile_size as Vector2
-	print(cell_size/2)
 	$Sprite2D.offset = -cell_size / 2
 	$CollisionShape2D.position -= cell_size / 2
 	$ClickArea.position -= cell_size / 2

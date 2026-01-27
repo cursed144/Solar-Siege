@@ -14,17 +14,14 @@ texture_normal = ExtResource("1_nimr3")
 texture_pressed = ExtResource("2_bp3fc")
 script = ExtResource("2_nimr3")
 
-[node name="Title" type="RichTextLabel" parent="."]
+[node name="Title" type="Label" parent="."]
 layout_mode = 0
 offset_left = 28.000002
-offset_top = 3.9999995
-offset_right = 243.0
-offset_bottom = 46.0
+offset_right = 287.74023
+offset_bottom = 64.93507
 scale = Vector2(0.385, 0.385)
-mouse_filter = 2
-theme_override_font_sizes/normal_font_size = 30
-text = "Lorum Ipsom"
-fit_content = true
+theme_override_font_sizes/font_size = 30
+text = "Name here"
 vertical_alignment = 1
 
 [node name="TextureRect" type="TextureRect" parent="."]

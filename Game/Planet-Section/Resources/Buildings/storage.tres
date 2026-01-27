@@ -20,6 +20,7 @@ metadata/_custom_type_script = "uid://my03aj68uxeb"
 
 [resource]
 script = ExtResource("2_dn77n")
+id = 1
 build_time = 5.0
 display_name = "Storage"
 description = "Allows your workers to store items"

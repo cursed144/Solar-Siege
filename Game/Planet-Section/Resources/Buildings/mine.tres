@@ -20,7 +20,7 @@ metadata/_custom_type_script = "uid://my03aj68uxeb"
 
 [resource]
 script = ExtResource("5_yi8ml")
-id = 1
+id = 2
 build_time = 2.0
 display_name = "Mine"
 description = "Extracts minerals from the ground"

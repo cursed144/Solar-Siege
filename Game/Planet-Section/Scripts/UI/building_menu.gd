@@ -21,7 +21,7 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
-	if hover.visible and is_instance_valid(current_building):
+	if is_instance_valid(current_building) and hover.visible:
 		update_hover_menu_data()
 
 

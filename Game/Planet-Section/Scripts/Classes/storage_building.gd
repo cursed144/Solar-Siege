@@ -14,8 +14,6 @@ func _ready() -> void:
 	super._ready()
 	
 	add_inv(inv_storage_name, inv_storage_size)
-	var log = load("res://Planet-Section/Resources/Items/wood_log.tres")
-	inventories[inv_storage_name].add_item_to_inv(ItemStack.new_stack(log, 40))
 	
 	
 	var planet = get_tree().current_scene
