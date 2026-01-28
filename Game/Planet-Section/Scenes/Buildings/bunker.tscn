@@ -1,0 +1,79 @@
+[gd_scene load_steps=7 format=3 uid="uid://b4bbtf3tq2h7e"]
+
+[ext_resource type="Script" uid="uid://disbqlxojc1em" path="res://Planet-Section/Scripts/Buildings/bunker.gd" id="1_u6syb"]
+[ext_resource type="Texture2D" uid="uid://cowklb41xmwnu" path="res://Planet-Section/Textures/Buildings/bunker.png" id="2_u6syb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wblrm"]
+size = Vector2(128, 128)
+
+[sub_resource type="Animation" id="Animation_1oi6v"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_304m8"]
+resource_name = "upgrade"
+length = 2.0
+loop_mode = 1
+step = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 1.5, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.54901963), Color(1, 1, 1, 0.54901963), Color(1, 1, 1, 0.27450982), Color(1, 1, 1, 0.54901963)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gwh3j"]
+_data = {
+&"RESET": SubResource("Animation_1oi6v"),
+&"upgrade": SubResource("Animation_304m8")
+}
+
+[node name="Bunker" type="Area2D"]
+texture_filter = 1
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("1_u6syb")
+inv_storage_name = "Stashed Resources"
+inv_storage_size = 12
+can_be_destroyed = false
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_u6syb")
+centered = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(64, 64)
+shape = SubResource("RectangleShape2D_wblrm")
+
+[node name="ClickArea" type="TextureButton" parent="."]
+offset_right = 128.0
+offset_bottom = 128.0
+mouse_default_cursor_shape = 2
+
+[node name="UpgradeTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_gwh3j")
+}
+
+[connection signal="pressed" from="ClickArea" to="." method="_on_click_area_pressed"]
+[connection signal="timeout" from="UpgradeTimer" to="." method="_on_upgrade_finished"]

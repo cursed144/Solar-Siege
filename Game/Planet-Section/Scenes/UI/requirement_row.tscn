@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://cqhtv6on81hxc"]
+
+[ext_resource type="Texture2D" uid="uid://ddu320nf5jagq" path="res://Planet-Section/Textures/Items/temp_log.png" id="1_svhkl"]
+
+[node name="HBoxContainer" type="HBoxContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/separation = 64
+
+[node name="Image" type="TextureRect" parent="."]
+texture_filter = 1
+layout_mode = 2
+texture = ExtResource("1_svhkl")
+
+[node name="Amount" type="Label" parent="."]
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "x99"

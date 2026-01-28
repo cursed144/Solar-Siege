@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="BuildingData" load_steps=8 format=3 uid="uid://bjtf4ef6mocde"]
+
+[ext_resource type="Script" uid="uid://my03aj68uxeb" path="res://Planet-Section/Scripts/Classes/item_amount.gd" id="1_ctics"]
+[ext_resource type="Texture2D" uid="uid://cs60sgsq0iujg" path="res://Planet-Section/Textures/Buildings/storage.png" id="1_n1xd1"]
+[ext_resource type="Script" uid="uid://ky0epndk32cp" path="res://Planet-Section/Scripts/Classes/building_data.gd" id="2_dn77n"]
+[ext_resource type="Resource" uid="uid://v2cltp0hhxmn" path="res://Planet-Section/Resources/Items/wood_log.tres" id="2_my4if"]
+[ext_resource type="Resource" uid="uid://bcj06x3c74qcp" path="res://Planet-Section/Resources/Items/rock.tres" id="3_my4if"]
+
+[sub_resource type="Resource" id="Resource_n1xd1"]
+script = ExtResource("1_ctics")
+item = ExtResource("2_my4if")
+amount = 40
+metadata/_custom_type_script = "uid://my03aj68uxeb"
+
+[sub_resource type="Resource" id="Resource_noa7o"]
+script = ExtResource("1_ctics")
+item = ExtResource("3_my4if")
+amount = 20
+metadata/_custom_type_script = "uid://my03aj68uxeb"
+
+[resource]
+script = ExtResource("2_dn77n")
+id = 1
+build_time = 5.0
+display_name = "Storage"
+description = "Allows your workers to store items"
+requirements = Array[ExtResource("1_ctics")]([SubResource("Resource_n1xd1"), SubResource("Resource_noa7o")])
+icon = ExtResource("1_n1xd1")
+metadata/_custom_type_script = "uid://ky0epndk32cp"

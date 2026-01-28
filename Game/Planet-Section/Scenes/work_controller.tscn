@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://cy5yo2gtpeai7"]
+
+[ext_resource type="Script" uid="uid://chnhw4uqv6n8v" path="res://Planet-Section/Scripts/Classes/work_controller.gd" id="1_qudip"]
+
+[node name="WorkController" type="Node"]
+script = ExtResource("1_qudip")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timeout"]
