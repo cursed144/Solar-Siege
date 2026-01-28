@@ -18,6 +18,11 @@ class BuildingOption:
 			return true
 		return false
 
+enum JobAction { 
+	WORK,
+	SUPPLY,
+	EMPTY
+}
 
 signal dest_reached
 
@@ -26,6 +31,7 @@ const ARRIVE_DISTANCE := 10.0
 const SPEED = 150
 
 var current_job: WorkController = null
+var handling_job := false
 var path := []
 
 @onready var head = get_parent()
@@ -65,59 +71,124 @@ func get_job() -> void:
 
 
 func handle_job() -> void:
+	if handling_job:
+		return
+	handling_job = true
+	
 	if not is_instance_valid(current_job):
 		abandon_job()
+		handling_job = false
 		return
-
-	# Prepare and get the initial state
-	var status = current_job.prepare_for_work()
-
-	# If job is finished, try to empty and then abandon
-	if status == WorkController.WorkState.FINISHED:
-		await empty_building_output()
-		# nothing more to do for a finished job
-		abandon_job()
-		return
-
-	# Decide attempt order depending on initial requirement
-	var order: Array[String] = []
-	match status:
-		WorkController.WorkState.READY:
-			order = ["work", "supply", "empty"]
-		WorkController.WorkState.NEED_SUPPLY:
-			order = ["supply", "empty", "work"]
-		WorkController.WorkState.NEED_EMPTY:
-			order = ["empty", "work", "supply"]
-
-	# Try each action in the chosen order until one succeeds
-	for action in order:
-		var ok: bool = false
-		match action:
-			"work":
-				ok = await work_in_building()
-			"supply":
-				ok = await supply_building()
-			"empty":
-				ok = await empty_building_output()
-
-		if ok:
-			# success — continue handling the job (may change state)
-			# re-run the handler for the same job
-			handle_job()
+	
+	while is_instance_valid(current_job):
+		var status := prepare_job()
+		if status == WorkController.WorkState.FINISHED:
+			await empty_building_output()
+			abandon_job()
+			handling_job = false
 			return
-
-	# If we reach here, every attempt failed -> requeue and abandon
-	if is_instance_valid(current_job):
-		head.add_job(current_job) # re-post job to workerhead
-	current_job = null
-	show()
-	get_job() # try to pick another job immediately
+		
+		var order := get_action_order(status)
+		var progressed := await try_actions(order)
+		
+		if progressed:
+			on_progress()
+		else:
+			if await on_failure():
+				handling_job = false
+				return
+	
+	handling_job = false
 
 
 func abandon_job() -> void:
 	current_job = null
-	get_job()
 	show()
+	
+	handling_job = false
+	await get_tree().create_timer(0.25).timeout
+	get_job()
+
+
+# -----------------------
+# Utility for job hanling
+# -----------------------
+
+func prepare_job() -> int:
+	return current_job.prepare_for_work()
+
+
+func get_action_order(status: int) -> Array[JobAction]:
+	match status:
+		WorkController.WorkState.READY:
+			return [JobAction.WORK, JobAction.SUPPLY, JobAction.EMPTY]
+		WorkController.WorkState.NEED_SUPPLY:
+			return [JobAction.SUPPLY, JobAction.EMPTY, JobAction.WORK]
+		WorkController.WorkState.NEED_EMPTY:
+			return [JobAction.EMPTY, JobAction.WORK, JobAction.SUPPLY]
+		_:
+			return []
+
+
+func try_actions(order: Array[JobAction]) -> bool:
+	for action in order:
+		if not is_instance_valid(current_job):
+			return false
+		
+		match action:
+			JobAction.WORK:
+				if await work_in_building():
+					return true
+			JobAction.SUPPLY:
+				if await supply_building():
+					return true
+			JobAction.EMPTY:
+				if await empty_building_output():
+					return true
+	
+	return false
+
+
+func on_progress() -> void:
+	if is_instance_valid(current_job):
+		current_job.fail_count = 0
+
+
+func on_failure() -> bool:
+	if not is_instance_valid(current_job):
+		abandon_job()
+		return true
+	
+	current_job.fail_count += 1
+	
+	if current_job.fail_count < WorkController.MAX_FAILS:
+		return false
+	
+	# Too many fails → release / cancel
+	if current_job.is_producing():
+		current_job.cancel_production()
+	else:
+		release_claims()
+	
+	# Requeue job
+	head.add_job(current_job)
+	current_job = null
+	show()
+	
+	await get_tree().create_timer(0.25).timeout
+	get_job()
+	return true
+
+
+func release_claims() -> void:
+	var bld = current_job.building
+	if is_instance_valid(bld):
+		var input_inv: Inventory = bld.inventories[bld.inv_input_name]
+		input_inv.remove_claim(name)
+	
+	var planet = get_tree().current_scene
+	for storage: Inventory in planet.global_storage.keys():
+		storage.remove_claim(name)
 
 
 # -----------------------
@@ -126,17 +197,16 @@ func abandon_job() -> void:
 
 ## Returns true on success
 func work_in_building() -> bool:
-	# sanity checks
 	if not is_instance_valid(current_job):
 		return false
 	if not is_instance_valid(current_job.building):
 		return false
 	
-	# move to target
 	await go_to(current_job.building.global_position)
 	
-	# If the job can't start for some reason, prepare_for_work would tell us earlier.
-	# Start the work and wait for it to finish — this counts as success.
+	if current_job.can_work_start() != WorkController.WorkState.READY:
+		return false
+	
 	current_job.start_work()
 	hide()
 	await current_job.alert_work_finished
@@ -161,7 +231,6 @@ func empty_building_output() -> bool:
 			break
 	
 	return moved_any
-
 
 
 ## Returns true if any supply transfer happened
@@ -250,7 +319,7 @@ func map_storages_with_item(available_item: ItemAmount, amount_to_make: int) -> 
 
 
 func get_available_items_for_reqs(reqs: Array[ItemAmount]) -> Array[ItemAmount]:
-	var available_list: Array[ItemAmount]
+	var available_list: Array = []
 	
 	for item_amount in reqs:
 		available_list.append(
@@ -331,8 +400,10 @@ func empty_inventory() -> bool:
 
 func get_best_empty_storage(from_pos := global_position) -> BuildingOption:
 	var options := get_storage_options_for_empty(from_pos)
-	options.sort_custom(BuildingOption.sort_by_score)
+	if options.is_empty():
+		return null
 	
+	options.sort_custom(BuildingOption.sort_by_score)
 	var choice: BuildingOption = options.pop_front()
 	return choice
 

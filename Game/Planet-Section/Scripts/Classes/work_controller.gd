@@ -10,10 +10,13 @@ enum WorkState {
 	FINISHED
 }
 
+const MAX_FAILS: int = 3
+
 var assigned_worker = null
 var assigned_recipe: Recipe = null
 var amount_to_produce: int = 0
 var used_materials: Array[ItemStack]
+var fail_count: int = 0
 
 @onready var building: ProductionBuilding = get_node("../../")
 
@@ -81,6 +84,11 @@ func cancel_production() -> void:
 	alert_work_finished.emit(null)
 	building.worker_head.remove_job(self)
 	$Timer.stop()
+
+
+## Returns true when the timer is running (i.e. production in progress)
+func is_producing() -> bool:
+	return ($Timer.time_left > 0)
 
 
 func is_work_required() -> bool:

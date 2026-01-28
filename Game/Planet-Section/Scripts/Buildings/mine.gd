@@ -21,6 +21,9 @@ func recipe_finished(recipe: Recipe) -> void:
 	var extra_chance: int = prod_items.get(recipe, -1)
 	var extra: Array[ItemAmount] = []
 	
+	if not is_instance_valid(recipe):
+		return
+	
 	for item in recipe.outputs:
 		extra.append(item.duplicate(true))
 	
