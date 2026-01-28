@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ddu320nf5jagq"
-path="res://.godot/imported/temp_log.png-24e9c13d83254947dd6d7619c22cdff4.ctex"
+uid="uid://dsnxhndn8sdgw"
+path="res://.godot/imported/steel_plates.png-b5342aa446549f444a9441a59e8d6138.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Planet-Section/Textures/Items/temp_log.png"
-dest_files=["res://.godot/imported/temp_log.png-24e9c13d83254947dd6d7619c22cdff4.ctex"]
+source_file="res://Planet-Section/Textures/Items/steel_plates.png"
+dest_files=["res://.godot/imported/steel_plates.png-b5342aa446549f444a9441a59e8d6138.ctex"]
 
 [params]
 

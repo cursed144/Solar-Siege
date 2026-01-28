@@ -15,7 +15,7 @@ func set_item(item: Item, _req_amount: int) -> void:
 	if not is_valid():
 		$Amount.self_modulate = Color.from_rgba8(210, 0, 0, 255)
 	else:
-		$Amount.self_modulate = Color.from_rgba8(0, 168, 0, 255)
+		$Amount.self_modulate = Color.from_rgba8(0, 120, 0, 255)
 
 
 func is_valid() -> bool:

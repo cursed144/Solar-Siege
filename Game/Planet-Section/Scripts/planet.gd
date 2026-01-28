@@ -9,6 +9,7 @@ extends Node2D
 
 @export_category("Planet specific building productions")
 @export var mine: Dictionary[Recipe, int] # Recipe to chance for extra
+@export var lumber_mill: Dictionary[Recipe, int]
 
 
 var building_amounts: Dictionary[String, int] = {}

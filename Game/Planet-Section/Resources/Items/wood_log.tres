@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://v2cltp0hhxmn"]
 
 [ext_resource type="Script" uid="uid://djkcypp1ynqgo" path="res://Planet-Section/Scripts/Classes/item.gd" id="1_klifn"]
-[ext_resource type="Texture2D" uid="uid://ddu320nf5jagq" path="res://Planet-Section/Textures/Items/temp_log.png" id="1_wcqu7"]
+[ext_resource type="Texture2D" uid="uid://ddu320nf5jagq" path="res://Planet-Section/Textures/Items/log.png" id="1_wcqu7"]
 
 [resource]
 script = ExtResource("1_klifn")

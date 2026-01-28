@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=4 uid="uid://d4ha36564l20p"]
+[gd_scene load_steps=60 format=4 uid="uid://d4ha36564l20p"]
 
 [ext_resource type="Script" uid="uid://c5wbnqrgl4aor" path="res://Planet-Section/Scripts/planet.gd" id="1_r0ntb"]
 [ext_resource type="Texture2D" uid="uid://btxku7dhhsijv" path="res://Planet-Section/Textures/Tiles/planet_tile_grass.png" id="2_6x5wk"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dj2lmstctfmyp" path="res://Planet-Section/Scenes/Buildings/storage.tscn" id="2_ckrrn"]
 [ext_resource type="Script" uid="uid://m3oqk21xh6va" path="res://Planet-Section/Scripts/Classes/recipe.gd" id="2_fvmw8"]
 [ext_resource type="Script" uid="uid://lbjy23qvrrm8" path="res://Planet-Section/Scripts/pos_nums.gd" id="3_j25nj"]
+[ext_resource type="Texture2D" uid="uid://cstb6ncmhd6pj" path="res://Planet-Section/Textures/Items/rock.png" id="3_jdl5u"]
 [ext_resource type="Resource" uid="uid://bcj06x3c74qcp" path="res://Planet-Section/Resources/Items/rock.tres" id="3_xrxt5"]
 [ext_resource type="Script" uid="uid://my03aj68uxeb" path="res://Planet-Section/Scripts/Classes/item_amount.gd" id="4_1ypi3"]
 [ext_resource type="Script" uid="uid://viu0lkuoi5hj" path="res://Planet-Section/Scripts/UI/building_menu.gd" id="4_3w1ld"]
@@ -16,24 +17,28 @@
 [ext_resource type="Resource" uid="uid://djo5qn5rmn3v" path="res://Planet-Section/Resources/Items/iron_ore.tres" id="5_fvmw8"]
 [ext_resource type="PackedScene" uid="uid://cptn1yrqchxdj" path="res://Planet-Section/Scenes/worker.tscn" id="5_jr884"]
 [ext_resource type="PackedScene" uid="uid://dx0pwai5nk0di" path="res://Planet-Section/Scenes/UI/building_icon.tscn" id="5_xqwqb"]
+[ext_resource type="Texture2D" uid="uid://b5hybcbu55w36" path="res://Planet-Section/Textures/Items/coal.png" id="6_46a5l"]
 [ext_resource type="Texture2D" uid="uid://deixmur2ebu3f" path="res://icon.svg" id="7_5gyni"]
 [ext_resource type="PackedScene" uid="uid://8lg17ibq6kmc" path="res://Planet-Section/Scenes/Buildings/mine.tscn" id="8_4llao"]
+[ext_resource type="Texture2D" uid="uid://h042n2lux7dv" path="res://Planet-Section/Textures/Items/iron_ore.png" id="8_edmej"]
 [ext_resource type="PackedScene" uid="uid://b4bbtf3tq2h7e" path="res://Planet-Section/Scenes/Buildings/bunker.tscn" id="9_1ypi3"]
 [ext_resource type="Script" uid="uid://dwytf3p3tvovs" path="res://Planet-Section/Scripts/UI/building_info.gd" id="11_lorx5"]
 [ext_resource type="Texture2D" uid="uid://bhw0mwyvx34qd" path="res://Planet-Section/Textures/UI/arrow_up.png" id="12_6ei45"]
 [ext_resource type="Resource" uid="uid://bjtf4ef6mocde" path="res://Planet-Section/Resources/Buildings/storage.tres" id="12_ckrrn"]
 [ext_resource type="PackedScene" uid="uid://b0tl1i18xbkfo" path="res://Planet-Section/Scenes/UI/worker_row.tscn" id="12_jr884"]
 [ext_resource type="Texture2D" uid="uid://cbt6mjpxabr5q" path="res://Planet-Section/Textures/UI/arrow_down.png" id="13_cj2bw"]
-[ext_resource type="PackedScene" uid="uid://bih4mnbcysiip" path="res://Planet-Section/Scenes/UI/building_placement_requirement.tscn" id="13_xo3u4"]
 [ext_resource type="Script" uid="uid://bpboa5iqaqcqi" path="res://Planet-Section/Scripts/UI/delete_item_conf.gd" id="15_cj2bw"]
+[ext_resource type="PackedScene" uid="uid://t0w7uj5rn4rk" path="res://Planet-Section/Scenes/Buildings/lumber_mill.tscn" id="15_edmej"]
 [ext_resource type="Script" uid="uid://c4eynbg3bu4tt" path="res://Planet-Section/Scripts/UI/recipe_menu.gd" id="15_m577t"]
-[ext_resource type="Texture2D" uid="uid://ddu320nf5jagq" path="res://Planet-Section/Textures/Items/temp_log.png" id="16_vmkg5"]
+[ext_resource type="Texture2D" uid="uid://ddu320nf5jagq" path="res://Planet-Section/Textures/Items/log.png" id="16_vmkg5"]
+[ext_resource type="Texture2D" uid="uid://6ir6ks3qbrqy" path="res://Planet-Section/Textures/hammer.png" id="17_a31x6"]
 [ext_resource type="Texture2D" uid="uid://qcty4usppxxq" path="res://Planet-Section/Textures/UI/Buttons/destroy_button.png" id="18_6pg5r"]
 [ext_resource type="Resource" uid="uid://ovbfsshvr576" path="res://Planet-Section/Resources/Buildings/mine.tres" id="19_fvmw8"]
 [ext_resource type="Texture2D" uid="uid://dd64b2r5rmv61" path="res://Planet-Section/Textures/UI/Buttons/upgrade_button.png" id="19_gimfs"]
 [ext_resource type="Texture2D" uid="uid://blmy8iosqcihi" path="res://Planet-Section/Textures/UI/Buttons/confirm_button.png" id="20_gimfs"]
 [ext_resource type="Texture2D" uid="uid://cqas44t1uytel" path="res://Planet-Section/Textures/UI/Buttons/cancel_button.png" id="21_xo3u4"]
 [ext_resource type="Script" uid="uid://jqii1ecaswyt" path="res://Planet-Section/Scripts/UI/destroy_building.gd" id="23_ckrrn"]
+[ext_resource type="Resource" uid="uid://b6o5yckqgv6vg" path="res://Planet-Section/Resources/Buildings/lumber_mill.tres" id="27_i4le1"]
 [ext_resource type="Script" uid="uid://b024ilo13clbi" path="res://Planet-Section/Scripts/UI/upgrade_menu.gd" id="32_dslco"]
 
 [sub_resource type="Resource" id="Resource_dslco"]
@@ -45,7 +50,7 @@ metadata/_custom_type_script = "uid://my03aj68uxeb"
 [sub_resource type="Resource" id="Resource_a31x6"]
 script = ExtResource("2_fvmw8")
 recipe_name = "Stone"
-display_icon = ExtResource("7_5gyni")
+display_icon = ExtResource("3_jdl5u")
 outputs = Array[ExtResource("4_1ypi3")]([SubResource("Resource_dslco")])
 creation_time = 6.0
 metadata/_custom_type_script = "uid://m3oqk21xh6va"
@@ -59,7 +64,7 @@ metadata/_custom_type_script = "uid://my03aj68uxeb"
 [sub_resource type="Resource" id="Resource_xjlru"]
 script = ExtResource("2_fvmw8")
 recipe_name = "Coal"
-display_icon = ExtResource("7_5gyni")
+display_icon = ExtResource("6_46a5l")
 outputs = Array[ExtResource("4_1ypi3")]([SubResource("Resource_0il6c")])
 creation_time = 15.0
 metadata/_custom_type_script = "uid://m3oqk21xh6va"
@@ -73,10 +78,17 @@ metadata/_custom_type_script = "uid://my03aj68uxeb"
 [sub_resource type="Resource" id="Resource_46a5l"]
 script = ExtResource("2_fvmw8")
 recipe_name = "Iron Ore"
-display_icon = ExtResource("7_5gyni")
+display_icon = ExtResource("8_edmej")
 outputs = Array[ExtResource("4_1ypi3")]([SubResource("Resource_jdl5u")])
 creation_time = 25.0
 unlocks_at_level = 2
+metadata/_custom_type_script = "uid://m3oqk21xh6va"
+
+[sub_resource type="Resource" id="Resource_edmej"]
+script = ExtResource("2_fvmw8")
+recipe_name = "Wood Logs"
+display_icon = ExtResource("16_vmkg5")
+outputs = Array[ExtResource("4_1ypi3")]([null])
 metadata/_custom_type_script = "uid://m3oqk21xh6va"
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6x5wk"]
@@ -93,6 +105,7 @@ resource_name = "Buildings"
 scenes/0/scene = ExtResource("9_1ypi3")
 scenes/1/scene = ExtResource("2_ckrrn")
 scenes/2/scene = ExtResource("8_4llao")
+scenes/3/scene = ExtResource("15_edmej")
 
 [sub_resource type="TileSet" id="TileSet_0essa"]
 tile_size = Vector2i(64, 64)
@@ -167,13 +180,18 @@ size = Vector2(297, 612)
 [node name="Planet" type="Node2D"]
 script = ExtResource("1_r0ntb")
 max_building_amount = Dictionary[String, int]({
+"Factory": 2,
+"Lumber Mill": 5,
 "Mine": 5,
-"Storage": 2
+"Storage": 3
 })
 mine = Dictionary[ExtResource("2_fvmw8"), int]({
 SubResource("Resource_a31x6"): 50,
 SubResource("Resource_xjlru"): 25,
 SubResource("Resource_46a5l"): 10
+})
+lumber_mill = Dictionary[ExtResource("2_fvmw8"), int]({
+SubResource("Resource_edmej"): 75
 })
 
 [node name="Terrain" type="TileMapLayer" parent="."]
@@ -235,13 +253,25 @@ position = Vector2(1946, 1929)
 unique_name_in_owner = true
 
 [node name="BuildingButton" type="TextureButton" parent="UI"]
+texture_filter = 1
 offset_left = 36.0
 offset_top = 517.0
 offset_right = 164.0
 offset_bottom = 645.0
 scale = Vector2(0.8, 0.8)
 mouse_default_cursor_shape = 2
-texture_normal = ExtResource("7_5gyni")
+texture_normal = ExtResource("17_a31x6")
+
+[node name="Label" type="Label" parent="UI/BuildingButton"]
+layout_mode = 0
+offset_left = -8.75
+offset_top = 97.49999
+offset_right = 113.749985
+offset_bottom = 154.5
+theme_override_font_sizes/font_size = 41
+text = "Build"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="PosNums" type="Control" parent="UI"]
 layout_mode = 3
@@ -324,6 +354,10 @@ theme_override_constants/separation = 32
 layout_mode = 2
 data = ExtResource("19_fvmw8")
 
+[node name="BuildingIcon3" parent="UI/BuildingMenu/Buildings/Production" instance=ExtResource("5_xqwqb")]
+layout_mode = 2
+data = ExtResource("27_i4le1")
+
 [node name="Storage" type="HBoxContainer" parent="UI/BuildingMenu/Buildings"]
 visible = false
 layout_mode = 2
@@ -361,12 +395,10 @@ theme_override_constants/separation = 6
 
 [node name="BName" type="Label" parent="UI/BuildingMenu/HoverMenu/VBoxContainer"]
 layout_mode = 2
-text = "Building name: Lorum Ipsom Palace"
 
 [node name="Desc" type="Label" parent="UI/BuildingMenu/HoverMenu/VBoxContainer"]
 custom_minimum_size = Vector2(1147, 51.16)
 layout_mode = 2
-text = "Description: Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom Lorum Ipsom"
 autowrap_mode = 3
 
 [node name="Requirements" type="HBoxContainer" parent="UI/BuildingMenu/HoverMenu/VBoxContainer"]
@@ -375,30 +407,9 @@ layout_mode = 2
 mouse_filter = 2
 theme_override_constants/separation = 130
 
-[node name="Column1" type="VBoxContainer" parent="UI/BuildingMenu/HoverMenu/VBoxContainer/Requirements"]
-layout_mode = 2
-theme_override_constants/separation = 40
-
-[node name="Control" parent="UI/BuildingMenu/HoverMenu/VBoxContainer/Requirements/Column1" instance=ExtResource("13_xo3u4")]
-layout_mode = 2
-
-[node name="Control2" parent="UI/BuildingMenu/HoverMenu/VBoxContainer/Requirements/Column1" instance=ExtResource("13_xo3u4")]
-layout_mode = 2
-
-[node name="Column2" type="VBoxContainer" parent="UI/BuildingMenu/HoverMenu/VBoxContainer/Requirements"]
-layout_mode = 2
-theme_override_constants/separation = 40
-
-[node name="Control" parent="UI/BuildingMenu/HoverMenu/VBoxContainer/Requirements/Column2" instance=ExtResource("13_xo3u4")]
-layout_mode = 2
-
-[node name="Control2" parent="UI/BuildingMenu/HoverMenu/VBoxContainer/Requirements/Column2" instance=ExtResource("13_xo3u4")]
-layout_mode = 2
-
 [node name="MaxAllowed" type="Label" parent="UI/BuildingMenu/HoverMenu/VBoxContainer"]
 custom_minimum_size = Vector2(1147, 0)
 layout_mode = 2
-text = "You have x / x"
 autowrap_mode = 3
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="UI/BuildingMenu/HoverMenu"]
@@ -477,6 +488,7 @@ theme_override_font_sizes/font_size = 91
 text = "Limit Workers: 3/3"
 
 [node name="Current" type="Label" parent="UI/BuildingInfo/Content/Card/WorkerSection/WorkerInfo/HBoxContainer"]
+visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 80
 text = "Current Workers: 2"

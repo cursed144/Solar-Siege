@@ -25,6 +25,7 @@ text = "Name here"
 vertical_alignment = 1
 
 [node name="TextureRect" type="TextureRect" parent="."]
+visible = false
 layout_mode = 0
 offset_left = 6.0
 offset_top = 3.0

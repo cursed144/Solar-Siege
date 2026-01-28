@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cqhtv6on81hxc"]
 
-[ext_resource type="Texture2D" uid="uid://ddu320nf5jagq" path="res://Planet-Section/Textures/Items/temp_log.png" id="1_svhkl"]
+[ext_resource type="Texture2D" uid="uid://ddu320nf5jagq" path="res://Planet-Section/Textures/Items/log.png" id="1_svhkl"]
 
 [node name="HBoxContainer" type="HBoxContainer"]
 offset_right = 40.0

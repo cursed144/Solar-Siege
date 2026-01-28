@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="BuildingData" load_steps=6 format=3 uid="uid://b6o5yckqgv6vg"]
+
+[ext_resource type="Script" uid="uid://my03aj68uxeb" path="res://Planet-Section/Scripts/Classes/item_amount.gd" id="1_7wl4j"]
+[ext_resource type="Texture2D" uid="uid://fw3oqcq5fboi" path="res://Planet-Section/Textures/Buildings/lumber_mill.png" id="1_vto1x"]
+[ext_resource type="Script" uid="uid://ky0epndk32cp" path="res://Planet-Section/Scripts/Classes/building_data.gd" id="2_dht3w"]
+[ext_resource type="Resource" uid="uid://v2cltp0hhxmn" path="res://Planet-Section/Resources/Items/wood_log.tres" id="3_w64dm"]
+
+[sub_resource type="Resource" id="Resource_r788k"]
+script = ExtResource("1_7wl4j")
+item = ExtResource("3_w64dm")
+amount = 20
+metadata/_custom_type_script = "uid://my03aj68uxeb"
+
+[resource]
+script = ExtResource("2_dht3w")
+id = 3
+build_time = 4.0
+display_name = "Lumber Mill"
+description = "Gathers wood from the planet and and refines it into other materials"
+requirements = Array[ExtResource("1_7wl4j")]([SubResource("Resource_r788k")])
+icon = ExtResource("1_vto1x")
+metadata/_custom_type_script = "uid://ky0epndk32cp"

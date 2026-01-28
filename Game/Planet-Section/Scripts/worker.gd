@@ -49,7 +49,7 @@ func _input(event: InputEvent) -> void:
 		empty_inventory()
 
 
-func _physics_process(delta: float) -> void:
+func _process(delta: float) -> void:
 	if !path.is_empty():
 		position = position.move_toward(path[0], SPEED*delta)
 		if position.distance_to(path[0]) < ARRIVE_DISTANCE:

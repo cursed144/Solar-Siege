@@ -1,0 +1,103 @@
+[gd_scene load_steps=15 format=3 uid="uid://t0w7uj5rn4rk"]
+
+[ext_resource type="Texture2D" uid="uid://fw3oqcq5fboi" path="res://Planet-Section/Textures/Buildings/lumber_mill.png" id="1_gqnem"]
+[ext_resource type="Script" uid="uid://bk4xy6ab53ler" path="res://Planet-Section/Scripts/Buildings/lumber_mill.gd" id="1_sw4x1"]
+[ext_resource type="Script" uid="uid://m3oqk21xh6va" path="res://Planet-Section/Scripts/Classes/recipe.gd" id="2_owy8a"]
+[ext_resource type="Texture2D" uid="uid://f4qx0a0kd8hs" path="res://Planet-Section/Textures/Items/wood_planks.png" id="3_7i2mj"]
+[ext_resource type="Script" uid="uid://my03aj68uxeb" path="res://Planet-Section/Scripts/Classes/item_amount.gd" id="4_en3mc"]
+[ext_resource type="Resource" uid="uid://cgkjfrnbc4fem" path="res://Planet-Section/Resources/Items/wooden_planks.tres" id="5_4ry3w"]
+[ext_resource type="Resource" uid="uid://v2cltp0hhxmn" path="res://Planet-Section/Resources/Items/wood_log.tres" id="6_w62p7"]
+
+[sub_resource type="Resource" id="Resource_j3clf"]
+script = ExtResource("4_en3mc")
+item = ExtResource("5_4ry3w")
+amount = 2
+metadata/_custom_type_script = "uid://my03aj68uxeb"
+
+[sub_resource type="Resource" id="Resource_chufo"]
+script = ExtResource("4_en3mc")
+item = ExtResource("6_w62p7")
+amount = 10
+metadata/_custom_type_script = "uid://my03aj68uxeb"
+
+[sub_resource type="Resource" id="Resource_4c2vw"]
+script = ExtResource("2_owy8a")
+recipe_name = "Wooden Planks"
+display_icon = ExtResource("3_7i2mj")
+requirements = Array[ExtResource("4_en3mc")]([SubResource("Resource_chufo")])
+outputs = Array[ExtResource("4_en3mc")]([SubResource("Resource_j3clf")])
+creation_time = 20.0
+metadata/_custom_type_script = "uid://m3oqk21xh6va"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wblrm"]
+size = Vector2(128, 64)
+
+[sub_resource type="Animation" id="Animation_1oi6v"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_304m8"]
+resource_name = "upgrade"
+length = 2.0
+loop_mode = 1
+step = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 1.5, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.54901963), Color(1, 1, 1, 0.54901963), Color(1, 1, 1, 0.27450982), Color(1, 1, 1, 0.54901963)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gwh3j"]
+_data = {
+&"RESET": SubResource("Animation_1oi6v"),
+&"upgrade": SubResource("Animation_304m8")
+}
+
+[node name="LumberMill" type="Area2D"]
+texture_filter = 1
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("1_sw4x1")
+recipes = Array[ExtResource("2_owy8a")]([SubResource("Resource_4c2vw")])
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_gqnem")
+centered = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(64, 32)
+shape = SubResource("RectangleShape2D_wblrm")
+
+[node name="ClickArea" type="TextureButton" parent="."]
+offset_right = 128.0
+offset_bottom = 64.0
+mouse_default_cursor_shape = 2
+
+[node name="UpgradeTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_gwh3j")
+}
+
+[connection signal="pressed" from="ClickArea" to="." method="_on_click_area_pressed"]
+[connection signal="timeout" from="UpgradeTimer" to="." method="_on_upgrade_finished"]
