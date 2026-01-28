@@ -19,6 +19,13 @@ func _ready() -> void:
 	$PlayingField.position = planet_size/2
 	$PlayingField.scale = planet_size
 	$PlayerCam.position = $PlayingField.position
+	
+	await get_tree().process_frame
+	for building: Building in $Buildings.get_children():
+		var pos = building.global_position
+		var sprite: Sprite2D = building.get_node("Sprite2D")
+		var sprite_size = sprite.get_rect().size
+		$WorkerHead.set_building_tiles_solid(pos, sprite_size)
 
 
 func get_all_buildings() -> void:
@@ -84,3 +91,22 @@ func get_global_item_amount(item: Item) -> int:
 		total += inv.get_total_item_amount(item)
 	
 	return total
+
+
+func create_global_claim(claim_name: String, items: Array[ItemAmount]):
+	for storage: Inventory in global_storage.keys():
+		var stacks := ItemAmount.amounts_to_stacks(items)
+		var res = storage.create_claim(claim_name, stacks)
+		items = ItemAmount.subtract_array(items, res)
+		if items.is_empty():
+			break
+
+
+func get_claimed_global_items(claim_name: String):
+	for storage: Inventory in global_storage.keys():
+		storage.get_claimed_items(claim_name)
+
+
+func remove_global_claim(claim_name: String):
+	for storage: Inventory in global_storage.keys():
+		storage.remove_claim(claim_name)

@@ -30,17 +30,30 @@ func _input(event: InputEvent) -> void:
 
 
 func _process(_delta: float) -> void:
-	if (curr_building != null) and (curr_building is ProductionBuilding):
-		for i in range(curr_building.worker_limit):
-			var row = worker_row_container.get_child(i)
-			var progress: TextureProgressBar = row.get_node("Progress")
-			var timer: Timer = curr_building.get_node("WorkerRows/" + row.name + "/Timer")
-			
-			if timer.time_left >= 0.05:
-				progress.max_value = timer.wait_time
-				progress.value = timer.wait_time - timer.time_left
-			else:
-					progress.value = 0
+	if curr_building == null or not (curr_building is ProductionBuilding):
+		return
+	
+	var child_count := worker_row_container.get_child_count()
+	for i in range(curr_building.worker_limit):
+		if i >= child_count:
+			continue
+		
+		var row = worker_row_container.get_child(i)
+		if not is_instance_valid(row):
+			continue
+		
+		var progress: TextureProgressBar = row.get_node("Progress")
+		var timer_path = "WorkerRows/" + row.name + "/Timer"
+		if not curr_building.has_node(timer_path):
+			progress.value = 0
+			continue
+		
+		var timer: Timer = curr_building.get_node(timer_path)
+		if timer.time_left >= 0.05:
+			progress.max_value = timer.wait_time
+			progress.value = timer.wait_time - timer.time_left
+		else:
+			progress.value = 0
 
 
 func building_clicked(building: Building) -> void:
@@ -180,7 +193,7 @@ func update_worker_rows(building: Building = curr_building) -> void:
 	worker_nums.get_node("Current").text = format_string_current % building.assigned_workers.size()
 	
 	await get_tree().process_frame
-	for i in range(building.worker_limit):
+	for i in range(worker_row_container.get_child_count()):
 		var work_controller = building.get_node("WorkerRows/" + str(i+1))
 		var row = worker_row_container.get_child(i)
 		if not is_instance_valid(row):

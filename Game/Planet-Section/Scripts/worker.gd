@@ -68,18 +68,50 @@ func handle_job() -> void:
 	if not is_instance_valid(current_job):
 		abandon_job()
 		return
-	
+
+	# Prepare and get the initial state
 	var status = current_job.prepare_for_work()
+
+	# If job is finished, try to empty and then abandon
+	if status == WorkController.WorkState.FINISHED:
+		await empty_building_output()
+		# nothing more to do for a finished job
+		abandon_job()
+		return
+
+	# Decide attempt order depending on initial requirement
+	var order: Array[String] = []
 	match status:
 		WorkController.WorkState.READY:
-			work_in_building()
+			order = ["work", "supply", "empty"]
 		WorkController.WorkState.NEED_SUPPLY:
-			supply_building()
+			order = ["supply", "empty", "work"]
 		WorkController.WorkState.NEED_EMPTY:
-			empty_building_output()
-		WorkController.WorkState.FINISHED:
-			await empty_building_output()
-			abandon_job()
+			order = ["empty", "work", "supply"]
+
+	# Try each action in the chosen order until one succeeds
+	for action in order:
+		var ok: bool = false
+		match action:
+			"work":
+				ok = await work_in_building()
+			"supply":
+				ok = await supply_building()
+			"empty":
+				ok = await empty_building_output()
+
+		if ok:
+			# success — continue handling the job (may change state)
+			# re-run the handler for the same job
+			handle_job()
+			return
+
+	# If we reach here, every attempt failed -> requeue and abandon
+	if is_instance_valid(current_job):
+		head.add_job(current_job) # re-post job to workerhead
+	current_job = null
+	show()
+	get_job() # try to pick another job immediately
 
 
 func abandon_job() -> void:
@@ -92,53 +124,82 @@ func abandon_job() -> void:
 # Job execution
 # -----------------------
 
-func work_in_building() -> void:
+## Returns true on success
+func work_in_building() -> bool:
+	# sanity checks
+	if not is_instance_valid(current_job):
+		return false
+	if not is_instance_valid(current_job.building):
+		return false
+	
+	# move to target
 	await go_to(current_job.building.global_position)
 	
-	if not is_instance_valid(current_job):
-		handle_job()
-		return
-	
+	# If the job can't start for some reason, prepare_for_work would tell us earlier.
+	# Start the work and wait for it to finish — this counts as success.
 	current_job.start_work()
 	hide()
 	await current_job.alert_work_finished
-	handle_job()
+	return true
 
 
-func empty_building_output() -> void:
+## Returns true if we actually moved any items
+func empty_building_output() -> bool:
+	if not is_instance_valid(current_job):
+		return false
+	
 	show()
+	var moved_any := false
+	
+	# Try to get items and empty them into storages until empty_inventory() says "no more"
 	while true:
 		get_items_from_building_output()
-		var more_work = await empty_inventory()
-		if not more_work:
+		var moved := await empty_inventory() # returns bool whether it deposited anything
+		if moved:
+			moved_any = true
+		if not moved:
 			break
+	
+	return moved_any
 
 
-func supply_building() -> void:
-	show()
+
+## Returns true if any supply transfer happened
+func supply_building() -> bool:
+	if not is_instance_valid(current_job):
+		return false
 	var reqs: Array[ItemAmount] = current_job.assigned_recipe.requirements
 	var amount_to_make: int = current_job.amount_to_produce
 	var building = current_job.building
 	var input_inv: Inventory = building.inventories[building.inv_input_name]
 	
+	# Gather what we have available to supply
 	var available_list := get_available_items_for_reqs(reqs)
 	available_list.sort_custom(ItemAmount.sort_by_amount_asce)
 	
 	var item_map := get_best_mapping(available_list, amount_to_make)
 	if item_map.is_empty():
-		return
+		# nothing to claim / move -> fail
+		return false
 	
+	# Claim from the storages and fetch them
 	claim_mapping(item_map)
+	
+	var fetched_any := false
 	for option: BuildingOption in item_map.keys():
+		# go pick up claimed items
 		await go_to(option.building_pos)
 		var claim = option.inventory.get_claimed_items(name)
 		inv.add_items_to_inv(claim)
+		fetched_any = true
 	
+	# deliver to the building
 	await go_to(building.global_position)
+	# create a claim from our carried stacks and add them to the building input
 	inv.create_claim(name, inv.strip_slots())
 	input_inv.add_items_to_inv(inv.get_claimed_items(name))
 	
-	handle_job()
+	return fetched_any
 
 
 # -----------------------

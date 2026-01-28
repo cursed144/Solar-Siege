@@ -19,7 +19,7 @@ static func new_inv(slot_amount: int = 1) -> Inventory:
 # -----------------------
 
 ## Create a claim for requested resources and return how much of each was claimed
-func create_claim(claim_name: String, items: Array[ItemStack]) -> Array[ItemStack]:
+func create_claim(claim_name: String, items: Array[ItemStack]) -> Array[ItemAmount]:
 	var claim: Array[Dictionary] = []
 	var result: Array[ItemStack] = []
 	
@@ -42,7 +42,7 @@ func create_claim(claim_name: String, items: Array[ItemStack]) -> Array[ItemStac
 	claims[claim_name] = claim
 	
 	inv_changed.emit(self)
-	return result
+	return ItemStack.stacks_to_amounts(result)
 
 
 ## Internal: compute from which slots and how much can be taken for a requested item stack

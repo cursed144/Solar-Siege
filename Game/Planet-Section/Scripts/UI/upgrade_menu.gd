@@ -3,7 +3,7 @@ extends Control
 const REQ := preload("res://Planet-Section/Scenes/UI/building_placement_requirement.tscn")
 
 var building: Building = null
-var upgrade_requirements: Array[ItemAmount]
+var upgrade_requirements: UpgradeRequirement
 
 @onready var req_placement := $Requirements/HBoxContainer
 
@@ -11,7 +11,7 @@ var upgrade_requirements: Array[ItemAmount]
 func _process(_delta: float) -> void:
 	if is_instance_valid(building):
 		for i in range(req_placement.get_child_count()):
-			var item_amount = upgrade_requirements[i]
+			var item_amount = upgrade_requirements.items[i]
 			var row = req_placement.get_child(i)
 			row.set_item(item_amount.item, item_amount.amount)
 		set_confirm_button_status()
@@ -28,7 +28,7 @@ func on_upgrade_button_clicked(_building: Building) -> void:
 	$BuildImage.texture = sprite
 	$Level.text = "Upgrade To Level " + str(building.level + 1)
 	
-	upgrade_requirements = building.level_reqs[building.level-1].items # Building starts as level 1
+	upgrade_requirements = building.level_reqs[building.level-1] # Building starts as level 1
 	for item_amount in upgrade_requirements:
 		var new_req = REQ.instantiate()
 		req_placement.add_child(new_req)
@@ -62,7 +62,10 @@ func set_confirm_button_status() -> void:
 
 
 func _on_confirm_pressed() -> void:
-	pass # Replace with function body.
+	var planet = get_tree().current_scene
+	planet.create_global_claim(name, upgrade_requirements)
+	planet.get_claimed_global_items(name)
+	building.begin_upgrade(upgrade_requirements.upgrade_time)
 
 func _on_cancel_pressed() -> void:
 	clear()
