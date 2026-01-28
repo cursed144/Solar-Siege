@@ -5,6 +5,7 @@ var stored_building: BuildingData
 
 @onready var buildings: TileMapLayer = %Buildings
 @onready var grid: Vector2 = buildings.tile_set.tile_size
+@onready var planet = get_parent()
 
 
 func _ready() -> void:
@@ -34,6 +35,8 @@ func start_placing(data: BuildingData) -> void:
 	if not is_instance_valid(data):
 		push_error("Invalid building data given!")
 	
+	planet.create_global_claim(name, data.requirements)
+	
 	%UI.hide()
 	is_placing = true
 	stored_building = data
@@ -44,6 +47,7 @@ func start_placing(data: BuildingData) -> void:
 
 func place_building(id: int) -> void:
 	var cell := buildings.local_to_map(global_position) as Vector2i
+	planet.get_claimed_global_items(name)
 	buildings.set_cell(cell, 1, Vector2i.ZERO, id)
 	
 	await get_tree().process_frame
@@ -51,7 +55,6 @@ func place_building(id: int) -> void:
 	var sprite: Sprite2D = building.get_node("Sprite2D")
 	var sprite_size = sprite.get_rect().size
 	
-	var planet = get_parent()
 	building.name = planet.get_unique_name(stored_building.display_name)
 	
 	%WorkerHead.set_building_tiles_solid(global_position, sprite_size)
@@ -67,3 +70,4 @@ func end_placement() -> void:
 	$Sprite2D.texture = null
 	$CollisionShape2D.scale = Vector2.ZERO
 	global_position = Vector2(-100, -100)
+	planet.remove_global_claim(name)
