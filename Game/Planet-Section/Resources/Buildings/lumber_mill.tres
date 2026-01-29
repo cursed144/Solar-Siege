@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="BuildingData" load_steps=6 format=3 uid="uid://b6o5yckqgv6vg"]
 
 [ext_resource type="Script" uid="uid://my03aj68uxeb" path="res://Planet-Section/Scripts/Classes/item_amount.gd" id="1_7wl4j"]
-[ext_resource type="Texture2D" uid="uid://fw3oqcq5fboi" path="res://Planet-Section/Textures/Buildings/lumber_mill.png" id="1_vto1x"]
+[ext_resource type="Texture2D" uid="uid://fw3oqcq5fboi" path="res://Planet-Section/Textures/Buildings/Icons/lumber_mill_icon.png" id="1_vto1x"]
 [ext_resource type="Script" uid="uid://ky0epndk32cp" path="res://Planet-Section/Scripts/Classes/building_data.gd" id="2_dht3w"]
 [ext_resource type="Resource" uid="uid://v2cltp0hhxmn" path="res://Planet-Section/Resources/Items/wood_log.tres" id="3_w64dm"]
 

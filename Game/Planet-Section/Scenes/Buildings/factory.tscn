@@ -1,7 +1,7 @@
 [gd_scene load_steps=15 format=3 uid="uid://dfu7peh44c5li"]
 
 [ext_resource type="Script" uid="uid://ogm2lb6t0sob" path="res://Planet-Section/Scripts/Classes/production_building.gd" id="1_2w4fl"]
-[ext_resource type="Texture2D" uid="uid://cjpggleqpgoi7" path="res://Planet-Section/Textures/Buildings/factory.png" id="1_q0cfw"]
+[ext_resource type="Texture2D" uid="uid://cp6pkn3gtd64w" path="res://Planet-Section/Textures/Buildings/factory.png" id="1_q0cfw"]
 [ext_resource type="Script" uid="uid://m3oqk21xh6va" path="res://Planet-Section/Scripts/Classes/recipe.gd" id="2_rmtob"]
 [ext_resource type="Texture2D" uid="uid://dsnxhndn8sdgw" path="res://Planet-Section/Textures/Items/steel_plates.png" id="3_m2kwd"]
 [ext_resource type="Script" uid="uid://my03aj68uxeb" path="res://Planet-Section/Scripts/Classes/item_amount.gd" id="4_rdl28"]

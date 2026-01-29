@@ -24,12 +24,14 @@ script = ExtResource("1_sj01r")
 layout_mode = 0
 offset_left = 6.0
 offset_top = 125.85495
-offset_right = 123.0
-offset_bottom = 174.85495
+offset_right = 367.0
+offset_bottom = 294.85495
+scale = Vector2(0.33, 0.33)
+theme_override_font_sizes/font_size = 60
 text = "placeholder text"
 horizontal_alignment = 1
 vertical_alignment = 1
-autowrap_mode = 3
+autowrap_mode = 2
 
 [node name="HoverTimer" type="Timer" parent="."]
 wait_time = 0.25

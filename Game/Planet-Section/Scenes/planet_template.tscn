@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=4 uid="uid://d4ha36564l20p"]
+[gd_scene load_steps=61 format=4 uid="uid://d4ha36564l20p"]
 
 [ext_resource type="Script" uid="uid://c5wbnqrgl4aor" path="res://Planet-Section/Scripts/planet.gd" id="1_r0ntb"]
 [ext_resource type="Texture2D" uid="uid://btxku7dhhsijv" path="res://Planet-Section/Textures/Tiles/planet_tile_grass.png" id="2_6x5wk"]
@@ -39,6 +39,7 @@
 [ext_resource type="Texture2D" uid="uid://cqas44t1uytel" path="res://Planet-Section/Textures/UI/Buttons/cancel_button.png" id="21_xo3u4"]
 [ext_resource type="Script" uid="uid://jqii1ecaswyt" path="res://Planet-Section/Scripts/UI/destroy_building.gd" id="23_ckrrn"]
 [ext_resource type="Resource" uid="uid://b6o5yckqgv6vg" path="res://Planet-Section/Resources/Buildings/lumber_mill.tres" id="27_i4le1"]
+[ext_resource type="Resource" uid="uid://clg310v7mlgrj" path="res://Planet-Section/Resources/Buildings/factory.tres" id="29_edmej"]
 [ext_resource type="Script" uid="uid://b024ilo13clbi" path="res://Planet-Section/Scripts/UI/upgrade_menu.gd" id="32_dslco"]
 
 [sub_resource type="Resource" id="Resource_dslco"]
@@ -333,6 +334,10 @@ icon = ExtResource("7_5gyni")
 layout_mode = 2
 icon = ExtResource("7_5gyni")
 
+[node name="Refining" parent="UI/BuildingMenu/Tabs" instance=ExtResource("5_0essa")]
+layout_mode = 2
+icon = ExtResource("7_5gyni")
+
 [node name="Buildings" type="ScrollContainer" parent="UI/BuildingMenu"]
 layout_mode = 0
 offset_left = 24.999998
@@ -350,13 +355,13 @@ vertical_scroll_mode = 0
 layout_mode = 2
 theme_override_constants/separation = 32
 
-[node name="BuildingIcon2" parent="UI/BuildingMenu/Buildings/Production" instance=ExtResource("5_xqwqb")]
-layout_mode = 2
-data = ExtResource("19_fvmw8")
-
 [node name="BuildingIcon3" parent="UI/BuildingMenu/Buildings/Production" instance=ExtResource("5_xqwqb")]
 layout_mode = 2
 data = ExtResource("27_i4le1")
+
+[node name="BuildingIcon2" parent="UI/BuildingMenu/Buildings/Production" instance=ExtResource("5_xqwqb")]
+layout_mode = 2
+data = ExtResource("19_fvmw8")
 
 [node name="Storage" type="HBoxContainer" parent="UI/BuildingMenu/Buildings"]
 visible = false
@@ -365,6 +370,14 @@ layout_mode = 2
 [node name="BuildingIcon" parent="UI/BuildingMenu/Buildings/Storage" instance=ExtResource("5_xqwqb")]
 layout_mode = 2
 data = ExtResource("12_ckrrn")
+
+[node name="Refining" type="HBoxContainer" parent="UI/BuildingMenu/Buildings"]
+visible = false
+layout_mode = 2
+
+[node name="BuildingIcon" parent="UI/BuildingMenu/Buildings/Refining" instance=ExtResource("5_xqwqb")]
+layout_mode = 2
+data = ExtResource("29_edmej")
 
 [node name="HoverMenu" type="Control" parent="UI/BuildingMenu"]
 visible = false

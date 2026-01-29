@@ -20,13 +20,6 @@ func _ready() -> void:
 	$PlayingField.position = planet_size/2
 	$PlayingField.scale = planet_size
 	$PlayerCam.position = $PlayingField.position
-	
-	await get_tree().process_frame
-	for building: Building in $Buildings.get_children():
-		var pos = building.global_position
-		var sprite: Sprite2D = building.get_node("Sprite2D")
-		var sprite_size = sprite.get_rect().size
-		$WorkerHead.set_building_tiles_solid(pos, sprite_size)
 
 
 func get_all_buildings() -> void:
@@ -75,7 +68,7 @@ func remove_building(building: Building) -> void:
 	$Buildings.erase_cell(local_pos)
 	
 	var build_size = building.get_node("Sprite2D").get_rect().size
-	%WorkerHead.set_building_tiles_solid(building.global_position, build_size, false)
+	$WorkerHead.set_building_tiles_solid(building.global_position, build_size, false)
 
 
 func get_building_max_amount(building_name: String) -> int:

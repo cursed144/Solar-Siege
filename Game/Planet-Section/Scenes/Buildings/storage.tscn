@@ -1,9 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://dj2lmstctfmyp"]
+[gd_scene load_steps=7 format=3 uid="uid://dj2lmstctfmyp"]
 
-[ext_resource type="Script" uid="uid://cii6nnn8jlex6" path="res://Planet-Section/Scripts/Classes/storage_building.gd" id="1_gpee7"]
-[ext_resource type="Texture2D" uid="uid://cs60sgsq0iujg" path="res://Planet-Section/Textures/Buildings/storage.png" id="2_gpee7"]
-
-[sub_resource type="GDScript" id="GDScript_gpee7"]
+[ext_resource type="Script" uid="uid://dw1ibjepgebqe" path="res://Planet-Section/Scripts/Buildings/storage.gd" id="1_gpee7"]
+[ext_resource type="Texture2D" uid="uid://dltrknpl68sxh" path="res://Planet-Section/Textures/Buildings/storage.png" id="2_gpee7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wblrm"]
 size = Vector2(128, 128)
@@ -51,8 +49,7 @@ _data = {
 collision_layer = 16
 collision_mask = 0
 script = ExtResource("1_gpee7")
-inv_storage_size = 15
-upgrade_levels = Array[SubResource("GDScript_gpee7")]([null])
+inv_storage_size = 16
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1

@@ -17,6 +17,13 @@ func _ready() -> void:
 	astar.default_estimate_heuristic = AStarGrid2D.HEURISTIC_OCTILE
 	astar.diagonal_mode = AStarGrid2D.DIAGONAL_MODE_ONLY_IF_NO_OBSTACLES
 	astar.update()
+	
+	await get_tree().process_frame
+	for building: Building in %Buildings.get_children():
+		var pos = building.global_position
+		var sprite: Sprite2D = building.get_node("Sprite2D")
+		var sprite_size = sprite.get_rect().size
+		set_building_tiles_solid(pos, sprite_size)
 
 
 func add_job(job: WorkController) -> void:

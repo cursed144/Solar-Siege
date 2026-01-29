@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cobevc5vn6qph"
-path="res://.godot/imported/mine.png-5500aeb7da0420df4faef2b11342cfa9.ctex"
+uid="uid://fw3oqcq5fboi"
+path="res://.godot/imported/lumber_mill_icon.png-4450d5a4eefa74128a4470bfcbb0d5f4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Planet-Section/Textures/Buildings/mine.png"
-dest_files=["res://.godot/imported/mine.png-5500aeb7da0420df4faef2b11342cfa9.ctex"]
+source_file="res://Planet-Section/Textures/Buildings/Icons/lumber_mill_icon.png"
+dest_files=["res://.godot/imported/lumber_mill_icon.png-4450d5a4eefa74128a4470bfcbb0d5f4.ctex"]
 
 [params]
 

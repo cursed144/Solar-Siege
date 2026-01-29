@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="BuildingData" load_steps=9 format=3 uid="uid://clg310v7mlgrj"]
+[gd_resource type="Resource" script_class="BuildingData" load_steps=10 format=3 uid="uid://clg310v7mlgrj"]
 
+[ext_resource type="Texture2D" uid="uid://cjpggleqpgoi7" path="res://Planet-Section/Textures/Buildings/Icons/factory_icon.png" id="1_cxe12"]
 [ext_resource type="Script" uid="uid://my03aj68uxeb" path="res://Planet-Section/Scripts/Classes/item_amount.gd" id="1_id3a3"]
 [ext_resource type="Resource" uid="uid://djo5qn5rmn3v" path="res://Planet-Section/Resources/Items/iron_ore.tres" id="2_31dh1"]
 [ext_resource type="Script" uid="uid://ky0epndk32cp" path="res://Planet-Section/Scripts/Classes/building_data.gd" id="2_hcyoa"]
@@ -31,4 +32,5 @@ build_time = 20.0
 display_name = "Factory"
 description = "Refine heavy materials"
 requirements = Array[ExtResource("1_id3a3")]([SubResource("Resource_0d4xs"), SubResource("Resource_vret7"), SubResource("Resource_nnj7d")])
+icon = ExtResource("1_cxe12")
 metadata/_custom_type_script = "uid://ky0epndk32cp"
