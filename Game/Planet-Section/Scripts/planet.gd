@@ -88,11 +88,15 @@ func get_global_item_amount(item: Item) -> int:
 
 
 func create_global_claim(claim_name: String, items: Array[ItemAmount]):
+	var temp: Array[ItemAmount] = []
+	for item_amount in items:
+		temp.append(item_amount.duplicate(true))
+	
 	for storage: Inventory in global_storage.keys():
-		var stacks := ItemAmount.amounts_to_stacks(items)
+		var stacks := ItemAmount.amounts_to_stacks(temp)
 		var res = storage.create_claim(claim_name, stacks)
-		items = ItemAmount.subtract_array(items, res)
-		if items.is_empty():
+		temp = ItemAmount.subtract_array(temp, res)
+		if temp.is_empty():
 			break
 
 

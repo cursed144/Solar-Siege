@@ -469,7 +469,7 @@ vertical_scroll_mode = 3
 
 [node name="Card" type="VBoxContainer" parent="UI/BuildingInfo/Content"]
 layout_mode = 2
-theme_override_constants/separation = 15
+theme_override_constants/separation = 12
 
 [node name="BuildingName" type="Label" parent="UI/BuildingInfo/Content/Card"]
 custom_minimum_size = Vector2(266, 0)
@@ -558,7 +558,7 @@ theme_override_constants/separation = 29
 
 [node name="Destroy" type="TextureButton" parent="UI/BuildingInfo/Content/Card/BottomButtons"]
 texture_filter = 1
-custom_minimum_size = Vector2(120, 120)
+custom_minimum_size = Vector2(120, 80.155)
 layout_mode = 2
 texture_normal = ExtResource("18_6pg5r")
 stretch_mode = 0
@@ -575,22 +575,20 @@ stretch_mode = 0
 process_mode = 3
 visible = false
 anchors_preset = 0
-offset_left = 297.0
-offset_right = 1449.0
+offset_right = 296.0
 offset_bottom = 648.0
 script = ExtResource("15_m577t")
-metadata/_edit_lock_ = true
 
 [node name="Cover" type="ColorRect" parent="UI/BuildingInfo/RecipeMenu"]
 layout_mode = 0
-offset_left = -297.0
+offset_right = 297.0
 offset_bottom = 648.0
 color = Color(0, 0, 0, 1)
 
 [node name="RecipeSlots" type="VBoxContainer" parent="UI/BuildingInfo/RecipeMenu"]
 visible = false
 layout_mode = 0
-offset_left = -297.0
+offset_right = 297.0
 offset_bottom = 648.0
 theme_override_constants/separation = 30
 
@@ -630,7 +628,7 @@ stretch_mode = 3
 [node name="RecipeConfirm" type="Control" parent="UI/BuildingInfo/RecipeMenu"]
 visible = false
 anchors_preset = 0
-offset_left = -297.0
+offset_right = 297.0
 offset_bottom = 648.0
 
 [node name="RecipeImage" type="TextureRect" parent="UI/BuildingInfo/RecipeMenu/RecipeConfirm"]

@@ -113,8 +113,7 @@ func _fill_inv_info(building: Building) -> void:
 			if not new_slot.inv_slot_clicked.is_connected(item_deleter.delete_item_prompt):
 				new_slot.inv_slot_clicked.connect(item_deleter.delete_item_prompt)
 		
-		@warning_ignore("integer_division")
-		var padding_size = ((slot_target.get_child_count()+4) / 4) * 68
+		var padding_size = ceil(((slot_target.get_child_count()+4) / 4.0)) * 68
 		slot_target.custom_minimum_size.y = padding_size
 
 
