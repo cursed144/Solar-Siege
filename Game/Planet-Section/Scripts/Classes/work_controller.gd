@@ -98,7 +98,7 @@ func is_work_required() -> bool:
 		return false
 
 
-func can_work_start() -> WorkState:
+func can_work_start(include_used_materials := false) -> WorkState:
 	var inventories: Dictionary[String, Inventory] = building.inventories
 	var input_inv: Inventory = inventories.get(building.inv_input_name)
 	var output_inv: Inventory = inventories.get(building.inv_output_name)
@@ -112,7 +112,14 @@ func can_work_start() -> WorkState:
 	
 	# Check if there are enough materials for at least 1 work
 	for item_amount in assigned_recipe.requirements:
-		if input_inv.get_total_item_amount(item_amount.item) < item_amount.amount:
+		var total := input_inv.get_total_item_amount(item_amount.item)
+		
+		if include_used_materials:
+			for stack in used_materials:
+				if stack.item == item_amount.item:
+					total += stack.amount
+		
+		if total < item_amount.amount:
 			return WorkState.NEED_SUPPLY
 	
 	return WorkState.READY

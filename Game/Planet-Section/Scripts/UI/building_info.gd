@@ -65,9 +65,11 @@ func building_clicked(building: Building) -> void:
 	if not is_open:
 		open()
 	
-	# if same building, nothing to do
 	if curr_building == building:
 		return
+	else:
+		$RecipeMenu.reset_menus()
+		$UpgradeMenu.clear()
 	
 	# switch selection: disconnect old, clear UI, attach new
 	_disconnect_from_building()

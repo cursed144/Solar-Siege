@@ -94,7 +94,7 @@ func handle_job() -> void:
 		if progressed:
 			on_progress()
 		else:
-			if await on_failure():
+			if on_failure():
 				handling_job = false
 				return
 	
@@ -211,7 +211,7 @@ func work_in_building() -> bool:
 	
 	await go_to(current_job.building.global_position)
 	
-	if current_job.can_work_start() != WorkController.WorkState.READY:
+	if current_job.can_work_start(true) != WorkController.WorkState.READY:
 		return false
 	
 	current_job.start_work()
