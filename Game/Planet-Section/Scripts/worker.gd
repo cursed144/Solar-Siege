@@ -104,10 +104,19 @@ func handle_job() -> void:
 func abandon_job() -> void:
 	current_job = null
 	show()
-	
 	handling_job = false
+	
 	await get_tree().create_timer(0.25).timeout
-	get_job()
+	
+	while current_job == null:
+		var new_job = head.get_from_available_jobs()
+		if is_instance_valid(new_job):
+			new_job.assigned_worker = self
+			current_job = new_job
+			handle_job()
+			break
+		await get_tree().create_timer(1.0).timeout
+
 
 
 # -----------------------
@@ -175,8 +184,6 @@ func on_failure() -> bool:
 	current_job = null
 	show()
 	
-	await get_tree().create_timer(0.25).timeout
-	get_job()
 	return true
 
 
@@ -319,7 +326,7 @@ func map_storages_with_item(available_item: ItemAmount, amount_to_make: int) -> 
 
 
 func get_available_items_for_reqs(reqs: Array[ItemAmount]) -> Array[ItemAmount]:
-	var available_list: Array = []
+	var available_list: Array[ItemAmount] = []
 	
 	for item_amount in reqs:
 		available_list.append(

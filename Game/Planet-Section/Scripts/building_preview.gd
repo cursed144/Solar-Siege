@@ -26,9 +26,9 @@ func _process(_delta: float) -> void:
 	if is_instance_valid(stored_building):
 		global_position = snapped(get_global_mouse_position() - grid/2, grid)
 		if get_overlapping_areas().size() > 0:
-			$Sprite2D.self_modulate = Color(1, 0, 0, 0.5)
+			$CollisionShape2D/BlockedCover.show()
 		else:
-			$Sprite2D.self_modulate = Color(1, 1, 1, 0.5)
+			$CollisionShape2D/BlockedCover.hide()
 
 
 func start_placing(data: BuildingData) -> void:
@@ -40,9 +40,9 @@ func start_placing(data: BuildingData) -> void:
 	%UI.hide()
 	is_placing = true
 	stored_building = data
-	$Sprite2D.texture = data.icon
-	$CollisionShape2D.position = data.icon.get_size() / 2
-	$CollisionShape2D.scale = (data.icon.get_size() / 20) + Vector2(0.5, 0.5)
+	$Sprite2D.texture = data.building_sprite
+	$CollisionShape2D.position = data.building_sprite.get_size() / 2
+	$CollisionShape2D.scale = (data.building_sprite.get_size() / 20) + Vector2(0.5, 0.5)
 
 
 func place_building(id: int) -> void:
@@ -52,8 +52,8 @@ func place_building(id: int) -> void:
 	
 	await get_tree().process_frame
 	var building: Building = buildings.get_child(-1)
-	var sprite: Sprite2D = building.get_node("Sprite2D")
-	var sprite_size = sprite.get_rect().size
+	var sprite: Texture2D = stored_building.building_sprite
+	var sprite_size = sprite.get_size()
 	
 	building.name = planet.get_unique_name(stored_building.display_name)
 	

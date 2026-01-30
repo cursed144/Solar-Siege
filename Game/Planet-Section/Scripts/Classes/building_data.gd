@@ -7,3 +7,4 @@ extends Resource
 @export var description: String
 @export var requirements: Array[ItemAmount]
 @export var icon: Texture2D
+@export var building_sprite: Texture2D

@@ -32,19 +32,22 @@ func to_stack() -> Array[ItemStack]:
 
 
 static func subtract_array(minuend: Array[ItemAmount], subtrahend: Array[ItemAmount]) -> Array[ItemAmount]:
-	var res: Array[ItemAmount] = minuend.duplicate(true)
+	var res: Array[ItemAmount] = []
+	for item_amount in minuend:
+		res.append(item_amount.duplicate(true))
 	
 	for item_amount in subtrahend:
 		if item_amount.amount <= 0:
 			continue
 		
-		for i in range(res.size()):
+		for i in range(res.size() - 1, -1, -1):  # iterate in reverse
 			if res[i].item.id == item_amount.item.id:
 				res[i].amount -= item_amount.amount
 				if res[i].amount <= 0:
-					res.pop_at(i)
+					res.remove_at(i)
 	
 	return res
+
 
 
 static func amounts_to_stacks(amounts: Array[ItemAmount]) -> Array[ItemStack]:

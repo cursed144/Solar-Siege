@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=4 uid="uid://d4ha36564l20p"]
+[gd_scene load_steps=64 format=4 uid="uid://d4ha36564l20p"]
 
 [ext_resource type="Script" uid="uid://c5wbnqrgl4aor" path="res://Planet-Section/Scripts/planet.gd" id="1_r0ntb"]
 [ext_resource type="Texture2D" uid="uid://btxku7dhhsijv" path="res://Planet-Section/Textures/Tiles/planet_tile_grass.png" id="2_6x5wk"]
@@ -22,6 +22,7 @@
 [ext_resource type="PackedScene" uid="uid://8lg17ibq6kmc" path="res://Planet-Section/Scenes/Buildings/mine.tscn" id="8_4llao"]
 [ext_resource type="Texture2D" uid="uid://h042n2lux7dv" path="res://Planet-Section/Textures/Items/iron_ore.png" id="8_edmej"]
 [ext_resource type="PackedScene" uid="uid://b4bbtf3tq2h7e" path="res://Planet-Section/Scenes/Buildings/bunker.tscn" id="9_1ypi3"]
+[ext_resource type="Resource" uid="uid://v2cltp0hhxmn" path="res://Planet-Section/Resources/Items/wood_log.tres" id="11_i4le1"]
 [ext_resource type="Script" uid="uid://dwytf3p3tvovs" path="res://Planet-Section/Scripts/UI/building_info.gd" id="11_lorx5"]
 [ext_resource type="Texture2D" uid="uid://bhw0mwyvx34qd" path="res://Planet-Section/Textures/UI/arrow_up.png" id="12_6ei45"]
 [ext_resource type="Resource" uid="uid://bjtf4ef6mocde" path="res://Planet-Section/Resources/Buildings/storage.tres" id="12_ckrrn"]
@@ -85,11 +86,18 @@ creation_time = 25.0
 unlocks_at_level = 2
 metadata/_custom_type_script = "uid://m3oqk21xh6va"
 
+[sub_resource type="Resource" id="Resource_a00he"]
+script = ExtResource("4_1ypi3")
+item = ExtResource("11_i4le1")
+amount = 1
+metadata/_custom_type_script = "uid://my03aj68uxeb"
+
 [sub_resource type="Resource" id="Resource_edmej"]
 script = ExtResource("2_fvmw8")
 recipe_name = "Wood Logs"
 display_icon = ExtResource("16_vmkg5")
-outputs = Array[ExtResource("4_1ypi3")]([null])
+outputs = Array[ExtResource("4_1ypi3")]([SubResource("Resource_a00he")])
+creation_time = 8.0
 metadata/_custom_type_script = "uid://m3oqk21xh6va"
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6x5wk"]
@@ -115,6 +123,8 @@ sources/1 = SubResource("TileSetScenesCollectionSource_x85yj")
 [sub_resource type="BoxMesh" id="BoxMesh_becdf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xbee4"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_edmej"]
 
 [sub_resource type="Animation" id="Animation_oi38r"]
 length = 0.001
@@ -182,17 +192,17 @@ size = Vector2(297, 612)
 script = ExtResource("1_r0ntb")
 max_building_amount = Dictionary[String, int]({
 "Factory": 2,
-"Lumber Mill": 5,
+"Lumber Mill": 3,
 "Mine": 5,
-"Storage": 3
+"Storage": 2
 })
 mine = Dictionary[ExtResource("2_fvmw8"), int]({
-SubResource("Resource_a31x6"): 50,
-SubResource("Resource_xjlru"): 25,
+SubResource("Resource_a31x6"): 25,
+SubResource("Resource_xjlru"): 15,
 SubResource("Resource_46a5l"): 10
 })
 lumber_mill = Dictionary[ExtResource("2_fvmw8"), int]({
-SubResource("Resource_edmej"): 75
+SubResource("Resource_edmej"): 50
 })
 
 [node name="Terrain" type="TileMapLayer" parent="."]
@@ -233,6 +243,12 @@ centered = false
 scale = Vector2(1e-05, 1e-05)
 shape = SubResource("RectangleShape2D_xbee4")
 
+[node name="BlockedCover" type="MeshInstance2D" parent="BuildingPreview/CollisionShape2D"]
+visible = false
+self_modulate = Color(1, 0, 0, 0.5)
+scale = Vector2(18.5, 18.5)
+mesh = SubResource("BoxMesh_edmej")
+
 [node name="MouseChanger" type="Control" parent="BuildingPreview"]
 layout_mode = 3
 anchors_preset = 0
@@ -248,7 +264,13 @@ unique_name_in_owner = true
 script = ExtResource("4_lorx5")
 
 [node name="Worker1" parent="WorkerHead" instance=ExtResource("5_jr884")]
-position = Vector2(1946, 1929)
+position = Vector2(1619, 1849)
+
+[node name="Worker2" parent="WorkerHead" instance=ExtResource("5_jr884")]
+position = Vector2(1734, 1887)
+
+[node name="Worker3" parent="WorkerHead" instance=ExtResource("5_jr884")]
+position = Vector2(1836, 1836)
 
 [node name="UI" type="CanvasLayer" parent="."]
 unique_name_in_owner = true

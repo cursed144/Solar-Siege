@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dfu7peh44c5li"]
+[gd_scene load_steps=17 format=3 uid="uid://dfu7peh44c5li"]
 
 [ext_resource type="Script" uid="uid://ogm2lb6t0sob" path="res://Planet-Section/Scripts/Classes/production_building.gd" id="1_2w4fl"]
 [ext_resource type="Texture2D" uid="uid://cp6pkn3gtd64w" path="res://Planet-Section/Textures/Buildings/factory.png" id="1_q0cfw"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://my03aj68uxeb" path="res://Planet-Section/Scripts/Classes/item_amount.gd" id="4_rdl28"]
 [ext_resource type="Resource" uid="uid://cmf5hyjq1q86h" path="res://Planet-Section/Resources/Items/steel_plates.tres" id="5_rifc0"]
 [ext_resource type="Resource" uid="uid://djo5qn5rmn3v" path="res://Planet-Section/Resources/Items/iron_ore.tres" id="6_dmqhc"]
+[ext_resource type="Resource" uid="uid://duhr7an6o8yau" path="res://Planet-Section/Resources/Items/coal.tres" id="7_m2kwd"]
 
 [sub_resource type="Resource" id="Resource_ucfw8"]
 script = ExtResource("4_rdl28")
@@ -17,14 +18,20 @@ metadata/_custom_type_script = "uid://my03aj68uxeb"
 [sub_resource type="Resource" id="Resource_llinx"]
 script = ExtResource("4_rdl28")
 item = ExtResource("6_dmqhc")
-amount = 5
+amount = 3
+metadata/_custom_type_script = "uid://my03aj68uxeb"
+
+[sub_resource type="Resource" id="Resource_rdl28"]
+script = ExtResource("4_rdl28")
+item = ExtResource("7_m2kwd")
+amount = 2
 metadata/_custom_type_script = "uid://my03aj68uxeb"
 
 [sub_resource type="Resource" id="Resource_58kiy"]
 script = ExtResource("2_rmtob")
 recipe_name = "Steel Plates"
 display_icon = ExtResource("3_m2kwd")
-requirements = Array[ExtResource("4_rdl28")]([SubResource("Resource_llinx")])
+requirements = Array[ExtResource("4_rdl28")]([SubResource("Resource_llinx"), SubResource("Resource_rdl28")])
 outputs = Array[ExtResource("4_rdl28")]([SubResource("Resource_ucfw8")])
 creation_time = 25.0
 metadata/_custom_type_script = "uid://m3oqk21xh6va"
