@@ -102,8 +102,8 @@ func handle_job() -> void:
 
 
 func abandon_job() -> void:
-	current_job = null
 	show()
+	current_job = null
 	handling_job = false
 	
 	await get_tree().create_timer(0.25).timeout
@@ -180,7 +180,7 @@ func on_failure() -> bool:
 		release_claims()
 	
 	# Requeue job
-	head.add_job(current_job)
+	head.add_job(current_job, 1)
 	current_job = null
 	show()
 	
@@ -209,10 +209,10 @@ func work_in_building() -> bool:
 	if not is_instance_valid(current_job.building):
 		return false
 	
-	await go_to(current_job.building.global_position)
-	
 	if current_job.can_work_start(true) != WorkController.WorkState.READY:
 		return false
+	
+	await go_to(current_job.building.global_position)
 	
 	current_job.start_work()
 	hide()
@@ -230,7 +230,7 @@ func empty_building_output() -> bool:
 	
 	# Try to get items and empty them into storages until empty_inventory() says "no more"
 	while true:
-		get_items_from_building_output()
+		await get_items_from_building_output()
 		var moved := await empty_inventory() # returns bool whether it deposited anything
 		if moved:
 			moved_any = true
@@ -364,6 +364,9 @@ func get_items_from_building_output() -> void:
 	var build: ProductionBuilding = current_job.building
 	var build_inv := build.inventories[build.inv_output_name]
 	var items = build_inv.strip_slots()
+	if items.is_empty():
+		return
+	
 	var space = inv.slots.size()
 	
 	var claim: Array[ItemStack] = []
@@ -377,6 +380,7 @@ func get_items_from_building_output() -> void:
 			break
 	
 	build_inv.create_claim(name, claim)
+	await go_to(build.global_position)
 	inv.add_items_to_inv(build_inv.get_claimed_items(name))
 
 
@@ -387,13 +391,13 @@ func get_items_from_building_output() -> void:
 ## Returns if possible
 func empty_inventory() -> bool:
 	var choice = get_best_empty_storage()
+	var items_to_store := inv.strip_slots()
 	if not is_instance_valid(choice):
 		return false
-	if inv.strip_slots().is_empty():
+	if items_to_store.is_empty():
 		return false
 	
 	await go_to(choice.building_pos)
-	var items_to_store := inv.strip_slots()
 	var available_space = choice.inventory.how_many_items_fit(ItemStack.stacks_to_amounts(items_to_store))
 	for i in range(items_to_store.size()):
 		items_to_store[i].amount = available_space[i]

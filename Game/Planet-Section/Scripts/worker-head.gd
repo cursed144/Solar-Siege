@@ -26,7 +26,11 @@ func _ready() -> void:
 		set_building_tiles_solid(pos, sprite_size)
 
 
-func add_job(job: WorkController) -> void:
+func add_job(job: WorkController, delay := 0.1) -> void:
+	await get_tree().create_timer(delay).timeout
+	if not is_instance_valid(job):
+		return
+	
 	print("Job added to building: " + str(job.building.name))
 	job_list.append(job)
 	give_job_to_worker()
