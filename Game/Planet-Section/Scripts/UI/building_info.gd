@@ -73,7 +73,8 @@ func building_clicked(building: Building) -> void:
 	
 	# switch selection: disconnect old, clear UI, attach new
 	_disconnect_from_building()
-	_clear_info()
+	_clear_worker_rows()
+	_clear_inventories()
 	
 	curr_building = building
 	if curr_building is ProductionBuilding:
@@ -169,7 +170,7 @@ func update_inv(inv_name: String) -> void:
 	var invs := curr_building.inventories
 	var target_inv_path := inv_name + "/GridContainer"
 	if not inventories_container.has_node(target_inv_path):
-		_clear_info()
+		_clear_inventories()
 		_fill_inv_info(curr_building)
 		return
 	
@@ -179,7 +180,7 @@ func update_inv(inv_name: String) -> void:
 	# update every slot UI child with new data
 	for i in range(slots.size()):
 		if i >= target_inv.get_child_count():
-			_clear_info()
+			_clear_inventories()
 			_fill_inv_info(curr_building)
 			return
 		var slot = target_inv.get_child(i)
@@ -242,18 +243,21 @@ func _on_worker_decrease_pressed() -> void:
 
 
 # -----------------------
-# Completely clear all from current building
+# Clearing
 # -----------------------
 
-func _clear_info() -> void:
+func _clear_inventories() -> void:
 	for inv in inventories_container.get_children():
 		inv.queue_free()
 	
+	$Content/Card/Inventories.hide()
+
+
+func _clear_worker_rows() -> void:
 	for worker in worker_row_container.get_children():
 		worker_row_container.remove_child(worker)
 		worker.queue_free()
 	
-	$Content/Card/Inventories.hide()
 	$Content/Card/WorkerSection.hide()
 
 
@@ -320,7 +324,8 @@ func close() -> void:
 
 func _on_building_destroyed() -> void:
 	_disconnect_from_building()
-	_clear_info()
+	_clear_inventories()
+	_clear_worker_rows()
 	close()
 
 
