@@ -9,6 +9,7 @@ var curr_building: Building = null
 var is_mouse_in_area := false
 
 @onready var destroy_button: TextureButton = %UI/DestroyBuilding/Confirm
+@onready var upgrade_button: TextureButton = $Content/Card/BottomButtons/Upgrade
 @onready var item_deleter = %UI/DeleteItemConf
 @onready var recipe_menu = $RecipeMenu
 
@@ -273,6 +274,7 @@ func connect_to_building(building: Building = curr_building) -> void:
 		building.request_inv_update.connect(update_inv)
 	
 	building.destroyed.connect(_on_building_destroyed)
+	upgrade_button.pressed.connect(_on_upgrade_pressed)
 	destroy_button.pressed.connect(building.destroy)
 
 
@@ -288,6 +290,7 @@ func _disconnect_from_building() -> void:
 		curr_building.request_inv_update.disconnect(update_inv)
 	
 	curr_building.destroyed.disconnect(_on_building_destroyed)
+	upgrade_button.pressed.disconnect(_on_upgrade_pressed)
 	destroy_button.pressed.disconnect(curr_building.destroy)
 	
 	curr_building = null
@@ -317,6 +320,13 @@ func close() -> void:
 	_disconnect_from_building()
 	is_open = false
 
+
+# -----------------------
+# When building is destroyed
+# -----------------------
+
+func _on_upgrade_pressed() -> void:
+	$UpgradeMenu.on_upgrade_button_clicked(curr_building)
 
 # -----------------------
 # When building is destroyed

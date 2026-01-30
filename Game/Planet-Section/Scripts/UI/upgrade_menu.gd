@@ -21,15 +21,15 @@ func on_upgrade_button_clicked(_building: Building) -> void:
 	if not is_instance_valid(_building):
 		return
 	
-	show()
 	clear()
+	show()
 	building = _building
 	var sprite = building.get_node("Sprite2D").texture
 	$BuildImage.texture = sprite
 	$Level.text = "Upgrade To Level " + str(building.level + 1)
 	
 	upgrade_requirements = building.level_reqs[building.level-1] # Building starts as level 1
-	for item_amount in upgrade_requirements:
+	for item_amount in upgrade_requirements.items:
 		var new_req = REQ.instantiate()
 		req_placement.add_child(new_req)
 

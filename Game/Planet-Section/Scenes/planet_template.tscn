@@ -810,11 +810,11 @@ offset_left = -259.0
 offset_top = 309.0
 offset_right = 2.9882813
 offset_bottom = 562.80115
-scale = Vector2(0.855, 0.855)
 horizontal_scroll_mode = 0
 
 [node name="HBoxContainer" type="VBoxContainer" parent="UI/BuildingInfo/UpgradeMenu/Requirements"]
 layout_mode = 2
+theme_override_constants/separation = 50
 
 [node name="ScrollingArea" type="Area2D" parent="UI/BuildingInfo"]
 position = Vector2(297, 0)

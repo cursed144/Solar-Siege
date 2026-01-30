@@ -1,7 +1,29 @@
-[gd_scene load_steps=7 format=3 uid="uid://8lg17ibq6kmc"]
+[gd_scene load_steps=14 format=3 uid="uid://8lg17ibq6kmc"]
 
 [ext_resource type="Script" uid="uid://ssw6s5vihxip" path="res://Planet-Section/Scripts/Buildings/mine.gd" id="1_214tn"]
 [ext_resource type="Texture2D" uid="uid://cobevc5vn6qph" path="res://Planet-Section/Textures/Buildings/Icons/mine.png" id="2_214tn"]
+[ext_resource type="Script" uid="uid://cqomi7f1iemoi" path="res://Planet-Section/Scripts/Classes/upgrade_requirement.gd" id="2_nixad"]
+[ext_resource type="Script" uid="uid://my03aj68uxeb" path="res://Planet-Section/Scripts/Classes/item_amount.gd" id="3_vcj8p"]
+[ext_resource type="Resource" uid="uid://duhr7an6o8yau" path="res://Planet-Section/Resources/Items/coal.tres" id="4_vpswn"]
+[ext_resource type="Resource" uid="uid://cgkjfrnbc4fem" path="res://Planet-Section/Resources/Items/wooden_planks.tres" id="5_2qmpx"]
+
+[sub_resource type="Resource" id="Resource_6vqoc"]
+script = ExtResource("3_vcj8p")
+item = ExtResource("4_vpswn")
+amount = 10
+metadata/_custom_type_script = "uid://my03aj68uxeb"
+
+[sub_resource type="Resource" id="Resource_dknri"]
+script = ExtResource("3_vcj8p")
+item = ExtResource("5_2qmpx")
+amount = 10
+metadata/_custom_type_script = "uid://my03aj68uxeb"
+
+[sub_resource type="Resource" id="Resource_6xgfp"]
+script = ExtResource("2_nixad")
+items = Array[ExtResource("3_vcj8p")]([SubResource("Resource_6vqoc"), SubResource("Resource_dknri")])
+upgrade_time = 10.0
+metadata/_custom_type_script = "uid://cqomi7f1iemoi"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wblrm"]
 size = Vector2(64, 64)
@@ -49,10 +71,12 @@ _data = {
 collision_layer = 16
 collision_mask = 0
 script = ExtResource("1_214tn")
+max_workers = 1
 inv_input_name = "Mine Input"
 inv_input_size = 8
 inv_output_name = "Mined Resources"
 inv_output_size = 8
+level_reqs = Array[ExtResource("2_nixad")]([SubResource("Resource_6xgfp")])
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
