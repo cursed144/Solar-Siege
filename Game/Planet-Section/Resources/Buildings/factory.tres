@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="BuildingData" load_steps=11 format=3 uid="uid://clg310v7mlgrj"]
+[gd_resource type="Resource" script_class="BuildingData" format=3 uid="uid://clg310v7mlgrj"]
 
 [ext_resource type="Texture2D" uid="uid://cp6pkn3gtd64w" path="res://Planet-Section/Textures/Buildings/factory.png" id="1_15fok"]
 [ext_resource type="Texture2D" uid="uid://cjpggleqpgoi7" path="res://Planet-Section/Textures/Buildings/Icons/factory_icon.png" id="1_cxe12"]

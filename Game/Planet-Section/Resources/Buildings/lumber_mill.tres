@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="BuildingData" load_steps=7 format=3 uid="uid://b6o5yckqgv6vg"]
+[gd_resource type="Resource" script_class="BuildingData" format=3 uid="uid://b6o5yckqgv6vg"]
 
 [ext_resource type="Script" uid="uid://my03aj68uxeb" path="res://Planet-Section/Scripts/Classes/item_amount.gd" id="1_7wl4j"]
 [ext_resource type="Texture2D" uid="uid://fw3oqcq5fboi" path="res://Planet-Section/Textures/Buildings/Icons/lumber_mill_icon.png" id="1_vto1x"]

@@ -249,6 +249,8 @@ func supply_building() -> bool:
 	var building = current_job.building
 	var input_inv: Inventory = building.inventories[building.inv_input_name]
 	
+	show()
+	
 	# Gather what we have available to supply
 	var available_list := get_available_items_for_reqs(reqs)
 	available_list.sort_custom(ItemAmount.sort_by_amount_asce)
@@ -305,8 +307,11 @@ func map_storages_with_item(available_item: ItemAmount, amount_to_make: int) -> 
 	var simulated_inv = inv.duplicate(true)
 	
 	for storage in storages:
-		var in_storage = storage.inventory.get_total_item_amount(available_item.item)
 		var recipe_limit = (job_req.amount * amount_to_make) - available_item.amount
+		if recipe_limit <= 0:
+			return {}  # Already have enough — skip mapping this item
+		
+		var in_storage = storage.inventory.get_total_item_amount(available_item.item)
 		var to_get = min(in_storage, recipe_limit)
 		var final_fetch := ItemAmount.new_amount(available_item.item, to_get)
 		var can_fit_in_inv = simulated_inv.how_much_of_item_fits(final_fetch)
@@ -319,7 +324,7 @@ func map_storages_with_item(available_item: ItemAmount, amount_to_make: int) -> 
 	for item_amount in map_total.values():
 		total += item_amount.amount
 	
-	if (total + available_item.amount) < job_req.amount:
+	if (total <= 0) or ((total + available_item.amount) < job_req.amount): # If arent going to get anything at all or not enough for 1 job - return nothing
 		return {}
 	else:
 		return map_total

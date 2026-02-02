@@ -63,9 +63,11 @@ func set_confirm_button_status() -> void:
 
 func _on_confirm_pressed() -> void:
 	var planet = get_tree().current_scene
-	planet.create_global_claim(name, upgrade_requirements)
+	planet.create_global_claim(name, upgrade_requirements.items)
 	planet.get_claimed_global_items(name)
 	building.begin_upgrade(upgrade_requirements.upgrade_time)
+	%UI/BuildingInfo.close()
+	clear()
 
 func _on_cancel_pressed() -> void:
 	clear()

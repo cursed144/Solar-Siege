@@ -68,8 +68,8 @@ func resume_work() -> void:
 
 func work_finished() -> void:
 	amount_to_produce -= 1
+	used_materials.clear()
 	if amount_to_produce <= 0:
-		used_materials.clear()
 		assigned_recipe = null
 
 

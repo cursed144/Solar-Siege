@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="BuildingData" load_steps=9 format=3 uid="uid://bjtf4ef6mocde"]
+[gd_resource type="Resource" script_class="BuildingData" format=3 uid="uid://bjtf4ef6mocde"]
 
 [ext_resource type="Script" uid="uid://my03aj68uxeb" path="res://Planet-Section/Scripts/Classes/item_amount.gd" id="1_ctics"]
 [ext_resource type="Texture2D" uid="uid://cs60sgsq0iujg" path="res://Planet-Section/Textures/Buildings/Icons/storage_icon.png" id="1_n1xd1"]
