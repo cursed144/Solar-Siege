@@ -4,18 +4,20 @@ const RECIPE_SLOT := preload("res://Planet-Section/Scenes/UI/recipe_slot.tscn")
 const REQUIREMENT_ROW := preload("res://Planet-Section/Scenes/UI/requirement_row.tscn")
 
 var pending_recipe: Recipe = null
-var target_building: Building = null
+var target_building: ProductionBuilding = null
 var target_slot: int = 0
 
 @onready var requirement_row_parent = $RecipeConfirm/Requirements/HBoxContainer
 
 
-func on_worker_slot_clicked(building: Building, slot_num: int, delete: bool) -> void:
+func on_worker_slot_clicked(building: ProductionBuilding, slot_num: int, delete: bool) -> void:
 	target_building = building
 	target_slot = slot_num
 	
 	if delete:
 		%UI/StopRecipe.show()
+		var recipe := building.get_recipe_on_row(slot_num)
+		%UI/StopRecipe/Item.texture = recipe.display_icon
 		get_tree().paused = true
 		return
 	

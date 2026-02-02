@@ -71,6 +71,14 @@ func recipe_finished(recipe: Recipe) -> void:
 	output.add_items_to_inv(ItemAmount.amounts_to_stacks(recipe.outputs))
 
 
+func get_recipe_on_row(row_num: int) -> Recipe:
+	var row: WorkController = $WorkerRows.get_node(str(row_num))
+	if $WorkerRows.get_node(str(row_num)) == null:
+		push_error("Failed to find row with number: " + str(row_num))
+	
+	return row.assigned_recipe
+
+
 func cancel_recipe_on_row(row_num: int) -> void:
 	var row = $WorkerRows.get_node(str(row_num))
 	if $WorkerRows.get_node(str(row_num)) == null:

@@ -214,6 +214,10 @@ func work_in_building() -> bool:
 	
 	await go_to(current_job.building.global_position)
 	
+	# Extra check to prevent starting work on canceled jobs
+	if current_job.assigned_recipe == null or current_job.amount_to_produce <= 0:
+		return false
+	
 	current_job.start_work()
 	hide()
 	await current_job.alert_work_finished
@@ -244,6 +248,9 @@ func empty_building_output() -> bool:
 func supply_building() -> bool:
 	if not is_instance_valid(current_job):
 		return false
+	if not is_instance_valid(current_job.assigned_recipe):
+		return false
+	
 	var reqs: Array[ItemAmount] = current_job.assigned_recipe.requirements
 	var amount_to_make: int = current_job.amount_to_produce
 	var building = current_job.building
@@ -324,7 +331,7 @@ func map_storages_with_item(available_item: ItemAmount, amount_to_make: int) -> 
 	for item_amount in map_total.values():
 		total += item_amount.amount
 	
-	if (total <= 0) or ((total + available_item.amount) < job_req.amount): # If arent going to get anything at all or not enough for 1 job - return nothing
+	if (total <= 0) or ((total + available_item.amount) < job_req.amount): # If we arent going to get anything at all or not enough for 1 job - return nothing
 		return {}
 	else:
 		return map_total
