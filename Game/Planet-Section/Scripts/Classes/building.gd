@@ -42,4 +42,3 @@ func destroy() -> void:
 	var planet = get_tree().current_scene
 	planet.remove_building(self)
 	destroyed.emit()
-	queue_free()

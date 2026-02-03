@@ -1,8 +1,8 @@
 extends Control
 
-const inv_section := preload("res://Planet-Section/Scenes/UI/inv_section.tscn")
-const worker_row := preload("res://Planet-Section/Scenes/UI/worker_row.tscn")
-const inv_slot := preload("res://Planet-Section/Scenes/UI/inv_slot.tscn")
+const INV_SECTION := preload("res://Planet-Section/Scenes/UI/inv_section.tscn")
+const WORKER_ROW := preload("res://Planet-Section/Scenes/UI/worker_row.tscn")
+const INV_SLOT := preload("res://Planet-Section/Scenes/UI/inv_slot.tscn")
 
 var is_open := false
 var curr_building: Building = null
@@ -101,7 +101,7 @@ func _fill_inv_info(building: Building) -> void:
 	
 	var invs := building.inventories
 	for inv_name in invs.keys():
-		var new_inv = inv_section.instantiate()
+		var new_inv = INV_SECTION.instantiate()
 		new_inv.get_node("SectionName").text = inv_name
 		new_inv.name = inv_name
 		inventories_container.add_child(new_inv)
@@ -109,7 +109,7 @@ func _fill_inv_info(building: Building) -> void:
 		var slot_target: GridContainer = new_inv.get_node("GridContainer")
 		var slots = invs[inv_name].slots
 		for i in range(slots.size()):
-			var new_slot: UiInvSlot = inv_slot.instantiate()
+			var new_slot: UiInvSlot = INV_SLOT.instantiate()
 			new_slot.set_slot(slots, i, invs[inv_name].is_slot_claimed(i))
 			slot_target.add_child(new_slot)
 			
@@ -215,7 +215,7 @@ func update_worker_rows(building: Building = curr_building) -> void:
 # -----------------------
 
 func add_worker_row(dest: Node, num: int) -> void:
-	var new_row = worker_row.instantiate()
+	var new_row = WORKER_ROW.instantiate()
 	new_row.init(curr_building)
 	new_row.name = str(num)
 	new_row.slot_clicked.connect(recipe_menu.on_worker_slot_clicked)

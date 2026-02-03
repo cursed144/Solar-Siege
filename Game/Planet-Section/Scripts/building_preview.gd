@@ -17,7 +17,7 @@ func _input(event: InputEvent) -> void:
 	if is_placing:
 		if event.is_action_pressed("left_click"):
 			if get_overlapping_areas().size() <= 0:
-				place_building(stored_building.id)
+				place_building(stored_building)
 		elif event.is_action_pressed("right_click"):
 			end_placement()
 
@@ -45,19 +45,15 @@ func start_placing(data: BuildingData) -> void:
 	$CollisionShape2D.scale = (data.building_sprite.get_size() / 20) + Vector2(0.5, 0.5)
 
 
-func place_building(id: int) -> void:
+func place_building(data: BuildingData) -> void:
 	var cell := buildings.local_to_map(global_position) as Vector2i
 	planet.get_claimed_global_items(name)
-	buildings.set_cell(cell, 1, Vector2i.ZERO, id)
+	buildings.set_cell(cell, 1, Vector2i.ZERO, data.id)
 	
 	await get_tree().process_frame
 	var building: Building = buildings.get_child(-1)
-	var sprite: Texture2D = stored_building.building_sprite
-	var sprite_size = sprite.get_size()
-	
 	building.name = planet.get_unique_name(stored_building.display_name)
-	
-	%WorkerHead.set_building_tiles_solid(global_position, sprite_size)
+	%WorkerHead.set_building_tiles_solid(global_position, data.building_sprite.get_size())
 	
 	building.begin_upgrade(stored_building.build_time)
 	end_placement()
