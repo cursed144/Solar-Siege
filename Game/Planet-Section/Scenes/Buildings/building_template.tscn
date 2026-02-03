@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://c6yvaai4dadhi"]
+[gd_scene format=3 uid="uid://c6yvaai4dadhi"]
 
 [ext_resource type="Texture2D" uid="uid://deixmur2ebu3f" path="res://icon.svg" id="1_k3hnj"]
 
@@ -44,31 +44,29 @@ _data = {
 &"upgrade": SubResource("Animation_304m8")
 }
 
-[node name="BuildingTemp" type="Area2D"]
+[node name="BuildingTemp" type="Area2D" unique_id=1155735402]
 texture_filter = 1
 collision_layer = 16
 collision_mask = 0
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=275285382]
 texture = ExtResource("1_k3hnj")
 centered = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1420331139]
 position = Vector2(64, 64)
 shape = SubResource("RectangleShape2D_wblrm")
 
-[node name="ClickArea" type="TextureButton" parent="."]
+[node name="ClickArea" type="TextureButton" parent="." unique_id=1209919191]
 offset_right = 128.0
 offset_bottom = 128.0
 mouse_default_cursor_shape = 2
 
-[node name="UpgradeTimer" type="Timer" parent="."]
+[node name="UpgradeTimer" type="Timer" parent="." unique_id=1610265563]
 one_shot = true
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_gwh3j")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=287125692]
+libraries/ = SubResource("AnimationLibrary_gwh3j")
 
 [connection signal="pressed" from="ClickArea" to="." method="_on_click_area_pressed"]
 [connection signal="timeout" from="UpgradeTimer" to="." method="_on_upgrade_finished"]

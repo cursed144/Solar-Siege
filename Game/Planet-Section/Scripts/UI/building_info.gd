@@ -9,7 +9,7 @@ var curr_building: Building = null
 var is_mouse_in_area := false
 
 @onready var destroy_button: TextureButton = %UI/DestroyBuilding/Confirm
-@onready var upgrade_button: TextureButton = $Content/Card/BottomButtons/Upgrade
+@onready var upgrade_button: TextureButton = $Content/Card/BottomButtons/Control/Upgrade
 @onready var item_deleter = %UI/DeleteItemConf
 @onready var recipe_menu = $RecipeMenu
 
@@ -25,9 +25,9 @@ func _input(event: InputEvent) -> void:
 		tween.set_ease(Tween.EASE_OUT)
 		
 		if event.is_action_released("scroll_up"):
-			tween.tween_property($Content, "scroll_vertical", $Content.scroll_vertical - 175, 0.5)
+			tween.tween_property($Content, "scroll_vertical", $Content.scroll_vertical - 100, 0.5)
 		elif event.is_action_released("scroll_down"):
-			tween.tween_property($Content, "scroll_vertical", $Content.scroll_vertical + 175, 0.5)
+			tween.tween_property($Content, "scroll_vertical", $Content.scroll_vertical + 100, 0.5)
 
 
 func _process(_delta: float) -> void:
@@ -136,8 +136,8 @@ func _fill_worker_info(building: Building) -> void:
 
 
 func manage_buttons(building: Building) -> void:
-	var dest_button := $Content/Card/BottomButtons/Destroy
-	var upgr_button = $Content/Card/BottomButtons/Upgrade
+	var dest_button := $Content/Card/BottomButtons/Control/Destroy
+	var upgr_button = $Content/Card/BottomButtons/Control/Upgrade
 	
 	if not building.can_be_destroyed:
 		dest_button.mouse_default_cursor_shape = Control.CURSOR_FORBIDDEN

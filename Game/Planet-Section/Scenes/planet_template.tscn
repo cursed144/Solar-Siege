@@ -187,6 +187,24 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0pncr"]
 size = Vector2(1152, 140)
 
+[sub_resource type="MeshTexture" id="MeshTexture_a00he"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_p8uer"]
+texture = SubResource("MeshTexture_a00he")
+expand_margin_right = 5.0
+modulate_color = Color(0.003921569, 0.65882355, 0, 1)
+
+[sub_resource type="MeshTexture" id="MeshTexture_p8uer"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_a00he"]
+texture = SubResource("MeshTexture_p8uer")
+expand_margin_right = 5.0
+modulate_color = Color(0.09998601, 0.09998598, 0.09998604, 1)
+
+[sub_resource type="Theme" id="Theme_p8uer"]
+VScrollBar/styles/grabber = SubResource("StyleBoxTexture_p8uer")
+VScrollBar/styles/scroll = SubResource("StyleBoxTexture_a00he")
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gimfs"]
 size = Vector2(297, 612)
 
@@ -479,24 +497,28 @@ mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
 [node name="Content" type="ScrollContainer" parent="UI/BuildingInfo" unique_id=1110566349]
+layout_direction = 3
 layout_mode = 0
-offset_left = 15.0
-offset_right = 312.0
-offset_bottom = 648.0
+offset_top = -4.0
+offset_right = 301.0
+offset_bottom = 652.0
 mouse_filter = 2
+theme = SubResource("Theme_p8uer")
+theme_override_constants/scrollbar_h_separation = 20
 follow_focus = true
 draw_focus_border = true
 horizontal_scroll_mode = 0
-vertical_scroll_mode = 3
+vertical_scroll_mode = 2
 
 [node name="Card" type="VBoxContainer" parent="UI/BuildingInfo/Content" unique_id=113071412]
+layout_direction = 2
 layout_mode = 2
 theme_override_constants/separation = 12
 
 [node name="BuildingName" type="Label" parent="UI/BuildingInfo/Content/Card" unique_id=1482789445]
-custom_minimum_size = Vector2(266, 0)
+custom_minimum_size = Vector2(266, 40)
 layout_mode = 2
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 25
 text = "Building name here"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -574,21 +596,33 @@ layout_mode = 2
 theme_override_constants/separation = -30
 
 [node name="BottomButtons" type="HBoxContainer" parent="UI/BuildingInfo/Content/Card" unique_id=299734265]
+custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/separation = 29
 
-[node name="Destroy" type="TextureButton" parent="UI/BuildingInfo/Content/Card/BottomButtons" unique_id=927021359]
+[node name="Control" type="Control" parent="UI/BuildingInfo/Content/Card/BottomButtons" unique_id=1131233482]
+layout_mode = 2
+
+[node name="Destroy" type="TextureButton" parent="UI/BuildingInfo/Content/Card/BottomButtons/Control" unique_id=927021359]
 texture_filter = 1
 custom_minimum_size = Vector2(120, 80.155)
-layout_mode = 2
+layout_mode = 0
+offset_left = -136.0
+offset_top = -71.0
+offset_right = -16.0
+offset_bottom = 49.0
 texture_normal = ExtResource("18_6pg5r")
 stretch_mode = 0
 
-[node name="Upgrade" type="TextureButton" parent="UI/BuildingInfo/Content/Card/BottomButtons" unique_id=665770226]
+[node name="Upgrade" type="TextureButton" parent="UI/BuildingInfo/Content/Card/BottomButtons/Control" unique_id=665770226]
 texture_filter = 1
 custom_minimum_size = Vector2(120, 120)
-layout_mode = 2
+layout_mode = 0
+offset_left = 13.0
+offset_top = -71.0
+offset_right = 133.0
+offset_bottom = 49.0
 mouse_default_cursor_shape = 2
 texture_normal = ExtResource("19_gimfs")
 stretch_mode = 0
@@ -741,32 +775,30 @@ tick_count = 1
 process_mode = 3
 visible = false
 anchors_preset = 0
-offset_left = 297.0
-offset_right = 1449.0
+offset_right = 297.0
 offset_bottom = 648.0
 script = ExtResource("32_dslco")
-metadata/_edit_lock_ = true
 
 [node name="Cover" type="ColorRect" parent="UI/BuildingInfo/UpgradeMenu" unique_id=19775703]
 layout_mode = 0
-offset_left = -297.0
+offset_right = 297.0
 offset_bottom = 648.0
 color = Color(0, 0, 0, 1)
 
 [node name="BuildImage" type="TextureRect" parent="UI/BuildingInfo/UpgradeMenu" unique_id=523800279]
 layout_mode = 0
-offset_left = -213.0
+offset_left = 84.0
 offset_top = 68.0
-offset_right = -85.0
+offset_right = 212.0
 offset_bottom = 196.0
 texture = ExtResource("7_5gyni")
 
 [node name="Confirm" type="TextureButton" parent="UI/BuildingInfo/UpgradeMenu" unique_id=109443022]
 texture_filter = 1
 layout_mode = 0
-offset_left = -122.0
+offset_left = 175.0
 offset_top = 552.0
-offset_right = -22.0
+offset_right = 275.0
 offset_bottom = 652.0
 mouse_default_cursor_shape = 2
 texture_normal = ExtResource("20_gimfs")
@@ -776,9 +808,9 @@ stretch_mode = 0
 [node name="Cancel" type="TextureButton" parent="UI/BuildingInfo/UpgradeMenu" unique_id=269811486]
 texture_filter = 1
 layout_mode = 0
-offset_left = -271.0
+offset_left = 26.0
 offset_top = 552.0
-offset_right = -171.0
+offset_right = 126.0
 offset_bottom = 652.0
 mouse_default_cursor_shape = 2
 texture_normal = ExtResource("21_xo3u4")
@@ -787,8 +819,9 @@ stretch_mode = 0
 
 [node name="Level" type="Label" parent="UI/BuildingInfo/UpgradeMenu" unique_id=243688487]
 layout_mode = 0
-offset_left = -298.0
+offset_left = -1.0
 offset_top = 209.0
+offset_right = 297.0
 offset_bottom = 253.0
 theme_override_font_sizes/font_size = 26
 text = "Upgrade To Level x"
@@ -797,19 +830,19 @@ vertical_alignment = 1
 
 [node name="Requires" type="Label" parent="UI/BuildingInfo/UpgradeMenu" unique_id=1322488615]
 layout_mode = 0
-offset_left = -262.0
+offset_left = 35.0
 offset_top = 274.0
-offset_right = -167.0
+offset_right = 130.0
 offset_bottom = 304.0
 theme_override_font_sizes/font_size = 21
 text = "Requires:"
 
 [node name="Requirements" type="ScrollContainer" parent="UI/BuildingInfo/UpgradeMenu" unique_id=1580583048]
 layout_mode = 0
-offset_left = -259.0
+offset_left = 38.0
 offset_top = 309.0
-offset_right = 2.9882813
-offset_bottom = 562.80115
+offset_right = 282.0
+offset_bottom = 533.0
 horizontal_scroll_mode = 0
 
 [node name="HBoxContainer" type="VBoxContainer" parent="UI/BuildingInfo/UpgradeMenu/Requirements" unique_id=952952318]
@@ -1069,7 +1102,7 @@ stretch_mode = 0
 [connection signal="mouse_exited" from="UI/BuildingMenu/ScrollingArea" to="UI/BuildingMenu" method="_on_scrolling_area_mouse_exited"]
 [connection signal="pressed" from="UI/BuildingInfo/Content/Card/WorkerSection/WorkerInfo/Buttons/Increase" to="UI/BuildingInfo" method="_on_worker_increase_pressed"]
 [connection signal="pressed" from="UI/BuildingInfo/Content/Card/WorkerSection/WorkerInfo/Buttons/Decrease" to="UI/BuildingInfo" method="_on_worker_decrease_pressed"]
-[connection signal="pressed" from="UI/BuildingInfo/Content/Card/BottomButtons/Destroy" to="UI/DestroyBuilding" method="_on_destroy_pressed"]
+[connection signal="pressed" from="UI/BuildingInfo/Content/Card/BottomButtons/Control/Destroy" to="UI/DestroyBuilding" method="_on_destroy_pressed"]
 [connection signal="pressed" from="UI/BuildingInfo/RecipeMenu/RecipeSlots/Button/Cancel" to="UI/BuildingInfo/RecipeMenu" method="_on_recipe_menu_cancel_pressed"]
 [connection signal="pressed" from="UI/BuildingInfo/RecipeMenu/RecipeConfirm/Produce" to="UI/BuildingInfo/RecipeMenu" method="_on_begin_production"]
 [connection signal="pressed" from="UI/BuildingInfo/RecipeMenu/RecipeConfirm/Cancel" to="UI/BuildingInfo/RecipeMenu" method="_on_recipe_confirmation_cancel_pressed"]
