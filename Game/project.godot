@@ -15,7 +15,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="Solar Siege"
-run/main_scene="uid://d4ha36564l20p"
+run/main_scene="uid://cdd0o5uvlau07"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -89,3 +89,8 @@ scroll_down={
 2d_physics/layer_3="Player_Projectile"
 2d_physics/layer_4="Enemy_Projectile"
 2d_physics/layer_5="Solid_Walls"
+
+[physics]
+
+2d/default_linear_damp=0.0
+2d/default_angular_damp=0.0

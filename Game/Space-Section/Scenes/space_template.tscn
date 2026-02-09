@@ -1,0 +1,101 @@
+[gd_scene format=3 uid="uid://cdd0o5uvlau07"]
+
+[ext_resource type="Script" uid="uid://dlmahlewkgem2" path="res://Space-Section/Scripts/space_template.gd" id="1_wee18"]
+[ext_resource type="Texture2D" uid="uid://deixmur2ebu3f" path="res://icon.svg" id="2_b03n3"]
+[ext_resource type="Script" uid="uid://dtujbcnxud55a" path="res://Space-Section/Scripts/player.gd" id="2_krjdi"]
+[ext_resource type="Script" uid="uid://lbjy23qvrrm8" path="res://Planet-Section/Scripts/pos_nums.gd" id="3_ecr54"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_wee18"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_rn1a6"]
+bounce = 0.1
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_b03n3"]
+radius = 17.0
+height = 52.0
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_krjdi"]
+bounce = 0.2
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ecr54"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wee18"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b03n3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_krjdi"]
+
+[node name="Space" type="Node2D" unique_id=1175394942]
+script = ExtResource("1_wee18")
+
+[node name="PlayingField" type="MeshInstance2D" parent="." unique_id=1912973486]
+self_modulate = Color(0, 0, 0, 0.1)
+position = Vector2(1500, 1500)
+scale = Vector2(3000, 3000)
+mesh = SubResource("BoxMesh_wee18")
+
+[node name="Player" type="RigidBody2D" parent="." unique_id=1453175381]
+position = Vector2(1500, 1500)
+collision_mask = 26
+mass = 0.1
+physics_material_override = SubResource("PhysicsMaterial_rn1a6")
+gravity_scale = 0.0
+script = ExtResource("2_krjdi")
+
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=1874820717]
+limit_left = 0
+limit_top = 0
+limit_right = 3000
+limit_bottom = 3000
+
+[node name="Sprite2D" type="Sprite2D" parent="Player" unique_id=150930935]
+scale = Vector2(0.271, 0.407)
+texture = ExtResource("2_b03n3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player" unique_id=1497233099]
+shape = SubResource("CapsuleShape2D_b03n3")
+
+[node name="UI" type="CanvasLayer" parent="Player" unique_id=1027797568]
+
+[node name="PosNums" type="Control" parent="Player/UI" unique_id=2030685307 node_paths=PackedStringArray("cam")]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 964.0
+offset_right = 1152.0
+offset_bottom = 40.0
+script = ExtResource("3_ecr54")
+cam = NodePath("../../Camera2D")
+
+[node name="TextEdit" type="TextEdit" parent="Player/UI/PosNums" unique_id=1336461015]
+layout_mode = 0
+offset_right = 187.0
+offset_bottom = 40.0
+
+[node name="EnemyHolder" type="Node2D" parent="." unique_id=1846529128]
+
+[node name="ProjectileHolder" type="Node2D" parent="." unique_id=1604336578]
+
+[node name="BoundingWalls" type="StaticBody2D" parent="." unique_id=1639563580]
+collision_layer = 16
+collision_mask = 0
+physics_material_override = SubResource("PhysicsMaterial_krjdi")
+
+[node name="TopWall" type="CollisionShape2D" parent="BoundingWalls" unique_id=1344289627]
+position = Vector2(1500, -10)
+scale = Vector2(150, 1)
+shape = SubResource("RectangleShape2D_ecr54")
+
+[node name="LeftWall" type="CollisionShape2D" parent="BoundingWalls" unique_id=1679241376]
+position = Vector2(-10, 1500)
+scale = Vector2(1, 150)
+shape = SubResource("RectangleShape2D_wee18")
+
+[node name="RightWall" type="CollisionShape2D" parent="BoundingWalls" unique_id=471455368]
+position = Vector2(3010, 1500)
+scale = Vector2(1, 150)
+shape = SubResource("RectangleShape2D_b03n3")
+
+[node name="BottomWall" type="CollisionShape2D" parent="BoundingWalls" unique_id=1134218179]
+position = Vector2(1500, 3010)
+scale = Vector2(150, 1)
+shape = SubResource("RectangleShape2D_krjdi")
