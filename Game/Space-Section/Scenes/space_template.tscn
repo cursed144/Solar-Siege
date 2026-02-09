@@ -7,6 +7,9 @@
 
 [sub_resource type="BoxMesh" id="BoxMesh_wee18"]
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_krjdi"]
+bounce = 0.2
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ecr54"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wee18"]
@@ -14,6 +17,9 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b03n3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_krjdi"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_rn1a6"]
+bounce = 0.1
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_b03n3"]
 radius = 17.0
@@ -31,6 +37,7 @@ mesh = SubResource("BoxMesh_wee18")
 [node name="BoundingWalls" type="StaticBody2D" parent="." unique_id=1639563580]
 collision_layer = 16
 collision_mask = 0
+physics_material_override = SubResource("PhysicsMaterial_krjdi")
 
 [node name="TopWall" type="CollisionShape2D" parent="BoundingWalls" unique_id=1344289627]
 position = Vector2(1500, -10)
@@ -56,6 +63,7 @@ shape = SubResource("RectangleShape2D_krjdi")
 position = Vector2(1500, 1500)
 collision_mask = 26
 mass = 0.1
+physics_material_override = SubResource("PhysicsMaterial_rn1a6")
 gravity_scale = 0.0
 script = ExtResource("2_krjdi")
 
