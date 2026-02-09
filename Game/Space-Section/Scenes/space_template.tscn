@@ -7,6 +7,13 @@
 
 [sub_resource type="BoxMesh" id="BoxMesh_wee18"]
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_rn1a6"]
+bounce = 0.1
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_b03n3"]
+radius = 17.0
+height = 52.0
+
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_krjdi"]
 bounce = 0.2
 
@@ -18,13 +25,6 @@ bounce = 0.2
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_krjdi"]
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_rn1a6"]
-bounce = 0.1
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_b03n3"]
-radius = 17.0
-height = 52.0
-
 [node name="Space" type="Node2D" unique_id=1175394942]
 script = ExtResource("1_wee18")
 
@@ -33,31 +33,6 @@ self_modulate = Color(0, 0, 0, 0.1)
 position = Vector2(1500, 1500)
 scale = Vector2(3000, 3000)
 mesh = SubResource("BoxMesh_wee18")
-
-[node name="BoundingWalls" type="StaticBody2D" parent="." unique_id=1639563580]
-collision_layer = 16
-collision_mask = 0
-physics_material_override = SubResource("PhysicsMaterial_krjdi")
-
-[node name="TopWall" type="CollisionShape2D" parent="BoundingWalls" unique_id=1344289627]
-position = Vector2(1500, -10)
-scale = Vector2(150, 1)
-shape = SubResource("RectangleShape2D_ecr54")
-
-[node name="LeftWall" type="CollisionShape2D" parent="BoundingWalls" unique_id=1679241376]
-position = Vector2(-10, 1500)
-scale = Vector2(1, 150)
-shape = SubResource("RectangleShape2D_wee18")
-
-[node name="RightWall" type="CollisionShape2D" parent="BoundingWalls" unique_id=471455368]
-position = Vector2(3010, 1500)
-scale = Vector2(1, 150)
-shape = SubResource("RectangleShape2D_b03n3")
-
-[node name="BottomWall" type="CollisionShape2D" parent="BoundingWalls" unique_id=1134218179]
-position = Vector2(1500, 3010)
-scale = Vector2(150, 1)
-shape = SubResource("RectangleShape2D_krjdi")
 
 [node name="Player" type="RigidBody2D" parent="." unique_id=1453175381]
 position = Vector2(1500, 1500)
@@ -95,3 +70,32 @@ cam = NodePath("../../Camera2D")
 layout_mode = 0
 offset_right = 187.0
 offset_bottom = 40.0
+
+[node name="EnemyHolder" type="Node2D" parent="." unique_id=1846529128]
+
+[node name="ProjectileHolder" type="Node2D" parent="." unique_id=1604336578]
+
+[node name="BoundingWalls" type="StaticBody2D" parent="." unique_id=1639563580]
+collision_layer = 16
+collision_mask = 0
+physics_material_override = SubResource("PhysicsMaterial_krjdi")
+
+[node name="TopWall" type="CollisionShape2D" parent="BoundingWalls" unique_id=1344289627]
+position = Vector2(1500, -10)
+scale = Vector2(150, 1)
+shape = SubResource("RectangleShape2D_ecr54")
+
+[node name="LeftWall" type="CollisionShape2D" parent="BoundingWalls" unique_id=1679241376]
+position = Vector2(-10, 1500)
+scale = Vector2(1, 150)
+shape = SubResource("RectangleShape2D_wee18")
+
+[node name="RightWall" type="CollisionShape2D" parent="BoundingWalls" unique_id=471455368]
+position = Vector2(3010, 1500)
+scale = Vector2(1, 150)
+shape = SubResource("RectangleShape2D_b03n3")
+
+[node name="BottomWall" type="CollisionShape2D" parent="BoundingWalls" unique_id=1134218179]
+position = Vector2(1500, 3010)
+scale = Vector2(150, 1)
+shape = SubResource("RectangleShape2D_krjdi")
