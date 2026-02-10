@@ -4,6 +4,17 @@
 [ext_resource type="Texture2D" uid="uid://deixmur2ebu3f" path="res://icon.svg" id="2_b03n3"]
 [ext_resource type="Script" uid="uid://dtujbcnxud55a" path="res://Space-Section/Scripts/player.gd" id="2_krjdi"]
 [ext_resource type="Script" uid="uid://lbjy23qvrrm8" path="res://Planet-Section/Scripts/pos_nums.gd" id="3_ecr54"]
+[ext_resource type="Script" uid="uid://2i75gsgy1n65" path="res://Space-Section/Scripts/background.gd" id="5_rn1a6"]
+[ext_resource type="Texture2D" uid="uid://drmlt714ugur2" path="res://Space-Section/Textures/Stars/star2.png" id="6_4svm3"]
+[ext_resource type="Texture2D" uid="uid://dep62ghk30q14" path="res://Space-Section/Textures/Stars/star1.png" id="7_oi3ao"]
+[ext_resource type="Texture2D" uid="uid://sxlomak7e0uy" path="res://Space-Section/Textures/Stars/star3.png" id="8_ud871"]
+[ext_resource type="Texture2D" uid="uid://pb0mam2yj83h" path="res://Space-Section/Textures/Stars/star4.png" id="9_vo43a"]
+[ext_resource type="Texture2D" uid="uid://5nmn44pvx6d" path="res://Space-Section/Textures/Stars/star5.png" id="10_rd5qd"]
+[ext_resource type="Texture2D" uid="uid://rff06fgodbx" path="res://Space-Section/Textures/Stars/star6.png" id="11_uufwo"]
+[ext_resource type="Texture2D" uid="uid://docq42p7xsmkl" path="res://Space-Section/Textures/Stars/star7.png" id="12_pyi7k"]
+[ext_resource type="Texture2D" uid="uid://5wpddi0jaev0" path="res://Space-Section/Textures/Stars/star8.png" id="13_pcms3"]
+[ext_resource type="Texture2D" uid="uid://d0hasy3fnvd7i" path="res://Space-Section/Textures/Stars/star9.png" id="14_fg8we"]
+[ext_resource type="Texture2D" uid="uid://bsen12220qdvo" path="res://Space-Section/Textures/Stars/star10.png" id="15_rr1e8"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_wee18"]
 
@@ -13,6 +24,69 @@ bounce = 0.1
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_b03n3"]
 radius = 17.0
 height = 52.0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4svm3"]
+texture = ExtResource("7_oi3ao")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_oi3ao"]
+texture = ExtResource("6_4svm3")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ud871"]
+texture = ExtResource("8_ud871")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vo43a"]
+texture = ExtResource("9_vo43a")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rd5qd"]
+texture = ExtResource("10_rd5qd")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_uufwo"]
+texture = ExtResource("11_uufwo")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pyi7k"]
+texture = ExtResource("12_pyi7k")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pcms3"]
+texture = ExtResource("13_pcms3")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fg8we"]
+texture = ExtResource("14_fg8we")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rr1e8"]
+texture = ExtResource("15_rr1e8")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_7vde7"]
+tile_size = Vector2i(64, 64)
+sources/0 = SubResource("TileSetAtlasSource_4svm3")
+sources/1 = SubResource("TileSetAtlasSource_oi3ao")
+sources/2 = SubResource("TileSetAtlasSource_ud871")
+sources/3 = SubResource("TileSetAtlasSource_vo43a")
+sources/4 = SubResource("TileSetAtlasSource_rd5qd")
+sources/5 = SubResource("TileSetAtlasSource_uufwo")
+sources/6 = SubResource("TileSetAtlasSource_pyi7k")
+sources/7 = SubResource("TileSetAtlasSource_pcms3")
+sources/8 = SubResource("TileSetAtlasSource_fg8we")
+sources/9 = SubResource("TileSetAtlasSource_rr1e8")
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_krjdi"]
 bounce = 0.2
@@ -29,10 +103,12 @@ bounce = 0.2
 script = ExtResource("1_wee18")
 
 [node name="PlayingField" type="MeshInstance2D" parent="." unique_id=1912973486]
-self_modulate = Color(0, 0, 0, 0.1)
+self_modulate = Color(0, 0, 0, 1)
+z_index = -2
 position = Vector2(1500, 1500)
 scale = Vector2(3000, 3000)
 mesh = SubResource("BoxMesh_wee18")
+metadata/_edit_lock_ = true
 
 [node name="Player" type="RigidBody2D" parent="." unique_id=1453175381]
 position = Vector2(1500, 1500)
@@ -74,6 +150,32 @@ offset_bottom = 40.0
 [node name="EnemyHolder" type="Node2D" parent="." unique_id=1846529128]
 
 [node name="ProjectileHolder" type="Node2D" parent="." unique_id=1604336578]
+
+[node name="Background" type="Node2D" parent="." unique_id=879014871]
+z_index = -1
+texture_filter = 1
+script = ExtResource("5_rn1a6")
+
+[node name="StarsClose" type="Parallax2D" parent="Background" unique_id=489371306]
+modulate = Color(1, 1, 1, 0.90000004)
+scroll_scale = Vector2(0.7, 0.7)
+
+[node name="TileMapLayer" type="TileMapLayer" parent="Background/StarsClose" unique_id=492690952]
+tile_set = SubResource("TileSet_7vde7")
+
+[node name="StarsMid" type="Parallax2D" parent="Background" unique_id=1613757406]
+modulate = Color(1, 1, 1, 0.70000005)
+scroll_scale = Vector2(0.5, 0.5)
+
+[node name="TileMapLayer" type="TileMapLayer" parent="Background/StarsMid" unique_id=1022672198]
+tile_set = SubResource("TileSet_7vde7")
+
+[node name="StarsFar" type="Parallax2D" parent="Background" unique_id=714580990]
+modulate = Color(1, 1, 1, 0.5)
+scroll_scale = Vector2(0.2, 0.2)
+
+[node name="TileMapLayer" type="TileMapLayer" parent="Background/StarsFar" unique_id=1646359857]
+tile_set = SubResource("TileSet_7vde7")
 
 [node name="BoundingWalls" type="StaticBody2D" parent="." unique_id=1639563580]
 collision_layer = 16

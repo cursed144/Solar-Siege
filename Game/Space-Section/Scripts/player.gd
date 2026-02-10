@@ -1,9 +1,9 @@
 extends DamagableEntity
 
-var ROT_SPEED = 800
+var ROT_SPEED = 850
 var MAX_ROT_SPEED = 3.0
 var ROT_DECAY = 0.09
-var ROT_STABILITY_BOOST = 15
+var ROT_STABILITY_BOOST = 16
 
 var LIN_SPEED := 600 * Vector2.UP
 var MAX_LIN_SPEED := Vector2(300, 300)
