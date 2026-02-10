@@ -1,4 +1,4 @@
-extends RigidBody2D
+extends DamagableEntity
 
 var ROT_SPEED = 800
 var MAX_ROT_SPEED = 3.0
