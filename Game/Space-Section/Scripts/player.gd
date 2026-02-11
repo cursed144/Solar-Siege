@@ -1,9 +1,9 @@
-extends RigidBody2D
+extends DamagableEntity
 
-var ROT_SPEED = 800
+var ROT_SPEED = 850
 var MAX_ROT_SPEED = 3.0
 var ROT_DECAY = 0.09
-var ROT_STABILITY_BOOST = 15
+var ROT_STABILITY_BOOST = 16
 
 var LIN_SPEED := 600 * Vector2.UP
 var MAX_LIN_SPEED := Vector2(300, 300)
@@ -27,7 +27,7 @@ func handle_movement(delta: float) -> void:
 	
 	linear_velocity.x = clampf(linear_velocity.x, -MAX_LIN_SPEED.x, MAX_LIN_SPEED.x)
 	linear_velocity.y = clampf(linear_velocity.y, -MAX_LIN_SPEED.y, MAX_LIN_SPEED.y)
-	print("LIN VEL: " + str(linear_velocity))
+	#print("LIN VEL: " + str(linear_velocity))
 
 
 func handle_rotation(delta: float) -> void:
@@ -42,4 +42,4 @@ func handle_rotation(delta: float) -> void:
 		angular_velocity = move_toward(angular_velocity, 0, ROT_DECAY * delta)
 	
 	angular_velocity = clampf(angular_velocity, -MAX_ROT_SPEED, MAX_ROT_SPEED)
-	print("ROT VEL: " + str(angular_velocity))
+	#print("ROT VEL: " + str(angular_velocity))
