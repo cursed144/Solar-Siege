@@ -20,7 +20,9 @@ func generate(tilemap: TileMapLayer) -> void:
 		for x in range(width+2):
 			var atlas_x := 0
 			if randi_range(1, 3) == 1:
-				atlas_x = randi_range(0, 9)
+				atlas_x = randi_range(0, 10)
+				if atlas_x == 10:
+					atlas_x += randi_range(1, 5) - 2
 			else:
 				continue
 			

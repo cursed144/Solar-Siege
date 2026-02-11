@@ -1,15 +1,18 @@
 [gd_scene format=3 uid="uid://cdd0o5uvlau07"]
 
 [ext_resource type="Script" uid="uid://dlmahlewkgem2" path="res://Space-Section/Scripts/space_template.gd" id="1_wee18"]
-[ext_resource type="Texture2D" uid="uid://deixmur2ebu3f" path="res://icon.svg" id="2_b03n3"]
 [ext_resource type="Script" uid="uid://dtujbcnxud55a" path="res://Space-Section/Scripts/player.gd" id="2_krjdi"]
+[ext_resource type="Texture2D" uid="uid://c2ggnbutbv3g5" path="res://Space-Section/Textures/rocket.png" id="3_4svm3"]
 [ext_resource type="Script" uid="uid://lbjy23qvrrm8" path="res://Planet-Section/Scripts/pos_nums.gd" id="3_ecr54"]
 [ext_resource type="Script" uid="uid://2i75gsgy1n65" path="res://Space-Section/Scripts/background.gd" id="5_rn1a6"]
 [ext_resource type="Texture2D" uid="uid://drmlt714ugur2" path="res://Space-Section/Textures/Stars/star2.png" id="6_4svm3"]
 [ext_resource type="Texture2D" uid="uid://dep62ghk30q14" path="res://Space-Section/Textures/Stars/star1.png" id="7_oi3ao"]
 [ext_resource type="Texture2D" uid="uid://sxlomak7e0uy" path="res://Space-Section/Textures/Stars/star3.png" id="8_ud871"]
+[ext_resource type="Texture2D" uid="uid://bvu4g7kby4o5e" path="res://Space-Section/Textures/Stars/star11.png" id="8_vo43a"]
+[ext_resource type="Texture2D" uid="uid://cguktlknw2rww" path="res://Space-Section/Textures/Stars/star12.png" id="9_rd5qd"]
 [ext_resource type="Texture2D" uid="uid://pb0mam2yj83h" path="res://Space-Section/Textures/Stars/star4.png" id="9_vo43a"]
 [ext_resource type="Texture2D" uid="uid://5nmn44pvx6d" path="res://Space-Section/Textures/Stars/star5.png" id="10_rd5qd"]
+[ext_resource type="Texture2D" uid="uid://beijchxi6wlc8" path="res://Space-Section/Textures/Stars/star13.png" id="10_uufwo"]
 [ext_resource type="Texture2D" uid="uid://rff06fgodbx" path="res://Space-Section/Textures/Stars/star6.png" id="11_uufwo"]
 [ext_resource type="Texture2D" uid="uid://docq42p7xsmkl" path="res://Space-Section/Textures/Stars/star7.png" id="12_pyi7k"]
 [ext_resource type="Texture2D" uid="uid://5wpddi0jaev0" path="res://Space-Section/Textures/Stars/star8.png" id="13_pcms3"]
@@ -19,11 +22,7 @@
 [sub_resource type="BoxMesh" id="BoxMesh_wee18"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_rn1a6"]
-bounce = 0.1
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_b03n3"]
-radius = 17.0
-height = 52.0
+bounce = 0.15
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4svm3"]
 texture = ExtResource("7_oi3ao")
@@ -34,6 +33,19 @@ texture_region_size = Vector2i(64, 64)
 texture = ExtResource("6_4svm3")
 texture_region_size = Vector2i(64, 64)
 0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7vde7"]
+texture = ExtResource("8_vo43a")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_uekxc"]
+texture = ExtResource("9_rd5qd")
+texture_region_size = Vector2i(64, 64)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_77wg4"]
+texture = ExtResource("10_uufwo")
+texture_region_size = Vector2i(64, 64)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ud871"]
 texture = ExtResource("8_ud871")
@@ -87,6 +99,9 @@ sources/6 = SubResource("TileSetAtlasSource_pyi7k")
 sources/7 = SubResource("TileSetAtlasSource_pcms3")
 sources/8 = SubResource("TileSetAtlasSource_fg8we")
 sources/9 = SubResource("TileSetAtlasSource_rr1e8")
+sources/10 = SubResource("TileSetAtlasSource_7vde7")
+sources/11 = SubResource("TileSetAtlasSource_uekxc")
+sources/12 = SubResource("TileSetAtlasSource_77wg4")
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_krjdi"]
 bounce = 0.2
@@ -125,11 +140,14 @@ limit_right = 3000
 limit_bottom = 3000
 
 [node name="Sprite2D" type="Sprite2D" parent="Player" unique_id=150930935]
-scale = Vector2(0.271, 0.407)
-texture = ExtResource("2_b03n3")
+self_modulate = Color(0.8808251, 0.8808251, 0.8808251, 1)
+texture_filter = 1
+texture = ExtResource("3_4svm3")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player" unique_id=1497233099]
-shape = SubResource("CapsuleShape2D_b03n3")
+[node name="CollisionShape2D2" type="CollisionPolygon2D" parent="Player" unique_id=1834648222]
+visible = false
+polygon = PackedVector2Array(0, -47, -16, -31, -20, -18, -20, 9, -26, 11, -36, 28, -33, 45, -30, 37, -13, 23, -7, 30, 6, 30, 13, 22, 26, 35, 32, 45, 35, 28, 25, 11, 19, 9, 19, -18, 15, -31)
+metadata/_edit_lock_ = true
 
 [node name="UI" type="CanvasLayer" parent="Player" unique_id=1027797568]
 

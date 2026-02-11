@@ -27,7 +27,7 @@ func handle_movement(delta: float) -> void:
 	
 	linear_velocity.x = clampf(linear_velocity.x, -MAX_LIN_SPEED.x, MAX_LIN_SPEED.x)
 	linear_velocity.y = clampf(linear_velocity.y, -MAX_LIN_SPEED.y, MAX_LIN_SPEED.y)
-	print("LIN VEL: " + str(linear_velocity))
+	#print("LIN VEL: " + str(linear_velocity))
 
 
 func handle_rotation(delta: float) -> void:
@@ -42,4 +42,4 @@ func handle_rotation(delta: float) -> void:
 		angular_velocity = move_toward(angular_velocity, 0, ROT_DECAY * delta)
 	
 	angular_velocity = clampf(angular_velocity, -MAX_ROT_SPEED, MAX_ROT_SPEED)
-	print("ROT VEL: " + str(angular_velocity))
+	#print("ROT VEL: " + str(angular_velocity))
