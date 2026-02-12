@@ -17,11 +17,11 @@ func _physics_process(delta: float) -> void:
 
 
 func handle_movement(delta: float) -> void:
-	if Input.is_action_pressed("up"):
-		apply_central_force(LIN_SPEED.rotated(rotation) * delta)
-	elif Input.is_action_pressed("down"):
+	if Input.is_action_pressed("down"):
 		linear_velocity = linear_velocity.move_toward(Vector2.ZERO, LIN_DECAY * LIN_BRAKE_BOOST * delta)
 		print("Braking")
+	elif Input.is_action_pressed("up"):
+		apply_central_force(LIN_SPEED.rotated(rotation) * delta)
 	else:
 		linear_velocity = linear_velocity.move_toward(Vector2.ZERO, LIN_DECAY * delta)
 	

@@ -93,3 +93,7 @@ scroll_down={
 
 2d/default_linear_damp=0.0
 2d/default_angular_damp=0.0
+
+[rendering]
+
+viewport/hdr_2d=true
