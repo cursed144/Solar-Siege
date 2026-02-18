@@ -1,0 +1,104 @@
+[gd_scene format=3 uid="uid://ce3sgtg6ta56h"]
+
+[ext_resource type="Script" uid="uid://csdhuguqisgg8" path="res://Space-Section/Scripts/explosion.gd" id="1_3b7op"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_3b7op"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_don3b"]
+radius = 2.5
+height = 5.0
+
+[sub_resource type="Environment" id="Environment_3b7op"]
+background_mode = 3
+glow_enabled = true
+glow_levels/2 = 0.3
+glow_levels/3 = 2.2
+glow_levels/4 = 1.15
+glow_levels/5 = 1.2
+glow_levels/6 = 0.8
+glow_levels/7 = 1.0
+
+[sub_resource type="Animation" id="Animation_3b7op"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Circle:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Circle:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(2.454227, 2.454227, 2.454227, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_don3b"]
+resource_name = "explode"
+length = 1.5
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Circle:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.9, 1.5),
+"transitions": PackedFloat32Array(0.3, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(25, 25), Vector2(17.5, 17.5)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Circle:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.9, 1.1, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(2.454227, 2.454227, 2.454227, 1), Color(2.454227, 2.454227, 2.454227, 1), Color(2.454227, 2.454227, 2.454227, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mfsvv"]
+_data = {
+&"RESET": SubResource("Animation_3b7op"),
+&"explode": SubResource("Animation_don3b")
+}
+
+[node name="Explosion" type="Node2D" unique_id=1225867208]
+script = ExtResource("1_3b7op")
+
+[node name="BG" type="MeshInstance2D" parent="." unique_id=961668890]
+self_modulate = Color(0, 0, 0, 1)
+position = Vector2(603.75, 332.25)
+scale = Vector2(1208.5, 665.5)
+mesh = SubResource("BoxMesh_3b7op")
+
+[node name="Circle" type="MeshInstance2D" parent="." unique_id=293300370]
+modulate = Color(2.454227, 2.454227, 2.454227, 1)
+self_modulate = Color(1, 0.5294118, 0, 1)
+z_index = 1
+position = Vector2(649, 269)
+mesh = SubResource("SphereMesh_don3b")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=819097370]
+environment = SubResource("Environment_3b7op")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=544082145]
+libraries/ = SubResource("AnimationLibrary_mfsvv")
+speed_scale = 1.2

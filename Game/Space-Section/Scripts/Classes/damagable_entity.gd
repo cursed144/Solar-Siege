@@ -38,8 +38,8 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	
 	var best_closing_speed := 0.0
 	for i in contact_count:
-		var other_obj := state.get_contact_collider_object(i)
-		if other_obj == null or not (other_obj is DamagableEntity):
+		var other_obj: Node2D = state.get_contact_collider_object(i)
+		if other_obj == null or not (other_obj.is_in_group("damaging_entity")):
 			continue
 		
 		# Velocity of THIS body at the contact point (includes angular velocity effects)
