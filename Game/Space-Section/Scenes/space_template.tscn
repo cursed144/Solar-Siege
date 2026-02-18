@@ -143,7 +143,6 @@ max_contacts_reported = 3
 script = ExtResource("2_krjdi")
 coll_damage_threshold = 150.0
 coll_invincibility = 0.5
-coll_damage_multiplier = null
 hp_bar = NodePath("UI/Hp")
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=1874820717]
@@ -191,7 +190,7 @@ value = 1000.0
 unique_name_in_owner = true
 
 [node name="UFO_Drone" parent="EnemyHolder" unique_id=402041951 instance=ExtResource("5_rd5qd")]
-position = Vector2(1523, 856)
+position = Vector2(1526, 637)
 
 [node name="ProjectileHolder" type="Node2D" parent="." unique_id=1604336578]
 unique_name_in_owner = true

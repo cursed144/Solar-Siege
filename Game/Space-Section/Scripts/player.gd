@@ -25,8 +25,8 @@ func handle_movement(delta: float) -> void:
 	else:
 		linear_velocity = linear_velocity.move_toward(Vector2.ZERO, LIN_DECAY * delta)
 	
-	linear_velocity.x = clampf(linear_velocity.x, -MAX_LIN_SPEED.x, MAX_LIN_SPEED.x)
-	linear_velocity.y = clampf(linear_velocity.y, -MAX_LIN_SPEED.y, MAX_LIN_SPEED.y)
+	#linear_velocity.x = clampf(linear_velocity.x, -MAX_LIN_SPEED.x, MAX_LIN_SPEED.x)
+	#linear_velocity.y = clampf(linear_velocity.y, -MAX_LIN_SPEED.y, MAX_LIN_SPEED.y)
 	#print("LIN VEL: " + str(linear_velocity))
 
 
