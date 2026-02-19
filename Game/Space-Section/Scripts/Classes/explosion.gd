@@ -1,18 +1,40 @@
+class_name Explosion
 extends Node2D
+
+signal explosion_finished
+
+const _explosion := preload("res://Space-Section/Scenes/explosion.tscn")
 
 var _scale_tween: Tween
 var _mod_tween: Tween
 
-@onready var circle: MeshInstance2D = $Circle
+
+static func create_explosion(pos: Vector2,
+		parent: Node2D,
+		size: float = 25,
+		speed_scale: float = 1.2,
+		color: Color = Color.hex(0xff8700ff)) -> Node2D:
+	
+	var explosion: Explosion = _explosion.instantiate()
+	parent.add_child.call_deferred(explosion)
+	
+	await explosion.tree_entered
+	
+	explosion.global_position = pos
+	
+	var mesh: MeshInstance2D = explosion.get_node("Circle")
+	assert(mesh != null)
+	mesh.self_modulate = color
+	
+	explosion._play_boom(size, speed_scale)
+	
+	return explosion
 
 
-func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("left_click"):
-		play_boom()
 
-
-func play_boom(expl_size: float = 25, speed_scale: float = 1.2) -> void:
+func _play_boom(expl_size: float, speed_scale: float) -> void:
 	var sp := maxf(speed_scale, 0.001)
+	var circle = $Circle
 	
 	# Start values at t = 0.0
 	_set_uniform_scale(1.0)
@@ -51,10 +73,14 @@ func play_boom(expl_size: float = 25, speed_scale: float = 1.2) -> void:
 			circle.modulate = Color(2.5, 2.5, 2.5, 1.0).lerp(Color(1, 1, 1, 0), u),
 		0.0, 1.0, 0.4 / sp
 	)
+	
+	await _scale_tween.finished
+	await _mod_tween.finished
+	explosion_finished.emit()
 
 
 func _set_uniform_scale(s: float) -> void:
-	circle.scale = Vector2(s, s)
+	$Circle.scale = Vector2(s, s)
 
 
 # e = ease(u, curve) to mimic AnimationPlayer key transition behavior

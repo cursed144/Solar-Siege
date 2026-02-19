@@ -209,6 +209,7 @@ func _on_collision_death_timeout() -> void:
 func explode() -> void:
 	if life_state == LifeState.DEAD:
 		return
-	life_state = LifeState.DEAD
 	
+	life_state = LifeState.DEAD
+	Explosion.create_explosion(global_position, get_tree().current_scene)
 	queue_free()

@@ -121,6 +121,16 @@ bounce = 0.2
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_krjdi"]
 
+[sub_resource type="Environment" id="Environment_rd5qd"]
+background_mode = 3
+glow_enabled = true
+glow_levels/2 = 0.3
+glow_levels/3 = 2.2
+glow_levels/4 = 1.15
+glow_levels/5 = 1.2
+glow_levels/6 = 0.8
+glow_levels/7 = 1.0
+
 [node name="Space" type="Node2D" unique_id=1175394942]
 script = ExtResource("1_wee18")
 
@@ -147,6 +157,7 @@ fling_speed_mult = 100.0
 hp_bar = NodePath("UI/Hp")
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=1874820717]
+zoom = Vector2(0.75, 0.75)
 limit_left = 0
 limit_top = 0
 limit_right = 3000
@@ -155,11 +166,10 @@ limit_bottom = 3000
 [node name="Sprite2D" type="Sprite2D" parent="Player" unique_id=150930935]
 self_modulate = Color(0.8808251, 0.8808251, 0.8808251, 1)
 texture_filter = 1
-scale = Vector2(0.8, 0.8)
 texture = ExtResource("3_4svm3")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Player" unique_id=991859235]
-position = Vector2(0, -4.9999995)
+position = Vector2(0, -4)
 scale = Vector2(0.8, 0.8)
 shape = SubResource("CapsuleShape2D_vo43a")
 
@@ -246,3 +256,6 @@ shape = SubResource("RectangleShape2D_b03n3")
 position = Vector2(1500, 3010)
 scale = Vector2(150, 1)
 shape = SubResource("RectangleShape2D_krjdi")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=100110024]
+environment = SubResource("Environment_rd5qd")
