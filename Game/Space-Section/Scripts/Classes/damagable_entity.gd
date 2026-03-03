@@ -8,13 +8,16 @@ signal damage_taken(damage: float)
 
 # Player-only
 const ram_kill_pushback_speed: float = 150.0
-const ram_overkill_velocity_boost: float = 2.5
+const ram_overkill_velocity_boost: float = 3
 
 @export_group("Collision Damage")
 @export_range(1, 9999) var coll_damage_threshold: float = 1.0
 @export_range(0.05, 999.0) var coll_invincibility: float = 0.05
-@export_range(0.0, 999.0) var coll_damage_multiplier: float = 20.0
-@export_range(1.0, 100.0) var overkill_ratio: float = 1.5
+@export_range(0.0, 999.0) var coll_damage_multiplier: float = 30.0
+@export_range(1.0, 100.0) var overkill_ratio: float = 2.0
+# New meaning:
+# Overkill happens when (damage - remaining_hp_before_hit) >= (overkill_ratio - 1) * max_hp
+# Example: remaining=10% max, ratio=1.5 => excess damage must be >= 0.5 * max_hp
 
 @export_group("Collision Death Fling")
 @export_range(0.5, 10.0) var collision_death_explode_delay: float = 1.5
@@ -23,6 +26,11 @@ const ram_overkill_velocity_boost: float = 2.5
 @export_range(0.0, 999.0) var fling_min: float = 150.0
 @export_range(0.0, 9999.0) var fling_max: float = 2000.0
 @export_range(0.0, 99.0) var collision_death_spin_speed: float = 25.0 # rad/s
+
+@export_group("Death Explosion")
+@export_range(1, 999) var explosion_size: float = 20
+@export_range(0.1, 99) var explosion_speed_scale: float = 1.2
+@export var explosion_color: Color
 
 @export_group("")
 @export var hp_bar: Range = null
@@ -77,6 +85,10 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 			state.angular_velocity = 0.0
 			state.linear_velocity = _pending_ram_dir * ram_kill_pushback_speed
 	
+	if life_state == LifeState.DYING_BY_COLLISION:
+		if state.get_contact_count() > 0:
+			explode()
+		return
 	
 	# don't take more collision damage / scan contacts if not alive
 	if life_state != LifeState.ALIVE:
@@ -111,9 +123,7 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 		if closing_speed > best_closing_speed:
 			best_closing_speed = closing_speed
 			best_attacker = other_obj
-			
-			# Fly away from attacker (outward from victim)
-			best_hit_dir = n.normalized()
+			best_hit_dir = n.normalized() # fly away from attacker
 	
 	if best_closing_speed <= coll_damage_threshold:
 		return
@@ -151,11 +161,15 @@ func apply_damage(
 	hp_bar.hide()
 	
 	if source == DamageSource.COLLISION:
-		var is_overkill := damage >= hp_before * overkill_ratio
+		# "Excess" damage after finishing remaining HP must be enough to count as
+		# (overkill_ratio - 1) * max_hp
+		var max_hp := float(hp_bar.max_value)
+		var excess = max(0.0, damage - hp_before)
+		var required_excess = max(0.0, (overkill_ratio - 1.0) * max_hp)
+		var is_overkill = excess >= required_excess
 		
 		# tell attacker (player) to respond; applied in its own integrate
 		if attacker != null:
-			# hit_dir is victim-away direction; player should bounce opposite => queue will negate
 			attacker.call("_queue_ram_response", hit_dir, is_overkill)
 		
 		if is_overkill:
@@ -182,6 +196,12 @@ func _queue_ram_response(victim_away_dir: Vector2, is_overkill: bool) -> void:
 
 
 func _enter_collision_death(victim_away_dir: Vector2, impact_speed: float) -> void:
+	# While dying, we don't want this body to be able to hit the player.
+	# Player is on collision layer 1 => disable mask bit 1.
+	set_collision_mask_value(1, false)
+	set_collision_mask_value(2, true)
+	set_collision_mask_value(4, true)
+	
 	life_state = LifeState.DYING_BY_COLLISION
 	
 	linear_velocity = Vector2.ZERO

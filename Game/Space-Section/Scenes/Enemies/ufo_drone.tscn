@@ -1,13 +1,13 @@
 [gd_scene format=3 uid="uid://c4u0dxcy6eiy8"]
 
 [ext_resource type="Script" uid="uid://ccoqkgv3xybi3" path="res://Space-Section/Scripts/Classes/damagable_entity.gd" id="1_1ckke"]
-[ext_resource type="Texture2D" uid="uid://deixmur2ebu3f" path="res://icon.svg" id="2_ub5ov"]
+[ext_resource type="Texture2D" uid="uid://yfkq8s1ohwt5" path="res://Space-Section/Textures/UFO1.png" id="2_ub5ov"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ub5ov"]
 bounce = 0.2
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ub5ov"]
-size = Vector2(50, 32)
+size = Vector2(66, 23)
 
 [node name="UFO_Drone" type="RigidBody2D" unique_id=402041951 node_paths=PackedStringArray("hp_bar") groups=["damaging_entity"]]
 collision_layer = 2
@@ -21,14 +21,12 @@ max_contacts_reported = 3
 script = ExtResource("1_1ckke")
 coll_damage_threshold = 100.0
 coll_invincibility = 0.5
-coll_damage_multiplier = 200.0
-overkill_ratio = 100.0
 hp_bar = NodePath("HealthBar")
 metadata/_custom_type_script = "uid://ccoqkgv3xybi3"
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=2125561373]
+texture_filter = 1
 position = Vector2(0, 9.536743e-07)
-scale = Vector2(0.421, 0.276)
 texture = ExtResource("2_ub5ov")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1352812345]
@@ -36,10 +34,9 @@ shape = SubResource("RectangleShape2D_ub5ov")
 
 [node name="HealthBar" type="ProgressBar" parent="." unique_id=327807982]
 offset_left = -30.0
-offset_top = -38.0
+offset_top = -48.0
 offset_right = 72.520996
-offset_bottom = -11.0
+offset_bottom = -21.0
 scale = Vector2(0.595, 0.595)
-max_value = 200.0
-value = 200.0
+value = 100.0
 allow_lesser = true
