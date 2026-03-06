@@ -5,7 +5,7 @@ extends HBoxContainer
 
 func  _ready() -> void:
 	$Speed.max_value = constants.MAX_LIN_SPEED.length() * 1.5
-	$Rotation.max_value = constants.MAX_ROT_SPEED * 30
+	$Rotation.max_value = constants.MAX_ROT_SPEED * 29
 
 
 func _process(delta: float) -> void:

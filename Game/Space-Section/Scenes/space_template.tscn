@@ -174,8 +174,10 @@ color = Color(0.099985994, 0.099985994, 0.099985994, 1)
 
 [node name="Div" type="ColorRect" parent="Player/UI/Bars" unique_id=1047860924]
 layout_mode = 0
+offset_top = 3.0
 offset_right = 1152.0
 offset_bottom = 6.0
+color = Color(0.78775924, 0.78775924, 0.78775924, 1)
 
 [node name="Center" type="Control" parent="Player/UI/Bars" unique_id=49685159]
 anchors_preset = 0
@@ -184,10 +186,10 @@ offset_bottom = 127.0
 
 [node name="SpRt" type="HBoxContainer" parent="Player/UI/Bars/Center" unique_id=1551891656 node_paths=PackedStringArray("target", "constants")]
 layout_mode = 0
-offset_top = 48.855
-offset_right = 3840.0
-offset_bottom = 508.855
-scale = Vector2(0.3, 0.3)
+offset_top = 40.000027
+offset_right = 3490.9087
+offset_bottom = 500.00003
+scale = Vector2(0.33, 0.33)
 theme_override_constants/separation = 105
 alignment = 1
 script = ExtResource("5_pcms3")
