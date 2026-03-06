@@ -4,17 +4,19 @@
 [ext_resource type="Script" uid="uid://ccoqkgv3xybi3" path="res://Space-Section/Scripts/Classes/damagable_entity.gd" id="2_fg8we"]
 [ext_resource type="Texture2D" uid="uid://c2ggnbutbv3g5" path="res://Space-Section/Textures/rocket.png" id="3_4svm3"]
 [ext_resource type="Script" uid="uid://dcxhd74861gfj" path="res://Space-Section/Scripts/player_movement.gd" id="4_pyi7k"]
-[ext_resource type="Texture2D" uid="uid://coc2ynwt7x8sh" path="res://Space-Section/Textures/bar1-cut-outline.png" id="4_rd5qd"]
+[ext_resource type="Texture2D" uid="uid://coc2ynwt7x8sh" path="res://Space-Section/Textures/UI/bar1-cut-outline.png" id="4_rd5qd"]
 [ext_resource type="Script" uid="uid://cb5yvi4001ocg" path="res://Space-Section/Scripts/UI/sprt.gd" id="5_pcms3"]
 [ext_resource type="PackedScene" uid="uid://c4u0dxcy6eiy8" path="res://Space-Section/Scenes/Enemies/ufo_drone.tscn" id="5_rd5qd"]
 [ext_resource type="Script" uid="uid://2i75gsgy1n65" path="res://Space-Section/Scripts/background.gd" id="5_rn1a6"]
-[ext_resource type="Texture2D" uid="uid://d23oiwp08aj26" path="res://Space-Section/Textures/bar1-cut-fill.png" id="5_uufwo"]
+[ext_resource type="Texture2D" uid="uid://d23oiwp08aj26" path="res://Space-Section/Textures/UI/bar1-cut-fill.png" id="5_uufwo"]
 [ext_resource type="Texture2D" uid="uid://drmlt714ugur2" path="res://Space-Section/Textures/Stars/star2.png" id="6_4svm3"]
 [ext_resource type="FontFile" uid="uid://cnmqdi2j6g85b" path="res://Fonts/DS-DIGI.TTF" id="6_uufwo"]
 [ext_resource type="Texture2D" uid="uid://dep62ghk30q14" path="res://Space-Section/Textures/Stars/star1.png" id="7_oi3ao"]
 [ext_resource type="Texture2D" uid="uid://sxlomak7e0uy" path="res://Space-Section/Textures/Stars/star3.png" id="8_ud871"]
 [ext_resource type="Texture2D" uid="uid://bvu4g7kby4o5e" path="res://Space-Section/Textures/Stars/star11.png" id="8_vo43a"]
+[ext_resource type="Script" uid="uid://ugkasf7f48pn" path="res://Space-Section/Scripts/UI/health.gd" id="9_7vde7"]
 [ext_resource type="Texture2D" uid="uid://cguktlknw2rww" path="res://Space-Section/Textures/Stars/star12.png" id="9_rd5qd"]
+[ext_resource type="Texture2D" uid="uid://b31a3mchvpknw" path="res://Space-Section/Textures/UI/simple_rocket.png" id="9_rr1e8"]
 [ext_resource type="Texture2D" uid="uid://pb0mam2yj83h" path="res://Space-Section/Textures/Stars/star4.png" id="9_vo43a"]
 [ext_resource type="Texture2D" uid="uid://5nmn44pvx6d" path="res://Space-Section/Textures/Stars/star5.png" id="10_rd5qd"]
 [ext_resource type="Texture2D" uid="uid://beijchxi6wlc8" path="res://Space-Section/Textures/Stars/star13.png" id="10_uufwo"]
@@ -28,6 +30,10 @@
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_rn1a6"]
 bounce = 0.15
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rr1e8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7vde7"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4svm3"]
 texture = ExtResource("7_oi3ao")
@@ -154,7 +160,7 @@ script = ExtResource("2_fg8we")
 coll_damage_threshold = 150.0
 coll_invincibility = 0.5
 fling_speed_mult = 100.0
-hp_bar = NodePath("UI/Hp")
+hp_bar = NodePath("UI/Bars/Left/Hp/Health")
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=1874820717]
 zoom = Vector2(0.75, 0.75)
@@ -177,45 +183,41 @@ script = ExtResource("4_pyi7k")
 
 [node name="UI" type="CanvasLayer" parent="Player" unique_id=1027797568]
 
-[node name="Hp" type="ProgressBar" parent="Player/UI" unique_id=112238357]
-offset_left = 11.0
-offset_top = 18.0
-offset_right = 179.0
-offset_bottom = 45.0
-max_value = 1000.0
-value = 1000.0
-
 [node name="Bars" type="Control" parent="Player/UI" unique_id=987678520]
 layout_mode = 3
 anchors_preset = 0
-offset_top = 521.0
+offset_top = 524.0
 offset_right = 1152.0
 offset_bottom = 648.0
 
 [node name="BG" type="ColorRect" parent="Player/UI/Bars" unique_id=978453492]
 layout_mode = 0
-offset_top = 6.0
+offset_top = 3.0
 offset_right = 1152.0
-offset_bottom = 127.0
+offset_bottom = 124.0
 color = Color(0.099985994, 0.099985994, 0.099985994, 1)
+metadata/_edit_lock_ = true
 
 [node name="Div" type="ColorRect" parent="Player/UI/Bars" unique_id=1047860924]
 layout_mode = 0
-offset_top = 3.0
 offset_right = 1152.0
-offset_bottom = 6.0
+offset_bottom = 3.0
 color = Color(0.735357, 0.735357, 0.735357, 1)
+metadata/_edit_lock_ = true
 
 [node name="Center" type="Control" parent="Player/UI/Bars" unique_id=49685159]
 anchors_preset = 0
+offset_top = 3.0
 offset_right = 1152.0
-offset_bottom = 127.0
+offset_bottom = 124.0
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
 
 [node name="SpRt" type="HBoxContainer" parent="Player/UI/Bars/Center" unique_id=1551891656 node_paths=PackedStringArray("target", "movement_controller")]
 layout_mode = 0
-offset_top = 40.000027
+offset_top = 29.000013
 offset_right = 3490.9087
-offset_bottom = 500.00003
+offset_bottom = 489.0
 scale = Vector2(0.33, 0.33)
 theme_override_constants/separation = 105
 alignment = 1
@@ -266,6 +268,77 @@ theme_override_font_sizes/font_size = 70
 text = "999"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Instability" type="Control" parent="Player/UI/Bars/Center" unique_id=711397917]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Temperature" type="Control" parent="Player/UI/Bars/Center" unique_id=655955472]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Left" type="HBoxContainer" parent="Player/UI/Bars" unique_id=694755390]
+layout_mode = 0
+offset_top = 3.0
+offset_right = 400.0
+offset_bottom = 124.0
+theme_override_constants/separation = -83
+alignment = 1
+metadata/_edit_group_ = true
+
+[node name="Hp" type="Control" parent="Player/UI/Bars/Left" unique_id=890913774]
+layout_mode = 2
+script = ExtResource("9_7vde7")
+
+[node name="Image" type="TextureRect" parent="Player/UI/Bars/Left/Hp" unique_id=1590834918]
+self_modulate = Color(0, 1, 0, 1)
+texture_filter = 1
+layout_mode = 0
+offset_top = -11.0
+offset_right = 64.0
+offset_bottom = 53.0
+scale = Vector2(2, 2)
+texture = ExtResource("9_rr1e8")
+
+[node name="Health" type="ProgressBar" parent="Player/UI/Bars/Left/Hp" unique_id=112238357]
+layout_mode = 0
+offset_left = 30.0
+offset_top = 81.0
+offset_right = 166.0
+offset_bottom = 161.0
+scale = Vector2(0.5, 0.5)
+theme_override_fonts/font = ExtResource("6_uufwo")
+theme_override_font_sizes/font_size = 50
+theme_override_styles/background = SubResource("StyleBoxEmpty_rr1e8")
+theme_override_styles/fill = SubResource("StyleBoxEmpty_7vde7")
+max_value = 1000.0
+value = 1000.0
+allow_greater = true
+
+[node name="Energy" type="Control" parent="Player/UI/Bars/Left" unique_id=195835975]
+layout_mode = 2
+
+[node name="Fuel" type="Control" parent="Player/UI/Bars/Left" unique_id=1845992266]
+layout_mode = 2
+
+[node name="Right" type="HBoxContainer" parent="Player/UI/Bars" unique_id=828197403]
+layout_mode = 0
+offset_left = 752.0
+offset_top = 2.0
+offset_right = 1152.0
+offset_bottom = 124.0
+alignment = 1
+
+[node name="Weapon" type="Control" parent="Player/UI/Bars/Right" unique_id=1146129922]
+layout_mode = 2
+
+[node name="Ammo" type="Control" parent="Player/UI/Bars/Right" unique_id=1392269082]
+layout_mode = 2
+
+[node name="Modules" type="Control" parent="Player/UI/Bars/Right" unique_id=313438739]
+layout_mode = 2
 
 [node name="EnemyHolder" type="Node2D" parent="." unique_id=1846529128]
 unique_name_in_owner = true
@@ -338,3 +411,5 @@ shape = SubResource("RectangleShape2D_krjdi")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=100110024]
 environment = SubResource("Environment_rd5qd")
+
+[connection signal="value_changed" from="Player/UI/Bars/Left/Hp/Health" to="Player/UI/Bars/Left/Hp" method="_on_health_value_changed"]

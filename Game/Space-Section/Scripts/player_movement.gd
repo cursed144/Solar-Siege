@@ -17,9 +17,6 @@ var ROT_SOFTNESS := 1.0
 
 @onready var target: RigidBody2D = get_parent()
 
-func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("right_click"):
-		target.apply_torque_impulse(1000)
 
 func _physics_process(delta: float) -> void:
 	handle_movement(delta)

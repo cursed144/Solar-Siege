@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d23oiwp08aj26"
-path="res://.godot/imported/bar1-cut-fill.png-46305f538a15240013365a60ebe45859.ctex"
+uid="uid://b31a3mchvpknw"
+path="res://.godot/imported/simple_rocket.png-94400b0ebf365b34b5c7d5116695a875.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Space-Section/Textures/bar1-cut-fill.png"
-dest_files=["res://.godot/imported/bar1-cut-fill.png-46305f538a15240013365a60ebe45859.ctex"]
+source_file="res://Space-Section/Textures/UI/simple_rocket.png"
+dest_files=["res://.godot/imported/simple_rocket.png-94400b0ebf365b34b5c7d5116695a875.ctex"]
 
 [params]
 
