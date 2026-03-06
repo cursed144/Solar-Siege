@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://cxh3miwxquv0p"]
+
+[ext_resource type="Script" uid="uid://csdhuguqisgg8" path="res://Space-Section/Scripts/Classes/explosion.gd" id="1_3b7op"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_don3b"]
+radius = 2.5
+height = 5.0
+
+[node name="Explosion" type="Node2D" unique_id=1225867208]
+z_index = 5
+script = ExtResource("1_3b7op")
+
+[node name="Circle" type="MeshInstance2D" parent="." unique_id=293300370]
+modulate = Color(2.454227, 2.454227, 2.454227, 1)
+self_modulate = Color(1, 0.5294118, 0, 1)
+z_index = 1
+mesh = SubResource("SphereMesh_don3b")

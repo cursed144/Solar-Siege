@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dlmahlewkgem2" path="res://Space-Section/Scripts/space_template.gd" id="1_wee18"]
 [ext_resource type="Script" uid="uid://dtujbcnxud55a" path="res://Space-Section/Scripts/player.gd" id="2_krjdi"]
 [ext_resource type="Texture2D" uid="uid://c2ggnbutbv3g5" path="res://Space-Section/Textures/rocket.png" id="3_4svm3"]
-[ext_resource type="Script" uid="uid://lbjy23qvrrm8" path="res://Planet-Section/Scripts/pos_nums.gd" id="3_ecr54"]
+[ext_resource type="PackedScene" uid="uid://c4u0dxcy6eiy8" path="res://Space-Section/Scenes/Enemies/ufo_drone.tscn" id="5_rd5qd"]
 [ext_resource type="Script" uid="uid://2i75gsgy1n65" path="res://Space-Section/Scripts/background.gd" id="5_rn1a6"]
 [ext_resource type="Texture2D" uid="uid://drmlt714ugur2" path="res://Space-Section/Textures/Stars/star2.png" id="6_4svm3"]
 [ext_resource type="Texture2D" uid="uid://dep62ghk30q14" path="res://Space-Section/Textures/Stars/star1.png" id="7_oi3ao"]
@@ -24,6 +24,10 @@
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_rn1a6"]
 bounce = 0.15
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vo43a"]
+radius = 17.5
+height = 72.5
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4svm3"]
 texture = ExtResource("7_oi3ao")
 texture_region_size = Vector2i(64, 64)
@@ -42,10 +46,12 @@ texture_region_size = Vector2i(64, 64)
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_uekxc"]
 texture = ExtResource("9_rd5qd")
 texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_77wg4"]
 texture = ExtResource("10_uufwo")
 texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ud871"]
 texture = ExtResource("8_ud871")
@@ -114,6 +120,16 @@ bounce = 0.2
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_krjdi"]
 
+[sub_resource type="Environment" id="Environment_rd5qd"]
+background_mode = 3
+glow_enabled = true
+glow_levels/2 = 0.3
+glow_levels/3 = 2.2
+glow_levels/4 = 1.15
+glow_levels/5 = 1.2
+glow_levels/6 = 0.8
+glow_levels/7 = 1.0
+
 [node name="Space" type="Node2D" unique_id=1175394942]
 script = ExtResource("1_wee18")
 
@@ -125,15 +141,22 @@ scale = Vector2(3000, 3000)
 mesh = SubResource("BoxMesh_wee18")
 metadata/_edit_lock_ = true
 
-[node name="Player" type="RigidBody2D" parent="." unique_id=1453175381]
+[node name="Player" type="RigidBody2D" parent="." unique_id=1453175381 node_paths=PackedStringArray("hp_bar") groups=["damaging_entity"]]
 position = Vector2(1500, 1500)
 collision_mask = 26
 mass = 0.1
 physics_material_override = SubResource("PhysicsMaterial_rn1a6")
 gravity_scale = 0.0
+contact_monitor = true
+max_contacts_reported = 3
 script = ExtResource("2_krjdi")
+coll_damage_threshold = 150.0
+coll_invincibility = 0.5
+fling_speed_mult = 100.0
+hp_bar = NodePath("UI/Hp")
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=1874820717]
+zoom = Vector2(0.75, 0.75)
 limit_left = 0
 limit_top = 0
 limit_right = 3000
@@ -144,30 +167,38 @@ self_modulate = Color(0.8808251, 0.8808251, 0.8808251, 1)
 texture_filter = 1
 texture = ExtResource("3_4svm3")
 
-[node name="CollisionShape2D2" type="CollisionPolygon2D" parent="Player" unique_id=1834648222]
-visible = false
-polygon = PackedVector2Array(0, -47, -16, -31, -20, -18, -20, 9, -26, 11, -36, 28, -33, 45, -30, 37, -13, 23, -7, 30, 6, 30, 13, 22, 26, 35, 32, 45, 35, 28, 25, 11, 19, 9, 19, -18, 15, -31)
-metadata/_edit_lock_ = true
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Player" unique_id=991859235]
+position = Vector2(0, -4)
+scale = Vector2(0.8, 0.8)
+shape = SubResource("CapsuleShape2D_vo43a")
 
 [node name="UI" type="CanvasLayer" parent="Player" unique_id=1027797568]
 
-[node name="PosNums" type="Control" parent="Player/UI" unique_id=2030685307 node_paths=PackedStringArray("cam")]
-layout_mode = 3
-anchors_preset = 0
-offset_left = 964.0
-offset_right = 1152.0
-offset_bottom = 40.0
-script = ExtResource("3_ecr54")
-cam = NodePath("../../Camera2D")
-
-[node name="TextEdit" type="TextEdit" parent="Player/UI/PosNums" unique_id=1336461015]
-layout_mode = 0
-offset_right = 187.0
-offset_bottom = 40.0
+[node name="Hp" type="ProgressBar" parent="Player/UI" unique_id=112238357]
+offset_left = 11.0
+offset_top = 18.0
+offset_right = 179.0
+offset_bottom = 45.0
+max_value = 1000.0
+value = 1000.0
 
 [node name="EnemyHolder" type="Node2D" parent="." unique_id=1846529128]
+unique_name_in_owner = true
+
+[node name="UFO_Drone" parent="EnemyHolder" unique_id=402041951 instance=ExtResource("5_rd5qd")]
+position = Vector2(1512, 637)
+
+[node name="UFO_Drone2" parent="EnemyHolder" unique_id=877497011 instance=ExtResource("5_rd5qd")]
+position = Vector2(1513, 399)
+
+[node name="UFO_Drone3" parent="EnemyHolder" unique_id=731845515 instance=ExtResource("5_rd5qd")]
+position = Vector2(1115, 821)
+
+[node name="UFO_Drone4" parent="EnemyHolder" unique_id=1601239816 instance=ExtResource("5_rd5qd")]
+position = Vector2(1914, 826)
 
 [node name="ProjectileHolder" type="Node2D" parent="." unique_id=1604336578]
+unique_name_in_owner = true
 
 [node name="Background" type="Node2D" parent="." unique_id=879014871]
 z_index = -1
@@ -219,3 +250,6 @@ shape = SubResource("RectangleShape2D_b03n3")
 position = Vector2(1500, 3010)
 scale = Vector2(150, 1)
 shape = SubResource("RectangleShape2D_krjdi")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=100110024]
+environment = SubResource("Environment_rd5qd")
