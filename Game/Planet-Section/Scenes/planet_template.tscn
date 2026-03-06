@@ -42,7 +42,7 @@
 [ext_resource type="Resource" uid="uid://b6o5yckqgv6vg" path="res://Planet-Section/Resources/Buildings/lumber_mill.tres" id="27_i4le1"]
 [ext_resource type="Resource" uid="uid://clg310v7mlgrj" path="res://Planet-Section/Resources/Buildings/factory.tres" id="29_edmej"]
 [ext_resource type="Script" uid="uid://b024ilo13clbi" path="res://Planet-Section/Scripts/UI/upgrade_menu.gd" id="32_dslco"]
-[ext_resource type="Script" uid="uid://5k0hvjsw6tfx" path="res://Planet-Section/Scripts/space.gd" id="44_p8uer"]
+[ext_resource type="Script" path="res://Planet-Section/Scripts/space.gd" id="44_p8uer"]
 
 [sub_resource type="Resource" id="Resource_dslco"]
 script = ExtResource("4_1ypi3")
