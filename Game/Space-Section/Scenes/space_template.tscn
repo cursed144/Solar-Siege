@@ -1,11 +1,15 @@
 [gd_scene format=3 uid="uid://cdd0o5uvlau07"]
 
 [ext_resource type="Script" uid="uid://dlmahlewkgem2" path="res://Space-Section/Scripts/space_template.gd" id="1_wee18"]
-[ext_resource type="Script" uid="uid://dtujbcnxud55a" path="res://Space-Section/Scripts/player.gd" id="2_krjdi"]
+[ext_resource type="Script" uid="uid://ccoqkgv3xybi3" path="res://Space-Section/Scripts/Classes/damagable_entity.gd" id="2_uufwo"]
 [ext_resource type="Texture2D" uid="uid://c2ggnbutbv3g5" path="res://Space-Section/Textures/rocket.png" id="3_4svm3"]
-[ext_resource type="Script" uid="uid://lbjy23qvrrm8" path="res://Planet-Section/Scripts/pos_nums.gd" id="3_ecr54"]
+[ext_resource type="Script" uid="uid://dtujbcnxud55a" path="res://Space-Section/Scripts/player_movement.gd" id="4_pyi7k"]
+[ext_resource type="Texture2D" uid="uid://cibbh74mpttv8" path="res://Space-Section/Textures/UI/sp_rt_meter_outline.png" id="4_rd5qd"]
+[ext_resource type="Script" uid="uid://c3gekxbsbglh5" path="res://Space-Section/Scripts/UI/sprt.gd" id="5_pcms3"]
 [ext_resource type="Script" uid="uid://2i75gsgy1n65" path="res://Space-Section/Scripts/background.gd" id="5_rn1a6"]
+[ext_resource type="Texture2D" uid="uid://bjr2p8oomwvgc" path="res://Space-Section/Textures/UI/sp_rt_meter_fill.png" id="5_uufwo"]
 [ext_resource type="Texture2D" uid="uid://drmlt714ugur2" path="res://Space-Section/Textures/Stars/star2.png" id="6_4svm3"]
+[ext_resource type="FontFile" uid="uid://cnmqdi2j6g85b" path="res://Fonts/DS-DIGI.TTF" id="6_uufwo"]
 [ext_resource type="Texture2D" uid="uid://dep62ghk30q14" path="res://Space-Section/Textures/Stars/star1.png" id="7_oi3ao"]
 [ext_resource type="Texture2D" uid="uid://sxlomak7e0uy" path="res://Space-Section/Textures/Stars/star3.png" id="8_ud871"]
 [ext_resource type="Texture2D" uid="uid://bvu4g7kby4o5e" path="res://Space-Section/Textures/Stars/star11.png" id="8_vo43a"]
@@ -131,9 +135,10 @@ collision_mask = 26
 mass = 0.1
 physics_material_override = SubResource("PhysicsMaterial_rn1a6")
 gravity_scale = 0.0
-script = ExtResource("2_krjdi")
+script = ExtResource("2_uufwo")
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=1874820717]
+zoom = Vector2(0.75, 0.75)
 limit_left = 0
 limit_top = 0
 limit_right = 3000
@@ -145,25 +150,93 @@ texture_filter = 1
 texture = ExtResource("3_4svm3")
 
 [node name="CollisionShape2D2" type="CollisionPolygon2D" parent="Player" unique_id=1834648222]
-visible = false
 polygon = PackedVector2Array(0, -47, -16, -31, -20, -18, -20, 9, -26, 11, -36, 28, -33, 45, -30, 37, -13, 23, -7, 30, 6, 30, 13, 22, 26, 35, 32, 45, 35, 28, 25, 11, 19, 9, 19, -18, 15, -31)
 metadata/_edit_lock_ = true
 
+[node name="MovementController" type="Node" parent="Player" unique_id=674320093]
+script = ExtResource("4_pyi7k")
+
 [node name="UI" type="CanvasLayer" parent="Player" unique_id=1027797568]
 
-[node name="PosNums" type="Control" parent="Player/UI" unique_id=2030685307 node_paths=PackedStringArray("cam")]
+[node name="Bars" type="Control" parent="Player/UI" unique_id=987678520]
 layout_mode = 3
 anchors_preset = 0
-offset_left = 964.0
+offset_top = 521.0
 offset_right = 1152.0
-offset_bottom = 40.0
-script = ExtResource("3_ecr54")
-cam = NodePath("../../Camera2D")
+offset_bottom = 648.0
 
-[node name="TextEdit" type="TextEdit" parent="Player/UI/PosNums" unique_id=1336461015]
+[node name="BG" type="ColorRect" parent="Player/UI/Bars" unique_id=978453492]
 layout_mode = 0
-offset_right = 187.0
-offset_bottom = 40.0
+offset_top = 6.0
+offset_right = 1152.0
+offset_bottom = 127.0
+color = Color(0.099985994, 0.099985994, 0.099985994, 1)
+
+[node name="Div" type="ColorRect" parent="Player/UI/Bars" unique_id=1047860924]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 6.0
+
+[node name="Center" type="Control" parent="Player/UI/Bars" unique_id=49685159]
+anchors_preset = 0
+offset_right = 1152.0
+offset_bottom = 127.0
+
+[node name="SpRt" type="HBoxContainer" parent="Player/UI/Bars/Center" unique_id=1551891656 node_paths=PackedStringArray("target", "constants")]
+layout_mode = 0
+offset_top = 48.855
+offset_right = 3840.0
+offset_bottom = 508.855
+scale = Vector2(0.3, 0.3)
+theme_override_constants/separation = 105
+alignment = 1
+script = ExtResource("5_pcms3")
+target = NodePath("../../../..")
+constants = NodePath("../../../../MovementController")
+
+[node name="Speed" type="TextureProgressBar" parent="Player/UI/Bars/Center/SpRt" unique_id=1003572469]
+layout_mode = 2
+step = 0.05
+allow_greater = true
+fill_mode = 4
+radial_initial_angle = 270.0
+radial_fill_degrees = 180.0
+texture_over = ExtResource("4_rd5qd")
+texture_progress = ExtResource("5_uufwo")
+
+[node name="Number" type="Label" parent="Player/UI/Bars/Center/SpRt/Speed" unique_id=2091992543]
+layout_mode = 0
+offset_left = 163.00006
+offset_top = 133.81665
+offset_right = 266.00006
+offset_bottom = 204.81665
+theme_override_fonts/font = ExtResource("6_uufwo")
+theme_override_font_sizes/font_size = 70
+text = "999"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Rotation" type="TextureProgressBar" parent="Player/UI/Bars/Center/SpRt" unique_id=1111074368]
+layout_mode = 2
+step = 0.05
+allow_greater = true
+fill_mode = 4
+radial_initial_angle = 270.0
+radial_fill_degrees = 180.0
+texture_over = ExtResource("4_rd5qd")
+texture_progress = ExtResource("5_uufwo")
+
+[node name="Number" type="Label" parent="Player/UI/Bars/Center/SpRt/Rotation" unique_id=1316282053]
+layout_mode = 0
+offset_left = 163.00006
+offset_top = 133.81665
+offset_right = 266.00006
+offset_bottom = 204.81665
+theme_override_fonts/font = ExtResource("6_uufwo")
+theme_override_font_sizes/font_size = 70
+text = "999"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="EnemyHolder" type="Node2D" parent="." unique_id=1846529128]
 

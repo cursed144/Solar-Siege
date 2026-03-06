@@ -5,7 +5,6 @@
 [ext_resource type="Script" uid="uid://d13xkb3oocukv" path="res://Planet-Section/Scripts/player_cam.gd" id="2_becdf"]
 [ext_resource type="PackedScene" uid="uid://dj2lmstctfmyp" path="res://Planet-Section/Scenes/Buildings/storage.tscn" id="2_ckrrn"]
 [ext_resource type="Script" uid="uid://m3oqk21xh6va" path="res://Planet-Section/Scripts/Classes/recipe.gd" id="2_fvmw8"]
-[ext_resource type="Script" uid="uid://lbjy23qvrrm8" path="res://Planet-Section/Scripts/pos_nums.gd" id="3_j25nj"]
 [ext_resource type="Texture2D" uid="uid://cstb6ncmhd6pj" path="res://Planet-Section/Textures/Items/rock.png" id="3_jdl5u"]
 [ext_resource type="Resource" uid="uid://bcj06x3c74qcp" path="res://Planet-Section/Resources/Items/rock.tres" id="3_xrxt5"]
 [ext_resource type="Script" uid="uid://my03aj68uxeb" path="res://Planet-Section/Scripts/Classes/item_amount.gd" id="4_1ypi3"]
@@ -315,19 +314,6 @@ theme_override_font_sizes/font_size = 41
 text = "Build"
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="PosNums" type="Control" parent="UI" unique_id=1219797795]
-layout_mode = 3
-anchors_preset = 0
-offset_left = 964.0
-offset_right = 1152.0
-offset_bottom = 40.0
-script = ExtResource("3_j25nj")
-
-[node name="TextEdit" type="TextEdit" parent="UI/PosNums" unique_id=1912210842]
-layout_mode = 0
-offset_right = 187.0
-offset_bottom = 40.0
 
 [node name="BuildingMenu" type="Control" parent="UI" unique_id=1755163492]
 z_index = 2
