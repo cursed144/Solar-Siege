@@ -1,0 +1,500 @@
+[gd_scene format=3 uid="uid://cdd0o5uvlau07"]
+
+[ext_resource type="Script" uid="uid://dlmahlewkgem2" path="res://Space-Section/Scripts/space_template.gd" id="1_wee18"]
+[ext_resource type="Script" uid="uid://ccoqkgv3xybi3" path="res://Space-Section/Scripts/Classes/damagable_entity.gd" id="2_fg8we"]
+[ext_resource type="Texture2D" uid="uid://c2ggnbutbv3g5" path="res://Space-Section/Textures/rocket.png" id="3_4svm3"]
+[ext_resource type="Script" uid="uid://dcxhd74861gfj" path="res://Space-Section/Scripts/player_movement.gd" id="4_pyi7k"]
+[ext_resource type="Texture2D" uid="uid://coc2ynwt7x8sh" path="res://Space-Section/Textures/UI/bar1-cut-outline.png" id="4_rd5qd"]
+[ext_resource type="Script" uid="uid://cb5yvi4001ocg" path="res://Space-Section/Scripts/UI/sprt.gd" id="5_pcms3"]
+[ext_resource type="PackedScene" uid="uid://c4u0dxcy6eiy8" path="res://Space-Section/Scenes/Enemies/ufo_drone.tscn" id="5_rd5qd"]
+[ext_resource type="Script" uid="uid://2i75gsgy1n65" path="res://Space-Section/Scripts/background.gd" id="5_rn1a6"]
+[ext_resource type="Script" uid="uid://dauhvual3qw3u" path="res://Space-Section/Scripts/UI/bars.gd" id="5_uekxc"]
+[ext_resource type="Texture2D" uid="uid://d23oiwp08aj26" path="res://Space-Section/Textures/UI/bar1-cut-fill.png" id="5_uufwo"]
+[ext_resource type="Texture2D" uid="uid://drmlt714ugur2" path="res://Space-Section/Textures/Stars/star2.png" id="6_4svm3"]
+[ext_resource type="FontFile" uid="uid://cnmqdi2j6g85b" path="res://Fonts/DS-DIGI.TTF" id="6_uufwo"]
+[ext_resource type="Texture2D" uid="uid://dep62ghk30q14" path="res://Space-Section/Textures/Stars/star1.png" id="7_oi3ao"]
+[ext_resource type="Texture2D" uid="uid://sxlomak7e0uy" path="res://Space-Section/Textures/Stars/star3.png" id="8_ud871"]
+[ext_resource type="Texture2D" uid="uid://bvu4g7kby4o5e" path="res://Space-Section/Textures/Stars/star11.png" id="8_vo43a"]
+[ext_resource type="Script" uid="uid://ugkasf7f48pn" path="res://Space-Section/Scripts/UI/health.gd" id="9_7vde7"]
+[ext_resource type="Texture2D" uid="uid://cguktlknw2rww" path="res://Space-Section/Textures/Stars/star12.png" id="9_rd5qd"]
+[ext_resource type="Texture2D" uid="uid://b31a3mchvpknw" path="res://Space-Section/Textures/UI/simple_rocket.png" id="9_rr1e8"]
+[ext_resource type="Texture2D" uid="uid://pb0mam2yj83h" path="res://Space-Section/Textures/Stars/star4.png" id="9_vo43a"]
+[ext_resource type="Texture2D" uid="uid://5nmn44pvx6d" path="res://Space-Section/Textures/Stars/star5.png" id="10_rd5qd"]
+[ext_resource type="Texture2D" uid="uid://beijchxi6wlc8" path="res://Space-Section/Textures/Stars/star13.png" id="10_uufwo"]
+[ext_resource type="Texture2D" uid="uid://rff06fgodbx" path="res://Space-Section/Textures/Stars/star6.png" id="11_uufwo"]
+[ext_resource type="Texture2D" uid="uid://docq42p7xsmkl" path="res://Space-Section/Textures/Stars/star7.png" id="12_pyi7k"]
+[ext_resource type="Texture2D" uid="uid://5wpddi0jaev0" path="res://Space-Section/Textures/Stars/star8.png" id="13_pcms3"]
+[ext_resource type="Texture2D" uid="uid://d0hasy3fnvd7i" path="res://Space-Section/Textures/Stars/star9.png" id="14_fg8we"]
+[ext_resource type="Texture2D" uid="uid://bsen12220qdvo" path="res://Space-Section/Textures/Stars/star10.png" id="15_rr1e8"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_wee18"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_rn1a6"]
+bounce = 0.15
+
+[sub_resource type="Gradient" id="Gradient_7vde7"]
+offsets = PackedFloat32Array(0, 0.216, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="Gradient" id="Gradient_uekxc"]
+colors = PackedColorArray(1, 0.25766784, 0, 1, 1, 1, 0, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rr1e8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7vde7"]
+
+[sub_resource type="Animation" id="Animation_77wg4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 524)]
+}
+
+[sub_resource type="Animation" id="Animation_ygx8a"]
+resource_name = "hide"
+length = 0.6
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(0.35, 1),
+"update": 0,
+"values": [Vector2(0, 524), Vector2(0, 648)]
+}
+
+[sub_resource type="Animation" id="Animation_uekxc"]
+resource_name = "show"
+length = 0.6
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(0.35, 1),
+"update": 0,
+"values": [Vector2(0, 648), Vector2(0, 524)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_27w7k"]
+_data = {
+&"RESET": SubResource("Animation_77wg4"),
+&"hide": SubResource("Animation_ygx8a"),
+&"show": SubResource("Animation_uekxc")
+}
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4svm3"]
+texture = ExtResource("7_oi3ao")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_oi3ao"]
+texture = ExtResource("6_4svm3")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7vde7"]
+texture = ExtResource("8_vo43a")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_uekxc"]
+texture = ExtResource("9_rd5qd")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_77wg4"]
+texture = ExtResource("10_uufwo")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ud871"]
+texture = ExtResource("8_ud871")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vo43a"]
+texture = ExtResource("9_vo43a")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rd5qd"]
+texture = ExtResource("10_rd5qd")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_uufwo"]
+texture = ExtResource("11_uufwo")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pyi7k"]
+texture = ExtResource("12_pyi7k")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pcms3"]
+texture = ExtResource("13_pcms3")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fg8we"]
+texture = ExtResource("14_fg8we")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rr1e8"]
+texture = ExtResource("15_rr1e8")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_7vde7"]
+tile_size = Vector2i(64, 64)
+sources/0 = SubResource("TileSetAtlasSource_4svm3")
+sources/1 = SubResource("TileSetAtlasSource_oi3ao")
+sources/2 = SubResource("TileSetAtlasSource_ud871")
+sources/3 = SubResource("TileSetAtlasSource_vo43a")
+sources/4 = SubResource("TileSetAtlasSource_rd5qd")
+sources/5 = SubResource("TileSetAtlasSource_uufwo")
+sources/6 = SubResource("TileSetAtlasSource_pyi7k")
+sources/7 = SubResource("TileSetAtlasSource_pcms3")
+sources/8 = SubResource("TileSetAtlasSource_fg8we")
+sources/9 = SubResource("TileSetAtlasSource_rr1e8")
+sources/10 = SubResource("TileSetAtlasSource_7vde7")
+sources/11 = SubResource("TileSetAtlasSource_uekxc")
+sources/12 = SubResource("TileSetAtlasSource_77wg4")
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_krjdi"]
+bounce = 0.2
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ecr54"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wee18"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b03n3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_krjdi"]
+
+[sub_resource type="Environment" id="Environment_rd5qd"]
+background_mode = 3
+glow_enabled = true
+glow_levels/2 = 0.3
+glow_levels/3 = 2.2
+glow_levels/4 = 1.15
+glow_levels/5 = 1.2
+glow_levels/6 = 0.8
+glow_levels/7 = 1.0
+
+[node name="Space" type="Node2D" unique_id=1175394942]
+script = ExtResource("1_wee18")
+
+[node name="PlayingField" type="MeshInstance2D" parent="." unique_id=1912973486]
+self_modulate = Color(0, 0, 0, 1)
+z_index = -2
+position = Vector2(1500, 1500)
+scale = Vector2(3000, 3000)
+mesh = SubResource("BoxMesh_wee18")
+metadata/_edit_lock_ = true
+
+[node name="Player" type="RigidBody2D" parent="." unique_id=1453175381 node_paths=PackedStringArray("hp_bar") groups=["damaging_entity"]]
+position = Vector2(1500, 1500)
+collision_mask = 26
+mass = 0.1
+physics_material_override = SubResource("PhysicsMaterial_rn1a6")
+gravity_scale = 0.0
+contact_monitor = true
+max_contacts_reported = 3
+script = ExtResource("2_fg8we")
+coll_damage_threshold = 150.0
+coll_invincibility = 0.5
+fling_speed_mult = 100.0
+hp_bar = NodePath("UI/Bars/Left/Hp/Health")
+
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=1874820717]
+zoom = Vector2(0.75, 0.75)
+limit_left = 0
+limit_top = 0
+limit_right = 3000
+limit_bottom = 3000
+
+[node name="Sprite2D" type="Sprite2D" parent="Player" unique_id=150930935]
+self_modulate = Color(0.8808251, 0.8808251, 0.8808251, 1)
+texture_filter = 1
+texture = ExtResource("3_4svm3")
+
+[node name="CollisionShape2D2" type="CollisionPolygon2D" parent="Player" unique_id=1834648222]
+polygon = PackedVector2Array(0, -47, -16, -31, -20, -18, -20, 9, -26, 11, -36, 28, -33, 45, -30, 37, -13, 23, -7, 30, 6, 30, 13, 22, 26, 35, 32, 45, 35, 28, 25, 11, 19, 9, 19, -18, 15, -31)
+metadata/_edit_lock_ = true
+
+[node name="Fire" type="CPUParticles2D" parent="Player" unique_id=1152383647]
+position = Vector2(0, 31)
+emitting = false
+amount = 50
+lifetime = 2.0
+emission_shape = 3
+emission_rect_extents = Vector2(8.415, 0.495)
+direction = Vector2(0, 1)
+spread = 35.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 100.0
+initial_velocity_max = 150.0
+scale_amount_min = 1.5
+scale_amount_max = 2.0
+color_ramp = SubResource("Gradient_7vde7")
+color_initial_ramp = SubResource("Gradient_uekxc")
+
+[node name="MovementController" type="Node" parent="Player" unique_id=674320093]
+script = ExtResource("4_pyi7k")
+
+[node name="UI" type="CanvasLayer" parent="Player" unique_id=1027797568]
+
+[node name="Bars" type="Control" parent="Player/UI" unique_id=987678520]
+layout_mode = 3
+anchors_preset = 0
+offset_top = 524.0
+offset_right = 1152.0
+offset_bottom = 648.0
+script = ExtResource("5_uekxc")
+
+[node name="BG" type="ColorRect" parent="Player/UI/Bars" unique_id=978453492]
+layout_mode = 0
+offset_top = 3.0
+offset_right = 1152.0
+offset_bottom = 124.0
+color = Color(0.099985994, 0.099985994, 0.099985994, 1)
+metadata/_edit_lock_ = true
+
+[node name="Div" type="ColorRect" parent="Player/UI/Bars" unique_id=1047860924]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 3.0
+color = Color(0.735357, 0.735357, 0.735357, 1)
+metadata/_edit_lock_ = true
+
+[node name="Center" type="Control" parent="Player/UI/Bars" unique_id=49685159]
+anchors_preset = 0
+offset_top = 3.0
+offset_right = 1152.0
+offset_bottom = 124.0
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
+
+[node name="SpRt" type="HBoxContainer" parent="Player/UI/Bars/Center" unique_id=1551891656 node_paths=PackedStringArray("target", "movement_controller")]
+layout_mode = 0
+offset_top = 29.000013
+offset_right = 3490.9087
+offset_bottom = 489.0
+scale = Vector2(0.33, 0.33)
+theme_override_constants/separation = 105
+alignment = 1
+script = ExtResource("5_pcms3")
+target = NodePath("../../../..")
+movement_controller = NodePath("../../../../MovementController")
+
+[node name="Speed" type="TextureProgressBar" parent="Player/UI/Bars/Center/SpRt" unique_id=1003572469]
+layout_mode = 2
+step = 0.05
+allow_greater = true
+fill_mode = 4
+radial_initial_angle = 270.0
+radial_fill_degrees = 180.0
+texture_over = ExtResource("4_rd5qd")
+texture_progress = ExtResource("5_uufwo")
+
+[node name="Number" type="Label" parent="Player/UI/Bars/Center/SpRt/Speed" unique_id=2091992543]
+layout_mode = 0
+offset_left = 163.00006
+offset_top = 133.81665
+offset_right = 266.00006
+offset_bottom = 204.81665
+theme_override_fonts/font = ExtResource("6_uufwo")
+theme_override_font_sizes/font_size = 70
+text = "999"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Rotation" type="TextureProgressBar" parent="Player/UI/Bars/Center/SpRt" unique_id=1111074368]
+layout_mode = 2
+step = 0.05
+allow_greater = true
+fill_mode = 4
+radial_initial_angle = 270.0
+radial_fill_degrees = 180.0
+texture_over = ExtResource("4_rd5qd")
+texture_progress = ExtResource("5_uufwo")
+
+[node name="Number" type="Label" parent="Player/UI/Bars/Center/SpRt/Rotation" unique_id=1316282053]
+layout_mode = 0
+offset_left = 163.00006
+offset_top = 133.81665
+offset_right = 266.00006
+offset_bottom = 204.81665
+theme_override_fonts/font = ExtResource("6_uufwo")
+theme_override_font_sizes/font_size = 70
+text = "999"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Instability" type="Control" parent="Player/UI/Bars/Center" unique_id=711397917]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Temperature" type="Control" parent="Player/UI/Bars/Center" unique_id=655955472]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Left" type="HBoxContainer" parent="Player/UI/Bars" unique_id=694755390]
+layout_mode = 0
+offset_top = 3.0
+offset_right = 400.0
+offset_bottom = 124.0
+theme_override_constants/separation = -83
+alignment = 1
+metadata/_edit_group_ = true
+
+[node name="Hp" type="Control" parent="Player/UI/Bars/Left" unique_id=890913774]
+layout_mode = 2
+script = ExtResource("9_7vde7")
+
+[node name="Image" type="TextureRect" parent="Player/UI/Bars/Left/Hp" unique_id=1590834918]
+self_modulate = Color(0, 1, 0, 1)
+texture_filter = 1
+layout_mode = 0
+offset_top = -11.0
+offset_right = 64.0
+offset_bottom = 53.0
+scale = Vector2(2, 2)
+texture = ExtResource("9_rr1e8")
+
+[node name="Health" type="ProgressBar" parent="Player/UI/Bars/Left/Hp" unique_id=112238357]
+layout_mode = 0
+offset_left = 30.0
+offset_top = 81.0
+offset_right = 166.0
+offset_bottom = 161.0
+scale = Vector2(0.5, 0.5)
+theme_override_fonts/font = ExtResource("6_uufwo")
+theme_override_font_sizes/font_size = 50
+theme_override_styles/background = SubResource("StyleBoxEmpty_rr1e8")
+theme_override_styles/fill = SubResource("StyleBoxEmpty_7vde7")
+max_value = 1000.0
+value = 1000.0
+allow_greater = true
+
+[node name="Energy" type="Control" parent="Player/UI/Bars/Left" unique_id=195835975]
+layout_mode = 2
+
+[node name="Fuel" type="Control" parent="Player/UI/Bars/Left" unique_id=1845992266]
+layout_mode = 2
+
+[node name="Right" type="HBoxContainer" parent="Player/UI/Bars" unique_id=828197403]
+layout_mode = 0
+offset_left = 752.0
+offset_top = 2.0
+offset_right = 1152.0
+offset_bottom = 124.0
+alignment = 1
+
+[node name="Weapon" type="Control" parent="Player/UI/Bars/Right" unique_id=1146129922]
+layout_mode = 2
+
+[node name="Ammo" type="Control" parent="Player/UI/Bars/Right" unique_id=1392269082]
+layout_mode = 2
+
+[node name="Modules" type="Control" parent="Player/UI/Bars/Right" unique_id=313438739]
+layout_mode = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Player/UI/Bars" unique_id=1771948595]
+libraries/ = SubResource("AnimationLibrary_27w7k")
+
+[node name="EnemyHolder" type="Node2D" parent="." unique_id=1846529128]
+unique_name_in_owner = true
+
+[node name="UFO_Drone" parent="EnemyHolder" unique_id=402041951 instance=ExtResource("5_rd5qd")]
+position = Vector2(1512, 637)
+
+[node name="UFO_Drone2" parent="EnemyHolder" unique_id=877497011 instance=ExtResource("5_rd5qd")]
+position = Vector2(1513, 399)
+
+[node name="UFO_Drone3" parent="EnemyHolder" unique_id=731845515 instance=ExtResource("5_rd5qd")]
+position = Vector2(1115, 821)
+
+[node name="UFO_Drone4" parent="EnemyHolder" unique_id=1601239816 instance=ExtResource("5_rd5qd")]
+position = Vector2(1914, 826)
+
+[node name="ProjectileHolder" type="Node2D" parent="." unique_id=1604336578]
+unique_name_in_owner = true
+
+[node name="Background" type="Node2D" parent="." unique_id=879014871]
+z_index = -1
+texture_filter = 1
+script = ExtResource("5_rn1a6")
+
+[node name="StarsClose" type="Parallax2D" parent="Background" unique_id=489371306]
+modulate = Color(1, 1, 1, 0.90000004)
+scroll_scale = Vector2(0.7, 0.7)
+
+[node name="TileMapLayer" type="TileMapLayer" parent="Background/StarsClose" unique_id=492690952]
+tile_set = SubResource("TileSet_7vde7")
+
+[node name="StarsMid" type="Parallax2D" parent="Background" unique_id=1613757406]
+modulate = Color(1, 1, 1, 0.70000005)
+scroll_scale = Vector2(0.5, 0.5)
+
+[node name="TileMapLayer" type="TileMapLayer" parent="Background/StarsMid" unique_id=1022672198]
+tile_set = SubResource("TileSet_7vde7")
+
+[node name="StarsFar" type="Parallax2D" parent="Background" unique_id=714580990]
+modulate = Color(1, 1, 1, 0.5)
+scroll_scale = Vector2(0.2, 0.2)
+
+[node name="TileMapLayer" type="TileMapLayer" parent="Background/StarsFar" unique_id=1646359857]
+tile_set = SubResource("TileSet_7vde7")
+
+[node name="BoundingWalls" type="StaticBody2D" parent="." unique_id=1639563580]
+collision_layer = 16
+collision_mask = 0
+physics_material_override = SubResource("PhysicsMaterial_krjdi")
+
+[node name="TopWall" type="CollisionShape2D" parent="BoundingWalls" unique_id=1344289627]
+position = Vector2(1500, -10)
+scale = Vector2(150, 1)
+shape = SubResource("RectangleShape2D_ecr54")
+
+[node name="LeftWall" type="CollisionShape2D" parent="BoundingWalls" unique_id=1679241376]
+position = Vector2(-10, 1500)
+scale = Vector2(1, 150)
+shape = SubResource("RectangleShape2D_wee18")
+
+[node name="RightWall" type="CollisionShape2D" parent="BoundingWalls" unique_id=471455368]
+position = Vector2(3010, 1500)
+scale = Vector2(1, 150)
+shape = SubResource("RectangleShape2D_b03n3")
+
+[node name="BottomWall" type="CollisionShape2D" parent="BoundingWalls" unique_id=1134218179]
+position = Vector2(1500, 3010)
+scale = Vector2(150, 1)
+shape = SubResource("RectangleShape2D_krjdi")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=100110024]
+environment = SubResource("Environment_rd5qd")
+
+[connection signal="value_changed" from="Player/UI/Bars/Left/Hp/Health" to="Player/UI/Bars/Left/Hp" method="_on_health_value_changed"]
