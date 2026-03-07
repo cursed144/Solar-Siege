@@ -16,6 +16,14 @@ var THRUST_SOFTNESS := 80.0
 var ROT_SOFTNESS := 1.0
 
 @onready var target: RigidBody2D = get_parent()
+@onready var fire: CPUParticles2D = get_node("../Fire")
+
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("up"):
+		fire.emitting = true
+	elif event.is_action_released("up"):
+		fire.emitting = false
 
 
 func _physics_process(delta: float) -> void:

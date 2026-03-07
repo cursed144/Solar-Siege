@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://cb5yvi4001ocg" path="res://Space-Section/Scripts/UI/sprt.gd" id="5_pcms3"]
 [ext_resource type="PackedScene" uid="uid://c4u0dxcy6eiy8" path="res://Space-Section/Scenes/Enemies/ufo_drone.tscn" id="5_rd5qd"]
 [ext_resource type="Script" uid="uid://2i75gsgy1n65" path="res://Space-Section/Scripts/background.gd" id="5_rn1a6"]
+[ext_resource type="Script" uid="uid://dauhvual3qw3u" path="res://Space-Section/Scripts/UI/bars.gd" id="5_uekxc"]
 [ext_resource type="Texture2D" uid="uid://d23oiwp08aj26" path="res://Space-Section/Textures/UI/bar1-cut-fill.png" id="5_uufwo"]
 [ext_resource type="Texture2D" uid="uid://drmlt714ugur2" path="res://Space-Section/Textures/Stars/star2.png" id="6_4svm3"]
 [ext_resource type="FontFile" uid="uid://cnmqdi2j6g85b" path="res://Fonts/DS-DIGI.TTF" id="6_uufwo"]
@@ -31,9 +32,72 @@
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_rn1a6"]
 bounce = 0.15
 
+[sub_resource type="Gradient" id="Gradient_7vde7"]
+offsets = PackedFloat32Array(0, 0.216, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="Gradient" id="Gradient_uekxc"]
+colors = PackedColorArray(1, 0.25766784, 0, 1, 1, 1, 0, 1)
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rr1e8"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7vde7"]
+
+[sub_resource type="Animation" id="Animation_77wg4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 524)]
+}
+
+[sub_resource type="Animation" id="Animation_ygx8a"]
+resource_name = "hide"
+length = 0.6
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(0.35, 1),
+"update": 0,
+"values": [Vector2(0, 524), Vector2(0, 648)]
+}
+
+[sub_resource type="Animation" id="Animation_uekxc"]
+resource_name = "show"
+length = 0.6
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(0.35, 1),
+"update": 0,
+"values": [Vector2(0, 648), Vector2(0, 524)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_27w7k"]
+_data = {
+&"RESET": SubResource("Animation_77wg4"),
+&"hide": SubResource("Animation_ygx8a"),
+&"show": SubResource("Animation_uekxc")
+}
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4svm3"]
 texture = ExtResource("7_oi3ao")
@@ -178,6 +242,23 @@ texture = ExtResource("3_4svm3")
 polygon = PackedVector2Array(0, -47, -16, -31, -20, -18, -20, 9, -26, 11, -36, 28, -33, 45, -30, 37, -13, 23, -7, 30, 6, 30, 13, 22, 26, 35, 32, 45, 35, 28, 25, 11, 19, 9, 19, -18, 15, -31)
 metadata/_edit_lock_ = true
 
+[node name="Fire" type="CPUParticles2D" parent="Player" unique_id=1152383647]
+position = Vector2(0, 31)
+emitting = false
+amount = 50
+lifetime = 2.0
+emission_shape = 3
+emission_rect_extents = Vector2(8.415, 0.495)
+direction = Vector2(0, 1)
+spread = 35.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 100.0
+initial_velocity_max = 150.0
+scale_amount_min = 1.5
+scale_amount_max = 2.0
+color_ramp = SubResource("Gradient_7vde7")
+color_initial_ramp = SubResource("Gradient_uekxc")
+
 [node name="MovementController" type="Node" parent="Player" unique_id=674320093]
 script = ExtResource("4_pyi7k")
 
@@ -189,6 +270,7 @@ anchors_preset = 0
 offset_top = 524.0
 offset_right = 1152.0
 offset_bottom = 648.0
+script = ExtResource("5_uekxc")
 
 [node name="BG" type="ColorRect" parent="Player/UI/Bars" unique_id=978453492]
 layout_mode = 0
@@ -339,6 +421,9 @@ layout_mode = 2
 
 [node name="Modules" type="Control" parent="Player/UI/Bars/Right" unique_id=313438739]
 layout_mode = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Player/UI/Bars" unique_id=1771948595]
+libraries/ = SubResource("AnimationLibrary_27w7k")
 
 [node name="EnemyHolder" type="Node2D" parent="." unique_id=1846529128]
 unique_name_in_owner = true

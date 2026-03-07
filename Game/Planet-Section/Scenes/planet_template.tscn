@@ -418,7 +418,7 @@ offset_right = 1152.0
 mouse_filter = 2
 
 [node name="Cover" type="ColorRect" parent="UI/BuildingMenu/HoverMenu" unique_id=337840812]
-self_modulate = Color(1, 1, 1, 0.23529412)
+self_modulate = Color(1, 1, 1, 0.5)
 layout_mode = 0
 offset_top = -39.0
 offset_right = 1152.0
