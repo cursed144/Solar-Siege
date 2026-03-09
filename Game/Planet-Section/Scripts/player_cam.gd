@@ -13,7 +13,7 @@ var cam_zoom := Vector2(1, 1)
 
 func _input(event: InputEvent) -> void:
 	var hover = get_viewport().gui_get_hovered_control()
-	var is_space_valid = (hover == null or hover.get_parent() is Building)
+	var is_space_valid = (hover == null or hover.get_parent() is Building or hover.name == "MouseChanger")
 	
 	if event is InputEventMouseMotion and is_dragging:
 		global_position += -event.relative / zoom.x

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://t0w7uj5rn4rk"]
+[gd_scene format=3 uid="uid://t0w7uj5rn4rk"]
 
 [ext_resource type="Texture2D" uid="uid://dll1ouqagwbsp" path="res://Planet-Section/Textures/Buildings/lumber_mill.png" id="1_gqnem"]
 [ext_resource type="Script" uid="uid://bk4xy6ab53ler" path="res://Planet-Section/Scripts/Buildings/lumber_mill.gd" id="1_sw4x1"]
@@ -26,7 +26,7 @@ recipe_name = "Wooden Planks"
 display_icon = ExtResource("3_7i2mj")
 requirements = Array[ExtResource("4_en3mc")]([SubResource("Resource_chufo")])
 outputs = Array[ExtResource("4_en3mc")]([SubResource("Resource_j3clf")])
-creation_time = 20.0
+creation_time = 10.0
 metadata/_custom_type_script = "uid://m3oqk21xh6va"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wblrm"]
@@ -71,7 +71,7 @@ _data = {
 &"upgrade": SubResource("Animation_304m8")
 }
 
-[node name="LumberMill" type="Area2D"]
+[node name="LumberMill" type="Area2D" unique_id=1682148296]
 texture_filter = 1
 collision_layer = 16
 collision_mask = 0
@@ -83,26 +83,24 @@ inv_output_name = "Mill Output"
 inv_output_size = 8
 recipes = Array[ExtResource("2_owy8a")]([SubResource("Resource_4c2vw")])
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=452753644]
 texture = ExtResource("1_gqnem")
 centered = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2055543708]
 position = Vector2(64, 32)
 shape = SubResource("RectangleShape2D_wblrm")
 
-[node name="ClickArea" type="TextureButton" parent="."]
+[node name="ClickArea" type="TextureButton" parent="." unique_id=1867566392]
 offset_right = 128.0
 offset_bottom = 64.0
 mouse_default_cursor_shape = 2
 
-[node name="UpgradeTimer" type="Timer" parent="."]
+[node name="UpgradeTimer" type="Timer" parent="." unique_id=2143021936]
 one_shot = true
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_gwh3j")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1061324790]
+libraries/ = SubResource("AnimationLibrary_gwh3j")
 
 [connection signal="pressed" from="ClickArea" to="." method="_on_click_area_pressed"]
 [connection signal="timeout" from="UpgradeTimer" to="." method="_on_upgrade_finished"]
