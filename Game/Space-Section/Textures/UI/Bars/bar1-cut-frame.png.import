@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d23oiwp08aj26"
-path="res://.godot/imported/bar1-cut-fill.png-8b46736392e97d7c29a1cb21ec14a0fe.ctex"
+uid="uid://coc2ynwt7x8sh"
+path="res://.godot/imported/bar1-cut-frame.png-1d3f379d523683d6efbdb837ce7e8dd9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Space-Section/Textures/UI/bar1-cut-fill.png"
-dest_files=["res://.godot/imported/bar1-cut-fill.png-8b46736392e97d7c29a1cb21ec14a0fe.ctex"]
+source_file="res://Space-Section/Textures/UI/Bars/bar1-cut-frame.png"
+dest_files=["res://.godot/imported/bar1-cut-frame.png-1d3f379d523683d6efbdb837ce7e8dd9.ctex"]
 
 [params]
 

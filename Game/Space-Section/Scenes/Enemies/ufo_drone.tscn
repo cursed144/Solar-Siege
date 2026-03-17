@@ -21,7 +21,6 @@ max_contacts_reported = 3
 script = ExtResource("1_1ckke")
 coll_damage_threshold = 125.0
 coll_invincibility = 0.5
-overkill_ratio = 1.5
 hp_bar = NodePath("HealthBar")
 metadata/_custom_type_script = "uid://ccoqkgv3xybi3"
 

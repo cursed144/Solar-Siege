@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b31a3mchvpknw"
-path="res://.godot/imported/simple_rocket.png-94400b0ebf365b34b5c7d5116695a875.ctex"
+uid="uid://ck1ji3i4chrxa"
+path="res://.godot/imported/gas.png-9b14d8b49ddf8e287eeec194e20f2436.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Space-Section/Textures/UI/simple_rocket.png"
-dest_files=["res://.godot/imported/simple_rocket.png-94400b0ebf365b34b5c7d5116695a875.ctex"]
+source_file="res://Space-Section/Textures/UI/Bars/gas.png"
+dest_files=["res://.godot/imported/gas.png-9b14d8b49ddf8e287eeec194e20f2436.ctex"]
 
 [params]
 
