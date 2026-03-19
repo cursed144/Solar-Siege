@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ck1ji3i4chrxa"
-path="res://.godot/imported/gas.png-9b14d8b49ddf8e287eeec194e20f2436.ctex"
+uid="uid://cccm476ni62ge"
+path="res://.godot/imported/battery-fill.png-9afdafb29e89db981481426b02ada7d0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Space-Section/Textures/UI/Bars/gas.png"
-dest_files=["res://.godot/imported/gas.png-9b14d8b49ddf8e287eeec194e20f2436.ctex"]
+source_file="res://Space-Section/Textures/UI/Bars/battery-fill.png"
+dest_files=["res://.godot/imported/battery-fill.png-9afdafb29e89db981481426b02ada7d0.ctex"]
 
 [params]
 
