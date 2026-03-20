@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://g6tj18rs5i1j"]
+
+[ext_resource type="Script" uid="uid://dq0uxyow3tbw6" path="res://Other/Scripts/planet_choice.gd" id="1_dlwjv"]
+[ext_resource type="Texture2D" uid="uid://deixmur2ebu3f" path="res://icon.svg" id="2_1454d"]
+
+[node name="PlanetChoice" type="Node2D" unique_id=462746234]
+script = ExtResource("1_dlwjv")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1515621256]
+position = Vector2(576, 324)
+
+[node name="Icon" type="Sprite2D" parent="." unique_id=390337958]
+position = Vector2(578, 318)
+texture = ExtResource("2_1454d")

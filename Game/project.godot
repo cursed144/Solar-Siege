@@ -19,6 +19,10 @@ run/main_scene="uid://d4ha36564l20p"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+SceneSwitcher="*uid://b4xm8rfr2vln3"
+
 [debug]
 
 settings/stdout/print_fps=true
@@ -110,3 +114,4 @@ ctrl={
 [rendering]
 
 viewport/hdr_2d=true
+environment/defaults/default_clear_color=Color(0, 0, 0, 1)

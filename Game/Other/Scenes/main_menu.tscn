@@ -1,0 +1,184 @@
+[gd_scene format=3 uid="uid://dwfyc62em0oni"]
+
+[ext_resource type="Script" uid="uid://cylxoajfot60r" path="res://Other/Scripts/main_menu.gd" id="1_dr1c2"]
+[ext_resource type="Script" uid="uid://sochtrqvdufq" path="res://Other/Scripts/menu_background.gd" id="2_hko4f"]
+[ext_resource type="Texture2D" uid="uid://dep62ghk30q14" path="res://Space-Section/Textures/Stars/star1.png" id="3_m3a5n"]
+[ext_resource type="Texture2D" uid="uid://drmlt714ugur2" path="res://Space-Section/Textures/Stars/star2.png" id="4_i65vp"]
+[ext_resource type="Texture2D" uid="uid://bvu4g7kby4o5e" path="res://Space-Section/Textures/Stars/star11.png" id="5_lhn5k"]
+[ext_resource type="Texture2D" uid="uid://cguktlknw2rww" path="res://Space-Section/Textures/Stars/star12.png" id="6_e41ic"]
+[ext_resource type="Texture2D" uid="uid://beijchxi6wlc8" path="res://Space-Section/Textures/Stars/star13.png" id="7_357wo"]
+[ext_resource type="Texture2D" uid="uid://sxlomak7e0uy" path="res://Space-Section/Textures/Stars/star3.png" id="8_qjypu"]
+[ext_resource type="Texture2D" uid="uid://pb0mam2yj83h" path="res://Space-Section/Textures/Stars/star4.png" id="9_qn5nf"]
+[ext_resource type="Texture2D" uid="uid://5nmn44pvx6d" path="res://Space-Section/Textures/Stars/star5.png" id="10_2t07c"]
+[ext_resource type="Texture2D" uid="uid://rff06fgodbx" path="res://Space-Section/Textures/Stars/star6.png" id="11_n4ihk"]
+[ext_resource type="Texture2D" uid="uid://docq42p7xsmkl" path="res://Space-Section/Textures/Stars/star7.png" id="12_gxf1e"]
+[ext_resource type="Texture2D" uid="uid://5wpddi0jaev0" path="res://Space-Section/Textures/Stars/star8.png" id="13_kh7p5"]
+[ext_resource type="Texture2D" uid="uid://d0hasy3fnvd7i" path="res://Space-Section/Textures/Stars/star9.png" id="14_fg4bd"]
+[ext_resource type="Texture2D" uid="uid://bsen12220qdvo" path="res://Space-Section/Textures/Stars/star10.png" id="15_78wbk"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hq7mc"]
+texture = ExtResource("3_m3a5n")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jtp1h"]
+texture = ExtResource("4_i65vp")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_l4c5e"]
+texture = ExtResource("5_lhn5k")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xbaki"]
+texture = ExtResource("6_e41ic")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7t0b2"]
+texture = ExtResource("7_357wo")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_h2p41"]
+texture = ExtResource("8_qjypu")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gxuk4"]
+texture = ExtResource("9_qn5nf")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_d8fsc"]
+texture = ExtResource("10_2t07c")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_r1lvn"]
+texture = ExtResource("11_n4ihk")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0ewd7"]
+texture = ExtResource("12_gxf1e")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mgnci"]
+texture = ExtResource("13_kh7p5")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ifltq"]
+texture = ExtResource("14_fg4bd")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4xegy"]
+texture = ExtResource("15_78wbk")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_qdiia"]
+tile_size = Vector2i(64, 64)
+sources/0 = SubResource("TileSetAtlasSource_hq7mc")
+sources/1 = SubResource("TileSetAtlasSource_jtp1h")
+sources/2 = SubResource("TileSetAtlasSource_h2p41")
+sources/3 = SubResource("TileSetAtlasSource_gxuk4")
+sources/4 = SubResource("TileSetAtlasSource_d8fsc")
+sources/5 = SubResource("TileSetAtlasSource_r1lvn")
+sources/6 = SubResource("TileSetAtlasSource_0ewd7")
+sources/7 = SubResource("TileSetAtlasSource_mgnci")
+sources/8 = SubResource("TileSetAtlasSource_ifltq")
+sources/9 = SubResource("TileSetAtlasSource_4xegy")
+sources/10 = SubResource("TileSetAtlasSource_l4c5e")
+sources/11 = SubResource("TileSetAtlasSource_xbaki")
+sources/12 = SubResource("TileSetAtlasSource_7t0b2")
+
+[node name="MainMenu" type="Node2D" unique_id=2067395381]
+script = ExtResource("1_dr1c2")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=42975228]
+visible = false
+position = Vector2(576, 2500)
+
+[node name="Background" type="Node2D" parent="." unique_id=1658146623]
+z_index = -1
+texture_filter = 1
+script = ExtResource("2_hko4f")
+
+[node name="StarsClose" type="Parallax2D" parent="Background" unique_id=983275341]
+modulate = Color(1, 1, 1, 0.90000004)
+scroll_scale = Vector2(0.7, 0.7)
+
+[node name="TileMapLayer" type="TileMapLayer" parent="Background/StarsClose" unique_id=1238952664]
+tile_set = SubResource("TileSet_qdiia")
+
+[node name="StarsMid" type="Parallax2D" parent="Background" unique_id=1090446847]
+modulate = Color(1, 1, 1, 0.70000005)
+scroll_scale = Vector2(0.5, 0.5)
+
+[node name="TileMapLayer" type="TileMapLayer" parent="Background/StarsMid" unique_id=2039177052]
+tile_set = SubResource("TileSet_qdiia")
+
+[node name="StarsFar" type="Parallax2D" parent="Background" unique_id=1493506980]
+modulate = Color(1, 1, 1, 0.5)
+scroll_scale = Vector2(0.2, 0.2)
+
+[node name="TileMapLayer" type="TileMapLayer" parent="Background/StarsFar" unique_id=478488693]
+tile_set = SubResource("TileSet_qdiia")
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=895626935]
+
+[node name="Control" type="Control" parent="UI" unique_id=1042424767]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+
+[node name="Label" type="Label" parent="UI/Control" unique_id=1159486064]
+custom_minimum_size = Vector2(0, 149.685)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -162.5
+offset_right = 162.5
+offset_bottom = 149.685
+grow_horizontal = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 62
+text = "Solar Siege"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Buttons" type="VBoxContainer" parent="UI/Control" unique_id=1631890234]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+theme_override_constants/separation = 22
+alignment = 1
+
+[node name="Play" type="Button" parent="UI/Control/Buttons" unique_id=1339619364]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 40
+text = "Play"
+
+[node name="Options" type="Button" parent="UI/Control/Buttons" unique_id=273263713]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 40
+text = "Options"
+
+[node name="Quit" type="Button" parent="UI/Control/Buttons" unique_id=1492088669]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 40
+text = "Quit"
+
+[connection signal="pressed" from="UI/Control/Buttons/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="UI/Control/Buttons/Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="UI/Control/Buttons/Quit" to="." method="_on_quit_pressed"]
