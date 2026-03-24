@@ -50,7 +50,7 @@ func switch_to_planet_choice() -> void:
 			anim_tween.set_trans(Tween.TRANS_CUBIC)
 			
 			anim_tween.set_ease(Tween.EASE_OUT)
-			anim_tween.tween_property(anim_target, "global_position", anim_target.position + Vector2(0, 100), 0.75)
+			anim_tween.tween_property(anim_target, "global_position", anim_target.position + Vector2(0, 100), 0.5)
 			anim_tween.set_ease(Tween.EASE_IN)
 			anim_tween.tween_property(anim_target, "global_position", anim_target.position - Vector2(0, 1500), 1)
 			await anim_tween.finished
@@ -66,7 +66,7 @@ func switch_to_planet_choice() -> void:
 			assert(is_instance_valid(new_scene))
 			
 			# Move from old to new + animate and finish
-			var camera: Camera2D = new_scene.get_node("Camera2D")
+			var camera: Camera2D = new_scene.get_node("SolarCam")
 			var used_tilemap: Node2D = new_scene.get_node("Background")
 			assert(is_instance_valid(camera))
 			assert(is_instance_valid(used_tilemap))

@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://sochtrqvdufq" path="res://Other/Scripts/menu_background.gd" id="2_4gouu"]
 [ext_resource type="Texture2D" uid="uid://dep62ghk30q14" path="res://Space-Section/Textures/Stars/star1.png" id="3_xfd51"]
 [ext_resource type="Texture2D" uid="uid://drmlt714ugur2" path="res://Space-Section/Textures/Stars/star2.png" id="4_24uty"]
+[ext_resource type="FontFile" uid="uid://cffdm6tbif3i0" path="res://Fonts/orbitron.light.ttf" id="4_mfb44"]
 [ext_resource type="Texture2D" uid="uid://bvu4g7kby4o5e" path="res://Space-Section/Textures/Stars/star11.png" id="5_yplc4"]
 [ext_resource type="Texture2D" uid="uid://cguktlknw2rww" path="res://Space-Section/Textures/Stars/star12.png" id="6_quun5"]
 [ext_resource type="Texture2D" uid="uid://beijchxi6wlc8" path="res://Space-Section/Textures/Stars/star13.png" id="7_6ks5k"]
@@ -144,7 +145,7 @@ glow_levels/7 = 1.0
 
 [node name="PlanetChoice" type="Node2D" unique_id=462746234]
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=1515621256]
+[node name="SolarCam" type="Camera2D" parent="." unique_id=1515621256]
 position = Vector2(576, 324)
 
 [node name="Sun" type="MeshInstance2D" parent="." unique_id=1911464158]
@@ -161,6 +162,7 @@ script = ExtResource("1_dlwjv")
 
 [node name="Mercury" type="Area2D" parent="Planets" unique_id=1300946256]
 position = Vector2(133, 324)
+collision_mask = 0
 script = ExtResource("15_h1xox")
 
 [node name="Sprite2D" type="Sprite2D" parent="Planets/Mercury" unique_id=773018589]
@@ -169,8 +171,24 @@ texture = ExtResource("16_yplc4")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Planets/Mercury" unique_id=1258820747]
 shape = SubResource("CircleShape2D_vs6wq")
 
+[node name="Label" type="Label" parent="Planets/Mercury" unique_id=660361662]
+visible = false
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -38.0
+offset_top = 22.0
+offset_right = 38.0
+offset_bottom = 45.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("4_mfb44")
+text = "Mercury"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Venus" type="Area2D" parent="Planets" unique_id=1196821204]
 position = Vector2(211, 324)
+collision_mask = 0
 script = ExtResource("15_h1xox")
 
 [node name="Sprite2D" type="Sprite2D" parent="Planets/Venus" unique_id=40123274]
@@ -179,8 +197,24 @@ texture = ExtResource("16_24uty")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Planets/Venus" unique_id=1629947750]
 shape = SubResource("CircleShape2D_r43y8")
 
+[node name="Label" type="Label" parent="Planets/Venus" unique_id=193590874]
+visible = false
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -38.0
+offset_top = 37.0
+offset_right = 38.0
+offset_bottom = 60.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("4_mfb44")
+text = "Venus"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Earth" type="Area2D" parent="Planets" unique_id=1759768201]
 position = Vector2(305, 324)
+collision_mask = 0
 script = ExtResource("15_h1xox")
 
 [node name="Sprite2D" type="Sprite2D" parent="Planets/Earth" unique_id=1281702650]
@@ -189,8 +223,24 @@ texture = ExtResource("16_xfd51")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Planets/Earth" unique_id=1913807086]
 shape = SubResource("CircleShape2D_mfb44")
 
+[node name="Label" type="Label" parent="Planets/Earth" unique_id=1152866278]
+visible = false
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -38.0
+offset_top = 39.0
+offset_right = 38.0
+offset_bottom = 62.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("4_mfb44")
+text = "Earth"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Mars" type="Area2D" parent="Planets" unique_id=679314128]
 position = Vector2(391, 324)
+collision_mask = 0
 script = ExtResource("15_h1xox")
 
 [node name="Sprite2D" type="Sprite2D" parent="Planets/Mars" unique_id=81065147]
@@ -199,8 +249,24 @@ texture = ExtResource("19_quun5")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Planets/Mars" unique_id=1229329049]
 shape = SubResource("CircleShape2D_l67in")
 
+[node name="Label" type="Label" parent="Planets/Mars" unique_id=1568064903]
+visible = false
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -38.0
+offset_top = 35.0
+offset_right = 38.0
+offset_bottom = 58.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("4_mfb44")
+text = "Mars"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Jupiter" type="Area2D" parent="Planets" unique_id=1730224300]
 position = Vector2(568, 324)
+collision_mask = 0
 script = ExtResource("15_h1xox")
 
 [node name="Sprite2D" type="Sprite2D" parent="Planets/Jupiter" unique_id=1078960261]
@@ -209,8 +275,25 @@ texture = ExtResource("20_3msl0")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Planets/Jupiter" unique_id=784448160]
 shape = SubResource("CircleShape2D_aytxq")
 
+[node name="Label" type="Label" parent="Planets/Jupiter" unique_id=554288541]
+visible = false
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -68.0
+offset_top = 116.0
+offset_right = 68.0
+offset_bottom = 146.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("4_mfb44")
+theme_override_font_sizes/font_size = 30
+text = "Jupiter"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Saturn" type="Area2D" parent="Planets" unique_id=1264780335]
 position = Vector2(781, 324)
+collision_mask = 0
 script = ExtResource("15_h1xox")
 
 [node name="Sprite2D" type="Sprite2D" parent="Planets/Saturn" unique_id=931821780]
@@ -219,8 +302,25 @@ texture = ExtResource("21_vs6wq")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Planets/Saturn" unique_id=1004508695]
 shape = SubResource("CircleShape2D_wqq5v")
 
+[node name="Label" type="Label" parent="Planets/Saturn" unique_id=695244757]
+visible = false
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -57.5
+offset_top = 110.0
+offset_right = 57.5
+offset_bottom = 141.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("4_mfb44")
+theme_override_font_sizes/font_size = 30
+text = "Saturn"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Uranus" type="Area2D" parent="Planets" unique_id=1335264375]
 position = Vector2(947, 324)
+collision_mask = 0
 script = ExtResource("15_h1xox")
 
 [node name="Sprite2D" type="Sprite2D" parent="Planets/Uranus" unique_id=574855833]
@@ -229,8 +329,25 @@ texture = ExtResource("22_vs6wq")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Planets/Uranus" unique_id=1497947070]
 shape = SubResource("CircleShape2D_wci6s")
 
+[node name="Label" type="Label" parent="Planets/Uranus" unique_id=2076299852]
+visible = false
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -54.0
+offset_top = 70.0
+offset_right = 54.0
+offset_bottom = 94.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("4_mfb44")
+theme_override_font_sizes/font_size = 23
+text = "Uranus"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Neptune" type="Area2D" parent="Planets" unique_id=545409440]
 position = Vector2(1076, 324)
+collision_mask = 0
 script = ExtResource("15_h1xox")
 
 [node name="Sprite2D" type="Sprite2D" parent="Planets/Neptune" unique_id=946940828]
@@ -238,6 +355,22 @@ texture = ExtResource("23_h1xox")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Planets/Neptune" unique_id=1220431092]
 shape = SubResource("CircleShape2D_h1xox")
+
+[node name="Label" type="Label" parent="Planets/Neptune" unique_id=785565009]
+visible = false
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -54.0
+offset_top = 72.0
+offset_right = 54.0
+offset_bottom = 96.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("4_mfb44")
+theme_override_font_sizes/font_size = 23
+text = "Neptune"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Background" type="Node2D" parent="." unique_id=985165840]
 z_index = -1
