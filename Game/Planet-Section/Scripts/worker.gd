@@ -28,21 +28,18 @@ signal dest_reached
 
 const INV_SLOT := preload("res://Planet-Section/Scenes/UI/inv_slot.tscn")
 const ARRIVE_DISTANCE := 10.0
-const SPEED = 150
 
+var speed = 150
 var current_job: WorkController = null
 var handling_job := false
 var path := []
 
 @onready var head = get_parent()
-@onready var inv := Inventory.new_inv(3)
+@onready var inv := Inventory.new_inv(1)
 @onready var destination := global_position
 
-
 func _ready() -> void:
-	inv.inv_changed.connect(update_inv)
-	create_slots()
-
+	create_inv(3)
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_accept"):
@@ -51,8 +48,8 @@ func _input(event: InputEvent) -> void:
 
 func _process(delta: float) -> void:
 	if !path.is_empty():
-		position = position.move_toward(path[0], SPEED*delta)
-		if position.distance_to(path[0]) < ARRIVE_DISTANCE:
+		global_position = global_position.move_toward(path[0], speed * delta)
+		if global_position.distance_to(path[0]) < ARRIVE_DISTANCE:
 			path.pop_front()
 			if path.is_empty():
 				dest_reached.emit()
@@ -454,6 +451,11 @@ func get_storage_options_for_empty(from_pos := global_position) -> Array[Buildin
 # -----------------------
 # Inventory visual display
 # -----------------------
+
+func create_inv(slots: int = 1):
+	inv = Inventory.new_inv(slots)
+	inv.inv_changed.connect(update_inv)
+	create_slots()
 
 func create_slots() -> void:
 	for child in $InvSlots.get_children():

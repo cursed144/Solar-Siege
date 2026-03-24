@@ -41,7 +41,7 @@ radius = 31.016125
 radius = 24.020824
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_aytxq"]
-radius = 94.00532
+radius = 99.00505
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wqq5v"]
 radius = 80.024994

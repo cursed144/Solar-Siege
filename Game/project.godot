@@ -22,6 +22,8 @@ config/icon="res://icon.svg"
 [autoload]
 
 SceneSwitcher="*uid://b4xm8rfr2vln3"
+SaveSystem="*uid://c5lqnj18jd2el"
+ItemLoader="*uid://pxsqoe6xxvln"
 
 [debug]
 

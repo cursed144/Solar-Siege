@@ -1,11 +1,11 @@
-[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://bcj06x3c74qcp"]
+[gd_resource type="Resource" script_class="Item" format=3 uid="uid://bcj06x3c74qcp"]
 
 [ext_resource type="Script" uid="uid://djkcypp1ynqgo" path="res://Planet-Section/Scripts/Classes/item.gd" id="1_8t222"]
 [ext_resource type="Texture2D" uid="uid://cstb6ncmhd6pj" path="res://Planet-Section/Textures/Items/rock.png" id="1_vjgwq"]
 
 [resource]
 script = ExtResource("1_8t222")
-id = 1
+id = 2
 name = "Rock"
 icon = ExtResource("1_vjgwq")
 max_per_stack = 30
