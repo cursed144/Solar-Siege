@@ -14,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://docq42p7xsmkl" path="res://Space-Section/Textures/Stars/star7.png" id="12_mfb44"]
 [ext_resource type="Texture2D" uid="uid://5wpddi0jaev0" path="res://Space-Section/Textures/Stars/star8.png" id="13_l67in"]
 [ext_resource type="Texture2D" uid="uid://d0hasy3fnvd7i" path="res://Space-Section/Textures/Stars/star9.png" id="14_aytxq"]
+[ext_resource type="Script" uid="uid://b7ebeb7jjgeyh" path="res://Other/Scripts/planet.gd" id="15_h1xox"]
 [ext_resource type="Texture2D" uid="uid://bsen12220qdvo" path="res://Space-Section/Textures/Stars/star10.png" id="15_wqq5v"]
 [ext_resource type="Texture2D" uid="uid://c80ixfl7abvmp" path="res://Other/Textures/Planets/venus.png" id="16_24uty"]
 [ext_resource type="Texture2D" uid="uid://dmpjqjs6vvjyu" path="res://Other/Textures/Planets/earth.png" id="16_xfd51"]
@@ -25,6 +26,30 @@
 [ext_resource type="Texture2D" uid="uid://cyteqeiu3qst6" path="res://Other/Textures/Planets/neptune.png" id="23_h1xox"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_xfd51"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vs6wq"]
+radius = 16.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_r43y8"]
+radius = 31.016125
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mfb44"]
+radius = 31.016125
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_l67in"]
+radius = 24.020824
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_aytxq"]
+radius = 94.00532
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wqq5v"]
+radius = 80.024994
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wci6s"]
+radius = 49.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_h1xox"]
+radius = 49.0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wci6s"]
 texture = ExtResource("3_xfd51")
@@ -118,7 +143,6 @@ glow_levels/6 = 0.8
 glow_levels/7 = 1.0
 
 [node name="PlanetChoice" type="Node2D" unique_id=462746234]
-script = ExtResource("1_dlwjv")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1515621256]
 position = Vector2(576, 324)
@@ -129,6 +153,91 @@ self_modulate = Color(1, 0.53412783, 0, 1)
 position = Vector2(-420, 324)
 scale = Vector2(1000, 1000)
 mesh = SubResource("SphereMesh_xfd51")
+metadata/_edit_lock_ = true
+
+[node name="Planets" type="Node2D" parent="." unique_id=1338046789]
+texture_filter = 1
+script = ExtResource("1_dlwjv")
+
+[node name="Mercury" type="Area2D" parent="Planets" unique_id=1300946256]
+position = Vector2(133, 324)
+script = ExtResource("15_h1xox")
+
+[node name="Sprite2D" type="Sprite2D" parent="Planets/Mercury" unique_id=773018589]
+texture = ExtResource("16_yplc4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Planets/Mercury" unique_id=1258820747]
+shape = SubResource("CircleShape2D_vs6wq")
+
+[node name="Venus" type="Area2D" parent="Planets" unique_id=1196821204]
+position = Vector2(211, 324)
+script = ExtResource("15_h1xox")
+
+[node name="Sprite2D" type="Sprite2D" parent="Planets/Venus" unique_id=40123274]
+texture = ExtResource("16_24uty")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Planets/Venus" unique_id=1629947750]
+shape = SubResource("CircleShape2D_r43y8")
+
+[node name="Earth" type="Area2D" parent="Planets" unique_id=1759768201]
+position = Vector2(305, 324)
+script = ExtResource("15_h1xox")
+
+[node name="Sprite2D" type="Sprite2D" parent="Planets/Earth" unique_id=1281702650]
+texture = ExtResource("16_xfd51")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Planets/Earth" unique_id=1913807086]
+shape = SubResource("CircleShape2D_mfb44")
+
+[node name="Mars" type="Area2D" parent="Planets" unique_id=679314128]
+position = Vector2(391, 324)
+script = ExtResource("15_h1xox")
+
+[node name="Sprite2D" type="Sprite2D" parent="Planets/Mars" unique_id=81065147]
+texture = ExtResource("19_quun5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Planets/Mars" unique_id=1229329049]
+shape = SubResource("CircleShape2D_l67in")
+
+[node name="Jupiter" type="Area2D" parent="Planets" unique_id=1730224300]
+position = Vector2(568, 324)
+script = ExtResource("15_h1xox")
+
+[node name="Sprite2D" type="Sprite2D" parent="Planets/Jupiter" unique_id=1078960261]
+texture = ExtResource("20_3msl0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Planets/Jupiter" unique_id=784448160]
+shape = SubResource("CircleShape2D_aytxq")
+
+[node name="Saturn" type="Area2D" parent="Planets" unique_id=1264780335]
+position = Vector2(781, 324)
+script = ExtResource("15_h1xox")
+
+[node name="Sprite2D" type="Sprite2D" parent="Planets/Saturn" unique_id=931821780]
+texture = ExtResource("21_vs6wq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Planets/Saturn" unique_id=1004508695]
+shape = SubResource("CircleShape2D_wqq5v")
+
+[node name="Uranus" type="Area2D" parent="Planets" unique_id=1335264375]
+position = Vector2(947, 324)
+script = ExtResource("15_h1xox")
+
+[node name="Sprite2D" type="Sprite2D" parent="Planets/Uranus" unique_id=574855833]
+texture = ExtResource("22_vs6wq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Planets/Uranus" unique_id=1497947070]
+shape = SubResource("CircleShape2D_wci6s")
+
+[node name="Neptune" type="Area2D" parent="Planets" unique_id=545409440]
+position = Vector2(1076, 324)
+script = ExtResource("15_h1xox")
+
+[node name="Sprite2D" type="Sprite2D" parent="Planets/Neptune" unique_id=946940828]
+texture = ExtResource("23_h1xox")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Planets/Neptune" unique_id=1220431092]
+shape = SubResource("CircleShape2D_h1xox")
 
 [node name="Background" type="Node2D" parent="." unique_id=985165840]
 z_index = -1
@@ -157,40 +266,30 @@ scroll_scale = Vector2(0.2, 0.2)
 [node name="TileMapLayer" type="TileMapLayer" parent="Background/StarsFar" unique_id=23246723]
 tile_set = SubResource("TileSet_57akt")
 
-[node name="Planets" type="Node2D" parent="." unique_id=1664293974]
-texture_filter = 1
-
-[node name="Mercury" type="Sprite2D" parent="Planets" unique_id=1472994971]
-position = Vector2(133, 324)
-texture = ExtResource("16_yplc4")
-
-[node name="Venus" type="Sprite2D" parent="Planets" unique_id=1187635301]
-position = Vector2(211, 324)
-texture = ExtResource("16_24uty")
-
-[node name="Earth" type="Sprite2D" parent="Planets" unique_id=774614409]
-position = Vector2(305, 324)
-texture = ExtResource("16_xfd51")
-
-[node name="Mars" type="Sprite2D" parent="Planets" unique_id=847608146]
-position = Vector2(391, 324)
-texture = ExtResource("19_quun5")
-
-[node name="Jupiter" type="Sprite2D" parent="Planets" unique_id=801756264]
-position = Vector2(568, 500)
-texture = ExtResource("20_3msl0")
-
-[node name="Saturn" type="Sprite2D" parent="Planets" unique_id=1330684558]
-position = Vector2(788, 324)
-texture = ExtResource("21_vs6wq")
-
-[node name="Uranus" type="Sprite2D" parent="Planets" unique_id=1655026961]
-position = Vector2(960, 324)
-texture = ExtResource("22_vs6wq")
-
-[node name="Neptune" type="Sprite2D" parent="Planets" unique_id=114715454]
-position = Vector2(1076, 324)
-texture = ExtResource("23_h1xox")
-
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=113794601]
 environment = SubResource("Environment_xfd51")
+
+[connection signal="mouse_entered" from="Planets/Mercury" to="Planets/Mercury" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Planets/Mercury" to="Planets/Mercury" method="_on_mouse_exited"]
+[connection signal="planet_clicked" from="Planets/Mercury" to="Planets" method="_on_planet_clicked"]
+[connection signal="mouse_entered" from="Planets/Venus" to="Planets/Venus" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Planets/Venus" to="Planets/Venus" method="_on_mouse_exited"]
+[connection signal="planet_clicked" from="Planets/Venus" to="Planets" method="_on_planet_clicked"]
+[connection signal="mouse_entered" from="Planets/Earth" to="Planets/Earth" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Planets/Earth" to="Planets/Earth" method="_on_mouse_exited"]
+[connection signal="planet_clicked" from="Planets/Earth" to="Planets" method="_on_planet_clicked"]
+[connection signal="mouse_entered" from="Planets/Mars" to="Planets/Mars" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Planets/Mars" to="Planets/Mars" method="_on_mouse_exited"]
+[connection signal="planet_clicked" from="Planets/Mars" to="Planets" method="_on_planet_clicked"]
+[connection signal="mouse_entered" from="Planets/Jupiter" to="Planets/Jupiter" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Planets/Jupiter" to="Planets/Jupiter" method="_on_mouse_exited"]
+[connection signal="planet_clicked" from="Planets/Jupiter" to="Planets" method="_on_planet_clicked"]
+[connection signal="mouse_entered" from="Planets/Saturn" to="Planets/Saturn" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Planets/Saturn" to="Planets/Saturn" method="_on_mouse_exited"]
+[connection signal="planet_clicked" from="Planets/Saturn" to="Planets" method="_on_planet_clicked"]
+[connection signal="mouse_entered" from="Planets/Uranus" to="Planets/Uranus" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Planets/Uranus" to="Planets/Uranus" method="_on_mouse_exited"]
+[connection signal="planet_clicked" from="Planets/Uranus" to="Planets" method="_on_planet_clicked"]
+[connection signal="mouse_entered" from="Planets/Neptune" to="Planets/Neptune" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Planets/Neptune" to="Planets/Neptune" method="_on_mouse_exited"]
+[connection signal="planet_clicked" from="Planets/Neptune" to="Planets" method="_on_planet_clicked"]

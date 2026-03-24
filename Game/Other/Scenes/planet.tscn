@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://bge6j6ytegno6"]
+
+[ext_resource type="Script" uid="uid://b7ebeb7jjgeyh" path="res://Other/Scripts/planet.gd" id="1_wfo0w"]
+
+[node name="Planet" type="TextureButton" unique_id=84152702]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_default_cursor_shape = 2
+stretch_mode = 3
+script = ExtResource("1_wfo0w")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]
