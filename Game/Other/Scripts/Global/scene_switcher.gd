@@ -60,15 +60,20 @@ func switch_to_planet_choice() -> void:
 			assert(is_instance_valid(loaded_scene))
 			
 			# Create instance
-			var new_scene := loaded_scene.instantiate()
+			var new_scene: Node2D = loaded_scene.instantiate()
+			new_scene.hide()
 			await get_tree().process_frame
 			assert(is_instance_valid(new_scene))
 			
 			# Move from old to new + animate and finish
 			var camera: Camera2D = new_scene.get_node("Camera2D")
+			var used_tilemap: Node2D = new_scene.get_node("Background")
 			assert(is_instance_valid(camera))
+			assert(is_instance_valid(used_tilemap))
 			camera.global_position = old_scene.get_node("Camera2D").global_position
+			used_tilemap.queue_free()
 			_move_node(background, new_scene)
+			new_scene.show()
 			
 			_finalize_switching(new_scene)
 			
