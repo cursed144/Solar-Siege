@@ -3,10 +3,10 @@ extends Control
 var global_amount = 0
 var req_amount = 1
 
-@onready var planet = get_tree().current_scene
+@onready var buildings = get_tree().current_scene.get_node("Buildings")
 
 func set_item(item: Item, _req_amount: int) -> void:
-	global_amount = planet.get_global_item_amount(item)
+	global_amount = buildings.get_global_item_amount(item)
 	req_amount = _req_amount
 	
 	$Icon.texture = item.icon

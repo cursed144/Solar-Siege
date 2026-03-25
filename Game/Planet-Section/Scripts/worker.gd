@@ -288,8 +288,8 @@ func supply_building() -> bool:
 
 ## Returns a list of the requirements where the first is the one with smallest amount in the input inventory in the building in which we are working
 func find_top_storages_with_item(item: Item, top: int = 3) -> Array[BuildingOption]:
-	var planet = get_tree().current_scene
-	var global_storage: Dictionary = planet.global_storage
+	var storages = get_tree().current_scene.get_node("Buildings")
+	var global_storage: Dictionary = storages.global_storage
 	var list: Array[BuildingOption] = []
 	
 	for storage: Inventory in global_storage.keys():
@@ -427,8 +427,8 @@ func get_best_empty_storage(from_pos := global_position) -> BuildingOption:
 
 
 func get_storage_options_for_empty(from_pos := global_position) -> Array[BuildingOption]:
-	var planet = get_tree().current_scene
-	var global_storage: Dictionary = planet.global_storage
+	var buildings = get_tree().current_scene.get_node("Buildings")
+	var global_storage: Dictionary = buildings.global_storage
 	var list: Array[BuildingOption] = []
 	
 	for storage: Inventory in global_storage.keys():

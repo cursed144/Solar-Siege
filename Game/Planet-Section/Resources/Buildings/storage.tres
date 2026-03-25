@@ -28,4 +28,5 @@ description = "Allows your workers to store items"
 requirements = Array[ExtResource("1_ctics")]([SubResource("Resource_n0x5v"), SubResource("Resource_ui2pi")])
 icon = ExtResource("1_n1xd1")
 building_sprite = ExtResource("1_noa7o")
+building_path = "res://Planet-Section/Scenes/Buildings/storage.tscn"
 metadata/_custom_type_script = "uid://ky0epndk32cp"

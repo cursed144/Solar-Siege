@@ -7,7 +7,7 @@ extends Resource
 @export var max_per_stack: int
 
 
-static func sort_by_id(a: Item, b: Item):
-		if a.id > b.id:
+static func sort_by_id_asc(a: Item, b: Item):
+		if a.id < b.id:
 			return true
 		return false

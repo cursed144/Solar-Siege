@@ -5,7 +5,7 @@ signal show_hover_menu(building: BuildingData)
 signal hide_hover_menu
 
 @export var data: BuildingData
-@onready var planet := get_tree().current_scene
+@onready var buildings := %Buildings
 
 
 func _ready() -> void:
@@ -24,7 +24,7 @@ func update_validity() -> void:
 	
 	var valid := true
 	for req in data.requirements:
-		var have = planet.get_global_item_amount(req.item)
+		var have = buildings.get_global_item_amount(req.item)
 		if have < req.amount:
 			valid = false
 			break

@@ -21,4 +21,5 @@ description = "Gathers wood from the planet and and refines it into other materi
 requirements = Array[ExtResource("1_7wl4j")]([SubResource("Resource_wcdhc")])
 icon = ExtResource("1_vto1x")
 building_sprite = ExtResource("1_w64dm")
+building_path = "res://Planet-Section/Scenes/Buildings/lumber_mill.tscn"
 metadata/_custom_type_script = "uid://ky0epndk32cp"

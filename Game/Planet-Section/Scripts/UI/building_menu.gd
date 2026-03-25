@@ -88,9 +88,8 @@ func update_hover_menu_data() -> void:
 			req.set_item(reqs[index].item, reqs[index].amount)
 			index += 1
 	
-	var planet = get_tree().current_scene
-	var current = planet.get_building_current_amount(current_building.display_name)
-	var limit = planet.get_building_max_amount(current_building.display_name)
+	var current = %Buildings.get_building_current_amount(current_building.display_name)
+	var limit = %Buildings.get_building_max_amount(current_building.display_name)
 	hover.get_node("MaxAllowed").text = "You have %d / %d" % [current, limit]
 
 func hide_hover_menu() -> void:

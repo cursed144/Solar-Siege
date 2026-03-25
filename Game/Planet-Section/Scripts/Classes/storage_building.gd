@@ -11,14 +11,11 @@ signal request_inv_update(inv_name: String)
 
 
 func _ready() -> void:
-	super._ready()
-	
 	add_inv(inv_storage_name, inv_storage_size)
 	
-	
-	var planet = get_tree().current_scene
+	var buildings = get_tree().current_scene.get_node("Buildings")
 	for inv in inventories.values():
-		planet.global_storage[inv] = global_position
+		buildings.global_storage[inv] = global_position
 
 
 # -----------------------
