@@ -21,7 +21,9 @@ var _building_mapping: Dictionary[int, BuildingData] = {}
 
 func _ready() -> void:
 	_refresh_buildings()
-	place_building_by_id(1, Vector2i(snappedi(1750 - 64, 64), snappedi(1750 - 64, 64)))
+	
+	if not Engine.is_editor_hint():
+		place_building_by_id(1, Vector2i(snappedi(1750 - 64, 64), snappedi(1750 - 64, 64)), true)
 
 
 func place_building_by_id(id: int, pos: Vector2, skip_construction := false) -> void:

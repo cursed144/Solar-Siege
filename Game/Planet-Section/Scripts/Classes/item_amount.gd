@@ -6,11 +6,34 @@ extends Resource
 
 
 static func new_amount(_item: Item, _amount: int) -> ItemAmount:
+	assert(is_instance_valid(_item))
+	assert(_amount > 0)
+	
 	var item_amount = ItemAmount.new()
 	item_amount.item = _item
 	item_amount.amount = _amount
 	
 	return item_amount
+
+
+static func from_id(id: ItemLoader.ItemID, _amount: int) -> ItemAmount:
+	assert(ItemLoader.ItemID.has(id))
+	
+	var new_item: Item = ItemLoader.based_on_id(id)
+	var item_amount: ItemAmount = new_amount(new_item, _amount)
+	
+	return item_amount
+
+
+static func amounts_to_stacks(amounts: Array[ItemAmount]) -> Array[ItemStack]:
+	var out: Array[ItemStack] = []
+	
+	for curr_amount in amounts:
+		if curr_amount == null:
+			continue
+		out.append_array(curr_amount.to_stack())
+	
+	return out
 
 
 func to_stack() -> Array[ItemStack]:
@@ -49,17 +72,24 @@ static func subtract_array(minuend: Array[ItemAmount], subtrahend: Array[ItemAmo
 	return res
 
 
-
-static func amounts_to_stacks(amounts: Array[ItemAmount]) -> Array[ItemStack]:
-	var out: Array[ItemStack] = []
+## Change the item to another
+func set_item(_item: Item, _amount: int = 1) -> void:
+	assert(is_instance_valid(_item))
+	assert(_amount > 0)
 	
-	for curr_amount in amounts:
-		if curr_amount == null:
-			continue
-		out.append_array(curr_amount.to_stack())
-	
-	return out
+	item = _item
+	amount = _amount
 
+
+static func sort_by_id_asc(a: ItemAmount, b: ItemAmount):
+		if a.item.id < b.item.id:
+			return true
+		return false
+
+static func sort_by_id_desc(a: ItemAmount, b: ItemAmount):
+		if a.item.id > b.item.id:
+			return true
+		return false
 
 static func sort_by_amount_desc(a: ItemAmount, b: ItemAmount):
 		if a.amount > b.amount:

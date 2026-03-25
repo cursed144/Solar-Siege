@@ -11,3 +11,8 @@ static func sort_by_id_asc(a: Item, b: Item):
 		if a.id < b.id:
 			return true
 		return false
+
+static func sort_by_id_desc(a: Item, b: Item):
+		if a.id > b.id:
+			return true
+		return false
