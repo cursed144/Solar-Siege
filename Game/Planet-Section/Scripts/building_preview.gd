@@ -56,6 +56,7 @@ func place_building(data: BuildingData) -> void:
 	%WorkerHead.set_building_tiles_solid(global_position, data.building_sprite.get_size())
 	
 	building.begin_upgrade(stored_building.build_time)
+	building.internal_id = data.id
 	end_placement()
 
 

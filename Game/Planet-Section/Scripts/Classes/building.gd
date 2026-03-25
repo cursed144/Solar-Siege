@@ -8,6 +8,7 @@ signal destroyed
 @export var level_reqs: Array[UpgradeRequirement]
 
 var inventories: Dictionary[String, Inventory] = {}
+var internal_id: int = -1
 var level: int = 0
 
 

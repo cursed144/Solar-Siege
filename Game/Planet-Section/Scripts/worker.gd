@@ -38,8 +38,6 @@ var path := []
 @onready var inv := Inventory.new_inv(1)
 @onready var destination := global_position
 
-func _ready() -> void:
-	create_inv(3)
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_accept"):

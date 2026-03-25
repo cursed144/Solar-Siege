@@ -6,7 +6,7 @@ const WORKER_SCENE := preload("res://Planet-Section/Scenes/worker.tscn")
 func _ready() -> void:
 	await get_tree().create_timer(0.5).timeout
 	#save_scene()
-	#load_scene()
+	load_scene()
 
 
 func save_scene() -> bool:
@@ -21,7 +21,8 @@ func save_scene() -> bool:
 		"buildings": {}
 	}
 	
-	save_workers(save_data, planet)
+	#save_workers(save_data, planet)
+	save_buildings(save_data, planet)
 	
 	var file = FileAccess.open(path, FileAccess.WRITE)
 	file.store_string(JSON.stringify(save_data))
@@ -92,14 +93,14 @@ func load_workers(data: Dictionary, planet: Node2D) -> void:
 	for worker_name in workers_data.keys():
 		var inv_data: Dictionary = workers_data[worker_name]["inventory"]
 		var new_worker = WORKER_SCENE.instantiate()
-		new_worker.name = workers_data["name"]
+		new_worker.name = workers_data[worker_name]["name"]
 		worker_head.add_child(new_worker)
 		
 		var position = workers_data[worker_name]["position"]
 		position = Vector2(position["x"], position["y"])
 		new_worker.global_position = position
 		
-		new_worker.build_inv(inv_data.size())
+		new_worker.create_inv(inv_data.size())
 		for slot: String in inv_data.keys():
 			var slot_num := int(slot.erase(0, 5))
 			
@@ -109,3 +110,7 @@ func load_workers(data: Dictionary, planet: Node2D) -> void:
 				var item = ItemLoader.based_on_id(item_id)
 				var new_stack := ItemStack.new_stack(item, item_amount)
 				new_worker.inv.slots[slot_num] = new_stack
+
+
+func save_buildings(save_data: Dictionary, planet: Node2D) -> void:
+	pass

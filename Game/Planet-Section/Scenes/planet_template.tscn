@@ -36,7 +36,6 @@
 [ext_resource type="Resource" uid="uid://ovbfsshvr576" path="res://Planet-Section/Resources/Buildings/mine.tres" id="19_fvmw8"]
 [ext_resource type="Texture2D" uid="uid://dd64b2r5rmv61" path="res://Planet-Section/Textures/UI/Buttons/upgrade_button.png" id="19_gimfs"]
 [ext_resource type="Texture2D" uid="uid://blmy8iosqcihi" path="res://Planet-Section/Textures/UI/Buttons/confirm_button.png" id="20_gimfs"]
-[ext_resource type="PackedScene" uid="uid://cptn1yrqchxdj" path="res://Planet-Section/Scenes/worker.tscn" id="21_a00he"]
 [ext_resource type="Texture2D" uid="uid://cqas44t1uytel" path="res://Planet-Section/Textures/UI/Buttons/cancel_button.png" id="21_xo3u4"]
 [ext_resource type="Script" uid="uid://jqii1ecaswyt" path="res://Planet-Section/Scripts/UI/destroy_building.gd" id="23_ckrrn"]
 [ext_resource type="Resource" uid="uid://b6o5yckqgv6vg" path="res://Planet-Section/Resources/Buildings/lumber_mill.tres" id="27_i4le1"]
@@ -284,12 +283,6 @@ metadata/_edit_lock_ = true
 [node name="WorkerHead" type="Node2D" parent="." unique_id=1901362452]
 unique_name_in_owner = true
 script = ExtResource("4_lorx5")
-
-[node name="Joe" parent="WorkerHead" unique_id=1849262065 instance=ExtResource("21_a00he")]
-position = Vector2(1845, 1878.0001)
-
-[node name="Tony" parent="WorkerHead" unique_id=1137084128 instance=ExtResource("21_a00he")]
-position = Vector2(1673, 1877)
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=563442234]
 unique_name_in_owner = true
