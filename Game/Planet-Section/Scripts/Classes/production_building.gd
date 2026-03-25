@@ -27,8 +27,6 @@ var production_multiplier: float = 1.0
 
 
 func _ready() -> void:
-	super._ready()
-	
 	add_inv(inv_input_name, inv_input_size)
 	add_inv(inv_output_name, inv_output_size)
 	

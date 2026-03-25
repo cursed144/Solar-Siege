@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dj2lmstctfmyp"]
+[gd_scene format=3 uid="uid://dj2lmstctfmyp"]
 
 [ext_resource type="Script" uid="uid://dw1ibjepgebqe" path="res://Planet-Section/Scripts/Buildings/storage.gd" id="1_gpee7"]
 [ext_resource type="Texture2D" uid="uid://dltrknpl68sxh" path="res://Planet-Section/Textures/Buildings/storage.png" id="2_gpee7"]
@@ -45,33 +45,31 @@ _data = {
 &"upgrade": SubResource("Animation_304m8")
 }
 
-[node name="Storage" type="Area2D"]
+[node name="Storage" type="Area2D" unique_id=934687639]
 collision_layer = 16
 collision_mask = 0
 script = ExtResource("1_gpee7")
 inv_storage_size = 16
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=537053924]
 texture_filter = 1
 texture = ExtResource("2_gpee7")
 centered = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=365158731]
 position = Vector2(64, 64)
 shape = SubResource("RectangleShape2D_wblrm")
 
-[node name="ClickArea" type="TextureButton" parent="."]
+[node name="ClickArea" type="TextureButton" parent="." unique_id=921744813]
 offset_right = 128.0
 offset_bottom = 128.0
 mouse_default_cursor_shape = 2
 
-[node name="UpgradeTimer" type="Timer" parent="."]
+[node name="UpgradeTimer" type="Timer" parent="." unique_id=1584402207]
 one_shot = true
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_gwh3j")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1200840838]
+libraries/ = SubResource("AnimationLibrary_gwh3j")
 
 [connection signal="pressed" from="ClickArea" to="." method="_on_click_area_pressed"]
 [connection signal="timeout" from="UpgradeTimer" to="." method="_on_upgrade_finished"]

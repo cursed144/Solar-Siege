@@ -20,4 +20,5 @@ description = "Extracts minerals from the ground"
 requirements = Array[ExtResource("2_pyvlj")]([SubResource("Resource_cjf0f")])
 icon = ExtResource("1_dnkld")
 building_sprite = ExtResource("1_dnkld")
+building_path = "res://Planet-Section/Scenes/Buildings/mine.tscn"
 metadata/_custom_type_script = "uid://ky0epndk32cp"

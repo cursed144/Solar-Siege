@@ -12,15 +12,6 @@ var internal_id: int = -1
 var level: int = 0
 
 
-func _ready() -> void:
-	# Align elements to tilemap cells
-	var tilemap: TileMapLayer = get_parent()
-	var cell_size := tilemap.tile_set.tile_size as Vector2
-	$Sprite2D.offset = -cell_size / 2
-	$CollisionShape2D.position -= cell_size / 2
-	$ClickArea.position -= cell_size / 2
-
-
 @abstract
 func _on_click_area_pressed() -> void
 

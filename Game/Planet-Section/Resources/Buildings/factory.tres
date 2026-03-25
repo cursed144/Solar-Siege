@@ -35,4 +35,5 @@ description = "Refine heavy materials"
 requirements = Array[ExtResource("1_id3a3")]([SubResource("Resource_15fok"), SubResource("Resource_0d4xs"), SubResource("Resource_vret7")])
 icon = ExtResource("1_cxe12")
 building_sprite = ExtResource("1_15fok")
+building_path = "res://Planet-Section/Scenes/Buildings/factory.tscn"
 metadata/_custom_type_script = "uid://ky0epndk32cp"
