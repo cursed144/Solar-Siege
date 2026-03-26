@@ -19,7 +19,7 @@ func _ready() -> void:
 
 
 func based_on_id(id: ItemID) -> Item:
-	assert(id < ItemID.size())
+	assert(id in ItemID.values())
 	return _global_items[id]
 
 

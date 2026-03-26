@@ -23,6 +23,7 @@ func _ready() -> void:
 	_refresh_buildings()
 	
 	if not Engine.is_editor_hint():
+		await get_tree().process_frame
 		place_building_by_id(1, Vector2i(snappedi(1750 - 64, 64), snappedi(1750 - 64, 64)), true)
 
 

@@ -18,7 +18,7 @@ static func new_stack(_item: Item = null, _amount: int = 0) -> ItemStack:
 
 
 static func from_id(id: ItemLoader.ItemID, _amount: int) -> ItemStack:
-	assert(ItemLoader.ItemID.has(id))
+	assert(id in ItemLoader.ItemID.values())
 	
 	var new_item: Item = ItemLoader.based_on_id(id)
 	var item_stack: ItemStack = new_stack(new_item, _amount)

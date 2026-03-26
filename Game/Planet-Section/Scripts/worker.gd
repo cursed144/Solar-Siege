@@ -35,7 +35,7 @@ var handling_job := false
 var path := []
 
 @onready var head = get_parent()
-@onready var inv := Inventory.new_inv(1)
+@onready var inv := Inventory.new_inv(3)
 @onready var destination := global_position
 
 

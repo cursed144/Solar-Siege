@@ -17,7 +17,7 @@ static func new_amount(_item: Item, _amount: int) -> ItemAmount:
 
 
 static func from_id(id: ItemLoader.ItemID, _amount: int) -> ItemAmount:
-	assert(ItemLoader.ItemID.has(id))
+	assert(id in ItemLoader.ItemID.values())
 	
 	var new_item: Item = ItemLoader.based_on_id(id)
 	var item_amount: ItemAmount = new_amount(new_item, _amount)
