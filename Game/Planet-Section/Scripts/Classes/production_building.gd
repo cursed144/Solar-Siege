@@ -58,7 +58,22 @@ func assign_recipe_to_row(recipe: Recipe, amount_to_make: int, row_num: int) -> 
 	if $WorkerRows.get_node(str(row_num)) == null:
 		push_error("Failed to find row with number: " + str(row_num))
 	
-	row.assign_recipe(recipe, amount_to_make)
+	var recipe_index := recipes.find(recipe)
+	assert(recipe_index > -1)
+	
+	row.assign_recipe(recipe, recipe_index, amount_to_make)
+	request_worker_rows_update.emit()
+
+
+func load_recipe(recipe_id: int, amount_to_make: int, row_num: int, work_left: int, worker_name: String) -> void:
+	var row = $WorkerRows.get_node(str(row_num))
+	if $WorkerRows.get_node(str(row_num)) == null:
+		push_error("Failed to find row with number: " + str(row_num))
+	
+	var recipe: Recipe = recipes.get(recipe_id)
+	assert(recipe != null)
+	
+	row.assign_recipe(recipe, recipe_id, amount_to_make, work_left, worker_name)
 	request_worker_rows_update.emit()
 
 
@@ -144,6 +159,14 @@ func inv_changed(inv: Inventory) -> void:
 func add_inv(inv_name: String, slot_amount: int) -> void:
 	inventories[inv_name] = Inventory.new_inv(slot_amount)
 	inventories[inv_name].inv_changed.connect(inv_changed)
+
+
+# -----------------------
+# Saving
+# -----------------------
+
+func get_work_controllers() -> Array:
+	return $WorkerRows.get_children()
 
 
 # -----------------------

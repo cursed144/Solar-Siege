@@ -14,6 +14,7 @@ const MAX_FAILS: int = 3
 
 var assigned_worker = null
 var assigned_recipe: Recipe = null
+var internal_recipe_idx: int = -1
 var amount_to_produce: int = 0
 var used_materials: Array[ItemStack]
 var fail_count: int = 0
@@ -25,12 +26,17 @@ func _ready() -> void:
 	alert_work_finished.connect(building.recipe_finished)
 
 
-func assign_recipe(recipe: Recipe, amount: int = 1):
+func assign_recipe(recipe: Recipe, recipe_idx: int, amount: int = 1, wait_left: int = 0, worker_name: String = ""):
 	assigned_recipe = recipe
 	amount_to_produce = amount
-	$Timer.wait_time = recipe.creation_time / building.production_multiplier
+	internal_recipe_idx = recipe_idx
 	
-	building.worker_head.add_job(self)
+	if wait_left == 0:
+		$Timer.wait_time = recipe.creation_time / building.production_multiplier
+	else:
+		$Timer.wait_time = wait_left
+	
+	building.worker_head.add_job(self, worker_name)
 
 
 func prepare_for_work() -> WorkState:
@@ -66,11 +72,15 @@ func pause_work() -> void:
 func resume_work() -> void:
 	$Timer.paused = false
 
+func is_paused() -> bool:
+	return $Timer.paused
+
 func work_finished() -> void:
 	amount_to_produce -= 1
 	used_materials.clear()
 	if amount_to_produce <= 0:
 		assigned_recipe = null
+		internal_recipe_idx = -1
 
 
 func cancel_production() -> void:
@@ -80,6 +90,7 @@ func cancel_production() -> void:
 	
 	used_materials.clear()
 	assigned_recipe = null
+	internal_recipe_idx = -1
 	amount_to_produce = 0
 	alert_work_finished.emit(null)
 	building.worker_head.remove_job(self)

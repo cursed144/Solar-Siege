@@ -7,7 +7,7 @@ extends Resource
 
 static func new_amount(_item: Item, _amount: int) -> ItemAmount:
 	assert(is_instance_valid(_item))
-	assert(_amount > 0)
+	assert(_amount > -1)
 	
 	var item_amount = ItemAmount.new()
 	item_amount.item = _item

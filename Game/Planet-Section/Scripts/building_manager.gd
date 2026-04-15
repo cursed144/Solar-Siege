@@ -24,10 +24,10 @@ func _ready() -> void:
 	
 	if not Engine.is_editor_hint():
 		await get_tree().process_frame
-		place_building_by_id(1, Vector2i(snappedi(1750 - 64, 64), snappedi(1750 - 64, 64)), true)
+		#place_building_by_id(1, Vector2i(snappedi(1750 - 64, 64), snappedi(1750 - 64, 64)), true)
 
 
-func place_building_by_id(id: int, pos: Vector2, skip_construction := false) -> void:
+func place_building_by_id(id: int, pos: Vector2, skip_construction := false, initial_level := 1) -> Building:
 	assert(_building_mapping.has(id))
 	var building_data = _building_mapping[id]
 	var building: Building = load(building_data.building_path).instantiate()
@@ -38,13 +38,14 @@ func place_building_by_id(id: int, pos: Vector2, skip_construction := false) -> 
 	if not skip_construction:
 		building.call_deferred("begin_upgrade", building_data.build_time)
 	else:
-		building.level = 1
+		building.level = initial_level
 	
 	building.internal_id = building_data.id
 	building.global_position = pos
 	add_child(building)
 	
 	%BuildingPreview.end_placement()
+	return building
 
 
 # Remove from the building counter, remove from tree, remove from astar

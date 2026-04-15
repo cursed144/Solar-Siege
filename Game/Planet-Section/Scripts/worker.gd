@@ -57,11 +57,13 @@ func _process(delta: float) -> void:
 # Job handling
 # -----------------------
 
-func get_job() -> void:
-	var new_job: WorkController = head.get_from_available_jobs()
-	if is_instance_valid(new_job):
-		new_job.assigned_worker = self
-		current_job = new_job
+func get_job(job: WorkController = null) -> void:
+	if job == null:
+		job = head.get_from_available_jobs()
+	
+	if is_instance_valid(job):
+		job.assigned_worker = self
+		current_job = job
 		handle_job()
 
 
@@ -188,8 +190,8 @@ func release_claims() -> void:
 		var input_inv: Inventory = bld.inventories[bld.inv_input_name]
 		input_inv.remove_claim(name)
 	
-	var planet = get_tree().current_scene
-	for storage: Inventory in planet.global_storage.keys():
+	var buildings = bld.get_parent()
+	for storage: Inventory in buildings.global_storage.keys():
 		storage.remove_claim(name)
 
 
@@ -214,6 +216,7 @@ func work_in_building() -> bool:
 		return false
 	
 	current_job.start_work()
+	
 	hide()
 	await current_job.alert_work_finished
 	return true
@@ -336,10 +339,12 @@ func get_available_items_for_reqs(reqs: Array[ItemAmount]) -> Array[ItemAmount]:
 	var available_list: Array[ItemAmount] = []
 	
 	for item_amount in reqs:
+		var available: int = current_job.get_available_amount_of_item(item_amount.item)
+		
 		available_list.append(
 			ItemAmount.new_amount(
 				item_amount.item,
-				current_job.get_available_amount_of_item(item_amount.item)))
+				available))
 	
 	return available_list
 

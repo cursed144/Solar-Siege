@@ -35,14 +35,18 @@ func _ready() -> void:
 		set_building_tiles_solid(top_left, size)
 
 
-func add_job(job: WorkController, delay := 0.1) -> void:
+func add_job(job: WorkController, worker_name: String = "", delay := 0.1) -> void:
 	await get_tree().create_timer(delay).timeout
 	if not is_instance_valid(job):
 		return
 	
 	print("Job added to building: " + str(job.building.name))
-	job_list.append(job)
-	give_job_to_worker()
+	
+	if not worker_name.is_empty():
+		force_job_on_worker(worker_name, job)
+	else:
+		job_list.append(job)
+		give_job_to_worker()
 
 
 func get_from_available_jobs() -> WorkController:
@@ -57,6 +61,11 @@ func give_job_to_worker() -> void:
 		if not is_instance_valid(worker.current_job):
 			worker.get_job()
 			break
+
+func force_job_on_worker(worker_name: String, job: WorkController) -> void:
+	for worker in get_children():
+		if worker.name == worker_name:
+			worker.get_job(job)
 
 
 func remove_job(job: WorkController) -> void:
