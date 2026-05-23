@@ -27,10 +27,6 @@ settings/stdout/print_fps=true
 
 window/stretch/mode="canvas_items"
 
-[global_group]
-
-damaging_entity=""
-
 [input]
 
 left_click={

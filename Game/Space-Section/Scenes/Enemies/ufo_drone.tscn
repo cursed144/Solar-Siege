@@ -9,7 +9,7 @@ bounce = 0.2
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ub5ov"]
 size = Vector2(66, 23)
 
-[node name="UFO_Drone" type="RigidBody2D" unique_id=402041951 node_paths=PackedStringArray("hp_bar") groups=["damaging_entity"]]
+[node name="UFO_Drone" type="RigidBody2D" unique_id=402041951 node_paths=PackedStringArray("hp_bar")]
 collision_layer = 2
 collision_mask = 21
 mass = 0.08
