@@ -4,8 +4,8 @@ extends HBoxContainer
 @export var movement_controller: Node
 
 func  _ready() -> void:
-	$Speed.max_value = movement_controller.MAX_FWD_SPEED * 1.75
-	$Rotation.max_value = movement_controller.MAX_ROT_SPEED * 25
+	$Speed.max_value = movement_controller.max_fwd_speed * 1.75
+	$Rotation.max_value = movement_controller.max_rot_speed * 25
 
 
 func _process(delta: float) -> void:

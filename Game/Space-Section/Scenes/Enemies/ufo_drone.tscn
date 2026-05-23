@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://c4u0dxcy6eiy8"]
 
-[ext_resource type="Script" uid="uid://ccoqkgv3xybi3" path="res://Space-Section/Scripts/Classes/damagable_entity.gd" id="1_1ckke"]
+[ext_resource type="Script" uid="uid://3366lb8u5rsh" path="res://Space-Section/Scripts/Classes/damageable_entity.gd" id="1_ub5ov"]
 [ext_resource type="Texture2D" uid="uid://yfkq8s1ohwt5" path="res://Space-Section/Textures/UFO1.png" id="2_ub5ov"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ub5ov"]
@@ -16,13 +16,10 @@ mass = 0.08
 physics_material_override = SubResource("PhysicsMaterial_ub5ov")
 gravity_scale = 0.0
 lock_rotation = true
-contact_monitor = true
 max_contacts_reported = 3
-script = ExtResource("1_1ckke")
-coll_damage_threshold = 125.0
-coll_invincibility = 0.5
+script = ExtResource("1_ub5ov")
 hp_bar = NodePath("HealthBar")
-metadata/_custom_type_script = "uid://ccoqkgv3xybi3"
+coll_damage_multiplier = 0.5
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=2125561373]
 texture_filter = 1
