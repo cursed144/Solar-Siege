@@ -19,6 +19,10 @@ run/main_scene="uid://cdd0o5uvlau07"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+HitStop="*uid://c7vgubvltabot"
+
 [display]
 
 window/stretch/mode="canvas_items"

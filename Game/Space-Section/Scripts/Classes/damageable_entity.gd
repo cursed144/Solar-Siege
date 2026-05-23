@@ -185,6 +185,8 @@ func apply_damage(context: HitContext) -> void:
 				context.attacker.on_ram_kill(context)
 			
 			if context.is_overkill:
+				HitStop.queue_hitstop()
+				await HitStop.one_hitstop_finished
 				explode()
 			else:
 				_enter_collision_death(context)

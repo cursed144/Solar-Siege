@@ -595,6 +595,12 @@ position = Vector2(1115, 821)
 [node name="UFO_Drone4" parent="EnemyHolder" unique_id=1601239816 instance=ExtResource("5_rd5qd")]
 position = Vector2(1914, 826)
 
+[node name="UFO_Drone5" parent="EnemyHolder" unique_id=856905475 instance=ExtResource("5_rd5qd")]
+position = Vector2(1512, 514)
+
+[node name="UFO_Drone6" parent="EnemyHolder" unique_id=1377713126 instance=ExtResource("5_rd5qd")]
+position = Vector2(1511, 255)
+
 [node name="ProjectileHolder" type="Node2D" parent="." unique_id=1604336578]
 unique_name_in_owner = true
 

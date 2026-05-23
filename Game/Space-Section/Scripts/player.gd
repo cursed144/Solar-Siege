@@ -3,7 +3,7 @@ extends DamagableEntity
 ## Speed the player is pushed back to after a regular kill ram.
 @export_range(0.0, 999.0) var ram_kill_pushback_speed: float = 150.0
 ## Velocity multiplier applied on overkill smash-through.
-@export_range(1.0, 10.0)  var ram_overkill_velocity_boost: float = 3.0
+@export_range(1.0, 10.0)  var ram_overkill_velocity_boost: float = 3.5
 ## How long the player is immune to collision damage after an overkill (prevents
 ## the victim's explosion from immediately hurting the player).
 @export_range(0.0, 5.0)   var overkill_immunity_time: float = 0.3
