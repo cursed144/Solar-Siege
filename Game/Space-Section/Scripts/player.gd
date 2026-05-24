@@ -8,9 +8,11 @@ extends DamagableEntity
 ## the victim's explosion from immediately hurting the player).
 @export_range(0.0, 5.0)   var overkill_immunity_time: float = 0.3
 
+# Velocity to write in next _pre_integrate. Computed at kill time, not next frame.
 var _pending_ram: bool = false
-var _pending_ram_dir: Vector2 = Vector2.ZERO
 var _pending_ram_overkill: bool = false
+var _pending_ram_target_velocity: Vector2 = Vector2.ZERO
+var _pending_ram_target_angular: float = 0.0
 
 
 # -----------------------
@@ -20,20 +22,24 @@ var _pending_ram_overkill: bool = false
 ## Called by the victim inside apply_damage when the player rams them to death.
 ## Runs in the victim's _integrate_forces; schedules a velocity rewrite for next
 ## physics step via _pre_integrate so the physics solver doesn't overwrite it.
-func on_ram_kill(context: HitContext) -> void:
-	# Bounce direction is AWAY from the victim (opposite of the victim's fling direction).
-	_pending_ram_dir = (-context.hit_dir).normalized()
-	if _pending_ram_dir == Vector2.ZERO:
-		_pending_ram_dir = Vector2.LEFT
-	
-	_pending_ram_overkill = context.is_overkill
+func on_ram_kill(ctx: HitContext) -> void:
 	_pending_ram = true
+	_pending_ram_overkill = ctx.is_overkill
 	
-	if context.is_overkill:
-		# Start a longer invincibility window so the victim's explosion doesn't
-		# immediately punish the player for smashing through.
+	if ctx.is_overkill:
+		# Use prev_linear_velocity captured at the START of this physics frame
+		# (before the solver ran the collision response), not next frame's stale value.
+		_pending_ram_target_velocity = prev_linear_velocity * ram_overkill_velocity_boost
+		_pending_ram_target_angular  = prev_angular_velocity * ram_overkill_velocity_boost
+		
 		_coll_invincibility_timer.wait_time = overkill_immunity_time
 		_coll_invincibility_timer.start()
+	else:
+		var pushback_dir := (-ctx.hit_dir).normalized()
+		if pushback_dir == Vector2.ZERO:
+			pushback_dir = Vector2.LEFT
+		_pending_ram_target_velocity = pushback_dir * ram_kill_pushback_speed
+		_pending_ram_target_angular  = 0.0
 
 
 ## During an overkill smash-through the player has already received their immunity
@@ -47,13 +53,5 @@ func _pre_integrate(state: PhysicsDirectBodyState2D) -> void:
 	if not _pending_ram:
 		return
 	_pending_ram = false
-	
-	if _pending_ram_overkill:
-		# Smash through: keep momentum and boost it.
-		# prev_linear_velocity was cached before this call in the base class.
-		state.linear_velocity = prev_linear_velocity * ram_overkill_velocity_boost
-		state.angular_velocity = prev_angular_velocity * ram_overkill_velocity_boost
-	else:
-		# Regular kill: cancel all velocity and push back.
-		state.linear_velocity  = _pending_ram_dir * ram_kill_pushback_speed
-		state.angular_velocity = 0.0
+	state.linear_velocity  = _pending_ram_target_velocity
+	state.angular_velocity = _pending_ram_target_angular

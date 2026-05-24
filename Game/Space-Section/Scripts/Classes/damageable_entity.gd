@@ -43,6 +43,11 @@ var prev_angular_velocity: float = 0.0
 var _coll_invincibility_timer: Timer
 var _collision_death_timer: Timer
 
+## True while awaiting hitstop after an overkill, before queue_free.
+## Prevents any further processing during that window.
+var _awaiting_death: bool = false
+var _volatile_killer: Node2D = null
+
 
 func _ready() -> void:
 	assert(hp_bar != null, "%s: hp_bar export is not set." % name)
@@ -68,20 +73,16 @@ func _ready() -> void:
 
 
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
-	# 1. Cache velocities BEFORE any rewrite so subclasses can read the "true" pre-frame velocity.
 	prev_linear_velocity = state.linear_velocity
 	prev_angular_velocity = state.angular_velocity
 	
-	# 2. Virtual hook — Player uses this to apply the pending ram velocity rewrite.
 	_pre_integrate(state)
 	
-	# 3. If flinging toward an explosion, any contact triggers it immediately.
+	# Volatile bodies explode via body_entered; nothing to do here.
 	if life_state == LifeState.COLLISION_DYING:
-		if state.get_contact_count() > 0:
-			explode()
 		return
 	
-	if life_state != LifeState.ALIVE:
+	if life_state != LifeState.ALIVE or _awaiting_death:
 		return
 	if not _coll_invincibility_timer.is_stopped():
 		return
@@ -90,8 +91,7 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	if contact_count == 0:
 		return
 	
-	# Find the hardest closing-speed contact with something that deals damage.
-	var best_speed := 0.0
+	var best_speed  := 0.0
 	var best_normal := Vector2.ZERO
 	var best_attacker: Node = null
 	
@@ -105,60 +105,44 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 		var v_self  := state.get_contact_local_velocity_at_position(i)
 		var v_other := state.get_contact_collider_velocity_at_position(i)
 		var normal  := state.get_contact_local_normal(i)
-		
-		# Closing speed = relative approach speed projected onto the contact normal.
-		# We test both orientations to be robust against Godot's normal convention.
-		# Head-on collision → high value; same-direction glance → near zero.
-		var rel := v_self - v_other
-		
-		print(
-			"self=", v_self,
-			" other=", v_other,
-			" normal=", normal,
-			" dot=", rel.dot(normal),
-			" negdot=", rel.dot(-normal)
-		)
-		
+		var rel     := v_self - v_other
 		
 		var closing_speed := maxf(rel.dot(normal), rel.dot(-normal))
 		closing_speed = maxf(closing_speed, 0.0)
 		
 		if closing_speed > best_speed:
-			best_speed   = closing_speed
+			best_speed    = closing_speed
 			best_attacker = other
-			best_normal  = normal  # points away from attacker; used as fling direction
+			best_normal   = normal
 	
 	if best_speed <= 0.0:
 		return
 	
 	var raw_damage := best_speed * coll_damage_multiplier * randf_range(0.95, 1.05)
-	print("Damage: %s" % raw_damage)
 	
-	# Sub-threshold: physics knockback still resolves naturally; no HP loss.
 	if raw_damage < coll_damage_threshold:
 		return
 	
 	var context := HitContext.new()
-	context.type = HitContext.DamageType.COLLISION
-	context.damage = raw_damage
-	context.hit_dir = best_normal
+	context.type          = HitContext.DamageType.COLLISION
+	context.damage        = raw_damage
+	context.hit_dir       = best_normal
 	context.attacker_speed = best_speed
-	context.attacker = best_attacker
+	context.attacker      = best_attacker
 	
 	apply_damage(context)
 	_coll_invincibility_timer.start()
 
 
 func apply_damage(context: HitContext) -> void:
-	if life_state == LifeState.DEAD:
+	if life_state == LifeState.DEAD or _awaiting_death:
 		return
 	
-	# While flinging any contact detonates immediately.
 	if life_state == LifeState.COLLISION_DYING:
+		# Anything hitting a volatile body detonates it immediately.
 		explode()
 		return
 	
-	# Collision invincibility only blocks further collision hits, not other types.
 	if context.type == HitContext.DamageType.COLLISION:
 		if not _coll_invincibility_timer.is_stopped():
 			return
@@ -166,12 +150,12 @@ func apply_damage(context: HitContext) -> void:
 	var effective_damage := context.damage * get_damage_reduction(context)
 	var hp_before := hp_bar.value
 	hp_bar.value = maxf(0.0, hp_bar.value - effective_damage)
-	damage_taken.emit(effective_damage, context)
+	damage_taken.emit(context)
 	
 	if hp_bar.value > 0.0:
 		return  # Survived.
 	
-	# Fatal hit
+	# Fatal
 	hp_bar.hide()
 	
 	match context.type:
@@ -180,23 +164,36 @@ func apply_damage(context: HitContext) -> void:
 			var required := maxf(0.0, (overkill_ratio - 1.0) * hp_bar.max_value)
 			context.is_overkill = excess >= required
 			
-			# Let the attacker know so it can respond (player bounces vs. smashes through).
 			if context.attacker != null and context.attacker.has_method(&"on_ram_kill"):
 				context.attacker.on_ram_kill(context)
 			
 			if context.is_overkill:
-				HitStop.queue_hitstop()
-				await HitStop.one_hitstop_finished
-				explode()
+				_begin_overkill_death()
 			else:
 				_enter_collision_death(context)
-		
-		_:  # NORMAL, EXPLOSION, STATUS
+		_:
 			explode()
 
 
+## Immediately removes the body from physics so it can't push anything,
+## then waits for hitstop before spawning the explosion.
+func _begin_overkill_death() -> void:
+	_awaiting_death = true
+	# Ghost the body: freeze movement and remove all collision so it can't
+	# nudge subsequent enemies during the hitstop pause.
+	set_deferred("freeze", true)
+	call_deferred("set_collision_layer", 0)
+	call_deferred("set_collision_mask", 0)
+	
+	HitStop.queue_hitstop()
+	await HitStop.one_hitstop_finished
+	
+	# Restore just enough for explode() to run cleanly, then free.
+	freeze = false
+	explode()
+
+
 func _enter_collision_death(context: HitContext) -> void:
-	# Set as a volatile player projectile.
 	set_collision_layer_value(2, false)
 	set_collision_layer_value(3, true)
 	set_collision_mask_value(1, false)
@@ -204,6 +201,12 @@ func _enter_collision_death(context: HitContext) -> void:
 	set_collision_mask_value(4, true)
 	
 	life_state = LifeState.COLLISION_DYING
+	remove_from_group("damaging")
+	
+	# Remember who killed us so we don't detonate on their lingering contact.
+	_volatile_killer = context.attacker
+	body_entered.connect(_on_volatile_body_entered)
+	
 	linear_velocity = Vector2.ZERO
 	angular_velocity = 0.0
 	
@@ -211,11 +214,36 @@ func _enter_collision_death(context: HitContext) -> void:
 	if dir == Vector2.ZERO:
 		dir = Vector2.RIGHT
 	
-	var fling_speed := clampf(context.attacker_speed * fling_speed_multiplier, fling_speed_min, fling_speed_max)
+	var fling_speed := clampf(
+		context.attacker_speed * fling_speed_multiplier,
+		fling_speed_min, fling_speed_max
+	)
 	linear_velocity  = dir * fling_speed
 	angular_velocity = collision_death_spin_speed * (1.0 if dir.x >= 0.0 else -1.0)
 	
 	_collision_death_timer.start()
+
+
+## Fires after all _integrate_forces calls for this physics step — never races.
+func _on_volatile_body_entered(body: Node) -> void:
+	if life_state != LifeState.COLLISION_DYING:
+		return
+	
+	# The entity that flung us is still touching us — ignore them.
+	if body == _volatile_killer:
+		return
+	
+	if body.has_method("apply_damage"):
+		var speed := linear_velocity.length()
+		var ctx := HitContext.new()
+		ctx.type           = HitContext.DamageType.COLLISION
+		ctx.damage         = speed * coll_damage_multiplier * randf_range(0.95, 1.05)
+		ctx.attacker_speed = speed
+		ctx.attacker       = self
+		ctx.hit_dir        = linear_velocity.normalized()
+		body.apply_damage(ctx)
+	
+	explode()
 
 func explode() -> void:
 	if life_state == LifeState.DEAD:
