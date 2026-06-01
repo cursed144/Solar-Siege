@@ -30,7 +30,7 @@ var anim_tween: Tween
 
 
 func _ready() -> void:
-	_current_scene = Scene.MENU
+	_current_scene = Scene.PLANET
 	_current_planet = Planet.EARTH
 
 
@@ -100,6 +100,11 @@ func switch_to_planet_choice() -> void:
 			return
 	
 	_current_scene = Scene.PLANET_CHOICE
+
+
+func switch_to_space() -> void:
+	get_tree().change_scene_to_file("res://Space-Section/Scenes/space_template.tscn")
+	_current_scene = Scene.SPACE
 
 
 func _move_node(node: Node, dest: Node) -> void:

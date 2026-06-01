@@ -6,10 +6,11 @@ const WORK_CONTROLLER := preload("res://Planet-Section/Scenes/work_controller.ts
 
 func _ready() -> void:
 	await get_tree().create_timer(0.5).timeout
-	load_scene()
+	if SceneSwitcher._current_scene == SceneSwitcher.Scene.PLANET:
+		load_scene()
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("ctrl"):
+	if event.is_action_pressed("ctrl") and SceneSwitcher._current_scene == SceneSwitcher.Scene.PLANET:
 		save_scene()
 
 
