@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://ck2jdqba7xtrb"]
+
+[ext_resource type="Script" uid="uid://bx6yal4rshsyl" path="res://Space-Section/Scripts/Classes/shockwave.gd" id="1_18fla"]
+
+[node name="Shockwave" type="Node2D" unique_id=1459159241]
+script = ExtResource("1_18fla")

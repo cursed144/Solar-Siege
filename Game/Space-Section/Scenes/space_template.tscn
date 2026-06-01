@@ -1,15 +1,15 @@
 [gd_scene format=3 uid="uid://cdd0o5uvlau07"]
 
 [ext_resource type="Script" uid="uid://dlmahlewkgem2" path="res://Space-Section/Scripts/space_template.gd" id="1_wee18"]
-[ext_resource type="Script" uid="uid://ccoqkgv3xybi3" path="res://Space-Section/Scripts/Classes/damagable_entity.gd" id="2_fg8we"]
+[ext_resource type="Script" uid="uid://bkvw3ngc7ybtr" path="res://Space-Section/Scripts/player.gd" id="2_16uul"]
 [ext_resource type="Texture2D" uid="uid://c2ggnbutbv3g5" path="res://Space-Section/Textures/rocket.png" id="3_4svm3"]
 [ext_resource type="Script" uid="uid://dcxhd74861gfj" path="res://Space-Section/Scripts/player_movement.gd" id="4_pyi7k"]
-[ext_resource type="Texture2D" uid="uid://coc2ynwt7x8sh" path="res://Space-Section/Textures/UI/bar1-cut-outline.png" id="4_rd5qd"]
+[ext_resource type="Texture2D" uid="uid://coc2ynwt7x8sh" path="res://Space-Section/Textures/UI/Bars/bar1-cut-frame.png" id="4_rd5qd"]
 [ext_resource type="Script" uid="uid://cb5yvi4001ocg" path="res://Space-Section/Scripts/UI/sprt.gd" id="5_pcms3"]
 [ext_resource type="PackedScene" uid="uid://c4u0dxcy6eiy8" path="res://Space-Section/Scenes/Enemies/ufo_drone.tscn" id="5_rd5qd"]
 [ext_resource type="Script" uid="uid://2i75gsgy1n65" path="res://Space-Section/Scripts/background.gd" id="5_rn1a6"]
 [ext_resource type="Script" uid="uid://dauhvual3qw3u" path="res://Space-Section/Scripts/UI/bars.gd" id="5_uekxc"]
-[ext_resource type="Texture2D" uid="uid://d23oiwp08aj26" path="res://Space-Section/Textures/UI/bar1-cut-fill.png" id="5_uufwo"]
+[ext_resource type="Texture2D" uid="uid://d23oiwp08aj26" path="res://Space-Section/Textures/UI/Bars/bar1-cut-fill.png" id="5_uufwo"]
 [ext_resource type="Texture2D" uid="uid://drmlt714ugur2" path="res://Space-Section/Textures/Stars/star2.png" id="6_4svm3"]
 [ext_resource type="FontFile" uid="uid://cnmqdi2j6g85b" path="res://Fonts/DS-DIGI.TTF" id="6_uufwo"]
 [ext_resource type="Texture2D" uid="uid://dep62ghk30q14" path="res://Space-Section/Textures/Stars/star1.png" id="7_oi3ao"]
@@ -17,12 +17,17 @@
 [ext_resource type="Texture2D" uid="uid://bvu4g7kby4o5e" path="res://Space-Section/Textures/Stars/star11.png" id="8_vo43a"]
 [ext_resource type="Script" uid="uid://ugkasf7f48pn" path="res://Space-Section/Scripts/UI/health.gd" id="9_7vde7"]
 [ext_resource type="Texture2D" uid="uid://cguktlknw2rww" path="res://Space-Section/Textures/Stars/star12.png" id="9_rd5qd"]
-[ext_resource type="Texture2D" uid="uid://b31a3mchvpknw" path="res://Space-Section/Textures/UI/simple_rocket.png" id="9_rr1e8"]
+[ext_resource type="Texture2D" uid="uid://b31a3mchvpknw" path="res://Space-Section/Textures/UI/Bars/simple_rocket2.png" id="9_rr1e8"]
 [ext_resource type="Texture2D" uid="uid://pb0mam2yj83h" path="res://Space-Section/Textures/Stars/star4.png" id="9_vo43a"]
 [ext_resource type="Texture2D" uid="uid://5nmn44pvx6d" path="res://Space-Section/Textures/Stars/star5.png" id="10_rd5qd"]
 [ext_resource type="Texture2D" uid="uid://beijchxi6wlc8" path="res://Space-Section/Textures/Stars/star13.png" id="10_uufwo"]
 [ext_resource type="Texture2D" uid="uid://rff06fgodbx" path="res://Space-Section/Textures/Stars/star6.png" id="11_uufwo"]
+[ext_resource type="Texture2D" uid="uid://baqbhy5c4l548" path="res://Space-Section/Textures/UI/Bars/battery-frame.png" id="12_16uul"]
+[ext_resource type="Texture2D" uid="uid://bb6fbd8rkfkvw" path="res://Space-Section/Textures/UI/Bars/fuel-frame.png" id="12_27w7k"]
+[ext_resource type="Texture2D" uid="uid://l56olyk7seww" path="res://Space-Section/Textures/UI/Weapons/no_weapon.png" id="12_77wg4"]
 [ext_resource type="Texture2D" uid="uid://docq42p7xsmkl" path="res://Space-Section/Textures/Stars/star7.png" id="12_pyi7k"]
+[ext_resource type="Texture2D" uid="uid://cpfrs150jku28" path="res://Space-Section/Textures/UI/Bars/fuel-fill.png" id="13_78r87"]
+[ext_resource type="Texture2D" uid="uid://cccm476ni62ge" path="res://Space-Section/Textures/UI/Bars/battery-fill.png" id="13_663gs"]
 [ext_resource type="Texture2D" uid="uid://5wpddi0jaev0" path="res://Space-Section/Textures/Stars/star8.png" id="13_pcms3"]
 [ext_resource type="Texture2D" uid="uid://d0hasy3fnvd7i" path="res://Space-Section/Textures/Stars/star9.png" id="14_fg8we"]
 [ext_resource type="Texture2D" uid="uid://bsen12220qdvo" path="res://Space-Section/Textures/Stars/star10.png" id="15_rr1e8"]
@@ -212,18 +217,14 @@ scale = Vector2(3000, 3000)
 mesh = SubResource("BoxMesh_wee18")
 metadata/_edit_lock_ = true
 
-[node name="Player" type="RigidBody2D" parent="." unique_id=1453175381 node_paths=PackedStringArray("hp_bar") groups=["damaging_entity"]]
+[node name="Player" type="RigidBody2D" parent="." unique_id=1453175381 node_paths=PackedStringArray("hp_bar")]
 position = Vector2(1500, 1500)
 collision_mask = 26
 mass = 0.1
 physics_material_override = SubResource("PhysicsMaterial_rn1a6")
 gravity_scale = 0.0
-contact_monitor = true
 max_contacts_reported = 3
-script = ExtResource("2_fg8we")
-coll_damage_threshold = 150.0
-coll_invincibility = 0.5
-fling_speed_mult = 100.0
+script = ExtResource("2_16uul")
 hp_bar = NodePath("UI/Bars/Left/Hp/Health")
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=1874820717]
@@ -245,7 +246,7 @@ metadata/_edit_lock_ = true
 [node name="Fire" type="CPUParticles2D" parent="Player" unique_id=1152383647]
 position = Vector2(0, 31)
 emitting = false
-amount = 50
+amount = 100
 lifetime = 2.0
 emission_shape = 3
 emission_rect_extents = Vector2(8.415, 0.495)
@@ -259,8 +260,9 @@ scale_amount_max = 2.0
 color_ramp = SubResource("Gradient_7vde7")
 color_initial_ramp = SubResource("Gradient_uekxc")
 
-[node name="MovementController" type="Node" parent="Player" unique_id=674320093]
+[node name="MovementController" type="Node" parent="Player" unique_id=674320093 node_paths=PackedStringArray("thruster_particles")]
 script = ExtResource("4_pyi7k")
+thruster_particles = NodePath("../Fire")
 
 [node name="UI" type="CanvasLayer" parent="Player" unique_id=1027797568]
 
@@ -271,13 +273,14 @@ offset_top = 524.0
 offset_right = 1152.0
 offset_bottom = 648.0
 script = ExtResource("5_uekxc")
+metadata/_edit_lock_ = true
 
 [node name="BG" type="ColorRect" parent="Player/UI/Bars" unique_id=978453492]
 layout_mode = 0
 offset_top = 3.0
 offset_right = 1152.0
 offset_bottom = 124.0
-color = Color(0.099985994, 0.099985994, 0.099985994, 1)
+color = Color(0.17283267, 0.17283267, 0.17283261, 1)
 metadata/_edit_lock_ = true
 
 [node name="Div" type="ColorRect" parent="Player/UI/Bars" unique_id=1047860924]
@@ -366,9 +369,10 @@ layout_mode = 0
 offset_top = 3.0
 offset_right = 400.0
 offset_bottom = 124.0
-theme_override_constants/separation = -83
+theme_override_constants/separation = -122
 alignment = 1
 metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
 
 [node name="Hp" type="Control" parent="Player/UI/Bars/Left" unique_id=890913774]
 layout_mode = 2
@@ -377,19 +381,33 @@ script = ExtResource("9_7vde7")
 [node name="Image" type="TextureRect" parent="Player/UI/Bars/Left/Hp" unique_id=1590834918]
 self_modulate = Color(0, 1, 0, 1)
 texture_filter = 1
-layout_mode = 0
-offset_top = -11.0
-offset_right = 64.0
-offset_bottom = 53.0
-scale = Vector2(2, 2)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -46.5
+offset_right = 32.0
+offset_bottom = 25.5
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("9_rr1e8")
 
 [node name="Health" type="ProgressBar" parent="Player/UI/Bars/Left/Hp" unique_id=112238357]
-layout_mode = 0
-offset_left = 30.0
-offset_top = 81.0
-offset_right = 166.0
-offset_bottom = 161.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -35.0
+offset_top = 21.5
+offset_right = 101.0
+offset_bottom = 101.5
+grow_horizontal = 2
+grow_vertical = 2
 scale = Vector2(0.5, 0.5)
 theme_override_fonts/font = ExtResource("6_uufwo")
 theme_override_font_sizes/font_size = 50
@@ -402,25 +420,162 @@ allow_greater = true
 [node name="Energy" type="Control" parent="Player/UI/Bars/Left" unique_id=195835975]
 layout_mode = 2
 
+[node name="ProgressBar" type="TextureProgressBar" parent="Player/UI/Bars/Left/Energy" unique_id=1500949465]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -42.0
+offset_top = -52.0
+offset_right = 86.0
+offset_bottom = 76.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.6, 0.6)
+value = 50.0
+fill_mode = 3
+texture_under = ExtResource("12_16uul")
+texture_progress = ExtResource("13_663gs")
+
+[node name="Health" type="ProgressBar" parent="Player/UI/Bars/Left/Energy" unique_id=812009446]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -35.0
+offset_top = 21.5
+offset_right = 101.0
+offset_bottom = 101.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+theme_override_fonts/font = ExtResource("6_uufwo")
+theme_override_font_sizes/font_size = 50
+theme_override_styles/background = SubResource("StyleBoxEmpty_rr1e8")
+theme_override_styles/fill = SubResource("StyleBoxEmpty_7vde7")
+max_value = 1000.0
+value = 1000.0
+allow_greater = true
+
 [node name="Fuel" type="Control" parent="Player/UI/Bars/Left" unique_id=1845992266]
 layout_mode = 2
 
-[node name="Right" type="HBoxContainer" parent="Player/UI/Bars" unique_id=828197403]
+[node name="ProgressBar" type="TextureProgressBar" parent="Player/UI/Bars/Left/Fuel" unique_id=1467666816]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -42.0
+offset_top = -52.0
+offset_right = 86.0
+offset_bottom = 76.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.6, 0.6)
+value = 50.0
+fill_mode = 3
+texture_under = ExtResource("12_27w7k")
+texture_progress = ExtResource("13_78r87")
+
+[node name="Percent" type="ProgressBar" parent="Player/UI/Bars/Left/Fuel" unique_id=395403015]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -35.0
+offset_top = 21.5
+offset_right = 101.0
+offset_bottom = 101.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+theme_override_fonts/font = ExtResource("6_uufwo")
+theme_override_font_sizes/font_size = 50
+theme_override_styles/background = SubResource("StyleBoxEmpty_rr1e8")
+theme_override_styles/fill = SubResource("StyleBoxEmpty_7vde7")
+max_value = 1000.0
+value = 1000.0
+allow_greater = true
+
+[node name="Right" type="HBoxContainer" parent="Player/UI/Bars" unique_id=2066187624]
 layout_mode = 0
 offset_left = 752.0
-offset_top = 2.0
+offset_top = 3.0
 offset_right = 1152.0
 offset_bottom = 124.0
+theme_override_constants/separation = -123
 alignment = 1
+metadata/_edit_group_ = true
 
-[node name="Weapon" type="Control" parent="Player/UI/Bars/Right" unique_id=1146129922]
+[node name="Modules" type="Control" parent="Player/UI/Bars/Right" unique_id=580647167]
 layout_mode = 2
 
-[node name="Ammo" type="Control" parent="Player/UI/Bars/Right" unique_id=1392269082]
+[node name="ProgressBar" type="TextureProgressBar" parent="Player/UI/Bars/Right/Modules" unique_id=1224239042]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -15.0
+offset_top = -39.0
+offset_right = 64.0
+offset_bottom = 90.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.6, 0.6)
+texture_under = ExtResource("12_77wg4")
+
+[node name="Ammo" type="Control" parent="Player/UI/Bars/Right" unique_id=321154792]
 layout_mode = 2
 
-[node name="Modules" type="Control" parent="Player/UI/Bars/Right" unique_id=313438739]
+[node name="ProgressBar" type="TextureProgressBar" parent="Player/UI/Bars/Right/Ammo" unique_id=1012728583]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -15.0
+offset_top = -39.0
+offset_right = 64.0
+offset_bottom = 90.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.6, 0.6)
+texture_under = ExtResource("12_77wg4")
+
+[node name="Weapon" type="Control" parent="Player/UI/Bars/Right" unique_id=64590823]
 layout_mode = 2
+
+[node name="ProgressBar" type="TextureProgressBar" parent="Player/UI/Bars/Right/Weapon" unique_id=1011934952]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -15.0
+offset_top = -39.0
+offset_right = 64.0
+offset_bottom = 90.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.6, 0.6)
+texture_under = ExtResource("12_77wg4")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Player/UI/Bars" unique_id=1771948595]
 libraries/ = SubResource("AnimationLibrary_27w7k")
@@ -439,6 +594,12 @@ position = Vector2(1115, 821)
 
 [node name="UFO_Drone4" parent="EnemyHolder" unique_id=1601239816 instance=ExtResource("5_rd5qd")]
 position = Vector2(1914, 826)
+
+[node name="UFO_Drone5" parent="EnemyHolder" unique_id=856905475 instance=ExtResource("5_rd5qd")]
+position = Vector2(1512, 514)
+
+[node name="UFO_Drone6" parent="EnemyHolder" unique_id=1377713126 instance=ExtResource("5_rd5qd")]
+position = Vector2(1511, 255)
 
 [node name="ProjectileHolder" type="Node2D" parent="." unique_id=1604336578]
 unique_name_in_owner = true

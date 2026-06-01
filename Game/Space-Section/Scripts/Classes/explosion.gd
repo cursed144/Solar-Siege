@@ -4,6 +4,7 @@ extends Node2D
 signal explosion_finished
 
 const _explosion := preload("res://Space-Section/Scenes/explosion.tscn")
+const _explosion_sfx := preload("res://Space-Section/Sounds/explosion.mp3")
 
 var _scale_tween: Tween
 var _mod_tween: Tween
@@ -16,15 +17,18 @@ static func create_explosion(pos: Vector2,
 		color: Color = Color.hex(0xff8700ff)) -> Node2D:
 	
 	var explosion: Explosion = _explosion.instantiate()
-	parent.add_child.call_deferred(explosion)
-	
-	await explosion.tree_entered
+	parent.add_child(explosion)
 	
 	explosion.global_position = pos
 	
 	var mesh: MeshInstance2D = explosion.get_node("Circle")
 	assert(mesh != null)
 	mesh.self_modulate = color
+	
+	var sfx := AudioStreamPlayer2D.new()
+	sfx.stream = _explosion_sfx
+	explosion.add_child(sfx)
+	sfx.play()
 	
 	explosion._play_boom(size, speed_scale)
 	
