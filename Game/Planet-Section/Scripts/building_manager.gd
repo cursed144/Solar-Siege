@@ -25,6 +25,10 @@ func _ready() -> void:
 	if not Engine.is_editor_hint():
 		await get_tree().process_frame
 		#place_building_by_id(1, Vector2i(snappedi(1750 - 64, 64), snappedi(1750 - 64, 64)), true)
+		await get_tree().create_timer(1).timeout
+		var storage: StorageBuilding = get_node("Storage 1")
+		var stack := ItemStack.from_id(ItemLoader.ItemID.ROCK, 15)
+		storage.inventories[storage.inv_storage_name].add_item_to_inv(stack)
 
 
 func place_building_by_id(id: int, pos: Vector2, skip_construction := false, initial_level := 1) -> Building:
@@ -44,7 +48,6 @@ func place_building_by_id(id: int, pos: Vector2, skip_construction := false, ini
 	building.global_position = pos
 	add_child(building)
 	
-	%BuildingPreview.end_placement()
 	return building
 
 

@@ -108,11 +108,11 @@ func refresh_worker_paths() -> void:
 		worker.set_astar_path(worker.destination)
 
 
-func _draw() -> void:
-	for x in range(astar.region.size.x):
-		for y in range(astar.region.size.y):
-			var cell := Vector2i(x, y)
-			
-			if astar.is_point_solid(cell):
-				var world_pos = astar.offset + Vector2(x, y) * Vector2(CELL_SIZE)
-				draw_rect(Rect2(world_pos, Vector2(CELL_SIZE)), Color(1, 0, 0, 0.4))
+#func _draw() -> void:
+	#for x in range(astar.region.size.x):
+		#for y in range(astar.region.size.y):
+			#var cell := Vector2i(x, y)
+			#
+			#if astar.is_point_solid(cell):
+				#var world_pos = astar.offset + Vector2(x, y) * Vector2(CELL_SIZE)
+				#draw_rect(Rect2(world_pos, Vector2(CELL_SIZE)), Color(1, 0, 0, 0.4))

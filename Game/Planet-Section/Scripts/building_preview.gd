@@ -15,7 +15,9 @@ func _input(event: InputEvent) -> void:
 	if is_placing:
 		if event.is_action_pressed("left_click"):
 			if get_overlapping_areas().size() <= 0:
+				buildings.get_claimed_global_items(name)
 				buildings.place_building_by_id(stored_building.id, global_position)
+				end_placement()
 		elif event.is_action_pressed("right_click"):
 			end_placement()
 

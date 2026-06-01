@@ -7,13 +7,22 @@
 [ext_resource type="Script" uid="uid://v4ddqw6o24kv" path="res://Planet-Section/Scripts/worker-head.gd" id="4_lorx5"]
 [ext_resource type="Script" uid="uid://dx6vxfc3gd512" path="res://Planet-Section/Scripts/building_preview.gd" id="4_x85yj"]
 [ext_resource type="PackedScene" uid="uid://cga8pk03f5cfc" path="res://Planet-Section/Scenes/UI/building_tab.tscn" id="5_0essa"]
+[ext_resource type="Script" uid="uid://m3oqk21xh6va" path="res://Planet-Section/Scripts/Classes/recipe.gd" id="5_0il6c"]
 [ext_resource type="PackedScene" uid="uid://dx0pwai5nk0di" path="res://Planet-Section/Scenes/UI/building_icon.tscn" id="5_xqwqb"]
+[ext_resource type="Texture2D" uid="uid://cstb6ncmhd6pj" path="res://Planet-Section/Textures/Items/rock.png" id="6_xjlru"]
 [ext_resource type="Texture2D" uid="uid://deixmur2ebu3f" path="res://icon.svg" id="7_5gyni"]
+[ext_resource type="Script" uid="uid://my03aj68uxeb" path="res://Planet-Section/Scripts/Classes/item_amount.gd" id="7_jdl5u"]
+[ext_resource type="Resource" uid="uid://bcj06x3c74qcp" path="res://Planet-Section/Resources/Items/rock.tres" id="8_46a5l"]
+[ext_resource type="Texture2D" uid="uid://b5hybcbu55w36" path="res://Planet-Section/Textures/Items/coal.png" id="9_edmej"]
+[ext_resource type="Resource" uid="uid://duhr7an6o8yau" path="res://Planet-Section/Resources/Items/coal.tres" id="10_i4le1"]
+[ext_resource type="Texture2D" uid="uid://h042n2lux7dv" path="res://Planet-Section/Textures/Items/iron_ore.png" id="11_a00he"]
 [ext_resource type="Script" uid="uid://dwytf3p3tvovs" path="res://Planet-Section/Scripts/UI/building_info.gd" id="11_lorx5"]
 [ext_resource type="Texture2D" uid="uid://bhw0mwyvx34qd" path="res://Planet-Section/Textures/UI/arrow_up.png" id="12_6ei45"]
 [ext_resource type="Resource" uid="uid://bjtf4ef6mocde" path="res://Planet-Section/Resources/Buildings/storage.tres" id="12_ckrrn"]
 [ext_resource type="PackedScene" uid="uid://b0tl1i18xbkfo" path="res://Planet-Section/Scenes/UI/worker_row.tscn" id="12_jr884"]
+[ext_resource type="Resource" uid="uid://djo5qn5rmn3v" path="res://Planet-Section/Resources/Items/iron_ore.tres" id="12_p8uer"]
 [ext_resource type="Texture2D" uid="uid://cbt6mjpxabr5q" path="res://Planet-Section/Textures/UI/arrow_down.png" id="13_cj2bw"]
+[ext_resource type="Resource" uid="uid://v2cltp0hhxmn" path="res://Planet-Section/Resources/Items/wood_log.tres" id="14_xjlru"]
 [ext_resource type="Script" uid="uid://bpboa5iqaqcqi" path="res://Planet-Section/Scripts/UI/delete_item_conf.gd" id="15_cj2bw"]
 [ext_resource type="Script" uid="uid://c4eynbg3bu4tt" path="res://Planet-Section/Scripts/UI/recipe_menu.gd" id="15_m577t"]
 [ext_resource type="Script" uid="uid://bc7f65gg477no" path="res://Planet-Section/Scripts/building_manager.gd" id="15_xjlru"]
@@ -40,6 +49,63 @@ tile_size = Vector2i(64, 64)
 sources/1 = SubResource("TileSetAtlasSource_6x5wk")
 
 [sub_resource type="BoxMesh" id="BoxMesh_becdf"]
+
+[sub_resource type="Resource" id="Resource_egbf1"]
+script = ExtResource("7_jdl5u")
+item = ExtResource("8_46a5l")
+amount = 2
+metadata/_custom_type_script = "uid://my03aj68uxeb"
+
+[sub_resource type="Resource" id="Resource_pynob"]
+script = ExtResource("5_0il6c")
+recipe_name = "Rocks"
+display_icon = ExtResource("6_xjlru")
+outputs = Array[ExtResource("7_jdl5u")]([SubResource("Resource_egbf1")])
+creation_time = 3.0
+metadata/_custom_type_script = "uid://m3oqk21xh6va"
+
+[sub_resource type="Resource" id="Resource_cf6ly"]
+script = ExtResource("7_jdl5u")
+item = ExtResource("10_i4le1")
+amount = 1
+metadata/_custom_type_script = "uid://my03aj68uxeb"
+
+[sub_resource type="Resource" id="Resource_3edjc"]
+script = ExtResource("5_0il6c")
+recipe_name = "Coal"
+display_icon = ExtResource("9_edmej")
+outputs = Array[ExtResource("7_jdl5u")]([SubResource("Resource_cf6ly")])
+creation_time = 4.0
+metadata/_custom_type_script = "uid://m3oqk21xh6va"
+
+[sub_resource type="Resource" id="Resource_63rmb"]
+script = ExtResource("7_jdl5u")
+item = ExtResource("12_p8uer")
+amount = 1
+metadata/_custom_type_script = "uid://my03aj68uxeb"
+
+[sub_resource type="Resource" id="Resource_iic3y"]
+script = ExtResource("5_0il6c")
+recipe_name = "Iron Ore"
+display_icon = ExtResource("11_a00he")
+outputs = Array[ExtResource("7_jdl5u")]([SubResource("Resource_63rmb")])
+creation_time = 7.5
+unlocks_at_level = 2
+metadata/_custom_type_script = "uid://m3oqk21xh6va"
+
+[sub_resource type="Resource" id="Resource_jdl5u"]
+script = ExtResource("7_jdl5u")
+item = ExtResource("14_xjlru")
+amount = 2
+metadata/_custom_type_script = "uid://my03aj68uxeb"
+
+[sub_resource type="Resource" id="Resource_46a5l"]
+script = ExtResource("5_0il6c")
+recipe_name = "Wood Logs"
+display_icon = ExtResource("16_vmkg5")
+outputs = Array[ExtResource("7_jdl5u")]([SubResource("Resource_jdl5u")])
+creation_time = 4.0
+metadata/_custom_type_script = "uid://m3oqk21xh6va"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xbee4"]
 
@@ -154,9 +220,17 @@ z_index = 1
 script = ExtResource("15_xjlru")
 max_building_amount = Dictionary[String, int]({
 "Factory": 3,
-"Lumber Mill": 3,
-"Mine": 3,
-"Storage": 3
+"Lumber Mill": 4,
+"Mine": 5,
+"Storage": 2
+})
+mine = Dictionary[ExtResource("5_0il6c"), int]({
+SubResource("Resource_pynob"): 75,
+SubResource("Resource_3edjc"): 45,
+SubResource("Resource_iic3y"): 10
+})
+lumber_mill = Dictionary[ExtResource("5_0il6c"), int]({
+SubResource("Resource_46a5l"): 20
 })
 
 [node name="WorkerHead" type="Node2D" parent="." unique_id=1901362452]

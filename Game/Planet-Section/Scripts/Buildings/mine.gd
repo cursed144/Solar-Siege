@@ -5,8 +5,8 @@ var prod_items: Dictionary[Recipe, int]
 
 func _ready() -> void:
 	super._ready()
-	var planet = get_tree().current_scene
-	prod_items = planet.mine
+	var buildings = get_tree().current_scene.get_node("Buildings")
+	prod_items = buildings.mine
 	
 	var temp := []
 	for recipe in prod_items:

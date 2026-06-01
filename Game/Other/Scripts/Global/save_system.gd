@@ -185,7 +185,7 @@ func load_workers(data: Dictionary, planet: Node2D) -> void:
 			
 			if slot != null:
 				var item_id: ItemLoader.ItemID = slot["id"]
-				var item_amount: int = slot["amount"]
+				var item_amount := slot["amount"] as int
 				var new_stack := ItemStack.from_id(item_id, item_amount)
 				new_worker.inv.slots[i] = new_stack
 
@@ -344,7 +344,7 @@ func worker_structure_check(data: Dictionary, errors: Array[String], planet: Nod
 				if slot is Dictionary:
 					if not slot.has("id") or not slot.has("amount"):
 						_err(errors, slot_error + "\nInventory slot is corrupted!")
-					elif slot["amount"] is not int:
+					elif (slot["amount"] is not int) and (slot["amount"] is not float):
 						_err(errors, slot_error + "\nInventory slot amount is corrupted!")
 	
 	return errors

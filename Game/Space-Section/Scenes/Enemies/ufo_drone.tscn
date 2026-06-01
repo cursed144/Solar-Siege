@@ -20,6 +20,7 @@ max_contacts_reported = 3
 script = ExtResource("1_ub5ov")
 hp_bar = NodePath("HealthBar")
 coll_damage_multiplier = 1.0
+overkill_ratio = 3.0
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=2125561373]
 texture_filter = 1
